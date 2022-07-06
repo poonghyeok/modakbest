@@ -5,6 +5,8 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="UserDTO" type="com.modak.user.bean.UserDTO"/>
+        <typeAlias alias="UserAllDTO" type="com.modak.user.bean.UserAllDTO"/>
         <typeAlias alias="BoardDTO" type="com.modak.board.bean.BoardDTO"/>
+   		<typeAlias alias="CommentDTO" type="com.modak.comment.bean.CommentDTO"/>
     </typeAliases>
 </configuration>

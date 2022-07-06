@@ -1,5 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
+#yujin
+
 pom.properties
 MANIFEST.MF
 
@@ -147,4 +149,8 @@ replay_pid*
 # End of https://www.toptal.com/developers/gitignore/api/java
 
 .DS_STORE
+<<<<<<< HEAD
 META-INF/
+=======
+META-INF/
+>>>>>>> ef1f576177413af29e99a3a7cee640c09708a6db
