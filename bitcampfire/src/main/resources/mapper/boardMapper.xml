@@ -32,7 +32,19 @@
 
 	
 	<!--  ###################### 정수 : 시작  ###################### -->
-	
+	<!-- 글 보기 -->
+		<select id = "getBoardContent" parameterType = "java.lang.Integer" resultType = "BoardDTO"> 
+			select * from board_review where board_id = ${board_id} 
+		</select>
+		
+		<select id="getBoardCount" resultType="java.lang.Integer">
+			select count(*) from board_review
+		</select>
+		
+		<!--  조회수 증가처리
+		<update id = "setView_cnt" parameterType = "int">
+			update board_review set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
+		</update> -->
 	<!-- ####################### 정수 : 끝  ###################### -->
 	
 

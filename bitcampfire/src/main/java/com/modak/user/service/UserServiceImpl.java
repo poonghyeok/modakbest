@@ -2,10 +2,17 @@ package com.modak.user.service;
 
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.modak.user.bean.UserAllDTO;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
 import com.modak.user.bean.UserDTO;
 import com.modak.user.dao.UserDAO;
 
@@ -15,13 +22,20 @@ public class UserServiceImpl implements UserService {
 		@Autowired
 		UserDAO userDAO;
 		
+
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	//연수 : 시작(220706) ====================================
+
+		@Autowired
+		private HttpSession session;
+		
+
 		@Override
 		public UserAllDTO getUser(String user_email) {
 			return userDAO.getUser(user_email);
 		}
+
 
 		public void update(UserDTO userDTO) {
 			userDAO.update(userDTO);		
@@ -43,6 +57,7 @@ public class UserServiceImpl implements UserService {
 			
 		}
 	//연수 : 끝(220706) ====================================
+
 	
 	//유진 : 시작 ====================================
 	
@@ -51,5 +66,25 @@ public class UserServiceImpl implements UserService {
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
 	
+		@Override
+		public String checkIdPw(Map<String, String> map) {
+			//DB
+			UserDTO userDto = userDAO.checkIdPw(map);
+
+			if(userDto != null) {
+				session.setAttribute("userEmail", userDto.getUser_email());
+				session.setAttribute("userPwd", userDto.getUser_pwd());
+				session.setAttribute("userNickname", userDto.getUser_nickname());
+				
+				System.out.println(userDto);
+				return "index";	
+				
+			}else {
+				
+				return "/user/userLoginFail";
+			}
+		}
+		
+		
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 
@@ -24,6 +25,7 @@ public class UserDAOMyBatis implements UserDAO {
 		public UserAllDTO getUser(String user_email) {
 			return sqlSession.selectOne("userSQL.getUser", user_email);
 		}
+
 
 		@Override
 		public void update(UserDTO userDTO) {
@@ -46,6 +48,7 @@ public class UserDAOMyBatis implements UserDAO {
 			sqlSession.delete("userSQL.delete", user_email);		
 		}
 	//연수 : 끝(220706)====================================
+
 	
 	//유진 : 시작 ====================================
 	
@@ -54,6 +57,13 @@ public class UserDAOMyBatis implements UserDAO {
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
 	
+		@Override
+		public UserDTO checkIdPw(Map<String, String> map) {
+			// TODO Auto-generated method stub
+			return session.selectOne(namespace +"checkIdPw", map);
+		}
+		
+		
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 	
 	

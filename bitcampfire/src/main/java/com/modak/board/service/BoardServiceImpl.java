@@ -19,6 +19,10 @@ public class BoardServiceImpl implements BoardService {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	@Autowired
 	private BoardDAO boardDao;
+	
+	// 글번호로 (글번호, DTO) 가져오기
+	public BoardDTO getBoardContent(int board_id);
+
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	//풍혁 : 시작 ===========================================
@@ -166,7 +170,30 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	//정수 : 시작 ############################################
-	//은혜 : 끝 ############################################
+		@Override
+	public BoardDTO getBoardContent(int board_id) {
+		System.out.println("getBoardContent 서비스실행 ");
+		// ***********boardList에서 세션 잡아주는 곳이 있어야함************
+		//세션 - 새로고침방지
+//			if (session.getAttribute("board_view_cnt")!=null) { //조회수가 null이 아니라면 
+//				boardDAO.setView_cnt(board_id); // 글번호에 조회수 설정
+//				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
+//			}
+		
+		BoardDTO boardDTO = boardDao.getBoardContent(board_id); //글번호를 통해서 getBoard
+		
+		//String user_id = (String)session.getAttribute("user_id"); // 세션에 저장된 user_id를 가져온다.
+		
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("user_id", user_id);
+//			map.put("boardDTO", boardDTO);
+		
+		return boardDTO;
+		
+		}
+		
+		
+	//정수 : 끝 ############################################
 	
 	
 	

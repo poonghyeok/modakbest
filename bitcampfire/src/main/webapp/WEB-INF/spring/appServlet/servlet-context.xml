@@ -33,4 +33,6 @@
 	<!-- board 컨트롤러 -->
 	<context:component-scan base-package="com.modak.board.controller" />
 	
+	<!-- comment 컨트롤러 -->
+	<context:component-scan base-package="com.modak.comment.controller" />
 </beans:beans>

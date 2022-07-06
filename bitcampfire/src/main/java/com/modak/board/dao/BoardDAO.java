@@ -17,10 +17,9 @@ public interface BoardDAO {
 		public int getTotalBoardNum();
 	//풍혁 : 끝 ====================================
 	
-
-	
 	// 정수 : 시작  ###################### 
-	
+		// 목록에서 글 가져오기
+		BoardDTO getBoardContent(int board_id);
 	// 정수 : 끝  ###################### 
 					
 					
