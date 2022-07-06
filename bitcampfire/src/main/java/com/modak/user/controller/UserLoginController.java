@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.modak.user.service.UserService;
 
-import UserDto;
 
 @Controller
 @RequestMapping(value= "user")
