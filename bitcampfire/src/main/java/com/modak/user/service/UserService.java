@@ -1,11 +1,14 @@
 package com.modak.user.service;
 
+import java.util.Map;
+
 public interface UserService {
 
 
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		public int getCount();
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 	//연수 : 시작 ====================================
 	
@@ -17,6 +20,7 @@ public interface UserService {
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
+		public String checkIdPw(Map<String, String> map);
 	
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 }
