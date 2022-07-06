@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="commentSQL">
+
+<!-- 	 글 보기 
+		<select id = "getBoardContent" parameterType = "int" resultType = ""> 
+			select * from board_review where board_id = #{board_id} 
+		</select> -->
+		
+		
+	<!--  조회수 증가처리
+		<update id = "setView_cnt" parameterType = "int">
+			update board_review set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
+		</update> -->
+</mapper>
