@@ -1,0 +1,7 @@
+<<22.07.04 풍혁>>
+1. DTO 통일 : BoardDTO, UserDTO
+2. boardMapper.xml , BoardController.class, DAO(interface, Impl class) ,Service(interface, Impl class) 
+	하나로 공통 개인 영역 주석으로 나눠서 설정
+3. myBatis type Alias 통일 : BoardDTO, UserDTO
+	
+	
