@@ -17,12 +17,21 @@
 	<resources mapping="/css/**" location="/WEB-INF/css/" />
 	<resources mapping="/script/**" location="/WEB-INF/script/" />
 	<resources mapping="/img/**" location="/WEB-INF/img/" />
+	<!--  ###################### 유진 : 시작  0706###################### -->	
+	<resources mapping="/storage/**" location="/WEB-INF/storage/"/>
+	<!-- ####################### 유진 : 끝  0706###################### -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
+	<!--  ###################### 유진 : 시작  0706###################### -->	
+	<beans:bean  id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">	
+		<beans:property name="maxUploadSize" value="5000000"></beans:property>
+	</beans:bean>
+	<!-- ####################### 유진 : 끝  0706###################### -->
 	
 	<!-- 인덱스 컨트롤러 -->	
 	<context:component-scan base-package="com.modak.home" />

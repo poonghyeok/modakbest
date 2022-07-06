@@ -44,9 +44,38 @@
 	<!-- ======================== 연수 : 끝(220706) ============================= -->
 
 	
-	<!--  ###################### 유진 : 시작  ###################### -->
-	
-	<!-- ####################### 유진 : 끝  ###################### -->
+	<!--  ###################### 유진 : 시작  0706###################### -->
+	<insert id="user_register" parameterType="UserAllDTO">
+		begin
+	  		insert into user2(user_id
+	  						,user_email
+	  						,user_pwd
+	  						,user_nickname
+	  						,user_name
+	  						,user_img
+	  						,user_logtime) 
+	  		values(user2_SEQ.nextval
+	  			,#{user_email}
+	  			,#{user_pwd}
+	  			,#{user_nickname}
+	  			,#{user_name}
+	  			,#{user_img}
+	  			,sysdate);
+	  		
+	  		insert into class(class_id
+	  						, class_class
+	  						, class_academy)
+	  		values (CLASS_SEQ.nextval
+	  				, #{class_class}
+	  				, #{class_academy});
+	  	end;
+  		
+  	</insert>
+
+  	<select id="userSignup_emailCheck" parameterType="String" resultType="UserAllDTO">
+  		select * from user2 where user_email=#{user_email}
+  	</select>
+	<!-- ####################### 유진 : 끝  0706###################### -->
 
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->
 	

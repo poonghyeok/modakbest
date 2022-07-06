@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+}
+
+a {text-decoration: none;
+	color: #aaa}
+
+/***********회원가입상자설정***********/
+.input-form {
+  max-width: 500px;
+
+  margin-top: 80px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-bottom: 60px;
+
+  background: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1)
+}
+
+.form-header {text-align: center;
+				border-bottom: 1px solid #ddd;
+				margin-bottom: 20px;
+				padding-bottom: 20px;
+				}
+				
+.user_profile {
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				margin-top: 10px;
+				 position: relative;
+	
+}
+
+.avatar-photo {
+	width: 150px;
+	height:150px;
+    display: inline-block;
+    border: 1px solid #ededed;
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-bottom: 15px;
+   
+    
+}
+.avatar-photo img{
+					width: 150px;
+				 	height: 150px;
+				 	margin: 0px auto;
+}
+
+.camera_icon_div {
+					width: 36px;
+					height: 36px;
+					background:#fff;
+					display: inline-block;
+					border: 1px solid #ededed;
+    				border-radius: 50%;
+ 				   overflow: hidden;
+ 				    vertical-align: middle;
+ 				    position: absolute;
+ 				    top: 110px;
+ 				    right:40px;		
+ 				    cursor: pointer;			
+}
+
+#camera_icon {
+			width: 20px;
+		 	height: 20px;
+		 	margin: 0px auto;
+}
+
+.signup-block {
+    margin-top: 10px;
+    text-align: center;
+    color: #aaa;
+}
+
+
+
+/***********회원가입약관***********/
+
+.signup-block button { border: none;
+						background: none;
+						color: #aaa;
+	
+}
+.signup-block button:hover {
+							color: #bbb;
+}
+
+.modal-backdrop 
+
+{
+
+    opacity:0.3 !important;
+
+}
+
+/*********이메일 인증 버튼***********/
+#emailBtn {
+		
+}
+
+#repwd_check, #emailBtn_check, #input_num, #mail-check-input_font {color: #fff}
+
+#email_div {margin-bottom: 30px;}
+
+/* #user_email_check_number {margin-top: 15px;} */
+

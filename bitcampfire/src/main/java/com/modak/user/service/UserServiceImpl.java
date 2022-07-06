@@ -59,9 +59,22 @@ public class UserServiceImpl implements UserService {
 	//연수 : 끝(220706) ====================================
 
 	
-	//유진 : 시작 ====================================
-	
-	//유진 : 끝 ====================================
+		//유진 : 시작 ====================================
+				@Override
+				public void user_register(UserAllDTO userAllDTO) {
+					userDAO.user_register(userAllDTO);
+				}
+
+				@Override
+				public String userSignup_emailCheck(String user_email) {
+					UserAllDTO userAllDTO = userDAO.userSignup_emailCheck(user_email);
+					if(userAllDTO == null) {
+						return "non exist";
+					}else {
+						return "exist";
+					}
+				}
+			//유진 : 끝 ====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
