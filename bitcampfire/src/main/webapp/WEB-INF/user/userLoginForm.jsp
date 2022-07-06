@@ -12,12 +12,12 @@
 <meta name="_csrf_parameter" content="_csrf">
 <meta name="_csrf_header" content="X-CSRF-TOKEN">
 <meta name="_csrf" content="03c8d70f-65d7-480d-b5c5-0a61a07e163d">
-<link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="/assets/images/icon_57x57.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/images/icon_114x114.png">
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="../img/icon_57x57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/icon_114x114.png">
 <meta property="og:image" content="https://okky.kr/assets/images/okky_logo_fb.png">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/semiproject/css/application.css">
+<link rel="stylesheet" href="../css/user/application.css">
 <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-YB6VRG1VMM&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-M52CW55"></script><script>
 
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <i class="fa fa-bars sidebar-header-icon"></i>
     </a>
 
-    <h1><div class="logo"><a href="/"><img src="/assets/images/okjsp_logo.png" alt="OKKY" title="OKKY"></a></div></h1>
+    <h1><div class="logo"><a href="/semiproject/"><img src="../img/okjsp_logo.png" alt="OKKY" title="OKKY"></a></div></h1>
 
     <ul id="search-google-icon" class="nav nav-sidebar nav-sidebar-search-wrapper">
         <li class="nav-sidebar-search"><a href="javascript://" class="link" id="search-google" data-toggle="popover" data-trigger="click" data-original-title="" title=""><i class="fa fa-search"></i></a></li>
@@ -146,28 +146,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <h5 class="panel-header">아이디 로그인</h5>
             </div>
 
-            <form action="/semiproject/user/checkIdPw" class="form-signin form-user panel-body panel-margin" method="POST" id="loginForm" autocomplete="off">
+            <form class="form-signin form-user panel-body panel-margin" id="loginForm" autocomplete="off">
                     <input type="hidden" name="redirectUrl" value="%2F">
-                <input type="text" name="username" autocorrect="off" autocapitalize="off" id="username" class="username form-control input-sm" placeholder="아이디(이메일)" required="" autofocus="">
-                <input type="password" name="password" class="password form-control input-sm" placeholder="비밀번호" required="">
+                <input type="text" name="user_email" autocorrect="off" autocapitalize="off" id="user_email" class="username form-control input-sm" placeholder="아이디(이메일)" required="" autofocus="">
+                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호" required="">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="remember_me" id="remember_me"> 로그인 유지
                     </label>
                 </div>
-                <!-- AutoPassword 추가 -->
-                <div class="APW-login">
-                    <span>AutoPassword™</span>
-                    <label class="switch">
-                        <input type="checkbox" id="btnAutoPW">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
+
 
                 <!--button class="btn btn-primary btn-block" type="submit"><g:message code="springSecurity.login.button"/></button-->
 
                 <div id="divUserLogin">
                     <button class="btn btn-primary btn-block" type="submit" id="btnUserLogin">로그인</button>
+                </div>
+                <br>
+                
+                <div id="divUserLogin">    
+                    <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block">
+                	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
                 </div>
                 <div id="divOTPLogin" style="display: none;">
                     <button class="btn btn-primary btn-block" type="button" id="btnOTPLogin" style="display: none;">AutoPassword™ 로그인</button>
@@ -183,25 +182,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </form>
         </div>
     </div>
-    <div class="col-md-6 main-block-right">
+    
+<!--     <div class="col-md-6 main-block-right">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-header">SNS 로그인</h5>
             </div>
             <div class="panel-body panel-margin sns-buttons">
-                <a href="/oauth2/authorization/github" id="github-connect-link" class="btn btn-github btn-block">
-                	<span class="icon-social icon-github"></span>Login with GitHub</a>
-                <a href="/oauth2/authorization/google" id="google-connect-link" class="btn btn-google btn-block">
-                	<span class="icon-social icon-google"></span>Login with Google</a>
-                <a href="/oauth2/authorization/facebook" id="facebook-connect-link" class="btn btn-facebook btn-block">
-                	<span class="icon-social icon-facebook"></span>Login with Facebook</a>
                 <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block">
                 	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
-                <a href="/oauth2/authorization/naver" id="naver-connect-link" class="btn btn-naver btn-block">
-					<span class="icon-social icon-naver"></span>Login with NAVER</a>
+
             </div>
         </div>
-    </div>
+    </div> -->
 
 </div>
                 <div class="right-banner-wrapper">
@@ -210,7 +203,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="row">
     <div class="col-sm-9">
         <div style="float: left;margin-right: 10px;height:100px;">
-        	<img src="/assets/images/okky_logo_footer.png" alt="footer">
+        	<img src="../img/okky_logo_footer.png" alt="footer">
         </div>
         <div>
         	<a href="/intro/about">About OKKY</a>
@@ -228,26 +221,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="sponsor-banner col-sm-3">
         <div class="sponsor-banner-head">Sponsored by</div>
         <div class="sponsor-banner-images">
-          <a href="https://www.inames.co.kr" target="_blank"><img src="/assets/images/spb_inames.png" alt="아이네임즈"></a>
-          <a href="https://www.toast.com/" target="_blank"><img src="/assets/images/spb_nhncloud.png" alt="NHN Cloud"></a>
+          <a href="https://www.inames.co.kr" target="_blank"><img src="../img/spb_inames.png" alt="아이네임즈"></a>
+          <a href="https://www.toast.com/" target="_blank"><img src="../img/spb_nhncloud.png" alt="NHN Cloud"></a>
         </div>
     </div>
 </div>
                 </div>
             </div>
         </div>
-        <script>
+<!--         <script>
             var contextPath = "";
             var encodedURL = "%2Flogin%2Fauth";
-        </script>
+        </script> -->
         
-        <script src="/assets/js/application.js" type="text/javascript"></script>
-        <script src="/assets/js/apps/search.js" type="text/javascript"></script>
-    <input type="hidden" name="redirectUrl" value="%2F">
-<script src="/assets/js/libs/jquery.progressTimer.js" type="text/javascript"></script>
-
+        <script src="../js/user/application.js" type="text/javascript"></script>
+        <script src="../js/user/apps/search.js" type="text/javascript"></script>
+    <!-- <input type="hidden" name="redirectUrl" value="%2F"> -->
+<script src="../js/user/libs/jquery.progressTimer.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-  (function() {
+
+$('#btnUserLogin').click(function(){
+	$.ajax({ 
+		type: 'post',
+		url: '/semiproject/user/login',
+		data: { 'user_id' : $('#user_id').val(), 
+				'user_pwd' : $('#user_pwd').val() }, 		
+		dataType: 'text', 
+		success: function(data){
+			data = data.trim(); 
+			
+			if(data == 'ok') {
+				location.href = "/semiproject/home";
+				
+			}else if(data == 'fail') {	
+				alert("로그인 실패");
+			}
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+});
+
+/*    (function() {
     document.forms['loginForm'].elements['username'].focus();
 
     $("[name=j_password]").show();
@@ -306,8 +323,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     	}
     	})	;	
     });	
-  })();
-</script>
+  })();  */
+</script> 
 
         <div id="userPrivacy" class="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog">

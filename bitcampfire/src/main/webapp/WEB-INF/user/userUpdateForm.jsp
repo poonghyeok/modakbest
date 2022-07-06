@@ -6,11 +6,11 @@
 	<meta charset="UTF-8">
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../css/application.css">
+	<link rel="stylesheet" href="../css/user/application.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script> 	
+	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>-->
 	
 	<style type="text/css">
 	#user_nameDiv, #user_nicknameDiv, #user_emailDiv{
@@ -95,7 +95,7 @@
 									        	<input type="text" class="form-control" id="user_email_check_number"placeholder="인증번호 6자리를 입력하세요" disabled="disabled" maxlength="6">
 							            	</div>
 							           		 <div class="col-md-4">
-												<label for="mail-check-input" class="form-label" id="mail-check-input_font">인증</label>
+												<label for="mail-check-input" class="form-label" id="mail-check-input_font"></label>
 										  		<button class="btn btn-success" type="button" id="mail-check-input" >인증번호 인증</button>
 							            	</div>		            	
 					               		</div>
@@ -109,10 +109,10 @@
 			        </div><!-- panel panel-default -->
 		       
 			       <div class="panel panel-default">
-			            <div class="panel-heading">
+			            <!-- <div class="panel-heading"> -->
 			                <a href="/semiproject/user/userPasswordChange" class="btn btn-info btn-block">비밀번호 변경</a>
 			                <a href="/semiproject/user/userDeleteConfirm" class="btn btn-default btn-block">회원 탈퇴</a>
-			            </div>
+			           <!--  </div> -->
 			        </div>
 			    </div><!-- col-md-6 main-block-left --> 	   
 			</div>	<!-- content-header -->
@@ -123,7 +123,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 //회원정보 수정 - 데이터가져오기(유저/클래스 통합 DTO로 받아오자)
-/* $(function(){
+$(function(){
 	$.ajax({
 		type: 'post',
 		url: '/semiproject/user/getUser',
@@ -132,16 +132,18 @@
 		success: function(data){
 			//alert(JSON.stringify(data));
 		
+			$('#show_user_img').val(data.user_img);			
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
+			$('#class_academy').val(data.class_academy);
+			$('#class_class').val(data.class_class);
 			$('#user_email').val(data.user_email);
-			$('#user_img').val(data.user_img);			
 		},
 		error: function(err){
 			console.log(err);
 		}
 	});
-}); */  
+});   
 
 //이미지 업로드 
 $(function(){

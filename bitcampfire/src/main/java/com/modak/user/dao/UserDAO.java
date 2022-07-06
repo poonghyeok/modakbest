@@ -34,6 +34,7 @@ public interface UserDAO {
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
 	
+		public UserDTO login(Map<String, String> map);
 		public UserDTO checkIdPw(Map<String, String> map);
 		
 		

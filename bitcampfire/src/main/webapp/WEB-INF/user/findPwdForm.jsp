@@ -74,7 +74,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     </a>
                 </div>
                 <div class="nav-user-func">
-                    <a href="javascript://" id="user-notification" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
+                     <a href="javascript://" id="user-notification" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
                         <i id="user-notification-icon" class="fa fa-bell"></i>
                         <span id="user-notification-count" class="badge notification" style="display:none;">1</span>
                     </a>

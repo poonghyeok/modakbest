@@ -64,11 +64,13 @@ public class UserDAOMyBatis implements UserDAO {
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-	
 		@Override
+		public UserDTO login(Map<String, String> map) {
+			return sqlSession.selectOne("userSQL.login", map);
+		}				
+				@Override
 		public UserDTO checkIdPw(Map<String, String> map) {
-			// TODO Auto-generated method stub
-			return sqlSession.selectOne(namespace +"checkIdPw", map);
+			return sqlSession.selectOne("userSQL.checkIdPw", map);
 		}
 		
 		

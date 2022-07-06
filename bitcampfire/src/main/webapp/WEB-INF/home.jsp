@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html >
 <!--[if lt IE 7 ]> <html lang="ko" class="no-js ie6"> <![endif]-->
@@ -19,13 +20,13 @@
 	<meta name="_csrf_parameter" content="_csrf" />
 	<meta name="_csrf_header" content="X-CSRF-TOKEN" />
 	<meta name="_csrf" content="21815342-f771-4b04-8209-478b31d12d7b" />
-	<link rel="shortcut icon" href="./image/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="./image/icon_57x57.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="./image/icon_114x114.png">
+	<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="./img/icon_57x57.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="./img/icon_114x114.png">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<meta property="og:image" content="https://okky.kr/assets/images/okky_logo_fb.png">
 	
-	<link rel="stylesheet" href="./css/application.css">
+	<link rel="stylesheet" href="./css/user/application.css">
 	
 	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
 	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
@@ -61,7 +62,7 @@
 	        <i class="fa fa-bars sidebar-header-icon"></i>
 	    </a>
 		<!-- 메인 로고변경  로고/페이지명 필요-->
-	    <h1><div class="logo"><a href="/"><img src="./image/bitfire_logo.PNG" alt="OKKY" title="OKKY"></a></div></h1>
+	    <h1><div class="logo"><a href="/semiproject/"><img src="./img/bitfire_logo.PNG" alt="OKKY" title="OKKY"></a></div></h1>
 	
 		<!-- 검색창을 구글 연동 없이 게시판과 동일하게 간다면 수정 필요  -->
 		<ul id="search-google-icon" class="nav nav-sidebar nav-sidebar-search-wrapper">
@@ -80,13 +81,39 @@
 	
 		<!-- 검색 창 하단 로그인/회원가입 이동 선을 못찾음  -->
 	    <div class="nav-user nav-sidebar">
-		       <ul class="nav nav-sidebar">
-		       	<!-- 로그인 -->
-		           <li ><a href="/login/auth?redirectUrl=%2F" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
-		           <!-- 회원가입  -->
-		           <li ><a href="/user/register" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
-		       </ul>
+			<c:if test="${sessionScope.user_email == null }">
+	            <ul class="nav nav-sidebar">
+	                <li><a href="/semiproject/user/userLoginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
+	                <li><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
+	            </ul>
+			</c:if>
+ 			<c:if test="${sessionScope.user_email != null }">			
+				<div class="avatar clearfix avatar-medium ">
+					<a href="/semiproject/user/userInfo" class="avatar-photo"><img src="//www.gravatar.com/avatar/2a9f77fb6b421b904e6a3c0b17d03d93?d=identicon&amp;s=40"></a>
+					<div class="avatar-info">
+						<a class="nickname" href="/semiproject/user/userInfo" title="기지니기지니">${userNickname }</a>
+						<div class="activity block"><span class="fa fa-flash"></span> 0</div>
+					</div>
+				</div>
+	            <div class="nav-user-action">
+	                <div class="nav-user-func">
+	                    <a href="/semiproject/user/userUpdateForm">정보수정</a>
+	                    <a href="javascript://" id="user-func" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
+	                        <i id="user-func-icon" class="fa fa-cog"></i>
+	                    </a>
+	            	</div>
+		            <div class="nav-user-func">
+		                <a href="/semiproject/user/userLogOut">로그아웃</a>
+		                <a href="javascript://" id="user-notification" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
+		                    <i id="user-notification-icon" class="fa fa-bell"></i>
+		                    <span id="user-notification-count" class="badge notification" style="display:none;">1</span>
+		                </a>
+		            </div>		
+            	</div>
+            	<form action="/semiproject/user/logOut" method="post" style="display:none;"><input type="submit" name="logoutButton" value="logoutButton" id="logoutButton"></form>
+ 			</c:if>
 	    </div> <!-- nav-user nav-sidebar -->
+	 
 	
 	    <ul class="nav nav-sidebar nav-main">
 	    		<!-- link 누르면 호버기능?  -->
@@ -352,7 +379,7 @@
 				<div class="row">
 				    <div class="col-sm-9">
 				        <div style="float: left;margin-right: 10px;height:100px;">
-				        	<img src="./image/okky_logo_footer.png" alt="footer">
+				        	<img src="./img/okky_logo_footer.png" alt="footer">
 				        </div>
 				        <div> <!-- info -->
 				        	<a href="/intro/about">About OKKY</a>
@@ -370,8 +397,8 @@
 					    <div class="sponsor-banner col-sm-3">
 					        <div class="sponsor-banner-head">Sponsored by</div>
 					        <div class="sponsor-banner-images">
-					          <a href="https://www.inames.co.kr" target="_blank"><img src="./image/spb_inames.png" alt="아이네임즈"></a>
-					          <a href="https://www.toast.com/" target="_blank"><img src="./image/spb_nhncloud.png" alt="NHN Cloud"></a>
+					          <a href="https://www.inames.co.kr" target="_blank"><img src="./img/spb_inames.png" alt="아이네임즈"></a>
+					          <a href="https://www.toast.com/" target="_blank"><img src="./img/spb_nhncloud.png" alt="NHN Cloud"></a>
 				        </div> <!-- sponsor-banner-images -->
 				    </div> <!-- sponsor-banner col-sm-3 -->
 				</div> <!-- row -->
@@ -387,10 +414,10 @@
 </script>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="./js/application.js" type="text/javascript"></script>
-<script src="./js/apps/search.js" type="text/javascript"></script>
-<script src="./js/apps/notification.js" type="text/javascript"></script>
-<script src="./js/libs/typeahead.bundle.js"></script>
+<script src="./js/user/application.js" type="text/javascript"></script>
+<script src="./js/user/apps/search.js" type="text/javascript"></script>
+<script src="./js/user/apps/notification.js" type="text/javascript"></script>
+<script src="./js/user/libs/typeahead.bundle.js"></script>
 
 <script>
        $(function () {

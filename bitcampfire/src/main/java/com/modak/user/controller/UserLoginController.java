@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,34 +27,43 @@ public class UserLoginController {
 	UserService userService;
 	@Autowired
 	HttpSession session;
+	
+	@GetMapping(value="userLoginForm")
+	public String userLoginForm() {				
+		return "/user/userLoginForm";		
+	}
 
 	/* 로그인 기능구현 */ 
-	@RequestMapping(value="login", method = RequestMethod.GET)
-	public String login() {
-
-		
-		String sessionCheck = (String) session.getAttribute("userEmail");
-		
-		if(sessionCheck == null) {
-			
-			return "/user/userLoginForm";
-			
-		}else {
-			
-			return "index";
-			
-		}
-					
+//	@RequestMapping(value="login", method = RequestMethod.GET)
+//	public String login() {
+//
+//		
+//		String sessionCheck = (String) session.getAttribute("userEmail");
+//		
+//		if(sessionCheck == null) {
+//			
+//			return "/user/userLoginForm";
+//			
+//		}else {
+//			
+//			return "/index";
+//			
+//		}					
+//	}
+	
+	@PostMapping(value="login")
+	@ResponseBody
+	public String login(@RequestParam Map<String, String> map) {
+		return userService.login(map);
 	}
 	
-	
-
 	@PostMapping(value="checkIdPw")
 	public String checkIdPw(@RequestParam Map<String, String> map) {
 		System.out.println("controller checkIdPw : " + map);
 		return userService.checkIdPw(map);
 	}
 	/* 로그인 기능구현  끝 */ 
+	
 		
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="findPwd")

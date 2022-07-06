@@ -35,7 +35,8 @@ public interface UserService {
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-		public String checkIdPw(Map<String, String> map);
+  	public String login(Map<String, String> map);
+	public String checkIdPw(Map<String, String> map);
 	
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 }
