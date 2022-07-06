@@ -9,7 +9,11 @@
 	Hello world!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-	testCnt= ${requestScope.testCnt} 
+<P> 	<h3>
+			정수 boardView 테스트 
+		</h3>
+		
+		<a href = "/semiproject/boardView/getBoardView?board_id=4">boardVIEW</a>
+</p> 
 </body>
 </html>
