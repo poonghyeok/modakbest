@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 
 @Repository
@@ -14,21 +16,39 @@ import com.modak.user.bean.UserDTO;
 public class UserDAOMyBatis implements UserDAO {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		@Autowired
-		private SqlSession session;
-		
-		private final String namespace = "userSQL.";
-		
-		@Override
-		public int count(){
-			System.out.print("UserDaoImpl..test..count..");
-			return session.selectOne(namespace+"userCount");
-		}
+		private SqlSession sqlSession;	
+
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	//연수 : 시작(220706) ====================================
+		@Override
+		public UserAllDTO getUser(String user_email) {
+			return sqlSession.selectOne("userSQL.getUser", user_email);
+		}
 
-	//연수 : 시작 ====================================
-	
-	//연수 : 끝 ====================================
+
+		@Override
+		public void update(UserDTO userDTO) {
+			sqlSession.update("userSQL.update", userDTO);		
+		}
+
+		@Override
+		public UserDTO checkPwd(String user_email) {
+			return sqlSession.selectOne("userSQL.checkPwd", user_email);
+		}
+
+		@Override
+		public void pwdChangeComplete(Map<String, String> map) {
+			sqlSession.update("userSQL.pwdChangeComplete", map);
+			
+		}
+		
+		@Override
+		public void delete(String user_email) {
+			sqlSession.delete("userSQL.delete", user_email);		
+		}
+	//연수 : 끝(220706)====================================
+
 	
 	//유진 : 시작 ====================================
 	

@@ -6,17 +6,42 @@
 
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~ 공통 : 시작  ~~~~~~~~~~~~~~~~~~~~~~ -->
-		<!-- 샘플입니다. -->
-	    <select id="userCount" resultType="java.lang.Integer">
-	        SELECT count(*) FROM user2
-	    </select>
 		
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~ 공통 : 끝  ~~~~~~~~~~~~~~~~~~~~~~ -->
 	
    
-  	 <!-- ======================== 연수: 시작  ============================= -->
-
-	<!-- ======================== 연수 : 끝 ============================= -->
+  	 <!-- ======================== 연수: 시작(220706)  ============================= -->
+   <!-- 회원정보 수정 시작  -->
+ 	<!-- 회원정보 수정  : 정보 가져오기-->   	
+	<select id="getUser"  parameterType="String" resultType="UserAllDTO">
+        SELECT * FROM user2 where user_email= #{user_email}
+    </select>
+    
+    <!-- 회원정보 수정: 수정하기 --> 
+    <update id="update" parameterType="UserDTO">
+  		update user2 set user_name = #{user_name}
+  						, user_nickname = #{user_nickname}
+  		  			    , user_email = #{user_email}
+  		  			    , user_img = #{user_img}
+  		  			    where user_email = #{user_email}
+  	</update>  
+  	
+     <!-- 비밀번호 수정: 비밀번호 일치 여부 확인 - 회원정보 불러오기 -->   	
+	<select id="checkPwd" parameterType="String" resultType="UserDTO">
+        SELECT * FROM user2 where user_email= #{user_email}
+    </select>
+    
+    <!-- 회원정보 수정: 비밀번호 수정하기 --> 
+  	<update id="pwdChangeComplete" parameterType="java.util.Map">
+  		update user2 set user_pwd = #{user_pwd} where user_email= #{user_email}
+  	</update> 
+    <!-- 회원정보 수정 끝  -->
+    
+    <!-- 회원탈퇴 -->
+     <delete id="delete" parameterType="String">
+         delete user2 where user_email = #{user_email}
+     </delete>
+	<!-- ======================== 연수 : 끝(220706) ============================= -->
 
 	
 	<!--  ###################### 유진 : 시작  ###################### -->
