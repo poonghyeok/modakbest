@@ -8,8 +8,8 @@
 
 <!-- 풍혁 (220704) : okky 에서 복붙 -->		
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/semiproject/css/boardList.css">
-<link rel="stylesheet" href="/semiproject/css/boardList2.css">
+<link rel="stylesheet" href="/semiproject/css/board/boardList.css">
+<link rel="stylesheet" href="/semiproject/css/board/boardList2.css">
 <!-- 풍혁 (220704) : okky 에서 복붙 -->
 </head>
 <body>
@@ -163,7 +163,7 @@
  -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/semiproject/script/board/boardList.js"></script>
+<script type="text/javascript" src="/semiproject/js/board/boardList.js"></script>
 </body>
 </html>
 

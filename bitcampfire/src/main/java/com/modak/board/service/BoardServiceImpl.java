@@ -18,11 +18,11 @@ import com.modak.board.dao.BoardDAO;
 public class BoardServiceImpl implements BoardService {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	@Autowired
-	private BoardDAO boardDao;
+	private BoardDAO boardDAO;
 	
 	// 글번호로 (글번호, DTO) 가져오기
-	public BoardDTO getBoardContent(int board_id);
-
+	//public BoardDTO getBoardContent(int board_id);
+		//풍혁(0706 2143) : interface에 넣어야할 것을 여기다가 넣으신거 같아요. 착각하신게 맞다면 지우고 commit 부탁드립니다. 
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	//풍혁 : 시작 ===========================================
@@ -50,6 +50,12 @@ public class BoardServiceImpl implements BoardService {
 			sb.append("</ul>");
 			return sb.toString(); 
 		}
+		
+		@Override
+		public void boardWrite(BoardDTO boardDTO) {
+			boardDAO.boardWrite(boardDTO);
+		}
+
 		
 //풍혁 (220703) : getUserWriteTablelist() method에서 table에 tr을 추가하는 코드가 너무 길어질 것으로 판단해, tr을 만들어주는 method를 생성했습니다. 
 		private String boardDtoToTrTag(BoardDTO boardDTO) {
