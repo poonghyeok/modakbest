@@ -14,6 +14,7 @@
     </a>
     
 	<!-- 메인 로고변경  로고/페이지명 필요-->
+
     <h1><div class="logo"><a href="/semiproject/"><img src="/semiproject/img/bitfire_logo.PNG" alt="OKKY" title="OKKY" style="width: 140px; height: 45px;"></a></div></h1>
 
 

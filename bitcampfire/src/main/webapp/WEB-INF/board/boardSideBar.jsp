@@ -10,6 +10,7 @@
         <div class="logo">
             <a href="/semiproject/">
                 <img src="/semiproject/img/bit_small_logo.png" alt="OKKY" title="OKKY" style="width: 60px; height: 60px;">
+
             </a>
         </div>
     </h1>
