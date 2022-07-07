@@ -19,10 +19,13 @@
     
     <!-- 회원정보 수정: 수정하기 --> 
     <update id="update" parameterType="UserDTO">
-  		update user2 set user_name = #{user_name}
+  		update user2 set user_img = #{user_img}
+  		  			    , user_name = #{user_name}
   						, user_nickname = #{user_nickname}
-  		  			    , user_email = #{user_email}
+  		  			    , class_academy = #{class_academy}
+						, class_class = #{class_class}
   		  			    , user_img = #{user_img}
+  		  			    , user_email = #{user_email}
   		  			    where user_email = #{user_email}
   	</update>  
   	
@@ -84,7 +87,11 @@
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->
 	
 		<!-- 로그인 -->
-	<select id="checkIdPw" parameterType="java.util.Map" resultType="UserDto">
+	<select id="login" parameterType="java.util.Map" resultType="UserDTO">
+		select * from user2 where user_email=#{user_email} and user_pwd=#{user_pwd}
+	</select>
+	
+	<select id="checkIdPw" parameterType="java.util.Map" resultType="UserDTO">
 		select * from user2 where user_email=#{username} and user_pwd=#{password}
 	</select>
 	

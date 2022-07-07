@@ -20,17 +20,17 @@
 	        <i class="fa fa-bars sidebar-header-icon"></i>
 	    </a>
 		<!-- 메인 로고변경  로고/페이지명 필요-->
-	    <h1><div class="logo"><a href="/"><img src="./images/bitfire_logo.PNG" alt="OKKY" title="OKKY"></a></div></h1>
+	    <h1><div class="logo"><a href="/semiproject/"><img src="./images/bitfire_logo.PNG" alt="OKKY" title="OKKY"></a></div></h1>
 
 		<!-- 검색 창 하단 로그인/회원가입 이동 선을 못찾음  -->
 	    <div class="nav-user nav-sidebar">
-    	<c:if test="${sessionScope.userEmail == null }">
+    	<c:if test="${sessionScope.user_email == null }">
             <ul class="nav nav-sidebar">
                 <li><a href="/semiproject/user/login" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
                 <li><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
             </ul>
 		</c:if>
-		<c:if test="${sessionScope.userEmail != null }">
+		<c:if test="${sessionScope.user_email != null }">
 			<div class="nav-user nav-sidebar">
 
 			<div class="avatar clearfix avatar-medium ">
@@ -42,11 +42,13 @@
 			</div>
             <div class="nav-user-action">
                 <div class="nav-user-func">
+                    <a href="/semiproject/user/userUpdateForm">정보수정</a>
                     <a href="javascript://" id="user-func" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
                         <i id="user-func-icon" class="fa fa-cog"></i>
                     </a>
                 </div>
                 <div class="nav-user-func">
+                    <a href="/semiproject/user/userLogOut">로그아웃</a>
                     <a href="javascript://" id="user-notification" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
                         <i id="user-notification-icon" class="fa fa-bell"></i>
                         <span id="user-notification-count" class="badge notification" style="display:none;">1</span>

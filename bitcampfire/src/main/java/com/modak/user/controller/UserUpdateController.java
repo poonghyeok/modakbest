@@ -27,6 +27,7 @@ import com.modak.user.service.UserService;
 public class UserUpdateController {
 	@Autowired
 	private UserService userService;
+
 	//회원정보 수정 시작 (이메일 인증 넣고 해	보기)
 	//회원정보 수정폼 띄우기
 	@GetMapping(value="userUpdateForm")

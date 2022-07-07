@@ -83,6 +83,22 @@ public class UserServiceImpl implements UserService {
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
+		@Override
+		public String login(Map<String, String> map) {
+			//DB
+			UserDTO userDTO = userDAO.login(map);
+			
+			if(userDTO != null) {
+				//session.setAttribute("memEmail", userDTO.getUser_email());
+				//session.setAttribute("memPwd", userDTO.getUser_pwd());
+				//session.setAttribute("memNickname", userDTO.getUser_nickname());
+				
+				return "ok";
+				
+			}else{			
+				return "fail";
+			}
+		}
 	
 		@Override
 		public String checkIdPw(Map<String, String> map) {

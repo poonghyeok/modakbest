@@ -28,6 +28,12 @@ public class UserLoginController {
 	@Autowired
 	HttpSession session;
 	
+
+	@GetMapping(value="userLoginFail")
+	public String userLoginFail() {				
+		return "/user/userLoginFail";		
+	}
+
 ///////////////////////유진0707 건들임////////////////////////////	
 	@GetMapping(value = "userLoginForm")
 	public String userLoginForm() {
@@ -36,33 +42,38 @@ public class UserLoginController {
 ///////////////////////유진0707 건들임////////////////////////////
 	
 
-	/* 로그인 기능구현 */ 
-	@RequestMapping(value="login", method = RequestMethod.GET)
-	public String login() {
 
-		
-		String sessionCheck = (String) session.getAttribute("userEmail");
-		
-		if(sessionCheck == null) {
-			
-			return "/user/userLoginForm";
-			
-		}else {
-			
-			return "index";
-			
-		}
-					
+	/* 로그인 기능구현 */ 
+//	@RequestMapping(value="login", method = RequestMethod.GET)
+//	public String login() {
+//
+//		
+//		String sessionCheck = (String) session.getAttribute("userEmail");
+//		
+//		if(sessionCheck == null) {
+//			
+//			return "/user/userLoginForm";
+//			
+//		}else {
+//			
+//			return "/index";
+//			
+//		}					
+//	}
+	
+	@PostMapping(value="login")
+	@ResponseBody
+	public String login(@RequestParam Map<String, String> map) {
+		return userService.login(map);
 	}
 	
-	
-
 	@PostMapping(value="checkIdPw")
 	public String checkIdPw(@RequestParam Map<String, String> map) {
 		System.out.println("controller checkIdPw : " + map);
 		return userService.checkIdPw(map);
 	}
 	/* 로그인 기능구현  끝 */ 
+	
 		
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="findPwd")
