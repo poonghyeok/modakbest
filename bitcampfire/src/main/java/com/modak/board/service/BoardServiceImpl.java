@@ -189,7 +189,7 @@ public class BoardServiceImpl implements BoardService {
 //			}
 		
 		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호를 통해서 getBoard
-		
+		System.out.println("ServiceImpl 에서 date 값 TEST =  " + boardDTO.getBoard_date_created());
 		//String user_id = (String)session.getAttribute("user_id"); // 세션에 저장된 user_id를 가져온다.
 		
 //			Map<String, Object> map = new HashMap<String, Object>();
