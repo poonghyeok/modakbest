@@ -82,15 +82,15 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public String checkIdPw(Map<String, String> map) {
 			//DB
-			UserDTO userDto = userDAO.checkIdPw(map);
+			UserDTO userDTO = userDAO.checkIdPw(map);
 
-			if(userDto != null) {
-				session.setAttribute("userEmail", userDto.getUser_email());
-				session.setAttribute("userPwd", userDto.getUser_pwd());
-				session.setAttribute("userNickname", userDto.getUser_nickname());
+			if(userDTO != null) {
+				session.setAttribute("userEmail", userDTO.getUser_email());
+				session.setAttribute("userPwd", userDTO.getUser_pwd());
+				session.setAttribute("userNickname", userDTO.getUser_nickname());
 				
-				System.out.println(userDto);
-				return "index";	
+				System.out.println("userServiceImpl" + userDTO);
+				return "home";	
 				
 			}else {
 				

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html >
 <!--[if lt IE 7 ]> <html lang="ko" class="no-js ie6"> <![endif]-->
@@ -25,7 +26,7 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<meta property="og:image" content="https://okky.kr/assets/images/okky_logo_fb.png">
 	
-	<link rel="stylesheet" href="./css/application.css">
+	<link rel="stylesheet" href="./css/user/application.css">
 	
 	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
 	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
@@ -79,15 +80,75 @@
 	    </form>
 	
 		<!-- 검색 창 하단 로그인/회원가입 이동 선을 못찾음  -->
-	    <div class="nav-user nav-sidebar">
-		       <ul class="nav nav-sidebar">
-		       	<!-- 로그인 -->
-		           <li ><a href="/login/auth?redirectUrl=%2F" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
-		           <!-- 회원가입  -->
-		           <li ><a href="/user/register" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
-		       </ul>
-	    </div> <!-- nav-user nav-sidebar -->
-	
+   <div class="nav-user nav-sidebar">
+    	<c:if test="${sessionScope.userEmail == null }">
+            <ul class="nav nav-sidebar">
+                <li><a href="/semiproject/user/loginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
+                <li><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
+            </ul>
+		</c:if>
+		<c:if test="${sessionScope.userEmail != null }">
+			<div class="nav-user nav-sidebar">
+
+			<div class="avatar clearfix avatar-medium ">
+					<a href="/semiproject/user/userInfo" class="avatar-photo"><img src="//www.gravatar.com/avatar/2a9f77fb6b421b904e6a3c0b17d03d93?d=identicon&amp;s=40"></a>
+					<div class="avatar-info">
+							<a class="nickname" href="/semiproject/user/userInfo" title="기지니기지니">${userNickname }</a>
+								<div class="activity block"><span class="fa fa-flash"></span> 0</div>
+					</div>
+			</div>
+            <div class="nav-user-action">
+                <div class="nav-user-func">
+                    <a href="javascript://" id="user-func" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
+                        <i id="user-func-icon" class="fa fa-cog"></i>
+                    </a>
+                </div>
+                <div class="nav-user-func">
+                    <a href="javascript://" id="user-notification" data-toggle="popover" data-trigger="click" tabindex="0" data-original-title="" title="">
+                        <i id="user-notification-icon" class="fa fa-bell"></i>
+                        <span id="user-notification-count" class="badge notification" style="display:none;">1</span>
+                    </a>
+                </div>
+            </div>
+            <form action="/semiproject/user/logOut" method="post" style="display:none;"><input type="submit" name="logoutButton" value="logoutButton" id="logoutButton"></form>
+
+            <script id="setting-template" type="text/template">
+                <div class="popover popover-fixed" role="tooltip"><div class="arrow"></div>
+                    <h3 class="popover-title"></h3>
+                    <div class="popover-footer clearfix" id="user-func-popover">
+                        <label href="" for="logoutButton" class="popover-btn"><i class="fa fa-sign-out"></i> 로그아웃</label>
+                        <a href="/user/edit" class="popover-btn"><i class="fa fa-user"></i> 정보수정</a>
+                    </div>
+                </div>
+            </script>
+
+            <script id="notification-template" type="text/template">
+                <div class="popover popover-fixed" role="tooltip"><div class="arrow"></div>
+                    <h3 class="popover-title"></h3>
+                    <div class="popover-content" id="notification-popover"></div>
+                </div>
+            </script>
+
+            <script id="search-google-template" type="text/template">
+                <div class="popover popover-fixed" role="tooltip"><div class="arrow"></div>
+                    <h3 class="popover-title">Google 검색</h3>
+                    <div class="popover-content" id="search-google-popover">
+                        <form id="search-google-form" name="searchMain" class="nav-sidebar-form" action="https://www.google.com/search" onsubmit="searchMain.q.value='site:okky.kr '+searchMain.qt.value;">
+                            <div class="input-group">
+                                <input type="text" name="qt" class="form-control input-sm" placeholder="Google 검색" />
+                                <input type="hidden" name="q" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </script>
+    </div>		
+		</c:if>
+    </div>
+
 	    <ul class="nav nav-sidebar nav-main">
 	    		<!-- link 누르면 호버기능?  -->
 	    		<li  ><a href="/articles/questions" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>

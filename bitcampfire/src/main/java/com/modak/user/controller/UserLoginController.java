@@ -28,7 +28,7 @@ public class UserLoginController {
 	HttpSession session;
 
 	/* 로그인 기능구현 */ 
-	@RequestMapping(value="login", method = RequestMethod.GET)
+	@RequestMapping(value="loginForm", method = RequestMethod.GET)
 	public String login() {
 
 		
@@ -40,7 +40,7 @@ public class UserLoginController {
 			
 		}else {
 			
-			return "index";
+			return "/";
 			
 		}
 					
@@ -51,7 +51,9 @@ public class UserLoginController {
 	@PostMapping(value="checkIdPw")
 	public String checkIdPw(@RequestParam Map<String, String> map) {
 		System.out.println("controller checkIdPw : " + map);
-		return userService.checkIdPw(map);
+		String result = userService.checkIdPw(map);
+		System.out.println("\n @ checkIdPW LOG @ : " + result);
+		return result;
 	}
 	/* 로그인 기능구현  끝 */ 
 		
@@ -59,7 +61,7 @@ public class UserLoginController {
 	@RequestMapping(value="findPwd")
 	public String findPwd() {
 		System.out.println("findPwd");
-		return "/user/findPwdForm";
+		return "/user/userFindPwdForm";
 	}
 	
 	

@@ -68,7 +68,7 @@ public class UserDAOMyBatis implements UserDAO {
 		@Override
 		public UserDTO checkIdPw(Map<String, String> map) {
 			// TODO Auto-generated method stub
-			return sqlSession.selectOne(namespace +"checkIdPw", map);
+			return sqlSession.selectOne("userSQL.checkIdPw", map);
 		}
 		
 		
