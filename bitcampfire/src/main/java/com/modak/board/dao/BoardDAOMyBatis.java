@@ -44,6 +44,12 @@ public class BoardDAOMyBatis implements BoardDAO {
 			System.out.print("Mybatis insert");
 			sqlSession.insert("boardSQL.boardWrite",boardDTO);
 		}
+		
+		@Override
+		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 

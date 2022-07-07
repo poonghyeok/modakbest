@@ -114,29 +114,21 @@
             	</div>
             	<form action="/semiproject/user/logOut" method="post" style="display:none;"><input type="submit" name="logoutButton" value="logoutButton" id="logoutButton"></form>
  			</c:if>
-
-		       <ul class="nav nav-sidebar">
-		       	<!-- 로그인 -->
-		           <li ><a href="/login/auth?redirectUrl=%2F" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
-		           <!-- 회원가입  -->
-		           <li ><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
-		       </ul>
-
 	    </div> <!-- nav-user nav-sidebar -->
 	 
 	
 
 	    <ul class="nav nav-sidebar nav-main">
 	    		<!-- link 누르면 호버기능?  -->
-	    		<li  ><a href="/articles/questions" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
-	    		<li  ><a href="/articles/tech" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
-	    		<li  ><a href="/articles/community" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
-	    		<li  ><a href="/articles/columns" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
+	    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
+	    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
+	    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
+	    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
 	    </ul>
 	
 		<!-- okky-깃허브에 연동 -->
 	    <ul class="nav nav-sidebar nav-bottom">
-	        <li ><a href="https://github.com/okjsp/okky/issues" class="link" target="_blank"><i class="fa fa-github"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Github Issues</span></a></li>
+	        <li ><a href="https://github.com/poonghyeok/modakbest" class="link" target="_blank"><i class="fa fa-github"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Github Issues</span></a></li>
 	    </ul>
 	</div> <!-- sidebar  -->
 	
@@ -225,7 +217,7 @@
 	<!-- Q&A  -->
 	  <div class="col-sm-8 main-block-left">
 	      <div class="main-block">
-	          <h4 class="main-header"><i class="fa fa-database"></i> Q&A <a href="/articles/questions" class="main-more-btn pull-right"><i class="fa fa-ellipsis-h"></i></a></h4>
+	          <h4 class="main-header"><i class="fa fa-database"></i> Q&A <a href="/semiproject/board/list?pg=1" class="main-more-btn pull-right"><i class="fa fa-ellipsis-h"></i></a></h4>
 					<div class="panel panel-default">
 					    <ul class="list-group">
 					            <li class="list-group-item list-group-item-small list-group-item-question list-group-no-note clearfix">
@@ -252,7 +244,7 @@
 	 
 	<!-- 커뮤니티   -->     
 	 <div class="main-block">
-	     <h4 class="main-header"><i class="fa fa-comment"></i> 커뮤니티 <a href="/articles/community" class="main-more-btn pull-right"><i class="fa fa-ellipsis-h"></i></a></h4>
+	     <h4 class="main-header"><i class="fa fa-comment"></i> 커뮤니티 <a href="/semiproject/board/list?pg=1" class="main-more-btn pull-right"><i class="fa fa-ellipsis-h"></i></a></h4>
 			<div class="panel panel-default">
 			    <ul class="list-group">
 			            <li class="list-group-item list-group-item-small list-group-item-question list-group-no-note clearfix">

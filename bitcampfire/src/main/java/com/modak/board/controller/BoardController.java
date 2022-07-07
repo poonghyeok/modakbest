@@ -45,12 +45,29 @@ public class BoardController {
 			return "/board/boardWriteForm";
 		}
 		
-		//풍혁(0707 0825) : 이거뭐지? 왜 boardView 를 띄우지?
+		
 		@PostMapping("/write")
 		public String boardWrite(BoardDTO boardDTO) {
 			boardService.boardWrite(boardDTO);
 			return "/board/boardView";
 		}
+		
+		@GetMapping("/search")
+		public ModelAndView boardSearchList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword) {
+			
+			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
+			System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
+			
+			String userWriteTableList = boardService.getUserWriteTablelist(pg);
+			String boardPagingList = boardService.getBoardPagingList(pg);
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("userWriteTableList", userWriteTableList);
+			mav.addObject("boardPagingList", boardPagingList);
+			mav.setViewName("/board/boardList");
+			
+			return mav;
+		} 
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
