@@ -38,6 +38,12 @@ public class BoardDAOMyBatis implements BoardDAO {
 			
 			return sqlSession.selectOne("boardSQL.getTotalBoardNum");
 		}
+		
+		@Override
+		public void boardWrite(BoardDTO boardDTO) {
+			System.out.print("Mybatis insert");
+			sqlSession.insert("boardSQL.boardWrite",boardDTO);
+		}
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 

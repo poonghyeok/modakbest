@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,9 +27,43 @@ public class UserLoginController {
 	UserService userService;
 	@Autowired
 	HttpSession session;
+	
+
+	@GetMapping(value="userLoginFail")
+	public String userLoginFail() {				
+		return "/user/userLoginFail";		
+	}
+
+///////////////////////유진0707 건들임////////////////////////////	
+	@GetMapping(value = "userLoginForm")
+	public String userLoginForm() {
+		return "/user/userLoginForm";
+	}
+///////////////////////유진0707 건들임////////////////////////////
+	
+
 
 	/* 로그인 기능구현 */ 
-	@RequestMapping(value="login", method = RequestMethod.GET)
+
+//	@RequestMapping(value="login", method = RequestMethod.GET)
+//	public String login() {
+//
+//		
+//		String sessionCheck = (String) session.getAttribute("userEmail");
+//		
+//		if(sessionCheck == null) {
+//			
+//			return "/user/userLoginForm";
+//			
+//		}else {
+//			
+//			return "/index";
+//			
+//		}					
+//	}
+
+
+	@RequestMapping(value="loginForm", method = RequestMethod.GET)
 	public String login() {
 
 		
@@ -40,26 +75,28 @@ public class UserLoginController {
 			
 		}else {
 			
-			return "index";
+			return "/";
 			
 		}
 					
+
 	}
 	
-	
-
 	@PostMapping(value="checkIdPw")
 	public String checkIdPw(@RequestParam Map<String, String> map) {
 		System.out.println("controller checkIdPw : " + map);
-		return userService.checkIdPw(map);
+		String result = userService.checkIdPw(map);
+		System.out.println("\n @ checkIdPW LOG @ : " + result);
+		return result;
 	}
 	/* 로그인 기능구현  끝 */ 
+	
 		
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="findPwd")
 	public String findPwd() {
 		System.out.println("findPwd");
-		return "/user/findPwdForm";
+		return "/user/userFindPwdForm";
 	}
 	
 	

@@ -50,26 +50,37 @@ public class UserDAOMyBatis implements UserDAO {
 	//연수 : 끝(220706)====================================
 
 	
-		//유진 : 시작 0706====================================
-				@Override
-				public void user_register(UserAllDTO userAllDTO) {
-					sqlSession.insert("userSQL.user_register",userAllDTO);		
-				}
+	//유진 : 시작 0706====================================
+		@Override
+		public void user_register(UserAllDTO userAllDTO) {
+			sqlSession.insert("userSQL.user_register",userAllDTO);		
+		}
 
-				@Override
-				public UserAllDTO userSignup_emailCheck(String user_email) {
-					return sqlSession.selectOne("userSQL.userSignup_emailCheck",user_email);
-				}
-			//유진 : 끝 0706====================================
+		@Override
+		public UserAllDTO userSignup_emailCheck(String user_email) {
+			return sqlSession.selectOne("userSQL.userSignup_emailCheck",user_email);
+		}
+		
+		@Override
+		public UserDTO getUserInformation(String user_email) {
+			return sqlSession.selectOne("userSQL.getUserInformation", user_email);
+		}
+	//유진 : 끝 0706====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-	
 		@Override
+		public UserDTO login(Map<String, String> map) {
+			return sqlSession.selectOne("userSQL.login", map);
+		}				
+				@Override
 		public UserDTO checkIdPw(Map<String, String> map) {
-			// TODO Auto-generated method stub
-			return sqlSession.selectOne(namespace +"checkIdPw", map);
+
+			return sqlSession.selectOne("userSQL.checkIdPw", map);
 		}
+
+
+		
 		
 		
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
