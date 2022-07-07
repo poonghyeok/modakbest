@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/semiproject/resources/css/boardWriteForm.css">
-<link rel="stylesheet" href="/semiproject/resources/css/userProfile.css">
+<link rel="stylesheet" href="/semiproject/css/board/boardWriteForm.css">
+<link rel="stylesheet" href="/semiproject/css/board/userProfile.css">
 <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
 </head>
@@ -21,7 +21,7 @@
 	
 		<div class="user-profile">
 			<a href="#">
-				<img src="/semiproject/resources/image/profile.png" id="profile-photo" alt="profile-img">
+				<img src="/semiproject/img/profile.png" id="profile-photo" alt="profile-img">
 			</a>
 		
 			<div class="profile-info">

@@ -40,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
 			map.put("startNum", startNum);
 			map.put("endNum", endNum);
 			
-			List<BoardDTO> list = boardDao.getBoardRangeOrderByTime(map); 
+			List<BoardDTO> list = boardDAO.getBoardRangeOrderByTime(map); 
 			System.out.println("\n @ boardTalbeList size : " + list.size());
 			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");
@@ -66,7 +66,7 @@ public class BoardServiceImpl implements BoardService {
 			Date date = boardDTO.getBoard_date_created();        
 			String dateToStr = dateFormat.format(date);
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 마무리
-			
+			 
 			//풍혁(220705) : comment의 개수에 따라 li의 클래스가 달라지는 것을 구분하기 위해서..
 			int noteNum = boardDTO.getBoard_cmt_cnt();
 			String hasNoteClass = null;
@@ -166,7 +166,7 @@ public class BoardServiceImpl implements BoardService {
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
-			boardPaging.setTotalA(boardDao.getTotalBoardNum());
+			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
 			boardPaging.makePagingHTML();
 			
 			return boardPaging.getPagingHTML().toString();
@@ -186,7 +186,7 @@ public class BoardServiceImpl implements BoardService {
 //				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
 //			}
 		
-		BoardDTO boardDTO = boardDao.getBoardContent(board_id); //글번호를 통해서 getBoard
+		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호를 통해서 getBoard
 		
 		//String user_id = (String)session.getAttribute("user_id"); // 세션에 저장된 user_id를 가져온다.
 		

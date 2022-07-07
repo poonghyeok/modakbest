@@ -44,7 +44,8 @@ public class BoardController {
 		public String boardWrite() {
 			return "/board/boardWriteForm";
 		}
-
+		
+		//풍혁(0707 0825) : 이거뭐지? 왜 boardView 를 띄우지?
 		@PostMapping("/write")
 		public String boardWrite(BoardDTO boardDTO) {
 			boardService.boardWrite(boardDTO);
