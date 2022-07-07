@@ -28,8 +28,8 @@ public class UserDAOMyBatis implements UserDAO {
 
 
 		@Override
-		public void update(UserDTO userDTO) {
-			sqlSession.update("userSQL.update", userDTO);		
+		public void update(UserAllDTO userAllDTO) {
+			sqlSession.update("userSQL.update", userAllDTO);		
 		}
 
 		@Override
@@ -68,21 +68,15 @@ public class UserDAOMyBatis implements UserDAO {
 	//유진 : 끝 0706====================================
 	
 
-	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
+	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@
+    //*******연수 수정(220707)	
+			
 		@Override
-		public UserDTO login(Map<String, String> map) {
-			return sqlSession.selectOne("userSQL.login", map);
-		}				
-				@Override
 		public UserDTO checkIdPw(Map<String, String> map) {
-
 			return sqlSession.selectOne("userSQL.checkIdPw", map);
-		}
-
-
+		}		
 		
-		
-		
+    //*******연수 수정(220707)			
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 	
 	

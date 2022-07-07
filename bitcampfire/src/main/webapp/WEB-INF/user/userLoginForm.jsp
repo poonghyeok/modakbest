@@ -24,12 +24,12 @@
 		    <div class="col-md-6 main-block-left">
 		        <div class="panel panel-default">
 		            <div class="panel-heading">
-		                <h5 class="panel-header">아이디 로그인</h5>
+		                <h5 class="panel-header">이메일 로그인</h5>
 		            </div>
 		
 		            <form class="form-signin form-user panel-body panel-margin" id="loginForm" autocomplete="off">
 		                    <input type="hidden" name="redirectUrl" value="%2F">
-		                <input type="text" name="user_email" autocorrect="off" autocapitalize="off" id="user_email" class="username form-control input-sm" placeholder="아이디(이메일)" required="" autofocus="">
+		                <input type="text" name="user_email" autocorrect="off" autocapitalize="off" id="user_email" class="username form-control input-sm" placeholder="이메일" required="" autofocus="">
 		                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호" required="">
 		                <div class="checkbox">
 		                    <label>
@@ -40,7 +40,7 @@
 		                <!--button class="btn btn-primary btn-block" type="submit"><g:message code="springSecurity.login.button"/></button-->
 		
 		                <div id="divUserLogin">
-		                    <button class="btn btn-primary btn-block" type="submit" id="btnUserLogin">로그인</button>
+		                    <button class="btn btn-primary btn-block" id="btnUserLogin">로그인</button>
 		                </div>
 		                <br>
 		                
@@ -48,12 +48,7 @@
 		                    <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block">
 		                	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
 		                </div>
-		                <div id="divOTPLogin" style="display: none;">
-		                    <button class="btn btn-primary btn-block" type="button" id="btnOTPLogin" style="display: none;">AutoPassword™ 로그인</button>
-		                    <div class="btn btn-primary btn-block APW-login-cancel" id="btnOTPCancel" style="display: none;">
-		                        <a href="#;">취소</a>
-		                    </div>
-		                </div>
+
 		                <div class="signup-block">
 		                    <a href="/semiproject/user/findPwd">계정 찾기</a>
 		                    <span class="inline-saperator">/</span>
@@ -70,29 +65,34 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>    
 <script type="text/javascript">
-$('#btnUserLogin').click(function(){
-	$.ajax({ 
-		type: 'post',
-		url: '/semiproject/user/login',
-		data: { 'user_email' : $('#user_email').val(), 
-				'user_pwd' : $('#user_pwd').val() }, 		
-		dataType: 'text', 
-		success: function(data){
-			data = data.trim(); 
-			
-			if(data == 'ok') {
-				location.href = "/semiproject/home";
-				
-			}else if(data == 'fail') {	
-				alert("로그인 실패");
-				location.href = "/semiproject/home";
-			}
-			},
-			error: function(err){
-				console.log(err);
-			}
-		});
+$('#btnUserLogin').click(function(){	
+	if($('#user_email').val()=='') {
+		alert('이메일을 입력하세요.');
+	}else if($('#user_pwd').val()=='') {
+		alert('비밀번호를 입력하세요.');
+	}else {
+		$.ajax({ 
+			type: 'post',
+			url: '/semiproject/user/checkIdPw',
+			data: { 'user_email' : $('#user_email').val(), 
+					'user_pwd' : $('#user_pwd').val() }, 		
+			dataType: 'text', 
+			success: function(data){
+				data = data.trim();			
+					if(data == 'ok') {
+						location.href = "/semiproject/";						
+					}else if(data == 'fail') {						
+						location.href = "/semiproject/userLoginForm";
+					}
+				},
+				error: function(err){
+					console.log(err);
+				},
+			});
+	}
 });
+
+
 </script>
 </body>
 

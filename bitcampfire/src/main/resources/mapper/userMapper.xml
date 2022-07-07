@@ -13,20 +13,23 @@
   	 <!-- ======================== 연수: 시작(220706)  ============================= -->
    <!-- 회원정보 수정 시작  -->
  	<!-- 회원정보 수정  : 정보 가져오기-->   	
-	<select id="getUser"  parameterType="String" resultType="UserAllDTO">
+	<select id="getUser" parameterType="String" resultType="UserAllDTO">
         SELECT * FROM user2 where user_email= #{user_email}
     </select>
     
     <!-- 회원정보 수정: 수정하기 --> 
-    <update id="update" parameterType="UserDTO">
+    <update id="update" parameterType="UserAllDTO">
+    begin
   		update user2 set user_img = #{user_img}
   		  			    , user_name = #{user_name}
   						, user_nickname = #{user_nickname}
-  		  			    , class_academy = #{class_academy}
-						, class_class = #{class_class}
   		  			    , user_img = #{user_img}
-  		  			    , user_email = #{user_email}
-  		  			    where user_email = #{user_email}
+  		  			    where user_email = #{user_email};
+  		  			    
+   		update class set class_academy = #{class_academy}
+					   , class_class = #{class_class}
+					     where user_email = #{user_email};
+    end;
   	</update>  
   	
      <!-- 비밀번호 수정: 비밀번호 일치 여부 확인 - 회원정보 불러오기 -->   	
@@ -86,11 +89,12 @@
 
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->
 	
+	<!--   *******연수 수정(220707)	 -->	
 		<!-- 로그인 -->
 	<select id="checkIdPw" parameterType="java.util.Map" resultType="UserDTO">
-		select * from user2 where user_email=#{username} and user_pwd=#{password}
+		select * from user2 where user_email=#{user_email} and user_pwd=#{user_pwd}
 	</select>
-	
+	<!--   *******연수 수정(220707)	 -->
 	
 	
 	<!-- @@@@@@@@@@@@@@ 기진 : 끝  @@@@@@@@@@@@@@ -->

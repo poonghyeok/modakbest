@@ -27,6 +27,8 @@ import com.modak.user.service.UserService;
 public class UserUpdateController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	HttpSession session;
 
 	//회원정보 수정 시작 (이메일 인증 넣고 해	보기)
 	//회원정보 수정폼 띄우기
@@ -46,7 +48,7 @@ public class UserUpdateController {
 	//회원정보 수정
 	@PostMapping(value="update")
 	@ResponseBody
-	public void update(@ModelAttribute UserDTO userDTO,
+	public void update(@ModelAttribute UserAllDTO userAllDTO,
 					   @RequestParam MultipartFile user_image,
 					   HttpSession session) {
 		
@@ -62,10 +64,10 @@ public class UserUpdateController {
 			e.printStackTrace();
 		}
 		
-		userDTO.setUser_img(fileName); //업로드 시 비워져있던  DTO 채워주는 역할
+		userAllDTO.setUser_img(fileName); //업로드 시 비워져있던  DTO 채워주는 역할
 		//System.out.println("\n"+fileName+"file 저장 완료 : "+ filePath);
 		//회원수정폼 정보 실어서 업데이트
-		userService.update(userDTO);
+		userService.update(userAllDTO);
 	}	
 	//회원정보 수정 끝
 	
@@ -77,27 +79,29 @@ public class UserUpdateController {
 	}
 	
 	//비밀번호 일치여부 확인 
-	/*
+	
 	@PostMapping(value="checkPwd")	  
-	@ResponseBody public UserDTO checkPwd(HttpSession session){ String user_email
-	(String) session.getAttribute("memEmail");
-	session.setAttribute("user_email", "manbal3@aaa"); return
-	userService.checkPwd(user_email); }
-	*/ 
+	@ResponseBody 
+	public UserDTO checkPwd(HttpSession session){ 
+		String user_email =(String) session.getAttribute("memEmail");
+		return userService.checkPwd(user_email); 
+	}
+	
 	
 	//비밀번호 일치여부-테스트용 성공
+	/*
 	@PostMapping(value="checkPwd")
 	@ResponseBody
 	public UserDTO checkPwd(@RequestParam String user_email){		
 		return userService.checkPwd(user_email);	
 	}
+	*/ 
 	
-	//비밀번호 변경 완료
-	/*
+	//비밀번호 변경 완료	
 	@PostMapping(value="pwdChangeComplete")
 	@ResponseBody
 	public void pwdChangeComplete(@RequestParam String user_pwd, HttpSession session) {
-		String user_email = (String) session.getAttribute("memEmail");
+		String user_email = (String)session.getAttribute("memEmail");
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", user_email); 
@@ -105,8 +109,9 @@ public class UserUpdateController {
 		
 		userService.pwdChangeComplete(map);
 	}
-	*/
+	
 	//비밀번호 변경-테스트용 성공
+	/*
 	@PostMapping(value="pwdChangeComplete")
 	@ResponseBody
 	public void pwdChangeComplete(@RequestParam String user_pwd) {	
@@ -116,6 +121,7 @@ public class UserUpdateController {
 		
 		userService.pwdChangeComplete(map);
 	}
+	*/
 	//비밀번호 변경 끝
 	
 	//회원탈퇴 시작
@@ -126,20 +132,22 @@ public class UserUpdateController {
 	}
 	
 	//회원탈퇴-탈퇴 후 정보보관 기간(60일) 기능 ??
-	/*
-	 * @PostMapping(value="delete")
-	 * 
-	 * @ResponseBody public void delete(HttpSession session) { String user_email =
-	 * (String) session.getAttribute("memEmail"); userService.delete(user_email);
-	 * session.invalidate(); }
-	 */
-    
+	@PostMapping(value="delete")	
+	@ResponseBody 
+	public void delete(HttpSession session) { 
+		String user_email = (String) session.getAttribute("memEmail"); 
+		userService.delete(user_email);
+		session.invalidate(); 
+	}
+	 
+    /*
 	@PostMapping(value="delete")
 	@ResponseBody
 	public void delete(@RequestParam String user_email){		
 		userService.delete(user_email);	
 	}
-    
+	*/
+	 
 	//회원탈퇴	완료
 	@GetMapping(value="userDeleteComplete")
 	public String userDeleteComplete() {
