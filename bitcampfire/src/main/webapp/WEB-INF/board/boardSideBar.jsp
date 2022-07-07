@@ -10,7 +10,7 @@
     <h1>
         <div class="logo">
             <a href="/semiproject/">
-                <img src="/assets/images/okjsp_logo.png" alt="LOGO" title="LOGO">
+                <img src="/semiproject/img/bitfire_logo.PNG" alt="LOGO" title="LOGO">
             </a>
         </div>
     </h1>

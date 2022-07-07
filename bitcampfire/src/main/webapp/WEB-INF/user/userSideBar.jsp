@@ -14,7 +14,7 @@
     </a>
     
 	<!-- 메인 로고변경  로고/페이지명 필요-->
-    <h1><div class="logo"><a href="/semiproject/"><img src="../img/bitfire_logo.png" alt="OKKY" title="OKKY" style="width: 140px; height: 45px;"></a></div></h1>
+    <h1><div class="logo"><a href="/semiproject/"><img src="/semiproject/img/bitfire_logo.PNG" alt="bitfire" title="bitfire" style="width: 140px; height: 45px;"></a></div></h1>
 
 
 	<!-- 검색창을 구글 연동 없이 게시판과 동일하게 간다면 수정 필요  -->
