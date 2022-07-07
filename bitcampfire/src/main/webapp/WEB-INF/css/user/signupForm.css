@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+/* 
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
@@ -12,7 +12,7 @@ body {
 a {text-decoration: none;
 	color: #aaa}
 
-/***********회원가입상자설정***********/
+**********회원가입상자설정**********
 .input-form {
   max-width: 500px;
 
@@ -28,7 +28,7 @@ a {text-decoration: none;
   -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.1)
-}
+} */
 
 .form-header {text-align: center;
 				border-bottom: 1px solid #ddd;
@@ -94,14 +94,13 @@ a {text-decoration: none;
 
 /***********회원가입약관***********/
 
-.signup-block button { border: none;
-						background: none;
-						color: #aaa;
-	
-}
-.signup-block button:hover {
+#signupAgreeBtn, #signPersonBtn:hover {
 							color: #bbb;
 }
+
+#signupAgreeBtn, #signPersonBtn {border: none;
+						background: none;
+						color: #aaa;}
 
 .modal-backdrop 
 
@@ -116,7 +115,7 @@ a {text-decoration: none;
 		
 }
 
-#repwd_check, #emailBtn_check, #input_num, #mail-check-input_font {color: #fff}
+
 
 #email_div {margin-bottom: 30px;}
 

@@ -1,5 +1,5 @@
 $('#num_check_blank').hide();
-
+$('#check_alert').hide();
 $(function(){
 	
 	//프로필 설정
@@ -37,10 +37,13 @@ $(function(){
 /*이메일 중복체크*/
 
 $('#user_email').focusout(function(){
+	$('#check_alert').hide();
+	
 	if( $('#user_email').val() == ''){
-		$('#user_emailDiv').html('먼저 이메일 입력');
-		$('#user_emailDiv').css('color','red');
-		$('#user_emailDiv').css('font-size','8px');
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일]: 이메일 먼저 입력해주세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
 	}else{
 		$.ajax({
 			type: 'post',
@@ -51,16 +54,18 @@ $('#user_email').focusout(function(){
 				//data = data.trim();
 				alert(data);
 				if(data=='exist'){
-					$('#user_emailDiv').html('이미 사용하고 있는 이메일입니다.');
-					$('#user_emailDiv').css('color', 'red');
-					$('#user_emailDiv').css('font-size', '8px');
+					$('#check_alert').show();
+					$('#check_alert').html('[이메일]: 이미 사용하고 있는 이메일입니다.');
+					$('#check_alert').css('color', 'red');
+					$('#check_alert').css('font-size', '8px');
 					$('#emailBtn').attr('disabled',true);
 					
 				}else if(data=='non exist'){
+					$('#check_alert').show();
 					$('input[name="user_email_check"]').val($('#user_email').val());
-					$('#user_emailDiv').html('사용 가능한 이메일입니다.');
-					$('#user_emailDiv').css('color', 'blue');
-					$('#user_emailDiv').css('font-size', '8px');
+					$('#check_alert').html('[이메일]: 사용 가능한 이메일입니다.');
+					$('#check_alert').css('color', 'blue');
+					$('#check_alert').css('font-size', '8px');
 					$('#emailBtn').attr('disabled',false);
 				}
 			},
@@ -123,14 +128,15 @@ var mailnumCheck = false;
 
 $('#emailBtn').click(function(){
 	
-	$('#user_emailDiv').empty();
+	$('#check_alert').hide();
 	
 	console.log('완성된 이메일 : ' + $('#user_email').val()); // 이메일 오는지 확인
 	
 	if($('#user_email').val() == ''){
-		$('#user_emailDiv').html('이메일을 입력하세요.');
-		$('#user_emailDiv').css('color','red');
-		$('#user_emailDiv').css('font-size','8px');
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일]: 이메일을 입력하세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
 	}else{
 	
 	$.ajax({
@@ -152,19 +158,24 @@ $('#emailBtn').click(function(){
 });
 
 $('#mail-check-input').click(function () {
+	
+	$('#check_alert').hide();
 	console.log(code);
 	var inputCode = $(this).val();
-	var $resultMsg = $('#user_emailDiv');
+	var $resultMsg = $('#check_alert');
 	
 	if($('#user_email_check_number').val() == code){
-		$resultMsg.html('인증번호가 일치합니다.');
+		$('#check_alert').show();
+		$resultMsg.html('[이메일 인증]: 인증번호가 일치합니다.');
 		$resultMsg.css('color','blue');
 		$resultMsg.css('font-size','8px');
 		$('#emailBtn').attr('disabled',true);
 		$('#user_email').attr('readonly',true);
 		mailnumCheck = true;
+		$('#num_check_blank').hide();
 	}else{
-		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요.');
+		$('#check_alert').show();
+		$resultMsg.html('[이메일 인증]: 인증번호가 불일치 합니다. 다시 확인해주세요.');
 		$resultMsg.css('color','red');
 		$resultMsg.css('font-size','8px');
 		mailnumCheck = false;
@@ -175,11 +186,7 @@ $('#mail-check-input').click(function () {
 /*버튼을 눌렀을때~*/
 
 $('#signUpBtn').click(function(){
-		$('#user_nameDiv').empty();
-		$('#user_pwdDiv').empty();
-		$('#user_emailDiv').empty();
-		$('#user_nicknameDiv').empty();
-		$('#flexCheckCheckedDiv').empty();
+		$('#check_alert').hide();
 		
 		var pw = $("#user_pwd").val();
 		 var num = pw.search(/[0-9]/g);
@@ -188,68 +195,68 @@ $('#signUpBtn').click(function(){
 		
 		
 		if($('#user_name').val() == ''){
-			$('#user_nameDiv').html('이름을 입력하세요.');
-			$('#user_nameDiv').css('color','red');
-			$('#user_nameDiv').css('font-size','8px');
+			$('#check_alert').show();
+			$('#check_alert').html('[이름] : 이름을 입력하세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
+		}
+		else if($('#user_email').val() == ''){
+			$('#check_alert').show();
+			$('#check_alert').html('[이메일] : 이메일을 입력하세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
+		}
+		else if($('#user_email').val() != $('input[name="user_email_check"]').val()){
+			$('#check_alert').show();
+			$('#check_alert').html('[이메일] : 이메일 중복체크하세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8pt');
+		}
+		else if(mailnumCheck == false){
+			$('#check_alert').show();
+			$('#check_alert').html('[이메일] : 이메일 인증을 하세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
 		}
 		else if($('#user_pwd').val() == ''){
-			$('#user_pwdDiv').html('비밀번호를 입력하세요.');
-			$('#user_pwdDiv').css('color','red');
-			$('#user_pwdDiv').css('font-size','8px');
+			$('#check_alert').show();
+			$('#check_alert').html('[비밀번호] : 비밀번호를 입력하세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
 		}
 		else if(pw.length < 8 || pw.length > 20){
-			
-			$('#user_pwdDiv').html('8자리 ~ 20자리 이내로 입력해주세요.');
-			$('#user_pwdDiv').css('color','red');
-			$('#user_pwdDiv').css('font-size','8px');
+			$('#check_alert').show();
+			$('#check_alert').html('[비밀번호] : 8자리 ~ 20자리 이내로 입력해주세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
 			
 		}
 		else if(pw.search(/\s/) != -1){
-			$('#user_pwdDiv').html('비밀번호는 공백 없이 입력해주세요.');
-			$('#user_pwdDiv').css('color','red');
-			$('#user_pwdDiv').css('font-size','8px');
+			$('#check_alert').show();
+			$('#check_alert').html('[비밀번호] : 비밀번호는 공백 없이 입력해주세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
 			
 		}
 		else if(num < 0 || eng < 0 || spe < 0 ){
+			$('#check_alert').show();
+			$('#check_alert').html('[비밀번호] : 영문,숫자,특수문자를 혼합하여 입력해주세요.');
 			$('#user_pwdDiv').html('영문,숫자, 특수문자를 혼합하여 입력해주세요.');
 			$('#user_pwdDiv').css('color','red');
 			$('#user_pwdDiv').css('font-size','8px');
 			
 		}
-		else if($('#user_repwd').val() == ''){
-			$('#user_pwdDiv').html('비밀번호를 확인하세요.');
-			$('#user_pwdDiv').css('color','red');
-			$('#user_pwdDiv').css('font-size','8px');
-		}
-		else if($('#user_pwd').val() != $('#user_repwd').val()){
-			$('#user_pwdDiv').html('비밀번호가 맞지 않습니다.');
-			$('#user_pwdDiv').css('color','red');
-			$('#user_pwdDiv').css('font-size','8px');
-		}
-		else if($('#user_email').val() == ''){
-			$('#user_emailDiv').html('이메일을 입력하세요.');
-			$('#user_emailDiv').css('color','red');
-			$('#user_emailDiv').css('font-size','8px');
-		}
-		else if($('#user_email').val() != $('input[name="user_email_check"]').val()){
-			$('#user_emailDiv').html('이메일 중복체크하세요.');
-			$('#user_emailDiv').css('color','red');
-			$('#user_emailDiv').css('font-size','8pt');
-		}
-		else if(mailnumCheck == false){
-			$('#user_emailDiv').html('이메일 인증을 하세요');
-			$('#user_emailDiv').css('color','red');
-			$('#user_emailDiv').css('font-size','8px');
-		}
 		else if($('#user_nickname').val() == ''){
-			$('#user_nicknameDiv').html('닉네임을 입력하세요.');
-			$('#user_nicknameDiv').css('color','red');
-			$('#user_nicknameDiv').css('font-size','8px');
+			$('#check_alert').show();
+			$('#check_alert').html('[닉네임] : 닉네임을 입력하세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
 		}
 		else if(!$('input[name="flexCheckChecked"]').is(':checked')){
-			$('#flexCheckCheckedDiv').html('이메일 수신에 동의해주세요.');
-			$('#flexCheckCheckedDiv').css('color','red');
-			$('#flexCheckCheckedDiv').css('font-size','8px');
+			$('#check_alert').show();
+			$('#check_alert').html('[이메일 수신] : 이메일 수신에 동의해주세요.');
+			$('#check_alert').css('color','red');
+			$('#check_alert').css('font-size','8px');
 			
 		}
 		else{
