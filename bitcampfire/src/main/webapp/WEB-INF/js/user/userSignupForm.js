@@ -52,7 +52,7 @@ $('#user_email').focusout(function(){
 			dataType: 'text', 
 			success: function(data){
 				//data = data.trim();
-				alert(data);
+				//alert(data);
 				if(data=='exist'){
 					$('#check_alert').show();
 					$('#check_alert').html('[이메일]: 이미 사용하고 있는 이메일입니다.');
@@ -159,10 +159,10 @@ $('#emailBtn').click(function(){
 
 $('#mail-check-input').click(function () {
 	
-	$('#check_alert').hide();
+	$('#check_').hide();
 	console.log(code);
 	var inputCode = $(this).val();
-	var $resultMsg = $('#check_alert');
+	var $resultMsg = $('#check_');
 	
 	if($('#user_email_check_number').val() == code){
 		$('#check_alert').show();
@@ -272,7 +272,7 @@ $('#signUpBtn').click(function(){
 				data: formData,
 				success: function(){
 					alert("회원가입을 완료하였습니다.\n로그인 하세요.");
-					location.href='/semiproject/';
+					location.href='/semiproject/user/userLoginForm';
 				},
 				error: function(err) {
 					console.log(err);

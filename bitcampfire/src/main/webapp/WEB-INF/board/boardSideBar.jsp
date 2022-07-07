@@ -6,11 +6,10 @@
     <a href="javascript://" class="sidebar-header">
          <i class="fa fa-bars sidebar-header-icon"></i>
     </a>
-
     <h1>
         <div class="logo">
             <a href="/semiproject/">
-                <img src="/assets/images/okjsp_logo.png" alt="LOGO" title="LOGO">
+                <img src="/semiproject/img/bit_small_logo.png" alt="OKKY" title="OKKY" style="width: 60px; height: 60px;">
             </a>
         </div>
     </h1>
