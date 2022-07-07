@@ -84,9 +84,9 @@ public class UserServiceImpl implements UserService {
 			UserDTO userDTO = userDAO.login(map);
 			
 			if(userDTO != null) {
-				session.setAttribute("memEmail", userDTO.getUser_email());
-				session.setAttribute("memPwd", userDTO.getUser_pwd());
-				session.setAttribute("memNickname", userDTO.getUser_nickname());
+				//session.setAttribute("memEmail", userDTO.getUser_email());
+				//session.setAttribute("memPwd", userDTO.getUser_pwd());
+				//session.setAttribute("memNickname", userDTO.getUser_nickname());
 				
 				return "ok";
 				

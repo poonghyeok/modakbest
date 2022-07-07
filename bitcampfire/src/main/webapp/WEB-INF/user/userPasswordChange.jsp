@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../css/application.css">
+	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 	<style type="text/css">
 	#user_pwdDiv, #newPwdDiv, #newPwdCheckDiv{
 		color: red;
@@ -18,6 +18,9 @@
 <body>
 <div class="layout-container">
  	<div class="main">
+ 		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/>	
+ 		 
+ 		 	<!-- 메인시작 -->
 			<div id="create-user" class="content clearfix" role="main">
 			    <h3 class="content-header">비밀번호 변경</h3>
 			    
@@ -57,6 +60,9 @@
 						    </div><!-- col-sm-8 col-sm-offset-2 -->
 				   </form>
 			</div><!-- create-user -->          
+>
+		<!-- 메인끝 -->
+<%-- 	<jsp:include page="/WEB-INF/global/footer.jsp"/>    --%> 
    </div> <!-- main -->   
 </div> <!-- layout-container -->
 

@@ -6,11 +6,7 @@
 	<meta charset="UTF-8">
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../css/user/application.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script> 	
-	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>-->
+	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 	
 	<style type="text/css">
 	#user_nameDiv, #user_nicknameDiv, #user_emailDiv{
@@ -22,101 +18,104 @@
 </head>			
 <body>
 
-
 <div class="layout-container">
  	<div class="main">
-			<div id="create-user" class="content clearfix" role="main">
-			    <h3 class="content-header">회원 정보 수정</h3>
-			    <div class="col-md-6 main-block-left">
-			        <div class="panel panel-default"> 
-			              
-			            <!-- upadate form start -->
-	 		            <form id="updateForm" class="form-signup form-user panel-body">
-									<!-- 
-								<input type="hidden" name="_csrf" value="698dfadc-ce17-48ca-92db-b30e293be47c">
-				            	<input type="hidden" name="_method" value="PUT" id="_method">
-				                 -->  			           		
-				            <div class="panel-heading">                      
-				                			            
-								<div class="avatar clearfix avatar-medium">				
-										<!-- 이동 경로가 회원번호 같은디? -->	
-										<a href="/user/info/${userDTO.user_id}" class='avatar-photo'><img id="show_user_image"/></a>
-										<div class="avatar-info">
-												<a class="user_nickname" href="/user/info/${userDTO.user_id} }" title="">${userDTO.user_nickname}</a>
-												<!-- <div class="activity block"><span class="fa fa-flash"></span> 10</div> 활동지수 삭제?-->
-										</div>
-								</div>								
-				           			<a id="edit-picture-btn">변경</a>	
-				           			<input type="file" style="display:none;" name="user_image" accept="image/gif, image/jpg, image/jpeg, image/png" id="user_image">		  						           	
-			                 			
-				            </div><!-- panel-heading -->			            
-	            
-			                <fieldset>
-			                    <div class="form-group">
-			                        <label class="control-label" for="user_name">이름</label>
-			                        <input type="text" name="user_name" class="form-control input-sm" placeholder="이름" required="" value="" id="user_name">
-			                    	<div id="user_nameDiv"></div>
-			                    </div>
-			                    <div class="form-group">
-			                        <label class="control-label" for="user_nickname">닉네임</label>
-			                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="" id="user_nickname">		                        
-		                        	<div id="user_nicknameDiv"></div>
-		                        </div>
-			                    <div class="form-group">
-			                        <label class="control-label" for="class_academy">학원명</label>
-			                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="" value="" id="class_academy">       
-		             
-		                        </div>
-			                    <div class="form-group">
-			                        <label class="control-label" for="class_class">과정명</label>
-			                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">
-
-		                        </div>
-		                        		                        			                    
-			                    <!-- email 폼 이동-->
-				               	<div class="form-group">
-				               		<div class="email-edit">
-					               		<div class="row">
-					               			<div class="col-md-8">
-						                    	<label class="control-label" for="user_email">이메일 주소</label>
-							               		<!-- <div class="field-subtitle"></div> -->
-						               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" required="" value="" id="user_email">
-					               			</div>
-					               			<div class="col-md-4">
-						               			<!-- <button class="btn btn-success" type="button" id="verify-email-retry-btn">전송</button> -->
-			                                    <label for="emailBtn" class="form-label" id="emailBtn_check"></label>    			
-												<button class="btn btn-primary" type="button" id="emailBtn">인증번호 전송</button>
-											</div>	
-				               		   </div>
-				               	 <!--</div> email-edit -->
-					               		<div class="row" id="num_check_blank">
-							            	<div class="col-md-8">
-							              		<label for="user_email_check_number"  class="form-label" id="input_num"></label>
-									        	<input type="text" class="form-control" id="user_email_check_number"placeholder="인증번호 6자리를 입력하세요" disabled="disabled" maxlength="6">
-							            	</div>
-							           		 <div class="col-md-4">
-												<label for="mail-check-input" class="form-label" id="mail-check-input_font"></label>
-										  		<button class="btn btn-success" type="button" id="mail-check-input" >인증번호 인증</button>
-							            	</div>		            	
-					               		</div>
-					        		<div id="user_emailDiv" ></div>
-				            	</div><!-- email-edit -->
-			               	</div> <!--  form-group  -->                
-			                </fieldset>
-			                <button class="btn btn-primary btn-block" id="userUpdateBtn">정보 수정</button>
-			            </form>
+ 		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/>
+ 		
+				<div id="create-user" class="content clearfix" role="main">
+				    <h3 class="content-header">회원 정보 수정</h3>
+				    <div class="col-md-6 main-block-left">
+				        <div class="panel panel-default"> 
+				              
+				            <!-- upadate form start -->
+		 		            <form id="updateForm" class="form-signup form-user panel-body">
+										<!-- 
+									<input type="hidden" name="_csrf" value="698dfadc-ce17-48ca-92db-b30e293be47c">
+					            	<input type="hidden" name="_method" value="PUT" id="_method">
+					                 -->  			           		
+					            <div class="panel-heading">                      
+					                			            
+									<div class="avatar clearfix avatar-medium">				
+											<!-- 이동 경로가 회원번호 같은디? -->	
+											<a href="/user/info/${userDTO.user_id}" class='avatar-photo'><img id="show_user_image"/></a>
+											<div class="avatar-info">
+													<a class="user_nickname" href="/user/info/${userDTO.user_id} }" title="">${userDTO.user_nickname}</a>
+													<!-- <div class="activity block"><span class="fa fa-flash"></span> 10</div> 활동지수 삭제?-->
+											</div>
+									</div>								
+					           			<a id="edit-picture-btn">변경</a>	
+					           			<input type="file" style="display:none;" name="user_image" accept="image/gif, image/jpg, image/jpeg, image/png" id="user_image">		  						           	
+				                 			
+					            </div><!-- panel-heading -->			            
+		            
+				                <fieldset>
+				                    <div class="form-group">
+				                        <label class="control-label" for="user_name">이름</label>
+				                        <input type="text" name="user_name" class="form-control input-sm" placeholder="이름" required="" value="" id="user_name">
+				                    	<div id="user_nameDiv"></div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="control-label" for="user_nickname">닉네임</label>
+				                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="" id="user_nickname">		                        
+			                        	<div id="user_nicknameDiv"></div>
+			                        </div>
+				                    <div class="form-group">
+				                        <label class="control-label" for="class_academy">학원명</label>
+				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="" value="" id="class_academy">       
+			             
+			                        </div>
+				                    <div class="form-group">
+				                        <label class="control-label" for="class_class">과정명</label>
+				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">
+	
+			                        </div>
+			                        		                        			                    
+				                    <!-- email 폼 이동-->
+					               	<div class="form-group">
+					               		<div class="email-edit">
+						               		<div class="row">
+						               			<div class="col-md-8">
+							                    	<label class="control-label" for="user_email">이메일 주소</label>
+								               		<!-- <div class="field-subtitle"></div> -->
+							               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" required="" value="" id="user_email">
+						               			</div>
+						               			<div class="col-md-4">
+							               			<!-- <button class="btn btn-success" type="button" id="verify-email-retry-btn">전송</button> -->
+				                                    <label for="emailBtn" class="form-label" id="emailBtn_check"></label>    			
+													<button class="btn btn-primary" type="button" id="emailBtn">인증번호 전송</button>
+												</div>	
+					               		   </div>
+					               	 <!--</div> email-edit -->
+						               		<div class="row" id="num_check_blank">
+								            	<div class="col-md-8">
+								              		<label for="user_email_check_number"  class="form-label" id="input_num"></label>
+										        	<input type="text" class="form-control" id="user_email_check_number"placeholder="인증번호 6자리를 입력하세요" disabled="disabled" maxlength="6">
+								            	</div>
+								           		 <div class="col-md-4">
+													<label for="mail-check-input" class="form-label" id="mail-check-input_font"></label>
+											  		<button class="btn btn-success" type="button" id="mail-check-input" >인증번호 인증</button>
+								            	</div>		            	
+						               		</div>
+						        		<div id="user_emailDiv" ></div>
+					            	</div><!-- email-edit -->
+				               	</div> <!--  form-group  -->                
+				                </fieldset>
+				                <button class="btn btn-primary btn-block" id="userUpdateBtn">정보 수정</button>
+				            </form>
+			
+				        </div><!-- panel panel-default -->
+			       
+				       <div class="panel panel-default">
+				            <!-- <div class="panel-heading"> -->
+				                <a href="/semiproject/user/userPasswordChange" class="btn btn-info btn-block">비밀번호 변경</a>
+				                <a href="/semiproject/user/userDeleteConfirm" class="btn btn-default btn-block">회원 탈퇴</a>
+				           <!--  </div> -->
+				        </div>
+				    </div><!-- col-md-6 main-block-left --> 	   
+				</div>	<!-- content-header -->
+			</div> <!-- create-user --> 
 		
-			        </div><!-- panel panel-default -->
-		       
-			       <div class="panel panel-default">
-			            <!-- <div class="panel-heading"> -->
-			                <a href="/semiproject/user/userPasswordChange" class="btn btn-info btn-block">비밀번호 변경</a>
-			                <a href="/semiproject/user/userDeleteConfirm" class="btn btn-default btn-block">회원 탈퇴</a>
-			           <!--  </div> -->
-			        </div>
-			    </div><!-- col-md-6 main-block-left --> 	   
-			</div>	<!-- content-header -->
-		</div> <!-- create-user -->         
+		<%-- <jsp:include page="/WEB-INF/global/footer.jsp"/>   --%>  
    </div> <!-- main -->   
 </div> <!-- layout-container -->
 

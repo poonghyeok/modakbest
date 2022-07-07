@@ -32,6 +32,11 @@ public class UserLoginController {
 	public String userLoginForm() {				
 		return "/user/userLoginForm";		
 	}
+	
+	@GetMapping(value="userLoginFail")
+	public String userLoginFail() {				
+		return "/user/userLoginFail";		
+	}
 
 	/* 로그인 기능구현 */ 
 //	@RequestMapping(value="login", method = RequestMethod.GET)
