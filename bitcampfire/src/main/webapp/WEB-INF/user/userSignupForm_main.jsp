@@ -56,9 +56,9 @@
 		                    
 							<label for="user_img" class="form-label"></label>
 							<div class="user_profile">
-								<div class='avatar-photo' id="avatar-photo"><img id="basic_profile_img" class="basic_profile_img" alt="basic_profile.jpg" src=""></div>
+								<div class='avatar-photo' id="avatar-photo"><img id="basic_profile_img" class="basic_profile_img" alt="사진을 등록해주세요" src=""></div>
 						  		<div class="camera_icon_div" id="camera_icon_div">
-							  		<img src="../image/camera-fill.svg" id="camera_icon">
+							  		<img src="/semiproject/img/camera-fill.svg" id="camera_icon">
 						  		</div>
 						  		<input type="file" name ="user_image" id="user_image" hidden>
 							</div>
@@ -708,7 +708,7 @@
    </div> <!-- main -->   
 </div> <!-- layout-container --> 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type = "text/javascript" src="../js/userSignupForm.js"></script>
+<script type = "text/javascript" src="/semiproject/js/user/userSignupForm.js"></script>
 
 </body>
 </html>
