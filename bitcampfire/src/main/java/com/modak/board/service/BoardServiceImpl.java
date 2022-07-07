@@ -18,11 +18,11 @@ import com.modak.board.dao.BoardDAO;
 public class BoardServiceImpl implements BoardService {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	@Autowired
-	private BoardDAO boardDao;
+	private BoardDAO boardDAO;
 	
 	// 글번호로 (글번호, DTO) 가져오기
-	public BoardDTO getBoardContent(int board_id);
-
+	//public BoardDTO getBoardContent(int board_id);
+		//풍혁(0706 2143) : interface에 넣어야할 것을 여기다가 넣으신거 같아요. 착각하신게 맞다면 지우고 commit 부탁드립니다. 
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	//풍혁 : 시작 ===========================================
@@ -40,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
 			map.put("startNum", startNum);
 			map.put("endNum", endNum);
 			
-			List<BoardDTO> list = boardDao.getBoardRangeOrderByTime(map); 
+			List<BoardDTO> list = boardDAO.getBoardRangeOrderByTime(map); 
 			System.out.println("\n @ boardTalbeList size : " + list.size());
 			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");
@@ -51,6 +51,12 @@ public class BoardServiceImpl implements BoardService {
 			return sb.toString(); 
 		}
 		
+		@Override
+		public void boardWrite(BoardDTO boardDTO) {
+			boardDAO.boardWrite(boardDTO);
+		}
+
+		
 //풍혁 (220703) : getUserWriteTablelist() method에서 table에 tr을 추가하는 코드가 너무 길어질 것으로 판단해, tr을 만들어주는 method를 생성했습니다. 
 		private String boardDtoToTrTag(BoardDTO boardDTO) {
 			StringBuffer tr = new StringBuffer();
@@ -60,7 +66,7 @@ public class BoardServiceImpl implements BoardService {
 			Date date = boardDTO.getBoard_date_created();        
 			String dateToStr = dateFormat.format(date);
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 마무리
-			
+			 
 			//풍혁(220705) : comment의 개수에 따라 li의 클래스가 달라지는 것을 구분하기 위해서..
 			int noteNum = boardDTO.getBoard_cmt_cnt();
 			String hasNoteClass = null;
@@ -160,7 +166,7 @@ public class BoardServiceImpl implements BoardService {
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
-			boardPaging.setTotalA(boardDao.getTotalBoardNum());
+			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
 			boardPaging.makePagingHTML();
 			
 			return boardPaging.getPagingHTML().toString();
@@ -180,7 +186,7 @@ public class BoardServiceImpl implements BoardService {
 //				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
 //			}
 		
-		BoardDTO boardDTO = boardDao.getBoardContent(board_id); //글번호를 통해서 getBoard
+		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호를 통해서 getBoard
 		
 		//String user_id = (String)session.getAttribute("user_id"); // 세션에 저장된 user_id를 가져온다.
 		

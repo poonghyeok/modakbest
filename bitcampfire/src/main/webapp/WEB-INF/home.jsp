@@ -81,6 +81,7 @@
 	
 		<!-- 검색 창 하단 로그인/회원가입 이동 선을 못찾음  -->
 	    <div class="nav-user nav-sidebar">
+
 			<c:if test="${sessionScope.user_email == null }">
 	            <ul class="nav nav-sidebar">
 	                <li><a href="/semiproject/user/userLoginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
@@ -112,6 +113,14 @@
             	</div>
             	<form action="/semiproject/user/logOut" method="post" style="display:none;"><input type="submit" name="logoutButton" value="logoutButton" id="logoutButton"></form>
  			</c:if>
+
+		       <ul class="nav nav-sidebar">
+		       	<!-- 로그인 -->
+		           <li ><a href="/login/auth?redirectUrl=%2F" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
+		           <!-- 회원가입  -->
+		           <li ><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
+		       </ul>
+
 	    </div> <!-- nav-user nav-sidebar -->
 	 
 	
@@ -417,7 +426,6 @@
 <script src="./js/user/application.js" type="text/javascript"></script>
 <script src="./js/user/apps/search.js" type="text/javascript"></script>
 <script src="./js/user/apps/notification.js" type="text/javascript"></script>
-<script src="./js/user/libs/typeahead.bundle.js"></script>
 
 <script>
        $(function () {

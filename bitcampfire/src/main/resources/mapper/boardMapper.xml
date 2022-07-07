@@ -28,6 +28,13 @@
 	 				SELECT * FROM board_qna ORDER BY BOARD_DATE_CREATED DESC)TT
 			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
 	   	</select>
+	   	
+	   	<insert id="boardWrite" parameterType="boardDTO">
+	      INSERT INTO board_qna
+	            (board_id, board_uid, board_cateid, board_title, board_content, bqna_date_created)
+	        VALUES
+	            (BOARD_QNA_SEQ.nextval,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
+    	</insert>
 	<!-- ======================== 풍혁 : 끝 ============================= -->
 
 	

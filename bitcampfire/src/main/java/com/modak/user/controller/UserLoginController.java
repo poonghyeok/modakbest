@@ -28,15 +28,20 @@ public class UserLoginController {
 	@Autowired
 	HttpSession session;
 	
-	@GetMapping(value="userLoginForm")
-	public String userLoginForm() {				
-		return "/user/userLoginForm";		
-	}
-	
+
 	@GetMapping(value="userLoginFail")
 	public String userLoginFail() {				
 		return "/user/userLoginFail";		
 	}
+
+///////////////////////유진0707 건들임////////////////////////////	
+	@GetMapping(value = "userLoginForm")
+	public String userLoginForm() {
+		return "/user/userLoginForm";
+	}
+///////////////////////유진0707 건들임////////////////////////////
+	
+
 
 	/* 로그인 기능구현 */ 
 //	@RequestMapping(value="login", method = RequestMethod.GET)

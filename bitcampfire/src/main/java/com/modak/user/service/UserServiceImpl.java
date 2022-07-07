@@ -59,22 +59,27 @@ public class UserServiceImpl implements UserService {
 	//연수 : 끝(220706) ====================================
 
 	
-		//유진 : 시작 ====================================
-				@Override
-				public void user_register(UserAllDTO userAllDTO) {
-					userDAO.user_register(userAllDTO);
-				}
+	//유진 : 시작 ====================================
+		@Override
+		public void user_register(UserAllDTO userAllDTO) {
+			userDAO.user_register(userAllDTO);
+		}
 
-				@Override
-				public String userSignup_emailCheck(String user_email) {
-					UserAllDTO userAllDTO = userDAO.userSignup_emailCheck(user_email);
-					if(userAllDTO == null) {
-						return "non exist";
-					}else {
-						return "exist";
-					}
-				}
-			//유진 : 끝 ====================================
+		@Override
+		public String userSignup_emailCheck(String user_email) {
+			UserAllDTO userAllDTO = userDAO.userSignup_emailCheck(user_email);
+			if(userAllDTO == null) {
+				return "non exist";
+			}else {
+				return "exist";
+			}
+		}
+		
+		@Override
+		public UserDTO getUserInformation(String user_email) {
+			return userDAO.getUserInformation(user_email);
+		}
+		//유진 : 끝 ====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
@@ -106,13 +111,16 @@ public class UserServiceImpl implements UserService {
 				session.setAttribute("userNickname", userDto.getUser_nickname());
 				
 				System.out.println(userDto);
-				return "index";	
+				return "/semiproject/";	
 				
 			}else {
 				
 				return "/user/userLoginFail";
 			}
 		}
+
+
+		
 		
 		
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@

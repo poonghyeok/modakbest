@@ -35,6 +35,7 @@
 		                    </label>
 		                </div>
 		
+
 		
 		                <!--button class="btn btn-primary btn-block" type="submit"><g:message code="springSecurity.login.button"/></button-->
 		
@@ -68,6 +69,7 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>    
+
 <script type="text/javascript">
 $('#btnUserLogin').click(function(){
 	$.ajax({ 

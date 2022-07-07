@@ -1,0 +1,72 @@
+@charset "EUC-KR";
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+ }
+  
+ html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #1f2d3d;
+ }
+ 
+h3{
+	margin-bottom:15px;
+}
+  
+.user-profile {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .user-profile > a {
+    margin-right: 12px;
+    line-height: 1;
+  }
+  
+  .user-profile > a img {
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+  }
+  
+  .user-profile div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .user-profile h1 {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #212529;
+  }
+  
+  .user-profile a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .user-profile a:hover {
+    opacity: 0.5;
+  }
+  
+  .user-profile span {
+    color: #80868e;
+    font-size: 12px;
+    line-height: 16px;
+  }
+  
+  .profile-info{
+  	margin-bottom:8px;
+  }
+  
+  
