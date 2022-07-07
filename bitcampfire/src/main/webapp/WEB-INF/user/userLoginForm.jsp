@@ -241,8 +241,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             var encodedURL = "%2Flogin%2Fauth";
         </script>
         
-        <script src="/assets/js/application.js" type="text/javascript"></script>
-        <script src="/assets/js/apps/search.js" type="text/javascript"></script>
+        <script src="../js/user/application.js" type="text/javascript"></script>
+        <script src="../js/user/apps/search.js" type="text/javascript"></script>
     <input type="hidden" name="redirectUrl" value="%2F">
 <script src="/assets/js/libs/jquery.progressTimer.js" type="text/javascript"></script>
 

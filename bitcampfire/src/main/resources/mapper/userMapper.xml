@@ -75,6 +75,10 @@
   	<select id="userSignup_emailCheck" parameterType="String" resultType="UserAllDTO">
   		select * from user2 where user_email=#{user_email}
   	</select>
+  	
+  	<select id="getUserInformation" parameterType="String" resultType="UserDTO">
+  		select * from user2 where user_email=#{user_email}
+  	</select>
 	<!-- ####################### 유진 : 끝  0706###################### -->
 
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->

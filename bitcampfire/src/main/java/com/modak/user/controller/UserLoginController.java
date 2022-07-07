@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,14 @@ public class UserLoginController {
 	UserService userService;
 	@Autowired
 	HttpSession session;
+	
+///////////////////////유진0707 건들임////////////////////////////	
+	@GetMapping(value = "userLoginForm")
+	public String userLoginForm() {
+		return "/user/userLoginForm";
+	}
+///////////////////////유진0707 건들임////////////////////////////
+	
 
 	/* 로그인 기능구현 */ 
 	@RequestMapping(value="login", method = RequestMethod.GET)
