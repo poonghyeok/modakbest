@@ -87,10 +87,6 @@
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->
 	
 		<!-- 로그인 -->
-	<select id="login" parameterType="java.util.Map" resultType="UserDTO">
-		select * from user2 where user_email=#{user_email} and user_pwd=#{user_pwd}
-	</select>
-	
 	<select id="checkIdPw" parameterType="java.util.Map" resultType="UserDTO">
 		select * from user2 where user_email=#{username} and user_pwd=#{password}
 	</select>

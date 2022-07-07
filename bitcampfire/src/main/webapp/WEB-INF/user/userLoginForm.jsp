@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,7 @@
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">	
+
 </head>
 
 <body>
@@ -34,9 +36,7 @@
 		                        <input type="checkbox" name="remember_me" id="remember_me"> 로그인 유지
 		                    </label>
 		                </div>
-		
-
-		
+	
 		                <!--button class="btn btn-primary btn-block" type="submit"><g:message code="springSecurity.login.button"/></button-->
 		
 		                <div id="divUserLogin">
@@ -69,7 +69,6 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>    
-
 <script type="text/javascript">
 $('#btnUserLogin').click(function(){
 	$.ajax({ 

@@ -80,6 +80,7 @@
 	    </form>
 	
 		<!-- 검색 창 하단 로그인/회원가입 이동 선을 못찾음  -->
+
 	    <div class="nav-user nav-sidebar">
 
 			<c:if test="${sessionScope.user_email == null }">
@@ -124,6 +125,7 @@
 	    </div> <!-- nav-user nav-sidebar -->
 	 
 	
+
 	    <ul class="nav nav-sidebar nav-main">
 	    		<!-- link 누르면 호버기능?  -->
 	    		<li  ><a href="/articles/questions" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
