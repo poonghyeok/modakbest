@@ -25,16 +25,20 @@ public interface UserDAO {
 		public void delete(String user_email);
 	//연수 : 끝시작(220706) ====================================
 	
-		//유진 : 시작 0706 ====================================
-				public void user_register(UserAllDTO userAllDTO);
+	//유진 : 시작 0706 ====================================
+		public void user_register(UserAllDTO userAllDTO);
 
-				public UserAllDTO userSignup_emailCheck(String user_email);
-			//유진 : 끝 0706====================================
+		public UserAllDTO userSignup_emailCheck(String user_email);
+		
+		public UserDTO getUserInformation(String user_email);
+	//유진 : 끝 0706====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
 	
 		public UserDTO checkIdPw(Map<String, String> map);
+
+		
 		
 		
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@

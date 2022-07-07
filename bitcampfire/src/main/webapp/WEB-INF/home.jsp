@@ -25,7 +25,7 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<meta property="og:image" content="https://okky.kr/assets/images/okky_logo_fb.png">
 	
-	<link rel="stylesheet" href="./css/application.css">
+	<link rel="stylesheet" href="./css/user/application.css">
 	
 	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
 	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
@@ -84,7 +84,7 @@
 		       	<!-- 로그인 -->
 		           <li ><a href="/login/auth?redirectUrl=%2F" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
 		           <!-- 회원가입  -->
-		           <li ><a href="/user/register" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
+		           <li ><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
 		       </ul>
 	    </div> <!-- nav-user nav-sidebar -->
 	
@@ -387,9 +387,9 @@
 </script>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="./js/application.js" type="text/javascript"></script>
-<script src="./js/apps/search.js" type="text/javascript"></script>
-<script src="./js/apps/notification.js" type="text/javascript"></script>
+<script src="./js/user/application.js" type="text/javascript"></script>
+<script src="./js/user/apps/search.js" type="text/javascript"></script>
+<script src="./js/user/apps/notification.js" type="text/javascript"></script>
 <script src="./js/libs/typeahead.bundle.js"></script>
 
 <script>

@@ -27,15 +27,19 @@ public interface UserService {
 	//연수 : 끝(220706) ====================================
 
 	
-  //유진 : 시작 0706====================================
-  	public void user_register(UserAllDTO userAllDTO);
+    //유진 : 시작 0706====================================
+    	public void user_register(UserAllDTO userAllDTO);
 
-  	public String userSignup_emailCheck(String user_email);
+    	public String userSignup_emailCheck(String user_email);
+    	
+    	public UserDTO getUserInformation(String user_email);
   	//유진 : 끝 0706====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
 		public String checkIdPw(Map<String, String> map);
+
+		
 	
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 }
