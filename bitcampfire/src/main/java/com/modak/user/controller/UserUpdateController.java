@@ -41,8 +41,7 @@ public class UserUpdateController {
 	@PostMapping(value="getUser")
 	@ResponseBody
 	public UserAllDTO getUser(HttpSession session) {
-		String user_email = (String) session.getAttribute("memEmail");
-		System.out.println(user_email);
+		String user_email = (String) session.getAttribute("memEmail");		
 		return userService.getUser(user_email);
 	}	
 	
@@ -84,7 +83,6 @@ public class UserUpdateController {
 	@ResponseBody 
 	public UserDTO checkPwd(HttpSession session){ 
 		String user_email =(String) session.getAttribute("memEmail");
-		System.out.println(user_email);
 		return userService.checkPwd(user_email); 
 
 	}

@@ -7,13 +7,13 @@
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
-	<style type="text/css">
+<!-- 	<style type="text/css">
 	#user_pwdDiv, #newPwdDiv, #newPwdCheckDiv{
 		color: red;
 		font-size: 8pt;
 		font-weight: bold;
 		}
-	</style>
+	</style> -->
 </head>
 <body>
 <div class="layout-container">
@@ -33,16 +33,14 @@
 						            <div class="panel-body panel-body-content text-center">
 						            
 						                <p class="lead">변경하실 비밀번호를 입력해 주세요.</p>
-						               
+							               	<div class="alert alert-danger" id="check_alert">		                
+		              						</div>
 						                <div class="form-group">
-						                    <input type="password" name="user_pwd" id="user_pwd" class="form-control form-control-inline text-center" placeholder="현재 비밀번호" />
-						                	 <!-- 현재 비밀번호 일치여부 확인 -->
-						                	<div id="user_pwdDiv"></div>
+						                    <input type="password" name="user_pwd" id="user_pwd" class="form-control form-control-inline text-center" placeholder="현재 비밀번호" />						                	 
 						                </div>
 						                
 						                <div class="form-group">
 						                    <input type="password" name="newPwd" id="newPwd" class="form-control form-control-inline text-center" placeholder="새 비밀번호" />
-						               		<div id="newPwdDiv"></div>
 						                </div>
 						                
 						                <div class="form-group">
@@ -60,30 +58,39 @@
 			</div><!-- create-user -->          
 >
 		<!-- 메인끝 -->
-<%-- 	<jsp:include page="/WEB-INF/global/footer.jsp"/>    --%> 
+	  <jsp:include page="/WEB-INF/global/footer.jsp"/>   
    </div> <!-- main -->   
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-
-<!-- 비밀번호 변경 -->
 //비밀번호 유효성검사
+$('#check_alert').hide();
+var pwdCheck = false;
+
 $('#user_pwd').focusout(function(){
  	if($('#user_pwd').val()!=null){
 		$.ajax({ 
 			url: '/semiproject/user/checkPwd',
 			type: 'post',
-			data: 'user_email='+$('#user_email').val(),
-			//data: 'user_email='+'manbal3@aaa',
 			dataType: 'json',
 			
 			success: function(data){
-				alert(JSON.stringify(data));
-							
+				//alert(JSON.stringify(data));
+				
+				//data.user_pwd? 뭐가 틀린지
 				if(data.user_pwd != $('#user_pwd').val()) {
-					$('#user_pwdDiv').html('비밀번호 불일치');		
-				}else $('#user_pwdDiv').html('');					
+					$('#check_alert').show();
+					$('#check_alert').html('현재 비밀번호 불일치');
+					$('#check_alert').css('color','red');
+					$('#check_alert').css('font-size','8px');
+					pwdCheck = false;
+				}else 
+					$('#check_alert').show();
+					$('#check_alert').html('현재 비밀번호 일치');
+					$('#check_alert').css('color', 'blue');
+					$('#check_alert').css('font-size', '8px');
+					pwdCheck = true;
 			},
 			error: function(err){
 				console.log(err);
@@ -93,10 +100,7 @@ $('#user_pwd').focusout(function(){
 });
 
 $('#userPwdChangeBtn').click(function(){
-	$('#user_pwdDiv').empty();
-	$('#newPwdDiv').empty();
-	$('#newPwdCheckDiv').empty();
-	
+
     var pw = $("#newPwd").val();
     var num = pw.search(/[0-9]/g);
     var eng = pw.search(/[a-z]/ig);
@@ -104,10 +108,17 @@ $('#userPwdChangeBtn').click(function(){
 
 	
 	if($('#user_pwd').val()=='') {
-		$('#user_pwdDiv').html('현재 비밀번호 입력');	
+		$('#check_alert').show();
+		$('#check_alert').html('현재 비밀번호를 입력해주세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');	
 	
 	}else if($('#newPwd').val()=='') {
-		$('#newPwdDiv').html('새로운 비밀번호 입력');
+		$('#check_alert').show();
+		$('#check_alert').html('새로운 비밀번호를 입력해주세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+		
 	//새로운 비밀번호 입력 오류	
     }else if(pw.length < 8 || pw.length > 20){        
         $('#newPwdDiv').html('비밀번호는 8자리 ~ 20자리 이내로 입력해주세요.');
@@ -117,13 +128,23 @@ $('#userPwdChangeBtn').click(function(){
         $('#newPwdDiv').html('비밀번호는 영문,숫자, 특수문자를 혼합하여 입력해주세요.');
          
 	}else if($('#newPwdCheck').val()==''){
-		$('#newPwdCheckDiv').html('새로운 비밀번호 재입력');
+		$('#check_alert').show();
+		$('#check_alert').html('새로운 비밀번호를 재입력해주세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
 		
  	}else if($('#newPwd').val()!=$('#newPwdCheck').val()){		
-		$('#newPwdCheckDiv').html('비밀번호가 맞지 않습니다.'); 
+		$('#check_alert').show();
+		$('#check_alert').html('입력하신 비밀번호가 새로운 비밀번호와 일치하지 않습니다.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
  	
-  	}else if($('#user_pwdDiv').val()=='비밀번호 불일치'){
- 		alert('현재 비밀번호가 불일치합니다.'); 
+  	}else if(pwdCheck == false){
+		$('#check_alert').show();
+		$('#check_alert').html('입력하신 비밀번호가 현재 비밀번호와 일치하지 않습니다.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+ 	
     }else {
     	 //$('#userPwdChangeForm').submit();	
 		 $.ajax({

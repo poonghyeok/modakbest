@@ -36,22 +36,24 @@
 	<!-- 검색 창 하단 로그인/회원가입 이동 선을 못찾음  -->
     <div class="nav-user nav-sidebar">
     		<!-- 로그인 상태 -->
-    	    <c:if test="${sessionScope.user_email == null }">
+    	    <c:if test="${sessionScope.memEmail == null }">
             <ul class="nav nav-sidebar">
                 <li ><a href="/semiproject/user/userLoginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
                 <li ><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
             </ul>
             </c:if>
             <!-- 로그아웃 상태 -->
-         	<c:if test="${sessionScope.user_email != null }">   
+         	<c:if test="${sessionScope.memEmail != null }">   
             <ul class="nav nav-sidebar">
 	      		<div class="avatar clearfix avatar-medium">				
 						<!-- 이동 경로가 회원번호 같은디? -->
-						<!-- img src 불러오기 다시 -->	
-						<a href="/semiproject/user/userMyPageForm" class='avatar-photo'><img src="/semiproject/img/2.png" id="MyPg_user_image"/></a>
+						<!-- img src 불러오기 다시 -->
+						
+						<a href="/semiproject/user/userMyPageForm" class='avatar-photo' style="margin-left: 25px;"><img src="/semiproject/img/2.png" id="MyPg_user_image"/></a>
 						<div class="avatar-info">
-								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.user_nickname}</a>
-						</div>			
+								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.memNickname}</a>
+						</div>
+								
 				</div>
 			</ul>
 			<ul class="nav nav-sidebar">

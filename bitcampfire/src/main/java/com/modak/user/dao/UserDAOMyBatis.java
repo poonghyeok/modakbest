@@ -26,7 +26,6 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUser", user_email);
 		}
 
-
 		@Override
 		public void update(UserAllDTO userAllDTO) {
 			sqlSession.update("userSQL.update", userAllDTO);		
