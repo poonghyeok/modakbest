@@ -16,7 +16,7 @@ public interface UserDAO {
 	//연수 : 시작(220706) ====================================
 		public UserAllDTO getUser(String user_email);
 
-		public void update(UserDTO userDTO);
+		public void update(UserAllDTO userAllDTO);
 
 		public UserDTO checkPwd(String user_email);
 
@@ -36,11 +36,7 @@ public interface UserDAO {
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
 	
-		public UserDTO login(Map<String, String> map);
-		public UserDTO checkIdPw(Map<String, String> map);
-
-		
-		
+		public UserDTO checkIdPw(Map<String, String> map);		
 		
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
