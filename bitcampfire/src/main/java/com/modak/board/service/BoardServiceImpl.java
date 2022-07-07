@@ -54,9 +54,36 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		@Override
+		public String getUserWriteTablelist(int pg, String keyword) {
+			StringBuffer sb = new StringBuffer();
+		
+			int boardPerPage = 10;
+			int startNum = 1 + boardPerPage*(pg-1);
+			int endNum = boardPerPage + boardPerPage*(pg-1);
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("startNum", Integer.toString(startNum));
+			map.put("endNum", Integer.toString(endNum));
+			
+			List<BoardDTO> list = boardDAO.getBoardSearchRangeOrderByTime(map); 
+			System.out.println("\n @ boardTalbeList size : " + list.size());
+			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
+			sb.append("<ul class=\"list-group \">");
+			for(BoardDTO dto : list) {
+				sb.append(boardDtoToTrTag(dto));
+			}
+			sb.append("</ul>");
+		
+			
+			return sb.toString(); 
+		}
+		
+		@Override
 		public void boardWrite(BoardDTO boardDTO) {
 			boardDAO.boardWrite(boardDTO);
 		}
+		
+		
 
 		
 //풍혁 (220703) : getUserWriteTablelist() method에서 table에 tr을 추가하는 코드가 너무 길어질 것으로 판단해, tr을 만들어주는 method를 생성했습니다. 
@@ -84,11 +111,12 @@ public class BoardServiceImpl implements BoardService {
 					tr.append("<div class='list-tag clearfix'>");
 					
 						tr.append("<span class='list-group-item-text article-id'>"+ boardDTO.getBoard_id()+"</span>");
-						tr.append("<a href='/articles/tech-qna' class='list-group-item-text item-tag label label-info'><i class='fa fa-database'></i> 자유토론</a>"); 
+						tr.append("<a href='/semiproject/board/list?pg=1' class='list-group-item-text item-tag label label-info'><i class='fa fa-database'></i> 자유토론</a>"); 
 					tr.append("</div>");
 				
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
-						tr.append("<a href='/article/1264101'>");
+						//풍혁 (220707) : pg는 그냥 1로만 넣어놓았으니 나중에 pg 넘길방법 생각해야됨 input hidden만들어서 넘기자 
+ 						tr.append("<a href='/semiproject/board/getBoardView?board_id="+boardDTO.getBoard_id()+"&pg=1'>");
 							tr.append(boardDTO.getBoard_title());
 						tr.append("</a>");
 					tr.append("</h5>");
@@ -124,9 +152,10 @@ public class BoardServiceImpl implements BoardService {
 				
 				tr.append("<div class=\"list-group-item-author clearfix\">");
 					tr.append("<div class='avatar clearfix avatar-list '>");
-						tr.append("<a href='/user/info/145452' class='avatar-photo'><img src='//www.gravatar.com/avatar/e7d844c379aaafb37172977b206d129d?d=identicon&amp;s=30\'></a>");
+						//풍혁(220707) : user click 했을 경우 user의 최근활동을 볼 수 있는 페이지로 이동 : 옵션으로
+						tr.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar/e7d844c379aaafb37172977b206d129d?d=identicon&amp;s=30\'></a>");
 						tr.append("<div class='avatar-info'>");
-							tr.append("<a class='nickname' href='/user/info/145452' title='"+ boardDTO.getBoard_uid()+"'>"+ "유저이름" +"</a>");
+							tr.append("<a class='nickname' href='#' title='"+ boardDTO.getBoard_uid()+"'>"+ "유저이름" +"</a>");
 							tr.append("<div class='activity'>");
 								tr.append("<span class='fa fa-flash'></span>" + "lev");
 							tr.append("</div>");
@@ -189,7 +218,7 @@ public class BoardServiceImpl implements BoardService {
 //			}
 		
 		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호를 통해서 getBoard
-		
+		System.out.println("ServiceImpl 에서 date 값 TEST =  " + boardDTO.getBoard_date_created());
 		//String user_id = (String)session.getAttribute("user_id"); // 세션에 저장된 user_id를 가져온다.
 		
 //			Map<String, Object> map = new HashMap<String, Object>();

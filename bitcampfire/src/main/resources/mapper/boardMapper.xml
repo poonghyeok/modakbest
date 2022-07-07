@@ -9,32 +9,39 @@
     </select>
 	
 <!-- ~~~~~~~~~~~~~~~~~~~~~~ 공통 : 끝  ~~~~~~~~~~~~~~~~~~~~~~ -->
-	
-   
+	<!-- **중요** 풍혁 : list 와 view의 통일을 위해 일단 table board_review로 통일 -->
+   	<!-- **중요** ; 주의, # $ 구분주의 -->
    <!-- ======================== 풍혁 : 시작  ============================= -->
 		<!-- 풍혁(220703) : list 전체를 불러오는 sql 입니다. -->
-	   	<select id="getBoardUserWriteList" resultType="BoardDto">
-	   		SELECT * FROM board_qna
+	   	<select id="getBoardUserWriteList" resultType="BoardDTO">
+	   		SELECT * FROM board_review
 	   	</select>
 	   	
 	   	<select id="getTotalBoardNum" resultType="java.lang.Integer">
-	   		SELECT count(*) FROM board_qna
+	   		SELECT count(*) FROM board_review
 	   	</select>
 	   	
 	   	<!-- 풍혁(220703) :  -->
-	   	<select id="getBoardRangeOrderByTime" parameterType="java.util.Map" resultType="BoardDto">
+	   	<select id="getBoardRangeOrderByTime" parameterType="java.util.Map" resultType="BoardDTO">
 	   		SELECT * FROM (
 	   			SELECT ROWNUM AS RN, TT.* FROM (
-	 				SELECT * FROM board_qna ORDER BY BOARD_DATE_CREATED DESC)TT
+	 				SELECT * FROM board_review ORDER BY BOARD_DATE_CREATED DESC)TT
 			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
 	   	</select>
 	   	
-	   	<insert id="boardWrite" parameterType="boardDTO">
-	      INSERT INTO board_qna
-	            (board_id, board_uid, board_cateid, board_title, board_content, bqna_date_created)
+	   	<insert id="boardWrite" parameterType="BoardDTO">
+	      INSERT INTO board_review
+	            (board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
 	        VALUES
 	            (BOARD_QNA_SEQ.nextval,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
     	</insert>
+    	
+    	<!-- 풍혁(220707) : 일단 title이나 내용으로 검색하는 SQL입니다. -->
+    	<select id="boardSearchByTitleOrContent" parameterType="java.lang.String" resultType="BoardDTO">
+    		SELECT * FROM BOARD_REVIEW 
+    			WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'
+    				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+    	</select>
 	<!-- ======================== 풍혁 : 끝 ============================= -->
 
 	

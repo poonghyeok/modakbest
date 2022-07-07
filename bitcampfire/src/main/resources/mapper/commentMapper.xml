@@ -17,6 +17,6 @@
 	</insert>
 	
 	<select id = "getCommentDTO" parameterType="int" resultType="CommentDTO"> 
-		SELECT * FROM BOARD_REVIEW WHERE CMT_BID = #{CMT_BID}
+		SELECT * FROM COMMENT WHERE CMT_BID = #{CMT_BID}
 	</select>
 </mapper>

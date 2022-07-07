@@ -15,21 +15,22 @@ import com.modak.comment.bean.CommentDTO;
 import com.modak.comment.service.CommentService;
 
 @Controller
-@RequestMapping(value = "/commentView")
+@RequestMapping(value = "/comment")
 public class CommentController {
 	
 	@Autowired
 	private CommentService commentService;
 	
-	// 댓글쓰기
-	@PostMapping(value = "/writeCommentContent")
-	public ModelAndView writeCommentContent(@ModelAttribute CommentDTO commentDTO) { // uid, cateid, bid, content를 가지고 가야함
+	// 댓글쓰기 
+	@PostMapping(value = "/writeCommentContent") // 댓글을 쓰면 바로 ajax로 뿌려서 댓글을 보이는데, 댓글을 쓰면 원래 있던 댓글 그 다음번호에 뿌려주면 되지
+	public ModelAndView writeCommentContent(@ModelAttribute CommentDTO commentDTO) { // dto를 가지고 write메소드가서 
 		ModelAndView mav = new ModelAndView(); 
-		commentService.writeCommentContent(commentDTO);   // 댓글을 DB에 저장
-		List<CommentDTO> commentList = this.getCommentContent(commentDTO.getCmt_bid());  // 해당하는 글의 댓글 전부 가져오기  & 서비스 가서 dto를 전부 가지고와 -> 가지고온걸 DTO 리스트에 넣어
-
-		mav.addObject(commentList);
-
+		// // dto를 write메소드를 통해서 서비스 가서 저장해.
+		commentService.writeCommentContent(commentDTO); // dto들고 서비스가서 작성해 반환하는건 없어.
+		// 저장되어있는 모든 dto를 가지고 와 
+		List<CommentDTO> list = this.getCommentContent(int cmt_bid);
+		// add담아서 boardView 에 뿌려
+		mav.addObject(list); 
 		mav.setViewName("board/boardView");
 		return mav; 
 	}
@@ -38,7 +39,6 @@ public class CommentController {
 	@PostMapping(value = "/getCommentContent")
 	@ResponseBody
 	public List<CommentDTO> getCommentContent(@RequestParam int cmt_bid) {  // 댓글 원글번호를 이용해서 DTO가져오자
-		
 		return commentService.getCommentContent(cmt_bid);
 				
 	}

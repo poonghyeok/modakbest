@@ -36,10 +36,10 @@
 					            <div class="panel-heading">                      
 					                			            
 									<div class="avatar clearfix avatar-medium">				
-											<!-- 이동 경로가 회원번호 같은디? -->	
-											<a href="/user/info/${userDTO.user_id}" class='avatar-photo'><img id="show_user_image"/></a>
+											<!-- 이동 경로가 회원번호 같은디? img src 넣기! -->	
+											<a href="/user/info/" class='avatar-photo'><img src="" id="show_user_image"/></a>
 											<div class="avatar-info">
-													<a class="user_nickname" href="/user/info/${userDTO.user_id} }" title="">${userDTO.user_nickname}</a>
+													<a class="user_nickname" href="/user/info/}" title="">${userAllDTO.user_nickname}</a>
 													<!-- <div class="activity block"><span class="fa fa-flash"></span> 10</div> 활동지수 삭제?-->
 											</div>
 									</div>								
@@ -51,22 +51,22 @@
 				                <fieldset>
 				                    <div class="form-group">
 				                        <label class="control-label" for="user_name">이름</label>
-				                        <input type="text" name="user_name" class="form-control input-sm" placeholder="이름" required="" value="" id="user_name">
+				                        <input type="text" name="user_name" class="form-control input-sm" placeholder="이름" required="" value="${userAllDTO.user_name}" id="user_name">
 				                    	<div id="user_nameDiv"></div>
 				                    </div>
 				                    <div class="form-group">
 				                        <label class="control-label" for="user_nickname">닉네임</label>
-				                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="" id="user_nickname">		                        
+				                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="${userAllDTO.user_nickname}" id="user_nickname">		                        
 			                        	<div id="user_nicknameDiv"></div>
 			                        </div>
 				                    <div class="form-group">
 				                        <label class="control-label" for="class_academy">학원명</label>
-				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="" value="" id="class_academy">       
+				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="}" value="${userAllDTO.class_academy}" id="class_academy">       
 			             
 			                        </div>
 				                    <div class="form-group">
 				                        <label class="control-label" for="class_class">과정명</label>
-				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">
+				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="${userAllDTO.class_class}" id="class_class">
 	
 			                        </div>
 			                        		                        			                    
@@ -77,7 +77,7 @@
 						               			<div class="col-md-8">
 							                    	<label class="control-label" for="user_email">이메일 주소</label>
 								               		<!-- <div class="field-subtitle"></div> -->
-							               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" required="" value="" id="user_email">
+							               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" required="" value="${userAllDTO.user_email}" id="user_email">
 						               			</div>
 						               			<div class="col-md-4">
 							               			<!-- <button class="btn btn-success" type="button" id="verify-email-retry-btn">전송</button> -->
@@ -129,9 +129,9 @@ $(function(){
 		//data: 'user_email=' + $('#user_email').val(),
 		dataType: 'json',
 		success: function(data){
-			//alert(JSON.stringify(data));
+			alert(JSON.stringify(data));
 		
-			$('#show_user_img').val(data.user_img);			
+			//$('#show_user_img').val(data.user_img);			
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
 			$('#class_academy').val(data.class_academy);
