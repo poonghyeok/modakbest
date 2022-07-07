@@ -38,9 +38,9 @@
                 <li><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
             </ul>
 		</c:if>
-			<c:if test="${sessionScope.user_email != null }">			
+		<c:if test="${sessionScope.user_email != null }">			
 			<div class="avatar clearfix avatar-medium ">
-				<a href="/semiproject/user/userInfo" class="avatar-photo"><img src="//www.gravatar.com/avatar/2a9f77fb6b421b904e6a3c0b17d03d93?d=identicon&amp;s=40"></a>
+				<a href="/semiproject/user/userMyPageForm" class="avatar-photo"><img src="//www.gravatar.com/avatar/2a9f77fb6b421b904e6a3c0b17d03d93?d=identicon&amp;s=40"></a>
 				<div class="avatar-info">
 					<a class="nickname" href="/semiproject/user/userInfo" title="기지니기지니">${userNickname }</a>
 					<div class="activity block"><span class="fa fa-flash"></span> 0</div>
@@ -62,7 +62,7 @@
 	            </div>		
            	</div>
            	<form action="/semiproject/user/logOut" method="post" style="display:none;"><input type="submit" name="logoutButton" value="logoutButton" id="logoutButton"></form>
-			</c:if>
+		</c:if>
     </div> <!-- nav-user nav-sidebar -->	 
 
     <ul class="nav nav-sidebar nav-main">

@@ -89,6 +89,9 @@ public class UserUpdateController {
 	@PostMapping(value="checkPwd")
 	@ResponseBody
 	public UserDTO checkPwd(@RequestParam String user_email){		
+		System.out.println("checkPwd : " + user_email);
+		
+		
 		return userService.checkPwd(user_email);	
 	}
 	

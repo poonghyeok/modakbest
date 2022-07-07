@@ -55,7 +55,7 @@
 		                    </div>
 		                </div>
 		                <div class="signup-block">
-		                    <a href="/semiproject/user/findPwd">계정 찾기</a>
+		                    <a href="/semiproject/user/userFindPwdForm">계정 찾기</a>
 		                    <span class="inline-saperator">/</span>
 		                    <a href="/semiproject/user/userSignupForm">회원 가입</a>
 		                </div>
