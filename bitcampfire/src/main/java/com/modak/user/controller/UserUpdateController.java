@@ -42,6 +42,7 @@ public class UserUpdateController {
 	@ResponseBody
 	public UserAllDTO getUser(HttpSession session) {
 		String user_email = (String) session.getAttribute("memEmail");
+		System.out.println(user_email);
 		return userService.getUser(user_email);
 	}	
 	
@@ -64,7 +65,7 @@ public class UserUpdateController {
 			e.printStackTrace();
 		}
 		
-		userAllDTO.setUser_img(fileName); //업로드 시 비워져있던  DTO 채워주는 역할
+		userAllDTO.setUser_img(fileName);
 		//System.out.println("\n"+fileName+"file 저장 완료 : "+ filePath);
 		//회원수정폼 정보 실어서 업데이트
 		userService.update(userAllDTO);
@@ -78,13 +79,14 @@ public class UserUpdateController {
 		return "/user/userPasswordChange";
 	}
 	
-	//비밀번호 일치여부 확인 
-	
+	//비밀번호 일치여부 확인 	
 	@PostMapping(value="checkPwd")	  
 	@ResponseBody 
 	public UserDTO checkPwd(HttpSession session){ 
 		String user_email =(String) session.getAttribute("memEmail");
+		System.out.println(user_email);
 		return userService.checkPwd(user_email); 
+
 	}
 	
 	

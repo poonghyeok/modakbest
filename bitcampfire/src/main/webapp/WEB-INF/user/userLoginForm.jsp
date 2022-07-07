@@ -31,11 +31,6 @@
 		                    <input type="hidden" name="redirectUrl" value="%2F">
 		                <input type="text" name="user_email" autocorrect="off" autocapitalize="off" id="user_email" class="username form-control input-sm" placeholder="이메일" required="" autofocus="">
 		                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호" required="">
-		                <div class="checkbox">
-		                    <label>
-		                        <input type="checkbox" name="remember_me" id="remember_me"> 로그인 유지
-		                    </label>
-		                </div>
 	
 		                <!--button class="btn btn-primary btn-block" type="submit"><g:message code="springSecurity.login.button"/></button-->
 		
@@ -82,7 +77,7 @@ $('#btnUserLogin').click(function(){
 					if(data == 'ok') {
 						location.href = "/semiproject/";						
 					}else if(data == 'fail') {						
-						location.href = "/semiproject/userLoginForm";
+						location.href = "/semiproject/user/userLoginForm";
 					}
 				},
 				error: function(err){

@@ -33,8 +33,6 @@
 						            <div class="panel-body panel-body-content text-center">
 						            
 						                <p class="lead">변경하실 비밀번호를 입력해 주세요.</p>
-						                <!-- 테스트용: 나중에 삭제  -->
-						                <input type="text" id="user_email">
 						               
 						                <div class="form-group">
 						                    <input type="password" name="user_pwd" id="user_pwd" class="form-control form-control-inline text-center" placeholder="현재 비밀번호" />

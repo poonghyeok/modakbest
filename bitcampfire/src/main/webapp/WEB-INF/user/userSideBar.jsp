@@ -14,7 +14,6 @@
     </a>
     
 	<!-- 메인 로고변경  로고/페이지명 필요-->
-
     <h1><div class="logo"><a href="/semiproject/"><img src="/semiproject/img/bitfire_logo.PNG" alt="OKKY" title="OKKY" style="width: 140px; height: 45px;"></a></div></h1>
 
 
@@ -49,9 +48,9 @@
 	      		<div class="avatar clearfix avatar-medium">				
 						<!-- 이동 경로가 회원번호 같은디? -->
 						<!-- img src 불러오기 다시 -->	
-						<a href="/semiproject/user/userMyPageForm" class='avatar-photo'><img src="/semiproject/img/"+${sessionScope.user_img} id="MyPg_user_image"/></a>
+						<a href="/semiproject/user/userMyPageForm" class='avatar-photo'><img src="/semiproject/img/2.png" id="MyPg_user_image"/></a>
 						<div class="avatar-info">
-								<a class="user_nickname" href=/semiproject/user/userMyPageForm }" title="">${sessionScope.user_nickname}</a>
+								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.user_nickname}</a>
 						</div>			
 				</div>
 			</ul>
