@@ -20,8 +20,7 @@ import com.modak.user.dao.UserDAO;
 public class UserServiceImpl implements UserService {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		@Autowired
-		UserDAO userDAO;
-		
+		UserDAO userDAO;	
 
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -37,8 +36,8 @@ public class UserServiceImpl implements UserService {
 		}
 
 
-		public void update(UserDTO userDTO) {
-			userDAO.update(userDTO);		
+		public void update(UserAllDTO userAllDTO) {
+			userDAO.update(userAllDTO);		
 		}
 
 		@Override
@@ -79,51 +78,37 @@ public class UserServiceImpl implements UserService {
 		public UserDTO getUserInformation(String user_email) {
 			return userDAO.getUserInformation(user_email);
 		}
-		//유진 : 끝 ====================================
+	//유진 : 끝 ====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-		@Override
-		public String login(Map<String, String> map) {
-			//DB
-			UserDTO userDTO = userDAO.login(map);
-			
-			if(userDTO != null) {
-				//session.setAttribute("memEmail", userDTO.getUser_email());
-				//session.setAttribute("memPwd", userDTO.getUser_pwd());
-				//session.setAttribute("memNickname", userDTO.getUser_nickname());
-				
-				return "ok";
-				
-			}else{			
-				return "fail";
-			}
-		}
-	
+	//*******연수 수정(220707)
 		@Override
 		public String checkIdPw(Map<String, String> map) {
 			//DB
 			UserDTO userDTO = userDAO.checkIdPw(map);
 
 			if(userDTO != null) {
-				session.setAttribute("userEmail", userDTO.getUser_email());
-				session.setAttribute("userPwd", userDTO.getUser_pwd());
-				session.setAttribute("userNickname", userDTO.getUser_nickname());
-				
-
+				session.setAttribute("user_email", userDTO.getUser_email());
+				session.setAttribute("user_nickname", userDTO.getUser_nickname());
+				session.setAttribute("user_img", userDTO.getUser_img());
 				System.out.println("userServiceImpl" + userDTO);
-				return "home";	
-
-				
+				System.out.println("\n @LOG @ : login result session_eamil : " + session.getAttribute("user_email"));
+				return "ok";				
 			}else {
-				
-				return "/user/userLoginFail";
+				System.out.println("\n @LOG @ : login result fail..!!");
+				return "fail";
 			}
+		}	
+		
+		@Override
+		public void userLogout() {
+			session.invalidate();
+			
 		}
-
-
-		
-		
-		
+    //*******연수 수정(220707)	
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
+
+
+
 }

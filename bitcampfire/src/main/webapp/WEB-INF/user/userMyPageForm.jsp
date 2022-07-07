@@ -14,7 +14,7 @@
 <body>
 <div class="layout-container">
     <div class="main">
-      <%--  <jsp:include page="/WEB-INF/user/userSideBar.jsp"/> --%> 
+        <jsp:include page="/WEB-INF/user/userSideBar.jsp"/> 
 
 				<div id="user" class="content clearfix" role="main">
 				  <div class="panel panel-default">
@@ -41,14 +41,15 @@
 				                      <div class="user-point-label"><i class="fa fa-users"></i> 팔로워</div>
 				                      <div class="user-point-num"><a href="#">0</a></div>
 				                  </div>
-				            </div>
-				        </div>
-				      </div>
-				  </div>
-				</div>
-            </div>
-        </div>
-    <%-- <jsp:include page="/WEB-INF/global/footer.jsp"/>  --%>   
+					            </div>
+					        </div>
+					      </div>
+					  </div>
+					</div>
+	            </div>
+	        </div>
+	        
+    	<jsp:include page="/WEB-INF/global/footer.jsp"/>   
    </div> <!-- main -->   
 </div> <!-- layout-container -->  
 <script type="text/javascript" src="../js/user/userMyPageForm.js"></script>

@@ -29,60 +29,25 @@ public class UserLoginController {
 	HttpSession session;
 	
 
-	@GetMapping(value="userLoginFail")
-	public String userLoginFail() {				
-		return "/user/userLoginFail";		
-	}
-
-///////////////////////유진0707 건들임////////////////////////////	
-	@GetMapping(value = "userLoginForm")
+   //@@@@ 연수 수정 @@@@///
+	/* 로그인 기능구현 */ 
+	@GetMapping(value="userLoginForm")
 	public String userLoginForm() {
 		return "/user/userLoginForm";
 	}
-///////////////////////유진0707 건들임////////////////////////////
-	
-
-
-	/* 로그인 기능구현 */ 
-
-//	@RequestMapping(value="login", method = RequestMethod.GET)
-//	public String login() {
-//
-//		
-//		String sessionCheck = (String) session.getAttribute("userEmail");
-//		
-//		if(sessionCheck == null) {
-//			
-//			return "/user/userLoginForm";
-//			
-//		}else {
-//			
-//			return "/index";
-//			
-//		}					
-//	}
-
 
 	@RequestMapping(value="loginForm", method = RequestMethod.GET)
-	public String login() {
-
-		
-		String sessionCheck = (String) session.getAttribute("userEmail");
-		
-		if(sessionCheck == null) {
-			
-			return "/user/userLoginForm";
-			
-		}else {
-			
-			return "/";
-			
+	public String loginForm() {		
+		String sessionCheck = (String) session.getAttribute("userEmail");		
+		if(sessionCheck == null) {			
+			return "/user/userLoginForm";			
+		}else {			
+			return "/";		
 		}
-					
-
 	}
 	
 	@PostMapping(value="checkIdPw")
+	@ResponseBody
 	public String checkIdPw(@RequestParam Map<String, String> map) {
 		System.out.println("controller checkIdPw : " + map);
 		String result = userService.checkIdPw(map);
@@ -91,6 +56,23 @@ public class UserLoginController {
 	}
 	/* 로그인 기능구현  끝 */ 
 	
+	/* 로그아웃  */
+	@PostMapping(value="userLogout")
+	@ResponseBody
+	public void logout() {
+		userService.userLogout();
+	}
+	//삭제 예정-연수작성
+	/* 회원정보  변경 */ 
+	@RequestMapping(value="userInfoUpdate")
+	public String userInfoUpdate() {
+		System.out.println("userInfoUpdate");
+		return "/user/userInfoUpdate";
+	}
+	//@@@@ 연수 수정 @@@@///
+	
+	
+	
 		
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="findPwd")
@@ -98,15 +80,7 @@ public class UserLoginController {
 		System.out.println("findPwd");
 		return "/user/userFindPwdForm";
 	}
-	
-	
-	/* 로그아웃  */
-	@RequestMapping(value = "logOut")
-	public String logOut() {
-		session.invalidate();
-		System.out.println("cancelFindPwd");
-		return "index";
-	}
+
 	/* 계정찾기 취소 후 인덱스 페이지로 이동 */ 
 	@RequestMapping(value="cancelFindPwd")
 	public String cancelFindPwd() {
@@ -114,12 +88,7 @@ public class UserLoginController {
 //		System.out.println("cancelFindPwd");
 		return "index";
 	}
-	/* 회원정보  변경 */ 
-	@RequestMapping(value="userInfoUpdate")
-	public String userInfoUpdate() {
-		System.out.println("userInfoUpdate");
-		return "/user/userInfoUpdate";
-	}
+
 
 
 }

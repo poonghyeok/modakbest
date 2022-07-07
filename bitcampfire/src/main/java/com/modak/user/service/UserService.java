@@ -15,15 +15,15 @@ public interface UserService {
 
 
 	//연수 : 시작(220706) ====================================
-    public UserAllDTO getUser(String user_email);
-
-    public void update(UserDTO userDTO);
-
-    public UserDTO checkPwd(String user_email);
-
-    public void pwdChangeComplete(Map<String, String> map);
-
-    public void delete(String user_email);
+	    public UserAllDTO getUser(String user_email);
+	
+	    public void update(UserAllDTO userAllDTO);
+	
+	    public UserDTO checkPwd(String user_email);
+	
+	    public void pwdChangeComplete(Map<String, String> map);
+	
+	    public void delete(String user_email);
 	//연수 : 끝(220706) ====================================
 
 	
@@ -37,10 +37,10 @@ public interface UserService {
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
+    //*******연수 수정(220707)
+        public String checkIdPw(Map<String, String> map);	
+    //*******연수 수정(220707)
+    // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
-  public String login(Map<String, String> map);
-	public String checkIdPw(Map<String, String> map);
-
-	
-	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
+		public void userLogout();
 }
