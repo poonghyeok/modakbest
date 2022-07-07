@@ -19,10 +19,13 @@
     
     <!-- 회원정보 수정: 수정하기 --> 
     <update id="update" parameterType="UserDTO">
-  		update user2 set user_name = #{user_name}
+  		update user2 set user_img = #{user_img}
+  		  			    , user_name = #{user_name}
   						, user_nickname = #{user_nickname}
-  		  			    , user_email = #{user_email}
+  		  			    , class_academy = #{class_academy}
+						, class_class = #{class_class}
   		  			    , user_img = #{user_img}
+  		  			    , user_email = #{user_email}
   		  			    where user_email = #{user_email}
   	</update>  
   	
@@ -75,12 +78,16 @@
   	<select id="userSignup_emailCheck" parameterType="String" resultType="UserAllDTO">
   		select * from user2 where user_email=#{user_email}
   	</select>
+  	
+  	<select id="getUserInformation" parameterType="String" resultType="UserDTO">
+  		select * from user2 where user_email=#{user_email}
+  	</select>
 	<!-- ####################### 유진 : 끝  0706###################### -->
 
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->
 	
 		<!-- 로그인 -->
-	<select id="checkIdPw" parameterType="java.util.Map" resultType="UserDto">
+	<select id="checkIdPw" parameterType="java.util.Map" resultType="UserDTO">
 		select * from user2 where user_email=#{username} and user_pwd=#{password}
 	</select>
 	

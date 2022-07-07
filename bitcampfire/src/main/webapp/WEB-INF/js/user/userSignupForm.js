@@ -54,11 +54,14 @@ $('#user_email').focusout(function(){
 					$('#user_emailDiv').html('이미 사용하고 있는 이메일입니다.');
 					$('#user_emailDiv').css('color', 'red');
 					$('#user_emailDiv').css('font-size', '8px');
+					$('#emailBtn').attr('disabled',true);
+					
 				}else if(data=='non exist'){
 					$('input[name="user_email_check"]').val($('#user_email').val());
 					$('#user_emailDiv').html('사용 가능한 이메일입니다.');
 					$('#user_emailDiv').css('color', 'blue');
 					$('#user_emailDiv').css('font-size', '8px');
+					$('#emailBtn').attr('disabled',false);
 				}
 			},
 			error: function(err){
@@ -261,7 +264,8 @@ $('#signUpBtn').click(function(){
 				contentType: false,
 				data: formData,
 				success: function(){
-					location.href='/semiproject/user/userSignupComplete';
+					alert("회원가입을 완료하였습니다.\n로그인 하세요.");
+					location.href='/semiproject/';
 				},
 				error: function(err) {
 					console.log(err);

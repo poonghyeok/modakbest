@@ -27,7 +27,9 @@ public class CommentController {
 		ModelAndView mav = new ModelAndView(); 
 		commentService.writeCommentContent(commentDTO);   // 댓글을 DB에 저장
 		List<CommentDTO> commentList = this.getCommentContent(commentDTO.getCmt_bid());  // 해당하는 글의 댓글 전부 가져오기  & 서비스 가서 dto를 전부 가지고와 -> 가지고온걸 DTO 리스트에 넣어
-		mav.addObject(commentList); 
+
+		mav.addObject(commentList);
+
 		mav.setViewName("board/boardView");
 		return mav; 
 	}

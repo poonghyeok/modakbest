@@ -10,6 +10,7 @@ public interface BoardService {
 	//풍혁 : 시작 =================================
 		public String getUserWriteTablelist(int pg);
 		public String getBoardPagingList(int pg);
+		public void boardWrite(BoardDTO boardDTO);
 	//풍혁 : 끝 =================================
 
 	

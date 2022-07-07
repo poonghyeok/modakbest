@@ -1,44 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
+
+<!DOCTYPE html >
+<!--[if lt IE 7 ]> <html lang="ko" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="ko" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="ko" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="ko" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="ko" class="no-js"><!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>OKKY - All That Developer</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="_csrf_parameter" content="_csrf">
-<meta name="_csrf_header" content="X-CSRF-TOKEN">
-<meta name="_csrf" content="03c8d70f-65d7-480d-b5c5-0a61a07e163d">
-<link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="/assets/images/icon_57x57.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/images/icon_114x114.png">
-<meta property="og:image" content="https://okky.kr/assets/images/okky_logo_fb.png">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/semiproject/css/application.css">
-<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-YB6VRG1VMM&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-M52CW55"></script><script>
 
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-M52CW55');</script>
-
-<!--[if lt IE 9]>
-	<script src="/js/libs/html5.js"></script>
-	<script src="/assets/libs/respond.src.js"></script>
-	<script src="/assets/libs/html5.js"></script>
-<![endif]-->
-		
-<link rel="stylesheet" href="/assets/css/APW-style.css">
-		
-	<style type="text/css"></style>
+	<meta charset="UTF-8">
+	<title>bitcampfire - 회원정보 수정</title>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 </head>
-	<body>
-        <div class="layout-container">
-            <div class="main ">
+<body>
+
+<div class="layout-container">
+ 	<div class="main">
+ 		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/>
+		    <!-- @@@ 메인 넣기@@  -->
+		    
+		    
+ 		<%-- <jsp:include page="/WEB-INF/global/footer.jsp"/>  --%>   
+   </div> <!-- main -->   
+</div> <!-- layout-container -->    
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<!-- 상단탭 제목  -->
+	<title>BITFIRE - All That BABY Developer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="_csrf_parameter" content="_csrf" />
+	<meta name="_csrf_header" content="X-CSRF-TOKEN" />
+	<meta name="_csrf" content="21815342-f771-4b04-8209-478b31d12d7b" />
+	<link rel="shortcut icon" href="./image/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="./image/icon_57x57.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="./image/icon_114x114.png">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<meta property="og:image" content="https://okky.kr/assets/images/okky_logo_fb.png">
+	
+	<link rel="stylesheet" href="../css/user/application.css">
+	
+	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	
+<script>
+	/* 구글 태그 매니저 */
+	(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-M52CW55');
+</script>
+
+	<!--[if lt IE 9]>
+		<script src="/js/libs/html5.js"></script>
+		<script src="/assets/libs/respond.src.js"></script>
+		<script src="/assets/libs/html5.js"></script>
+	<![endif]-->
+<meta name="google-site-verification" content="DkGncyJVqYFVekHithdbYnKgklkyKVwruPZ18WUDjr0" />
+</head>
+
+
+<body>
+<div class="layout-container">
+<div class="main ">
 <div class="sidebar">
     <a href="javascript://" class="sidebar-header">
         <i class="fa fa-bars sidebar-header-icon"></i>
@@ -53,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    <div class="nav-user nav-sidebar">
     	<c:if test="${sessionScope.userEmail == null }">
             <ul class="nav nav-sidebar">
-                <li><a href="/semiproject/user/login" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
+                <li><a href="/semiproject/user/loginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
                 <li><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
             </ul>
 		</c:if>
@@ -207,6 +252,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
 
     
+
 
 </body>
 </html>

@@ -59,44 +59,70 @@ public class UserServiceImpl implements UserService {
 	//연수 : 끝(220706) ====================================
 
 	
-		//유진 : 시작 ====================================
-				@Override
-				public void user_register(UserAllDTO userAllDTO) {
-					userDAO.user_register(userAllDTO);
-				}
+	//유진 : 시작 ====================================
+		@Override
+		public void user_register(UserAllDTO userAllDTO) {
+			userDAO.user_register(userAllDTO);
+		}
 
-				@Override
-				public String userSignup_emailCheck(String user_email) {
-					UserAllDTO userAllDTO = userDAO.userSignup_emailCheck(user_email);
-					if(userAllDTO == null) {
-						return "non exist";
-					}else {
-						return "exist";
-					}
-				}
-			//유진 : 끝 ====================================
+		@Override
+		public String userSignup_emailCheck(String user_email) {
+			UserAllDTO userAllDTO = userDAO.userSignup_emailCheck(user_email);
+			if(userAllDTO == null) {
+				return "non exist";
+			}else {
+				return "exist";
+			}
+		}
+		
+		@Override
+		public UserDTO getUserInformation(String user_email) {
+			return userDAO.getUserInformation(user_email);
+		}
+		//유진 : 끝 ====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
+		@Override
+		public String login(Map<String, String> map) {
+			//DB
+			UserDTO userDTO = userDAO.login(map);
+			
+			if(userDTO != null) {
+				//session.setAttribute("memEmail", userDTO.getUser_email());
+				//session.setAttribute("memPwd", userDTO.getUser_pwd());
+				//session.setAttribute("memNickname", userDTO.getUser_nickname());
+				
+				return "ok";
+				
+			}else{			
+				return "fail";
+			}
+		}
 	
 		@Override
 		public String checkIdPw(Map<String, String> map) {
 			//DB
-			UserDTO userDto = userDAO.checkIdPw(map);
+			UserDTO userDTO = userDAO.checkIdPw(map);
 
-			if(userDto != null) {
-				session.setAttribute("userEmail", userDto.getUser_email());
-				session.setAttribute("userPwd", userDto.getUser_pwd());
-				session.setAttribute("userNickname", userDto.getUser_nickname());
+			if(userDTO != null) {
+				session.setAttribute("userEmail", userDTO.getUser_email());
+				session.setAttribute("userPwd", userDTO.getUser_pwd());
+				session.setAttribute("userNickname", userDTO.getUser_nickname());
 				
-				System.out.println(userDto);
-				return "index";	
+
+				System.out.println("userServiceImpl" + userDTO);
+				return "home";	
+
 				
 			}else {
 				
 				return "/user/userLoginFail";
 			}
 		}
+
+
+		
 		
 		
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@

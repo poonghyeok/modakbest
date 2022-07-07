@@ -15,6 +15,9 @@ public interface BoardDAO {
 		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map);
 	
 		public int getTotalBoardNum();
+		
+		public void boardWrite(BoardDTO boardDTO);
+
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
