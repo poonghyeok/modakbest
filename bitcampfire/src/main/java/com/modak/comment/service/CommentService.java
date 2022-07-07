@@ -8,6 +8,6 @@ public interface CommentService {
 
 	public void writeCommentContent(CommentDTO commentDTO);
 
-	public List<CommentDTO> getCommentContent(String cmt_bid);
+	public List<CommentDTO> getCommentContent(int cmt_bid);
 
 }

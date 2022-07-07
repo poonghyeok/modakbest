@@ -20,9 +20,11 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDAO boardDAO;
 	
+
 	// 글번호로 (글번호, DTO) 가져오기
 	//public BoardDTO getBoardContent(int board_id);
 		//풍혁(0706 2143) : interface에 넣어야할 것을 여기다가 넣으신거 같아요. 착각하신게 맞다면 지우고 commit 부탁드립니다. 
+
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	//풍혁 : 시작 ===========================================

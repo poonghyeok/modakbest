@@ -4,14 +4,19 @@
 
 <mapper namespace="commentSQL">
 
-<!-- 	 글 보기 
-		<select id = "getBoardContent" parameterType = "int" resultType = ""> 
-			select * from board_review where board_id = #{board_id} 
-		</select> -->
-		
-		
-	<!--  조회수 증가처리
-		<update id = "setView_cnt" parameterType = "int">
-			update board_review set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
-		</update> -->
+	<insert id = "writeCommentContent" parameterType="CommentDTO"> 
+		INSERT INTO COMMENT (cmt_id, cmt_uid, cmt_cateid, cmt_bid, cmt_cotent, cmt_date_created) 
+							VALUES(
+							COMMENT_SEQ.nextval, 
+							#{cmt_id},
+							#{cmt_uid},
+							#{cmt_cateid},
+							#{cmt_bid},
+							#{cmt_cotent},
+							sysdate )
+	</insert>
+	
+	<select id = "getCommentDTO" parameterType="int" resultType="CommentDTO"> 
+		SELECT * FROM BOARD_REVIEW WHERE CMT_BID = #{CMT_BID}
+	</select>
 </mapper>
