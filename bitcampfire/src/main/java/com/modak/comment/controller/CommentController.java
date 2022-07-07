@@ -15,7 +15,7 @@ import com.modak.comment.bean.CommentDTO;
 import com.modak.comment.service.CommentService;
 
 @Controller
-@RequestMapping(value = "/CommentView")
+@RequestMapping(value = "/commentView")
 public class CommentController {
 	
 	@Autowired
@@ -27,7 +27,7 @@ public class CommentController {
 		ModelAndView mav = new ModelAndView(); 
 		commentService.writeCommentContent(commentDTO);   // 댓글을 DB에 저장
 		List<CommentDTO> commentList = this.getCommentContent(commentDTO.getCmt_bid());  // 해당하는 글의 댓글 전부 가져오기  & 서비스 가서 dto를 전부 가지고와 -> 가지고온걸 DTO 리스트에 넣어
-		mav.addObject(commentList);
+		mav.addObject(commentList); 
 		mav.setViewName("board/boardView");
 		return mav; 
 	}
@@ -35,7 +35,7 @@ public class CommentController {
 	// 댓글 가져오기
 	@PostMapping(value = "/getCommentContent")
 	@ResponseBody
-	public List<CommentDTO> getCommentContent(@RequestParam String cmt_bid) {  // 댓글 원글번호를 이용해서 DTO가져오자
+	public List<CommentDTO> getCommentContent(@RequestParam int cmt_bid) {  // 댓글 원글번호를 이용해서 DTO가져오자
 		
 		return commentService.getCommentContent(cmt_bid);
 				

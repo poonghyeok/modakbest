@@ -43,7 +43,7 @@ public class BoardController {
 	// 정수 : 시작  ###################### 
 		//목록에서 글 가져와서 jsp 띄우기
 		@GetMapping(value = "getBoardView") // 데이터값 담아서 jsp로 이동
-		public ModelAndView getBoardView(@RequestParam(required = false, defaultValue = "4") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) { // 글번호, 페이지값 
+		public ModelAndView getBoardView(@RequestParam(required = false, defaultValue = "3") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) { // 글번호, 페이지값 
 			System.out.println("\n getBoardView 컨트롤러 실행....");
 			
 			ModelAndView mav = new ModelAndView(); // boardView.jsp 에 데이터 넣어 보내기

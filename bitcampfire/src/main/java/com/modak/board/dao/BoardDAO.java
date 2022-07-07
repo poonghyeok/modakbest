@@ -19,7 +19,7 @@ public interface BoardDAO {
 	
 	// 정수 : 시작  ###################### 
 		// 목록에서 글 가져오기
-		BoardDTO getBoardContent(int board_id);
+		public BoardDTO getBoardContent(int board_id);
 	// 정수 : 끝  ###################### 
 					
 					

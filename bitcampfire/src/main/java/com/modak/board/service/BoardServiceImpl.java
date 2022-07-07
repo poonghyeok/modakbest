@@ -20,8 +20,6 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDAO boardDao;
 	
-	// 글번호로 (글번호, DTO) 가져오기
-	public BoardDTO getBoardContent(int board_id);
 
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
