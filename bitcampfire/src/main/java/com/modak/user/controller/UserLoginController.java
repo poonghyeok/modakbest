@@ -75,9 +75,9 @@ public class UserLoginController {
 	
 		
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
-	@RequestMapping(value="findPwd")
-	public String findPwd() {
-		System.out.println("findPwd");
+	@RequestMapping(value="userFindPwdForm")
+	public String userFindPwdForm() {
+		System.out.println("userFindPwdForm");
 		return "/user/userFindPwdForm";
 	}
 

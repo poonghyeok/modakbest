@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 
 		@Override
 		public UserDTO checkPwd(String user_email) {
+			System.out.println("ServiceImpl : " + user_email);
 			return userDAO.checkPwd(user_email);
 		}
 

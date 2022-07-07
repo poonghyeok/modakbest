@@ -1,0 +1,229 @@
+[33mcommit 8774d9f201c57f2843af915657ee558bddef7e18[m[33m ([m[1;36mHEAD -> [m[1;32mkijin070702[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 81a4369 e54fc16
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Thu Jul 7 14:23:29 2022 +0900
+
+    Merge pull request #7 from suu1006/jeongsu_0707
+    
+    jeongsu_0707
+
+[33mcommit e54fc166902c95b0f0be5a6a7442446197b3ba70[m
+Merge: 7ee64dd 81a4369
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Thu Jul 7 14:23:22 2022 +0900
+
+    Merge branch 'main' into jeongsu_0707
+
+[33mcommit 81a4369eef94a2fe30483ce79cc4fb7e88617601[m
+Merge: c18ec8c b2e15b4
+Author: poonghyeok <vpd3302@naver.com>
+Date:   Thu Jul 7 14:22:03 2022 +0900
+
+    Merge branch 'pr/8'
+
+[33mcommit c18ec8c9188128aa98da711386e78c983656ac6d[m
+Merge: 8cc60cf 78c256e
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Thu Jul 7 13:56:04 2022 +0900
+
+    Merge pull request #6 from Yeonsooda/yeonsoo0707
+    
+    Yeonsoo0707
+
+[33mcommit 78c256ede870e6beb908d903813a3b55d66cfde8[m
+Merge: 8365cf6 8cc60cf
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Thu Jul 7 12:52:07 2022 +0900
+
+    Merge branch 'main' into yeonsoo0707
+
+[33mcommit 8cc60cff7999109b3a9b36824c2fec36271b8f29[m
+Merge: 92dcf91 ba13afb
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Thu Jul 7 12:46:01 2022 +0900
+
+    Merge pull request #5 from yujinParking/yoojinp0707
+    
+    Yoojinp0707
+
+[33mcommit 7ee64dde8b6835cba39780c10edb4448238c0eb3[m
+Author: suu1006 <1006pp@naver.com>
+Date:   Thu Jul 7 12:44:45 2022 +0900
+
+    jeongsu_0707
+
+[33mcommit b2e15b44d0c910a5706a219e2b4e85b86aaebdec[m[33m ([m[1;31morigin/kijin[m[33m)[m
+Author: kijin <sungkijin@gmail.com>
+Date:   Thu Jul 7 12:44:25 2022 +0900
+
+    2022-07-07 kijin 로그인 관련 사항
+
+[33mcommit 92dcf91aec6cbee0d80e886b05d1c65aa2f07520[m
+Author: poonghyeok <vpd3302@naver.com>
+Date:   Thu Jul 7 12:44:06 2022 +0900
+
+    poong07071241
+
+[33mcommit ce4b888c94cd7a9e47287a7ab5c0dd3cce29efd8[m
+Author: kijin <sungkijin@gmail.com>
+Date:   Thu Jul 7 12:43:25 2022 +0900
+
+    2022-07-07 kijin 로그인 관련 사항
+
+[33mcommit 8365cf6810dee64c3a46be16246bfbd1a8c924a3[m
+Author: yeonsoo <yeonsoo@naver.com>
+Date:   Thu Jul 7 12:43:03 2022 +0900
+
+    yeonsoo(0707)
+
+[33mcommit ba13afba277a413e204dcb5a3a6b6442a11c0f0e[m
+Author: yujinParking <dbwlsdhksenz@naver.com>
+Date:   Thu Jul 7 12:43:00 2022 +0900
+
+    yoohjinp0707가장최근수정
+
+[33mcommit af8e92604535a5cf08ebcdc558e61e079cc6c5ff[m
+Author: kijin <sungkijin@gmail.com>
+Date:   Thu Jul 7 10:45:30 2022 +0900
+
+    Apply .gitignore
+
+[33mcommit 0ba2469e6e720b4b021e781424ac6ef732bafb92[m
+Author: yujinParking <dbwlsdhksenz@naver.com>
+Date:   Thu Jul 7 10:40:05 2022 +0900
+
+    Apply .gitignore
+
+[33mcommit 7148c8e4410a6da89c3efc017f533d96c071ea2e[m
+Author: yeonsoo <manbal58@naver.com>
+Date:   Thu Jul 7 07:41:45 2022 +0900
+
+    연수커밋(220707_1)
+
+[33mcommit bb807c4bc6a6e5b7907d531b105bbae0207f6dea[m
+Author: poonghyeok <vpd3302@naver.com>
+Date:   Wed Jul 6 23:38:25 2022 +0900
+
+    add_eunhye_boardwrite_07062338
+
+[33mcommit 5d7a6e60e4462835bcb55dcf9b5b932d03b07ba6[m
+Author: yeonsoo <manbal58@naver.com>
+Date:   Wed Jul 6 23:23:58 2022 +0900
+
+    Apply .gitignore
+
+[33mcommit e6873e149334e575e315d01e4d18a170b3ad9ba8[m
+Author: yeonsoo <manbal58@naver.com>
+Date:   Wed Jul 6 23:21:13 2022 +0900
+
+    Aplly .gitignore
+
+[33mcommit bd8878eac50ede3432709f4b2c5ace59f92b032b[m
+Merge: 423a0c3 ef1f576
+Author: poonghyeok <vpd3302@naver.com>
+Date:   Wed Jul 6 21:35:35 2022 +0900
+
+    git_ignore_merge
+
+[33mcommit ef1f576177413af29e99a3a7cee640c09708a6db[m
+Merge: d85c41c fa8056e
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Wed Jul 6 21:00:51 2022 +0900
+
+    Merge pull request #4 from yujinParking/yoojin0706
+    
+    Yoojin0706
+
+[33mcommit fa8056e218c79fbbb5d2e57e6fc88c6ba7d9ddc5[m
+Author: yujinParking <dbwlsdhksenz@naver.com>
+Date:   Wed Jul 6 20:58:53 2022 +0900
+
+    yoojin0706
+
+[33mcommit 67ebce89507779b3c0b47abdf5e99fec558393c8[m
+Author: yujinParking <dbwlsdhksenz@naver.com>
+Date:   Wed Jul 6 20:46:28 2022 +0900
+
+    apply ignore
+
+[33mcommit d85c41c6dd6ca83b76d92c71f557136f6c7697b6[m
+Merge: 3f226c7 b37e496
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Wed Jul 6 20:31:15 2022 +0900
+
+    Merge pull request #3 from Yeonsooda/yeonsoo0706
+    
+    Yeonsoo0706
+
+[33mcommit b37e496f68aa90fac6cb78471920036b91c83b40[m
+Merge: 351a601 3f226c7
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Wed Jul 6 20:31:06 2022 +0900
+
+    Merge branch 'main' into yeonsoo0706
+
+[33mcommit 3f226c76d1eb5f51c71320708f62bef544e5af58[m
+Merge: e9e4a4f b2771e0
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Wed Jul 6 20:26:18 2022 +0900
+
+    Merge pull request #2 from suu1006/jeongsu0706
+    
+    Jeongsu0706
+
+[33mcommit e9e4a4f5dab5531fbc2cb2a45439a6a252597241[m
+Merge: 026dad8 47e3aa2
+Author: poonghyeok <91074806+poonghyeok@users.noreply.github.com>
+Date:   Wed Jul 6 20:25:25 2022 +0900
+
+    kijin0706_first
+    
+    Kijin
+
+[33mcommit 47e3aa2ec2d97763a53580c3442eef374cc4dd56[m
+Author: kijin <sungkijin@gmail.com>
+Date:   Wed Jul 6 20:19:59 2022 +0900
+
+    1st commit
+
+[33mcommit 351a601e628142891a4490db7bb3adb0251750a2[m
+Author: yeonsoo <yeonsoo@naver.com>
+Date:   Wed Jul 6 20:17:57 2022 +0900
+
+    연수commit(220706)
+
+[33mcommit b2771e0b171bb7066c5fb73dce15577f1af910cc[m
+Author: suu1006 <1006pp@naver.com>
+Date:   Wed Jul 6 20:10:41 2022 +0900
+
+    정수커밋0706
+
+[33mcommit 423a0c3030b2acceb4a065c5e80c650ae83ddc90[m
+Author: poonghyeok <vpd3302@naver.com>
+Date:   Wed Jul 6 20:07:48 2022 +0900
+
+    Apply .gitignore
+
+[33mcommit 195f21f2586fb3a31a13eb10c74a7cebc0b8e32d[m
+Author: kijin <sungkijin@gmail.com>
+Date:   Wed Jul 6 19:49:30 2022 +0900
+
+    Apply .gitignore
+
+[33mcommit bb3bb387d6b5269711b956b5f80e2621b32d574a[m
+Author: suu1006 <1006pp@naver.com>
+Date:   Wed Jul 6 19:44:33 2022 +0900
+
+    Apply .gitignore
+
+[33mcommit bf064cdc3445d7a5eaeb6708161549a3ad7de451[m
+Author: yeonsoo <yeonsoo@naver.com>
+Date:   Wed Jul 6 19:43:47 2022 +0900
+
+    Apply .gitignore
+
+[33mcommit 026dad8e6b418e822ffc076799ddc58296fa60d1[m
+Author: poonghyeok <vpd3302@naver.com>
+Date:   Wed Jul 6 18:57:11 2022 +0900
+
+    main_first_0706
