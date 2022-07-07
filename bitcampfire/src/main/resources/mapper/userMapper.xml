@@ -19,17 +19,12 @@
     
     <!-- 회원정보 수정: 수정하기 --> 
     <update id="update" parameterType="UserAllDTO">
-    begin
-  		update user2 set user_img = #{user_img}
+  		update user2 set user_email = #{user_email}
   		  			    , user_name = #{user_name}
   						, user_nickname = #{user_nickname}
-  		  			    , user_img = #{user_img}
-  		  			    where user_email = #{user_email};
-  		  			    
-   		update class set class_academy = #{class_academy}
-					   , class_class = #{class_class}
-					     where user_email = #{user_email};
-    end;
+  						, user_img = #{user_img}
+  		  			    , user_id = user2_SEQ.nextval  		  			    
+  		  			    where user_email = #{user_email} 		  			    
   	</update>  
   	
      <!-- 비밀번호 수정: 비밀번호 일치 여부 확인 - 회원정보 불러오기 -->   	

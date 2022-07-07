@@ -36,15 +36,15 @@ public class UserLoginController {
 		return "/user/userLoginForm";
 	}
 
-	@RequestMapping(value="loginForm", method = RequestMethod.GET)
-	public String loginForm() {		
-		String sessionCheck = (String) session.getAttribute("userEmail");		
-		if(sessionCheck == null) {			
-			return "/user/userLoginForm";			
-		}else {			
-			return "/";		
-		}
-	}
+//	@RequestMapping(value="loginForm", method = RequestMethod.GET)
+//	public String loginForm() {		
+//		String sessionCheck = (String) session.getAttribute("userEmail");		
+//		if(sessionCheck == null) {			
+//			return "/user/userLoginForm";			
+//		}else {			
+//			return "/";		
+//		}
+//	}
 	
 	@PostMapping(value="checkIdPw")
 	@ResponseBody

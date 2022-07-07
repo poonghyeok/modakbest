@@ -14,6 +14,10 @@
 		font-size: 8pt;
 		font-weight: bold;
 		}
+	#emailBtn_check, #mail-check-input_font {
+		visibility:hidden;
+		}	
+		
 	</style>
 </head>			
 <body>
@@ -26,7 +30,7 @@
 				    <h3 class="content-header">회원 정보 수정</h3>
 				    <div class="col-md-6 main-block-left">
 				        <div class="panel panel-default"> 
-				              
+				        
 				            <!-- upadate form start -->
 		 		            <form id="updateForm" class="form-signup form-user panel-body">
 										<!-- 
@@ -37,7 +41,7 @@
 					                			            
 									<div class="avatar clearfix avatar-medium">				
 											<!-- 이동 경로가 회원번호 같은디? img src 넣기! -->	
-											<a href="/user/info/" class='avatar-photo'><img src="" id="show_user_image"/></a>
+											<a href="/user/info/" class='avatar-photo'><img src=""+"${userAllDTO.user_img}" id="show_user_image"/></a>
 											<div class="avatar-info">
 													<a class="user_nickname" href="/user/info/}" title="">${userAllDTO.user_nickname}</a>
 													<!-- <div class="activity block"><span class="fa fa-flash"></span> 10</div> 활동지수 삭제?-->
@@ -81,7 +85,7 @@
 						               			</div>
 						               			<div class="col-md-4">
 							               			<!-- <button class="btn btn-success" type="button" id="verify-email-retry-btn">전송</button> -->
-				                                    <label for="emailBtn" class="form-label" id="emailBtn_check"></label>    			
+				                                    <label for="emailBtn" class="form-label" id="emailBtn_check">인증번호</label>				                                       			
 													<button class="btn btn-primary" type="button" id="emailBtn">인증번호 전송</button>
 												</div>	
 					               		   </div>
@@ -92,7 +96,7 @@
 										        	<input type="text" class="form-control" id="user_email_check_number"placeholder="인증번호 6자리를 입력하세요" disabled="disabled" maxlength="6">
 								            	</div>
 								           		 <div class="col-md-4">
-													<label for="mail-check-input" class="form-label" id="mail-check-input_font"></label>
+													<label for="mail-check-input" class="form-label" id="mail-check-input_font">인증번호</label>
 											  		<button class="btn btn-success" type="button" id="mail-check-input" >인증번호 인증</button>
 								            	</div>		            	
 						               		</div>
@@ -134,8 +138,8 @@ $(function(){
 			//$('#show_user_img').val(data.user_img);			
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
-			$('#class_academy').val(data.class_academy);
-			$('#class_class').val(data.class_class);
+			//$('#class_academy').val(data.class_academy);
+			//$('#class_class').val(data.class_class);
 			$('#user_email').val(data.user_email);
 		},
 		error: function(err){
@@ -163,20 +167,20 @@ $(function(){
 			   return;
 	       }  
 	   }
-       readURL(this);
-	   
+       readURL(this);	   
 	});
-	
-	function readURL(input){ //위의 this가 input으로 들어옴
+ 	
+	function readURL(input){ 
 		if(input.files[0]){
 			var reader = new FileReader();
 			reader.onload = function(e){
-				$('#show_user_image').attr('src', e.target.result); //e.target : 이벤트가 발생한 요소를 반환해준다.
+				$('#show_user_image').attr('src', e.target.result); 
 			}			
 			reader.readAsDataURL(input.files[0]);
 		}
 	}	
 });
+//이미지 업로드 끝
 
 //이메일 인증 	
 var code = "";
@@ -232,19 +236,22 @@ $('#mail-check-input').click(function(){
 	}
 });  
 	
-
-$('#userUpdateBtn').click(function(){
+$('#userUpdateBtn').click(function(){	
 	$('#user_nameDiv').empty();
 	$('#user_nicknameDiv').empty();
 	$('#user_emailDiv').empty();
 	
 	if($('#user_name').val()=='') {
 		$('#user_nameDiv').html('이름 입력');
-	}else if($('#user_nickname').val()=='') {
+	}
+	if($('#user_nickname').val()=='') {
 		$('#user_nicknameDiv').html('닉네임 입력');
-	}else if($('#user_email').val()=='') {
+	}
+	if($('#user_email').val()=='') {
 		$('#user_emailDiv').html('이메일 입력');
-	}else if(mailnumCheck == false){
+	}
+	
+	if(!mailnumCheck){
 		$('#user_emailDiv').html('이메일 인증을 하세요');
 	}else {
  		var formData = new FormData($('#updateForm')[0]);
@@ -258,6 +265,7 @@ $('#userUpdateBtn').click(function(){
 			data: formData,
 			success: function(){
 				alert('회원정보 수정 완료');
+				locatation.href = "/semiproject/";
 			},
 			error: function(err) {
 				console.log(err);
