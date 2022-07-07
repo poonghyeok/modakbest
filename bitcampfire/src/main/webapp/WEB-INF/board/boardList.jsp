@@ -29,7 +29,7 @@
 				    <div class="category-filter-wrapper">
 			            <div class="category-filter-query pull-right">
 			                <div class="input-group input-group-sm">
-			                    <input type="search" name="query" id="search-field" class="form-control" placeholder="검색어" value="">
+			                    <input type="text" name="query" id="search-field" class="form-control" placeholder="검색어" value="">
 			                    <span class="input-group-btn">
 			                        <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
 			                    </span>
@@ -132,9 +132,9 @@
 		</div>
 		<!-- 풍혁(220706) : page list -->
 		
-		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
+		<!-- 풍혁 (220707) : 보드 유저 공용 푸터 jsp include -->
 			<jsp:include page="/WEB-INF/global/footer.jsp"/>
-		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
+		<!-- 풍혁 (220707) : 보드 유저 공용 푸터 jsp include -->
 		
 	</div>
 </div>
