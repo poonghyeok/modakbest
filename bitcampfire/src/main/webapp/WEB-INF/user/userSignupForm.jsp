@@ -23,7 +23,7 @@
 			</div>
 
 			<!-- 메인끝 -->
-<%-- 		<jsp:include page="/WEB-INF/global/footer.jsp"/>    --%> 
+ 		<jsp:include page="/WEB-INF/global/footer.jsp"/>    
    	</div> <!-- main -->   
 </div> <!-- layout-container -->
 
