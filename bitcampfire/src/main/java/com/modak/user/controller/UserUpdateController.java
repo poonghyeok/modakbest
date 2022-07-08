@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,8 @@ public class UserUpdateController {
 	private UserService userService;
 	@Autowired
 	HttpSession session;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	//회원정보 수정 시작 (이메일 인증 넣고 해	보기)
 	//회원정보 수정폼 띄우기
@@ -81,11 +84,14 @@ public class UserUpdateController {
 	//비밀번호 일치여부 확인 	
 	@PostMapping(value="checkPwd")	  
 	@ResponseBody 
-	public UserDTO checkPwd(HttpSession session){ 
+	public UserDTO checkPwd(HttpSession session){ 		
 		String user_email =(String) session.getAttribute("memEmail");
 		return userService.checkPwd(user_email); 
 
 	}
+	
+
+	
 	
 	
 	//비밀번호 일치여부-테스트용 성공

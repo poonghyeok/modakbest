@@ -13,7 +13,7 @@ import com.modak.user.service.UserService;
 
 @Controller
 @RequestMapping(value= "user")
-public class userMyPageController {
+public class UserMyPageController {
 	
 	@Autowired
 	private UserService userService;
