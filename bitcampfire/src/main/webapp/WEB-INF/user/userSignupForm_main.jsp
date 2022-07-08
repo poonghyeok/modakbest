@@ -56,7 +56,7 @@
 		                    
 							<label for="user_img" class="form-label"></label>
 							<div class="user_profile">
-								<div class='avatar-photo' id="avatar-photo"><img id="basic_profile_img" class="basic_profile_img" alt="사진을 등록해주세요" src=""></div>
+								<div class='avatar-photo' id="avatar-photo"><img id="basic_profile_img" src=""></div>
 						  		<div class="camera_icon_div" id="camera_icon_div">
 							  		<img src="/semiproject/img/camera-fill.svg" id="camera_icon">
 						  		</div>
