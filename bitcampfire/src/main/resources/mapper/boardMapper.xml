@@ -69,10 +69,10 @@
 			select count(*) from board_review
 		</select>
 		
-		<!--  조회수 증가처리
-		<update id = "setView_cnt" parameterType = "int">
-			update board_review set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
-		</update> -->
+		<!-- 조회수 증가처리 -->
+		<update id = "setHit" parameterType = "int">
+			update board_review set setHit = setHit +1 
+		</update>
 	<!-- ####################### 정수 : 끝  ###################### -->
 	
 

@@ -102,12 +102,13 @@ public class BoardController {
 			Date date = boardDTO.getBoard_date_created(); // 날짜 꺼내서
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
 			mav.addObject("dateToStr",dateToStr);
-			
+
 			
 			//풍혁220708 : boadr_uid로 유저nickname 받아서 작성자에 넣겠습니다.
 			String author = boardService.getUserNameByUserId(boardDTO.getBoard_uid());
 			mav.addObject("author", author);
 			
+
 			mav.addObject("cateidToString", boardDTO.cateidToString());
 			
 			System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());

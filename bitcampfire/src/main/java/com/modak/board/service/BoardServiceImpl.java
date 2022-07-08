@@ -23,12 +23,14 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDAO boardDAO;
 	
+
 		//풍혁 220708 : 세션 이메일로 user_id를 받아오기 위해 생성했습니다.
 	@Autowired
 	private UserDAO userDAO;
 	
 	@Autowired
 	private HttpSession session;
+
 	// 글번호로 (글번호, DTO) 가져오기
 	//public BoardDTO getBoardContent(int board_id);
 		//풍혁(0706 2143) : interface에 넣어야할 것을 여기다가 넣으신거 같아요. 착각하신게 맞다면 지우고 commit 부탁드립니다. 
@@ -69,6 +71,12 @@ public class BoardServiceImpl implements BoardService {
 			int startNum = 1 + boardPerPage*(pg-1);
 			int endNum = boardPerPage + boardPerPage*(pg-1);
 			
+			String user_nickname = (String) session.getAttribute("user_nickname"); // 세션의 값을 가지고온다.(user에서 설정해줬음.)반환되는 형이 object라서 string 으로 변환
+			
+			if (session.getAttribute("user_nickname") != null) {  // 세션값이 있다면 = 로그인을 했다면!
+				session.setAttribute("userHit", "0"); // 조회수에 0을 넣어라! (= 값이 존재하게 만들어주자!)
+			}
+			
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("startNum", Integer.toString(startNum));
 			map.put("endNum", Integer.toString(endNum));
@@ -82,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
 				sb.append(boardDtoToTrTag(dto));
 			}
 			sb.append("</ul>");
-		
+			
 			
 			return sb.toString(); 
 		}
@@ -302,15 +310,15 @@ public class BoardServiceImpl implements BoardService {
 		@Override
 	public BoardDTO getBoardContent(int board_id) {
 		System.out.println("getBoardContent 서비스실행 ");
-		// ***********boardList에서 세션 잡아주는 곳이 있어야함************
-		//세션 - 새로고침방지
-//			if (session.getAttribute("board_view_cnt")!=null) { //조회수가 null이 아니라면 
-//				boardDAO.setView_cnt(board_id); // 글번호에 조회수 설정
-//				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
-//			}
+		
+		
+			if (session.getAttribute("userHit")!=null) { // 로그인을 했다면
+				boardDAO.setHit(board_id); // 글번호에 조회수 증가하게 해
+				session.removeAttribute("userHit"); // 조회수에 해당하는 세션에 있는 값을 삭제.
+			}
 		
 		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호를 통해서 getBoard
-		System.out.println("ServiceImpl 에서 date 값 TEST =  " + boardDTO.getBoard_date_created());
+		//System.out.println("ServiceImpl 에서 date 값 TEST =  " + boardDTO.getBoard_date_created());
 		//String user_id = (String)session.getAttribute("user_id"); // 세션에 저장된 user_id를 가져온다.
 		
 //			Map<String, Object> map = new HashMap<String, Object>();
