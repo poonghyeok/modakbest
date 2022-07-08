@@ -25,6 +25,9 @@ public class UserAllDTO {
    private String user_salt;    //비밀번호 암호화키    
    private String user_social;  // 소셜로그인여부
    
+   private String pwd1;
+   private String pwd2;
+   
    //class테이블
    private int class_id;         //게시글고유키
    private String class_academy; //학원이름

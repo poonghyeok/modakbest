@@ -1,5 +1,6 @@
 $('#num_check_blank').hide();
 $('#check_alert').hide();
+/*
 $(function(){
 	
 	//프로필 설정
@@ -32,7 +33,7 @@ $(function(){
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-});
+});*/
 
 /*이메일 중복체크*/
 

@@ -53,14 +53,12 @@
 	  						,user_pwd
 	  						,user_nickname
 	  						,user_name
-	  						,user_img
 	  						,user_logtime) 
 	  		values(user2_SEQ.nextval
 	  			,#{user_email}
 	  			,#{user_pwd}
 	  			,#{user_nickname}
 	  			,#{user_name}
-	  			,#{user_img}
 	  			,sysdate);
 	  		
 	  		insert into class(class_id
