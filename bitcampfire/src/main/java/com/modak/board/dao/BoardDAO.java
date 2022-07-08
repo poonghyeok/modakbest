@@ -26,6 +26,8 @@ public interface BoardDAO {
 	// 정수 : 끝  ###################### 
 
 		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map);
+
+		public void setHit(int board_id);
 					
 					
 

@@ -18,6 +18,7 @@ public interface BoardService {
 	// 정수 : 시작  ###################### 
 		// 글번호로 (글번호, DTO) 가져오기
 		public BoardDTO getBoardContent(int board_id);
+		
 	// 정수 : 끝  ###################### 
 		
 					

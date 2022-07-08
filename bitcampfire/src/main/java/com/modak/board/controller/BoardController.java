@@ -87,7 +87,6 @@ public class BoardController {
 			Date date = boardDTO.getBoard_date_created(); // 날짜 꺼내서
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
 			mav.addObject("dateToStr",dateToStr);
-			
 			mav.addObject("cateidToString", boardDTO.cateidToString());
 			
 			System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
