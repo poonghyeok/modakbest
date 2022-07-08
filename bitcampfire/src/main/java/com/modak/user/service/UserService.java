@@ -32,15 +32,23 @@ public interface UserService {
 
     	public String userSignup_emailCheck(String user_email);
     	
+    	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@	
+    	public String userSignup_nicknameCheck(String user_nickname);
+    	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+    	
     	public UserDTO getUserInformation(String user_email);
+    	
   	//유진 : 끝 0706====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-    //*******연수 수정(220707)
-        public String checkIdPw(Map<String, String> map);	
-    //*******연수 수정(220707)
-    // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
+    	//@@@@ 연수 수정(220708)  @@@@///      
+    	public String login(Map<String, String> map);
+    
+    	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 		public void userLogout();
+
+
+		
 }

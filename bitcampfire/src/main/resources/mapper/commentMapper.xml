@@ -5,15 +5,14 @@
 <mapper namespace="commentSQL">
 
 	<insert id = "writeCommentContent" parameterType="CommentDTO"> 
-		INSERT INTO COMMENT (cmt_id, cmt_uid, cmt_cateid, cmt_bid, cmt_cotent, cmt_date_created) 
-							VALUES(
+		INSERT INTO COMMENT VALUES(
 							COMMENT_SEQ.nextval, 
 							#{cmt_id},
 							#{cmt_uid},
 							#{cmt_cateid},
 							#{cmt_bid},
 							#{cmt_cotent},
-							sysdate )
+							sysdate)
 	</insert>
 	
 	<select id = "getCommentDTO" parameterType="int" resultType="CommentDTO"> 

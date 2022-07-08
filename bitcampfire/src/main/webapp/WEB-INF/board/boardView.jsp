@@ -48,14 +48,13 @@
 							<a href="/s/life" class="list-group-item-text item-tag label label-info">
 								<i class="fa fa-comments"></i> ${cateidToString}</a> 
 								<a href="/s/tagged/javascript" class="list-group-item-text item-tag label label-gray ">javascript</a>
+												
 						</div>
 						<h2 class="panel-title">${boardDTO.board_title}</h2>
 						<hr>
 		                <article class="content-text" itemprop="articleBody">
 							<p>${boardDTO.board_content}</p>
 						</article>
-
-					</div>
 
 					<!--추천수-->
 				<div id="content-function" class="content-function pull-right text-center">
@@ -91,7 +90,7 @@
             <!--댓글 -->
             <ul class="list-group">
                 <li id="note-title" class="list-group-item note-title">
-                    <h3 class="panel-title">댓글 <span id="note-count">${boardDTO.board_cmt_cnt}</span></h3>
+<!-- 댓글 개수 -->       <h3 class="panel-title">댓글 <span id="note-count">${boardDTO.board_cmt_cnt}</span></h3> 
                 </li>
                 <li class="list-group-item note-form clearfix">
                     <form action="/article/addNote/1266491" method="post" class="note-create-form">
@@ -108,56 +107,60 @@
                                 </div>
                                 <fieldset class="form">
                                     <input type="hidden" name="textType" value="HTML" id="note.textType">
-                                    <textarea name="note.text" id="note-create" placeholder="댓글 쓰기" class="form-control"></textarea>
+                                    <textarea name="note.text" id="note-create" placeholder="댓글 쓰기" class="form-control">${cmt_content}</textarea>
                                 </fieldset>
                             </div>
-                            <div class="content-function-cog note-submit-buttons clearfix">
-                                <p><a href="javascript://" id="note-create-cancel-btn" class="btn btn-default btn-wide" style="display: none;">취소</a></p>
-                                <input type="submit" name="create" id="btn-create-btn" class="btn btn-success btn-wide" value="등록" disabled="disabled">
-                            </div>
+                             <div class="content-function-cog note-submit-buttons clearfix">
+        						<p><a href="javascript:/board/boardList" id="note-create-cancel-btn" class="btn btn-default btn-wide" style="display: none;">취소</a></p>
+						        <input type="submit" name="create" id="btn-create-btn" class="btn btn-success btn-wide" value="등록" disabled="disabled">
+						    </div>
                     </form>
                 </li>
             </ul>
         </div>
-        <!--footer-->        
+        <!--footer-->     
         <jsp:include page="/WEB-INF/global/footer.jsp"/>
     </div>
 </div>
-	
- 
-<!--  댓글작성
+
 <script type="text/javascript"  src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-/* $(function(){
+
+/* $('#btn btn-success btn-wide').click(function(){ // 등록 버튼을 눌렀을때  
 	$.ajax({
-		type : 'post',
-		url : '/semiproject/board/getBoardView', // controller 가서 한사람의 글을 가져와라
-		data : '=' + $('input[name="cmt_bid"]').val(), // 글번호 
-		// ------------요청----------------
-		dataType : 'json', 
-		success : function(data) {
-		
-		}
-		
+		  type:'post',
+		  url:'/semiproject/comment/writeCommentContent',
+		  data: JSON.stringify(queryString), //{서버로 전송할 데이터}
+		  dataType: 'json', //'서버에서 전송받을 데이터 형식'
+		  success: { //정상 요청, 응답 시 처리 작업
+		     
+		  },
+		  error : function(xhr,status,error) {
+		      //오류 발생 시 처리
+		 },
 	});
-	
 }); */
 
-$('#writeCommentBtn').click(function(){
-	$.ajax({
-		type : 'post',
-		url : '/semiproject/CommentView/writeCommentContent', // controller 가서 데이터 가져와
-		data: {},
-		dataType : 'json', 
-		success : function(data) {
-			
-			$('#cmt_img').text(data.CommentDTO.img);
-			$('#cmt_user').text(data.CommentDTO.cmt_uid);
-			$('#cmt_content').text(data.CommentDTO.cmt_content);
-			$('#cmt_date').text(data.CommentDTO.cmt_date_created);
+$('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
+	function to_ajax(){
+			var queryString = $("form[name=testForm]").serialize(); // 키 값 을 묶어서 
+		
+				$.ajax({
+					type : 'post',
+					url : '/semiproject/comment/writeCommentContent', 
+					data : JSON.stringify(queryString), // 
+					dataType : 'json',
+					error: function(xhr, status, error){
+						alert(error);
+					},
+					success : function(json){
+						alert(json.data);
+						location.href="/board/getCommentContent"
+					}
+				});
 		}
 });
-</script>  --> 
+</script>
 
 </body>
 </html> 

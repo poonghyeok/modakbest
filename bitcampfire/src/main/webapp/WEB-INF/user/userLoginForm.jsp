@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>bitcampfire - 회원정보 수정</title>
+	<title>bitcampfire - 로그인</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">	
 	<style type="text/css">
@@ -32,8 +32,8 @@
 			        <div class="panel panel-default">
 			            <div class="panel-heading">
 			                <h5 class="panel-header">이메일 로그인</h5>
-		                	<!-- <div class="alert alert-danger" id="check_alert">		                
-	              			</div> -->
+		                	<div class="alert alert-danger" id="check_alert">		                
+	              			</div>
 			            </div>
 			
 			            <form class="form-signin form-user panel-body panel-margin" id="loginForm">
@@ -43,7 +43,11 @@
 			                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호">
 							<div id="user_pwdDiv"></div>
 			                <div id="divUserLogin">
+<<<<<<< HEAD
 			                    <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">			               
+=======
+			                    <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">		               
+>>>>>>> e8a916304b5f365049e78de2f5158a08153f2c6e
 			                </div>
 			                <br>		                
 			                <div id="divUserLogin">    
@@ -74,34 +78,33 @@ function enterkey() {
 		$('#btnUserLogin').trigger('click');
     }
 }
-/* $('#check_alert').hide(); */
+
+$('#check_alert').hide();
  
 $('#btnUserLogin').click(function(){
-	$('#user_emailDiv').empty();	
-	$('#user_pwdDiv').empty();	
-	
+	$('#check_alert').hide();
+	/* 이메일/비밀번호 정규식 조건 추가 */
 	if($('#user_email').val()=='') {		
-		$('#user_emailDiv').html('이메일을 입력하세요.');
-		/* $('#check_alert').show();
-		$('#check_alert').html('이메일을 입력하세요');
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일] : 이메일을 입력하세요.');
 		$('#check_alert').css('color','red');
-		$('#check_alert').css('font-size','8px');	 */	
+		$('#check_alert').css('font-size','8px');
 	}else if($('#user_pwd').val()=='') {		
-		$('#user_pwdDiv').html('비밀번호를 입력하세요.');
-		/* $('#check_alert').show();
-		$('#check_alert').html('비밀번호를 입력하세요.');
+		$('#check_alert').show();
+		$('#check_alert').html('[비밀번호] : 비밀번호를 입력하세요.');
 		$('#check_alert').css('color','red');
-		$('#check_alert').css('font-size','8px');	 */
+		$('#check_alert').css('font-size','8px');
 	}else {
 		$.ajax({ 
 			type: 'post',
-			url: '/semiproject/user/checkIdPw',
+			url: '/semiproject/user/login', 
 			data: { 'user_email' : $('#user_email').val(), 
 					'user_pwd' : $('#user_pwd').val() }, 		
 			dataType: 'text', 
 			success: function(data){
 				//alert(data);
 				data = data.trim();			
+<<<<<<< HEAD
 				if(data == 'ok') {
 					/* 풍혁220707 : 서버를 시작하고 처음에 session 반영이 안되는 부분 해결 시도를 위해 지연을 넣어봤습니다.  */
 					setTimeout("location.href='/semiproject/'",300);
@@ -116,6 +119,29 @@ $('#btnUserLogin').click(function(){
 			}
 		});
 	}
+=======
+					if(data == 'ok') {
+						/* 풍혁220707 : 서버를 시작하고 처음에 session 반영이 안되는 부분 해결 시도를 위해 지연을 넣어봤습니다.  */
+						setTimeout("location.href='/semiproject/'",300);
+					}else if(data == 'fail') {
+						/* 풍혁220707 : alert 추가했습니다. */
+						//alert('이메일 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요!');
+						//setTimeout("location.href='/semiproject/user/userLoginForm'",300);
+
+						$('#check_alert').show();
+						$('#check_alert').html('[로그인 실패] 이메일 또는 비밀번호가 일치하지 않습니다.<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 다시 시도해주세요!');
+						$('#check_alert').css('color','red');
+						$('#check_alert').css('font-size','8px');	
+						$('#user_email').val('');
+						$('#user_pwd').val('');
+					}
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+		}
+>>>>>>> e8a916304b5f365049e78de2f5158a08153f2c6e
 });
 
 </script>
