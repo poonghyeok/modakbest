@@ -172,7 +172,7 @@ $('#mail-check-input').click(function () {
 	$('#check_').hide();
 	console.log(code);
 	var inputCode = $(this).val();
-	var $resultMsg = $('#check_');
+	var $resultMsg = $('#check_alert');
 	
 	if($('#user_email_check_number').val() == code){
 		$('#check_alert').show();
@@ -261,13 +261,6 @@ $('#signUpBtn').click(function(){
 			$('#check_alert').html('[닉네임] : 닉네임을 입력하세요.');
 			$('#check_alert').css('color','red');
 			$('#check_alert').css('font-size','8px');
-		}
-		else if(!$('input[name="flexCheckChecked"]').is(':checked')){
-			$('#check_alert').show();
-			$('#check_alert').html('[이메일 수신] : 이메일 수신에 동의해주세요.');
-			$('#check_alert').css('color','red');
-			$('#check_alert').css('font-size','8px');
-			
 		}
 		else{
 			//$('#userSignupWriteForm').submit();
