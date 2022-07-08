@@ -6,7 +6,9 @@
         <div class="col-sm-9">
             <div style="float: left;margin-right: 10px;height:100px;">
                 <!-- 풍혁 (220707) : 이미지 대체 필요-->
-                <img src="/assets/images/okky_logo_footer.png" alt="footer">
+
+                <img src="#" alt="footer">
+
             </div>
             <div>
                 <!-- 풍혁(220707) : 필요한 부분 HREF , TEXT 수정 -->
@@ -25,8 +27,10 @@
             <div class="sponsor-banner-head">Tech Stack</div>
             <div class="sponsor-banner-images">
                 <!-- 풍혁(220707) : 로고 넣어보고 싶은 사람이나 사이트 링크 걸고 싶은사람이 자유롭게 수정~ -->
-              <a href="https://www.inames.co.kr" target="_blank"><img src="/assets/images/spb_inames.png" alt="넣고싶은사진1"></a>
-              <a href="https://www.toast.com/" target="_blank"><img src="/assets/images/spb_nhncloud.png" alt="넣고싶은사진2"></a>
+
+              <a href="https://www.inames.co.kr" target="_blank"><img src="#" alt="넣고싶은사진1"></a>
+              <a href="https://www.toast.com/" target="_blank"><img src="#" alt="넣고싶은사진2"></a>
+
             </div>
         </div>
     </div>

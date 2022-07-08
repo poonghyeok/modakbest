@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,8 +56,10 @@
 								<td>
 									  <select class="eunhye" id="board_cateid" required>
 									    <option value="" selected value="0" >게시판을 선택해 주세요</option>
-									    <option name="board_cateid" value="1">IT News & 정보</option>
-									    <option name="board_cateid" value="2">Tips & 강좌</option>
+									    <option name="board_cateid" value="1">취업정보</option>
+									    <option name="board_cateid" value="2">후기</option>
+									    <option name="board_cateid" value="3">Q &amp; A</option>
+									    <option name="board_cateid" value="4">자유게시판</option>
 									  </select>
 								</td>
 							</tr>
@@ -129,9 +132,6 @@ $(function(){
 	 } */
 	
 	$('#boardWriteBtn').click(function(){
-		
-		alert('boardWriteBtn clicked...!');
-		
 		const editorData = editor.getData();
 		
 		//비엇을때 진해지고 포커스아웃시 풀리고

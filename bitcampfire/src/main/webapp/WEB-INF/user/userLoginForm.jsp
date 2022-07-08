@@ -51,6 +51,7 @@
 			                	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
 			                </div>
 	
+
 			                <div class="signup-block">
 			                    <a href="/semiproject/user/userFindPwdForm">계정 찾기</a>
 			                    <span class="inline-saperator">/</span>
@@ -59,6 +60,7 @@
 			            </form>
 		           </div>
 		       </div>
+
 		    </div>
 		    <!-- 메인끝  -->
  		 <jsp:include page="/WEB-INF/global/footer.jsp"/>   
@@ -101,10 +103,12 @@ $('#btnUserLogin').click(function(){
 				//alert(data);
 				data = data.trim();			
 					if(data == 'ok') {
-						location.href = "/semiproject/";
-						
-					}else if(data == 'fail') {		
-						alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+
+						/* 풍혁220707 : 서버를 시작하고 처음에 session 반영이 안되는 부분 해결 시도를 위해 지연을 넣어봤습니다.  */
+						setTimeout("location.href='/semiproject/'",300);
+					}else if(data == 'fail') {
+						/* 풍혁220707 : alert 추가했습니다. */
+						alert('이메일 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요!');
 						location.href = "/semiproject/user/userLoginForm";
 					}
 				},
@@ -114,7 +118,6 @@ $('#btnUserLogin').click(function(){
 			});
 		}
 });
-
 
 </script>
 </body>

@@ -18,6 +18,10 @@ public interface BoardDAO {
 		
 		public void boardWrite(BoardDTO boardDTO);
 
+		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map);
+
+		public int getTotalBoardSearchNum(String keyword);
+		
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
@@ -25,8 +29,7 @@ public interface BoardDAO {
 		public BoardDTO getBoardContent(int board_id);
 	// 정수 : 끝  ###################### 
 
-		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map);
-					
+			
 					
 
 		
