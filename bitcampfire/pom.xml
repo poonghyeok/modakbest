@@ -197,7 +197,7 @@
 		</dependency>   
 		
 		<!--  ###################### 유진 : 시작  0706###################### -->
-	<dependency>
+		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>mail</artifactId>
 		    <version>1.4.7</version>
@@ -209,6 +209,7 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
+
 		<!-- 비밀번호암호화 (0708)-->
 
 	      <!-- 비밀번호암호화 (0708)-->
@@ -229,6 +230,7 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>5.0.8.RELEASE</version>
 		</dependency>
+
 	</dependencies>
     <build>
         <plugins>

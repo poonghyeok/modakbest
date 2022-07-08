@@ -42,7 +42,7 @@ public class UserSignupController {
 	private JavaMailSender mailSender;
 	
 	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
 	
@@ -57,6 +57,7 @@ public class UserSignupController {
 		return userService.userSignup_emailCheck(user_email);
 	}
 	
+
 	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
 	@PostMapping(value = "userSignup_nicknameCheck")
 	@ResponseBody
@@ -69,6 +70,13 @@ public class UserSignupController {
 	public String userSignupComplete() {
 		return "/user/userSignupComplete";
 	}	
+
+	/*
+	 * @GetMapping(value = "userSignupComplete") public String userSignupComplete()
+	 * { return "/user/userSignupComplete"; }
+	 */
+	
+
 	
 	//이메일 인증
 		@GetMapping("mailCheck")
@@ -117,18 +125,67 @@ public class UserSignupController {
 		
 		@PostMapping(value="user_register")
 		@ResponseBody
-		public void user_register(@ModelAttribute UserAllDTO userAllDTO, HttpSession session) {
-			//비밀번호 암호화
-			logger.info("post user_register");
-	         
-	         String inputPass =  userAllDTO.getUser_pwd();
-	         String pwd = passwordEncoder.encode(inputPass);
-	         userAllDTO.setUser_pwd(pwd);
+
+		public void user_register(@ModelAttribute UserAllDTO userAllDTO,
+						   HttpSession session) {
 			
+			logger.info("post user_register");
+			
+			String inputPass =  userAllDTO.getUser_pwd();
+			String pwd = passwordEncoder.encode(inputPass);
+			userAllDTO.setUser_pwd(pwd);
+		
 			userService.user_register(userAllDTO);
+		}	
+		
+		
+		
+		//이메일 계정찾기 전송
+		
+		@GetMapping("pwdFindmailCheck")
+		@ResponseBody
+		public String pwdFindmailCheck(String user_email) throws Exception{
+			logger.info("이메일 인증 요청이 들어옴"+user_email);
+	        logger.info("인증번호 : " + user_email);
+			//return  mailService.joinEmail(user_email);
+	        
+	        /* 인증번호(난수) 생성 */
+	        Random random = new Random();
+	        int checkNum = random.nextInt(888888) + 111111;
+	        logger.info("인증번호 " + checkNum);
+	        
+	        /* 이메일 보내기 */
+	        String setFrom = "yujin980810@gmail.com";
+	        String toMail = user_email;
+	        String title = "회원가입 인증 이메일 입니다.";
+	        String content = 
+	                "홈페이지를 방문해주셔서 감사합니다." +
+	                "<br><br>" + 
+	                "인증 번호는 " + checkNum + "입니다." + 
+	                "<br>" + 
+	                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+	        
+	        try {
+	            
+	            MimeMessage message = mailSender.createMimeMessage();
+	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	            helper.setFrom(setFrom);
+	            helper.setTo(toMail);
+	            helper.setSubject(title);
+	            helper.setText(content,true);
+	            mailSender.send(message);
+	            
+	        }catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	        String num = Integer.toString(checkNum);
+	        
+	        return num;
 		}
 		
-		//회원정보 수정 끝
+		
+	
+
 		
 	}
 	

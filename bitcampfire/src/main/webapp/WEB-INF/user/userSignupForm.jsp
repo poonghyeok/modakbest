@@ -60,14 +60,14 @@
 							<input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy">
 							<input type="text" name="class_class" class="form-control input-sm" required="" placeholder="과정명" value="" id="nickname">
 		                    
-							<label for="user_img" class="form-label"></label>
+							<!-- <label for="user_img" class="form-label"></label>
 							<div class="user_profile">
 								<div class='avatar-photo' id="avatar-photo"><img id="basic_profile_img" src=""></div>
 						  		<div class="camera_icon_div" id="camera_icon_div">
 							  		<img src="/semiproject/img/camera-fill.svg" id="camera_icon">
 						  		</div>
 						  		<input type="file" style="display:none;" name="user_image" accept="image/gif, image/jpg, image/jpeg, image/png" id="user_image">
-							</div>
+							</div> -->
 	
 							
 		                    <div class="checkbox">

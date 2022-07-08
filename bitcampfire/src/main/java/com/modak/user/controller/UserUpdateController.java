@@ -32,7 +32,9 @@ public class UserUpdateController {
 	private UserService userService;
 	@Autowired
 	HttpSession session;
-	
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 
 	//회원정보 수정 시작 (이메일 인증 넣고 해	보기)
@@ -95,11 +97,25 @@ public class UserUpdateController {
 	//비밀번호 일치여부 확인 	
 	@PostMapping(value="checkPwd")	  
 	@ResponseBody 
-	public UserDTO checkPwd(HttpSession session){ 
+	public UserDTO checkPwd(HttpSession session){ 		
 		String user_email =(String) session.getAttribute("memEmail");
 		return userService.checkPwd(user_email); 
 	}
 	
+
+	//비밀번호 일치여부-테스트용 성공
+	/*
+	@PostMapping(value="checkPwd")
+	@ResponseBody
+	public UserDTO checkPwd(@RequestParam String user_email){		
+		System.out.println("checkPwd : " + user_email);
+		
+		
+		return userService.checkPwd(user_email);	
+	}
+	*/ 
+	
+
 	//비밀번호 변경 완료	
 	@PostMapping(value="pwdChangeComplete")
 	@ResponseBody

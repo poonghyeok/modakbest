@@ -1,5 +1,6 @@
 $('#num_check_blank').hide();
 $('#check_alert').hide();
+/*
 $(function(){
 	
 	//프로필 설정
@@ -32,17 +33,26 @@ $(function(){
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-});
+});*/
 
 /*이메일 중복체크*/
 $('#user_email').focusout(function(){
 	$('#check_alert').hide();
+	
+	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
 	if( $('#user_email').val() == ''){
 		$('#check_alert').show();
 		$('#check_alert').html('[이메일]: 이메일 먼저 입력해주세요.');
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
+	}
+	else if($('#user_email').val().match(regExp) == null){
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일]: 이메일 형식이 올바르지 않습니다.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+		
 	}else{
 		$.ajax({
 			type: 'post',
@@ -204,7 +214,7 @@ $('#mail-check-input').click(function () {
 	$('#check_').hide();
 	console.log(code);
 	var inputCode = $(this).val();
-	var $resultMsg = $('#check_');
+	var $resultMsg = $('#check_alert');
 	
 	if($('#user_email_check_number').val() == code){
 		$('#check_alert').show();
@@ -294,6 +304,7 @@ $('#signUpBtn').click(function(){
 			$('#check_alert').css('color','red');
 			$('#check_alert').css('font-size','8px');
 		}
+
 		
 		/* @@@연수 닉네임 중복체크 추가(220708)@@@ */
 		else if($('#user_nickname').val() != $('input[name="user_nickname_check"]').val()){
@@ -311,6 +322,7 @@ $('#signUpBtn').click(function(){
 			$('#check_alert').css('font-size','8px');
 			
 		}
+
 		else{
 			//$('#userSignupWriteForm').submit();
 	 		var formData = new FormData($('#userSignupWriteForm')[0]);
