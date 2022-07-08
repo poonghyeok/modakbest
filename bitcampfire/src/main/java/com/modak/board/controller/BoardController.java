@@ -2,9 +2,13 @@ package com.modak.board.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,10 @@ public class BoardController {
 	//Board 공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		@Autowired
 		private BoardService boardService;
+		
+		//풍혁(0707) : session이 필요할 수도 있으니 
+		@Autowired
+		private HttpSession session;
 		//풍혁 (0704) : 여유가 있다면 간단한 설명 주석으로 달아주세요~ 
 	//Board 공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
@@ -27,15 +35,21 @@ public class BoardController {
 	//풍혁 : 시작 ==================================
 		//boardList 띄우기.. 게시판 별 boardList
 		@GetMapping(value = "/list")
-		public ModelAndView boardList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg) {
+		public ModelAndView boardList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req) {
 			
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg);
+			HttpSession session = req.getSession();
+			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("user_email"));
+			String session_email = (String)session.getAttribute("user_email");
 			
 			String userWriteTableList = boardService.getUserWriteTablelist(pg);
 			String boardPagingList = boardService.getBoardPagingList(pg);
 			
 			ModelAndView mav = new ModelAndView();
+			if(session_email != null) {
+				mav.addObject("session_email",session_email);
+			}
 			mav.addObject("userWriteTableList", userWriteTableList);
 			mav.addObject("boardPagingList", boardPagingList);
 			mav.setViewName("/board/boardList");
@@ -45,6 +59,7 @@ public class BoardController {
 		
 		@GetMapping("/write")
 		public String boardWrite() {
+			
 			return "/board/boardWriteForm";
 		}
 		
@@ -61,8 +76,8 @@ public class BoardController {
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
 			
-			String userWriteTableList = boardService.getUserWriteTablelist(pg);
-			String boardPagingList = boardService.getBoardPagingList(pg);
+			String userWriteTableList = boardService.getUserSearchWriteTablelist(pg, keyword);
+			String boardPagingList = boardService.getBoardSearchPagingList(pg, keyword);
 			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("userWriteTableList", userWriteTableList);
@@ -87,6 +102,11 @@ public class BoardController {
 			Date date = boardDTO.getBoard_date_created(); // 날짜 꺼내서
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
 			mav.addObject("dateToStr",dateToStr);
+			
+			
+			//풍혁220708 : boadr_uid로 유저nickname 받아서 작성자에 넣겠습니다.
+			String author = boardService.getUserNameByUserId(boardDTO.getBoard_uid());
+			mav.addObject("author", author);
 			
 			mav.addObject("cateidToString", boardDTO.cateidToString());
 			

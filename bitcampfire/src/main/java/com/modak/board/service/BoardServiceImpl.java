@@ -7,12 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
 import com.modak.board.dao.BoardDAO;
+import com.modak.user.dao.UserDAO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -20,7 +23,12 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDAO boardDAO;
 	
-
+		//풍혁 220708 : 세션 이메일로 user_id를 받아오기 위해 생성했습니다.
+	@Autowired
+	private UserDAO userDAO;
+	
+	@Autowired
+	private HttpSession session;
 	// 글번호로 (글번호, DTO) 가져오기
 	//public BoardDTO getBoardContent(int board_id);
 		//풍혁(0706 2143) : interface에 넣어야할 것을 여기다가 넣으신거 같아요. 착각하신게 맞다면 지우고 commit 부탁드립니다. 
@@ -54,9 +62,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		@Override
-		public String getUserWriteTablelist(int pg, String keyword) {
+		public String getUserSearchWriteTablelist(int pg, String keyword) {
 			StringBuffer sb = new StringBuffer();
-		
+			
 			int boardPerPage = 10;
 			int startNum = 1 + boardPerPage*(pg-1);
 			int endNum = boardPerPage + boardPerPage*(pg-1);
@@ -64,11 +72,12 @@ public class BoardServiceImpl implements BoardService {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("startNum", Integer.toString(startNum));
 			map.put("endNum", Integer.toString(endNum));
+			map.put("keyword", keyword);
 			
 			List<BoardDTO> list = boardDAO.getBoardSearchRangeOrderByTime(map); 
 			System.out.println("\n @ boardTalbeList size : " + list.size());
 			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
-			sb.append("<ul class=\"list-group \">");
+			sb.append("<ul class='list-group '>");
 			for(BoardDTO dto : list) {
 				sb.append(boardDtoToTrTag(dto));
 			}
@@ -78,16 +87,24 @@ public class BoardServiceImpl implements BoardService {
 			return sb.toString(); 
 		}
 		
+		//풍혁220708 : board_uid 추가
 		@Override
 		public void boardWrite(BoardDTO boardDTO) {
+			String session_email = (String)session.getAttribute("user_email");
+			int board_uid = userDAO.getUserIdByEmail(session_email);
+			
+			//풍혁220708 : userDAO에 user_id 받아오는 method와 query 생성해서 boardDTO에 집어넣고 글 생성할 때 반영
+			boardDTO.setBoard_uid(board_uid);
 			boardDAO.boardWrite(boardDTO);
 		}
 		
-		
-
-		
-//풍혁 (220703) : getUserWriteTablelist() method에서 table에 tr을 추가하는 코드가 너무 길어질 것으로 판단해, tr을 만들어주는 method를 생성했습니다. 
+	
+		//풍혁 (220703) : getUserWriteTablelist() method에서 table에 tr을 추가하는 코드가 너무 길어질 것으로 판단해, tr을 만들어주는 method를 생성했습니다. 
 		private String boardDtoToTrTag(BoardDTO boardDTO) {
+			//풍혁220708 : user_name 받아오기 
+			int board_uid = boardDTO.getBoard_uid();
+			String author = userDAO.getUserNameByUserId(board_uid);
+			
 			StringBuffer tr = new StringBuffer();
 			
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 시작 
@@ -155,7 +172,7 @@ public class BoardServiceImpl implements BoardService {
 						//풍혁(220707) : user click 했을 경우 user의 최근활동을 볼 수 있는 페이지로 이동 : 옵션으로
 						tr.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar/e7d844c379aaafb37172977b206d129d?d=identicon&amp;s=30\'></a>");
 						tr.append("<div class='avatar-info'>");
-							tr.append("<a class='nickname' href='#' title='"+ boardDTO.getBoard_uid()+"'>"+ "유저이름" +"</a>");
+							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
 							tr.append("<div class='activity'>");
 								tr.append("<span class='fa fa-flash'></span>" + "lev");
 							tr.append("</div>");
@@ -201,6 +218,81 @@ public class BoardServiceImpl implements BoardService {
 			boardPaging.makePagingHTML();
 			
 			return boardPaging.getPagingHTML().toString();
+		}
+		
+		@Override
+		public String getBoardSearchPagingList(int pg, String keyword) {
+			BoardPaging boardPaging = new BoardPaging();
+			boardPaging.setCurrentPage(pg);
+			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardPaging.setPageSize(10); //page 당 10개의 글 존재
+			boardPaging.setTotalA(boardDAO.getTotalBoardSearchNum(keyword));
+			boardPaging.makePagingHTML();
+			
+			return null;
+		}
+		
+		@Override
+		public String getUserNameByUserId(int board_uid) {
+			String user_name = userDAO.getUserNameByUserId(board_uid);
+			
+			return user_name;
+		}
+		
+		//풍혁220708 : main board list 작업
+		@Override
+		public String getHomeBoardList(int boardNum) {
+				
+			StringBuffer indexBoardList = new StringBuffer();
+			
+			int startNum = 1;
+			int endNum = boardNum;
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("startNum", startNum);
+			map.put("endNum", endNum);
+			
+			List<BoardDTO> list = boardDAO.getBoardRangeOrderByTime(map);
+			
+			for(BoardDTO dto : list) {
+				indexBoardList.append(makingIndexBoardList(dto));
+			}
+		
+			
+			return indexBoardList.toString();
+		}
+		
+		//풍혁220706 : MAIN에 띄울 리스트들 
+		private StringBuffer makingIndexBoardList(BoardDTO boardDTO) {
+			StringBuffer sb = new StringBuffer();
+			String user_name = userDAO.getUserNameByUserId(boardDTO.getBoard_uid());
+			
+			sb.append("<div class='panel panel-default'>");
+				sb.append("<ul class='list-group'>");
+					sb.append("<li class='list-group-item list-group-item-small list-group-item-question list-group-has-note clearfix'>");
+						sb.append("<div class='list-title-wrapper'>");
+							sb.append("<h5 class='list-group-item-heading'>");
+								sb.append("<a href='/semiproject/baord/getBoardView?board_id='"+boardDTO.getBoard_id()+">"+ boardDTO.getBoard_title() +"</a>");
+								sb.append("<div class='list-group-item-author pull-right clearfix'>");
+									sb.append("<div class='avatar clearfix avatar-x-small'>");
+										sb.append("<a href='/user/info/133529' class='avatar-photo'><img src='//www.gravatar.com/avatar/9a316994cda85c56cd4f0c833ec511b6?d=identicon&amp;s=10'></a>");
+										sb.append("<div class='avatar-info'>");
+											sb.append("<a class='nickname' href='#' title=''>"+user_name+"</a>");
+											sb.append("<div class='activity'>");
+												sb.append("<span class='fa fa-flash'></span>2k");
+												sb.append("<div class='date-created'>");
+													sb.append("<span class='timeago' title=''>"+ boardDTO.getBoard_date_created() +"</span>");
+												sb.append("</div>");
+											sb.append("</div>");
+										sb.append("</div>");
+									sb.append("</div>");
+							sb.append("</h5>");
+						sb.append("</div>");
+					sb.append("</li>");
+				sb.append("</ul>");
+			sb.append("</div>");
+			
+			return sb;
 		}
 	
 //풍혁 : 끝 =============================================

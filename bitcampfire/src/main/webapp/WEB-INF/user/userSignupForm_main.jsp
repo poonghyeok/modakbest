@@ -38,7 +38,7 @@
 			               			<input type="hidden" name="user_email_check" id="user_email_check" value="">
 		               			</div>
 		               			<div class="col-md-3">
-									<button class="btn btn-primary" type="button" id="emailBtn" disabled="disabled">인증번호</button>
+									<input type ="button" class="btn btn-primary" type="button" id="emailBtn" disabled="disabled" value="인증번호">
 								</div>	
 					        </div>
 					       <div class="row"  id="num_check_blank">
@@ -46,7 +46,7 @@
 						        	<input type="text" class="form-control input-sm" id="user_email_check_number"placeholder="인증번호 6자리" maxlength="6">
 				            	</div>
 				           		<div class="col-md-3">
-							  		<button type="button" id="mail-check-input" class="btn btn-primary">번호 인증</button>
+							  		<input type = "button" id="mail-check-input" class="btn btn-primary" value="번호 인증">
 				            	</div>
 				            </div>
 							<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd">
@@ -707,8 +707,7 @@
     <%-- <jsp:include page="/WEB-INF/global/footer.jsp"/>  --%>   
    </div> <!-- main -->   
 </div> <!-- layout-container --> 
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type = "text/javascript" src="/semiproject/js/user/userSignupForm.js"></script>
+<!-- 풍혁 220708 : script가 중복이라 한쪽은 지웠습니다. signup ~~ .jsp 에서 rel이나 href 중복되는것들 삭제해주세요~! -->
 
 </body>
 </html>

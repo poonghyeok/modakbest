@@ -66,23 +66,58 @@ public class BoardPaging {
 					pagingHTML.append("»");
 				pagingHTML.append("</a>"); 
 			pagingHTML.append("</li>");
-		}                                                                                 
-//		if(startPage != 1) { //if(startPage > pageBlock)
-//			int previousPage = startPage-1;
-//			pagingHTML.append("[<span id='paging' class='listPage'>이전</span>]");
-//		}
-//		
-//		for(int i = startPage; i<=endPage; i++) {
-//			if(i == currentPage) {
-//				pagingHTML.append("[<span id = 'currentPaging' class='listPage'>" + i + "</span>]" );
-//			}else {
-//				pagingHTML.append("[<span id = 'paging' class='listPage'>" + i + "</span>]" );
-//			}
-//		}
-//			
-//		if(endPage < totalP) {
-//				int nextPage = endPage+1;
-//				pagingHTML.append("[<span id = 'paging' class='listPage'> 다음 </span>]" );
-//		}
+		}
+	}
+		
+		public void makeSearchPagingHTML(String keyword) {
+			this.pagingHTML = new StringBuffer();
+		
+			int totalP = (int)(Math.ceil(totalA / (float)pageSize));
+			//int totalP = ( totalA - 1) / ( pageSize + 1); //총 페이지 수
+			int startPage = (currentPage-1) / pageBlock * pageBlock +1; //시작 페이지 번호 
+			int endPage = startPage + pageBlock - 1; //마지막 페이지
+			if(endPage > totalP) {
+				endPage = totalP;
+			}
+
+			//풍혁(220706) : set 잘해줬는지 test
+			System.out.println("@@@ caled totalP = " + totalP + "@@@ caled startPage  = " + startPage +"@@@ caled endPage = " + endPage );
+			
+			if(currentPage != 1) { //if(startPage > pageBlock)                         
+				int previousPage = currentPage-1;                                      
+				pagingHTML.append("<li class='prev'>");
+					pagingHTML.append("<a href='/semiproject/board/search?pg="+previousPage+"&keword="+keyword+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
+						pagingHTML.append("«");
+					pagingHTML.append("</a>"); 
+				pagingHTML.append("</li>");
+			
+			}
+			
+			System.out.println("\n @self log@ current page : " + currentPage);
+			for(int i = startPage; i <= endPage; i++) {
+				if( i == this.currentPage) {
+					pagingHTML.append("<li class='active'>");
+						pagingHTML.append("<span>");
+							pagingHTML.append(i);
+						pagingHTML.append("</span>");
+					pagingHTML.append("</li>");
+				}else {
+					pagingHTML.append("<li>");
+						pagingHTML.append("<a href='/semiproject/board/search?pg="+i+"&keword="+keyword+"'>");
+						
+							pagingHTML.append(i);
+						pagingHTML.append("</a>");
+					pagingHTML.append("</li>");
+				}
+			}
+			//풍혁(220706) : ...맨끝 페이지 이동 기능 구현 보류 ...
+			if(currentPage < endPage) {                                                            
+				int nextPage = currentPage+1;
+				pagingHTML.append("<li class='next'>");
+					pagingHTML.append("<a href='/semiproject/board/search?pg="+nextPage+"&keword="+keyword+"'>"); //풍혁(220706) : href 현재페이지에서 다음페이지로 넘겨주는 url로 수정해야 됨.
+						pagingHTML.append("»");
+					pagingHTML.append("</a>"); 
+				pagingHTML.append("</li>");
+			}
 	}
 }

@@ -93,6 +93,20 @@
 	
 	
 	<!-- @@@@@@@@@@@@@@ 기진 : 끝  @@@@@@@@@@@@@@ -->
+
+
+	<!-- %%%%%%%%%%%%%%%%%% 풍혁 : 시작  %%%%%%%%%%%%%%%%%% -->
+	<select id="getUserIdByEmail" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select user_id from user2 where user_email=#{session_email}
+	</select>
+	
+	<select id="getUserNameByUserId" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select user_nickname from user2 where user_id=${board_uid}
+	</select>
+	
+	
+	<!-- %%%%%%%%%%%%%%%%%% 풍혁 : 끝  %%%%%%%%%%%%%%%%%% -->
+	
 	
 
 </mapper>

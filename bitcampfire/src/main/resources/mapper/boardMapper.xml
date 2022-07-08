@@ -21,6 +21,12 @@
 	   		SELECT count(*) FROM board_review
 	   	</select>
 	   	
+	   	<select id="getTotalBoardSearchNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+	   		SELECT COUNT(*) FROM BOARD_REVIEW 
+    			WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'
+   				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+	   	</select>
+	   	
 	   	<!-- 풍혁(220703) :  -->
 	   	<select id="getBoardRangeOrderByTime" parameterType="java.util.Map" resultType="BoardDTO">
 	   		SELECT * FROM (
@@ -29,6 +35,19 @@
 			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
 	   	</select>
 	   	
+	   	<!-- 풍혁(220707) : 일단 title이나 내용으로 검색하는 SQL입니다. 최신순정렬 -->
+    	<select id="getBoardSearchRangeOrderByTime" parameterType="java.util.Map" resultType="BoardDTO">
+	    	SELECT * FROM (	
+	    		SELECT ROWNUM AS RN, TT.* FROM (SELECT * FROM BOARD_REVIEW 
+	    			WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	    				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+	    				ORDER BY BOARD_DATE_CREATED DESC
+	 			)TT
+ 			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
+    	</select>
+    	
+    	
+	   	
 	   	<insert id="boardWrite" parameterType="BoardDTO">
 	      INSERT INTO board_review
 	            (board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
@@ -36,12 +55,7 @@
 	            (BOARD_QNA_SEQ.nextval,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
     	</insert>
     	
-    	<!-- 풍혁(220707) : 일단 title이나 내용으로 검색하는 SQL입니다. -->
-    	<select id="boardSearchByTitleOrContent" parameterType="java.lang.String" resultType="BoardDTO">
-    		SELECT * FROM BOARD_REVIEW 
-    			WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'
-    				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
-    	</select>
+    	
 	<!-- ======================== 풍혁 : 끝 ============================= -->
 
 	

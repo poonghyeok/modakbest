@@ -21,14 +21,13 @@ public class UserServiceImpl implements UserService {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		@Autowired
 		UserDAO userDAO;	
-
+		
+		//풍혁 220707 : session객체를 공통역역으로 이동시켰습니다.
+		@Autowired
+		private HttpSession session;
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	//연수 : 시작(220706) ====================================
-
-		@Autowired
-		private HttpSession session;
-		
 
 		@Override
 		public UserAllDTO getUser(String user_email) {

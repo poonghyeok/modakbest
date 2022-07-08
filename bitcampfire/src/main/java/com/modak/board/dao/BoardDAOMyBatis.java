@@ -1,5 +1,6 @@
 package com.modak.board.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +48,16 @@ public class BoardDAOMyBatis implements BoardDAO {
 		
 		@Override
 		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map) {
-			// TODO Auto-generated method stub
-			return null;
+			List<BoardDTO> list = new ArrayList<>();
+			list = sqlSession.selectList("boardSQL.getBoardSearchRangeOrderByTime", map);
+			System.out.println("\n @LOG@ myBatis getBoardSearchRangeOrderByTime ... 마지막 요소 제목 꺼내보기 : " + list.get(list.size()-1).getBoard_title());
+			return sqlSession.selectList("boardSQL.getBoardSearchRangeOrderByTime", map);
+		}
+		
+		@Override
+		public int getTotalBoardSearchNum(String keyword) {
+			System.out.print("@LOG@ : Mybatis getTotalBoardSearchNum.. ");
+			return sqlSession.selectOne("boardSQL.getTotalBoardSearchNum",keyword);
 		}
 	//풍혁 : 끝 ====================================
 	

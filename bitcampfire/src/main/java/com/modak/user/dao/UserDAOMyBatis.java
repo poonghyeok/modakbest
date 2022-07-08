@@ -79,5 +79,18 @@ public class UserDAOMyBatis implements UserDAO {
     //*******연수 수정(220707)			
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 	
+	//풍혁 : 시작 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+		@Override
+		public int getUserIdByEmail(String session_email) {
+			
+			return sqlSession.selectOne("userSQL.getUserIdByEmail", session_email);
+		}
+		
+		@Override
+		public String getUserNameByUserId(int board_uid) {
+			
+			return sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
+		}
+	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
 }
