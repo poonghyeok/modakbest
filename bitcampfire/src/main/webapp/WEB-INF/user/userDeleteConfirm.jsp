@@ -19,9 +19,6 @@
 				    <div class="panel panel-default panel-margin-10">
 				        <div class="panel-body panel-body-content text-center">
 				        
-				         <!-- 테스트용: 나중에 삭제  -->
-						 <input type="text" id="user_email">
-				        
 				            <p class="lead">회원 탈퇴시 아래의 조취가 취해 집니다.</p>
 				            <ul class="text-left">
 				                <li>회원 탈퇴 일로부터 계정과 닉네임을 포함한 계정 정보(아이디/이메일/닉네임)는 <strong>'개인 정보 보호 정책'에
@@ -36,7 +33,7 @@
 				</div>
 			</form>
 		    <!-- 메인끝  -->
- 		<%-- <jsp:include page="/WEB-INF/global/footer.jsp"/>  --%>   
+ 		 <jsp:include page="/WEB-INF/global/footer.jsp"/>    
    </div> <!-- main -->   
 </div> <!-- layout-container -->
 

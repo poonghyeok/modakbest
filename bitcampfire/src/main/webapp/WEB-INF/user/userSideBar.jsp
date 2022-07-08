@@ -36,22 +36,24 @@
 	<!-- 검색 창 하단 로그인/회원가입 이동 선을 못찾음  -->
     <div class="nav-user nav-sidebar">
     		<!-- 로그인 상태 -->
-    	    <c:if test="${sessionScope.user_email == null }">
+    	    <c:if test="${sessionScope.memEmail == null }">
             <ul class="nav nav-sidebar">
                 <li ><a href="/semiproject/user/userLoginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
                 <li ><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
             </ul>
             </c:if>
             <!-- 로그아웃 상태 -->
-         	<c:if test="${sessionScope.user_email != null }">   
+         	<c:if test="${sessionScope.memEmail != null }">   
             <ul class="nav nav-sidebar">
 	      		<div class="avatar clearfix avatar-medium">				
 						<!-- 이동 경로가 회원번호 같은디? -->
-						<!-- img src 불러오기 다시 -->	
-						<a href="/semiproject/user/userMyPageForm" class='avatar-photo'><img src="/semiproject/img/2.png" id="MyPg_user_image"/></a>
+						<!-- img src 불러오기 다시 -->
+						
+						<a href="/semiproject/user/userMyPageForm" class='avatar-photo' style="margin-left: 25px;"><img src="/semiproject/img/2.png" id="MyPg_user_image"/></a>
 						<div class="avatar-info">
-								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.user_nickname}</a>
-						</div>			
+								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.memNickname}</a>
+						</div>
+								
 				</div>
 			</ul>
 			<ul class="nav nav-sidebar">
@@ -66,10 +68,10 @@
 
     <ul class="nav nav-sidebar nav-main">
     		<!-- link 누르면 호버기능?  -->
-    		<li  ><a href="/articles/questions" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
-    		<li  ><a href="/articles/tech" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
-    		<li  ><a href="/articles/community" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
-    		<li  ><a href="/articles/columns" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
+    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
+    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
+    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
+    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
     </ul>
 
 	<!-- okky-깃허브에 연동 -->

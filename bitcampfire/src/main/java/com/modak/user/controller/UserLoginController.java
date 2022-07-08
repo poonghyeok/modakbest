@@ -29,7 +29,7 @@ public class UserLoginController {
 	HttpSession session;
 	
 
-   //@@@@ 연수 수정 @@@@///
+   //@@@@ 연수 수정(220707)  @@@@///
 	/* 로그인 기능구현 */ 
 	@GetMapping(value="userLoginForm")
 	public String userLoginForm() {
@@ -49,10 +49,8 @@ public class UserLoginController {
 	@PostMapping(value="checkIdPw")
 	@ResponseBody
 	public String checkIdPw(@RequestParam Map<String, String> map) {
-		System.out.println("controller checkIdPw : " + map);
-		String result = userService.checkIdPw(map);
-		System.out.println("\n @ checkIdPW LOG @ : " + result);
-		return result;
+		return userService.checkIdPw(map);
+		 
 	}
 	/* 로그인 기능구현  끝 */ 
 	
@@ -62,13 +60,7 @@ public class UserLoginController {
 	public void logout() {
 		userService.userLogout();
 	}
-	//삭제 예정-연수작성
-	/* 회원정보  변경 */ 
-	@RequestMapping(value="userInfoUpdate")
-	public String userInfoUpdate() {
-		System.out.println("userInfoUpdate");
-		return "/user/userInfoUpdate";
-	}
+
 	//@@@@ 연수 수정 @@@@///
 	
 	

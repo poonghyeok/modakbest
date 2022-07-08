@@ -29,48 +29,44 @@
 				<div id="create-user" class="content clearfix" role="main">
 				    <h3 class="content-header">회원 정보 수정</h3>
 				    <div class="col-md-6 main-block-left">
-				        <div class="panel panel-default"> 
-				        
+				        <div class="panel panel-default"> 				        
 				            <!-- upadate form start -->
-		 		            <form id="updateForm" class="form-signup form-user panel-body">
-										<!-- 
-									<input type="hidden" name="_csrf" value="698dfadc-ce17-48ca-92db-b30e293be47c">
-					            	<input type="hidden" name="_method" value="PUT" id="_method">
-					                 -->  			           		
+		 		            <form id="updateForm" class="form-signup form-user panel-body">	           		
 					            <div class="panel-heading">                      
 					                			            
 									<div class="avatar clearfix avatar-medium">				
 											<!-- 이동 경로가 회원번호 같은디? img src 넣기! -->	
-											<a href="/user/info/" class='avatar-photo'><img src=""+"${userAllDTO.user_img}" id="show_user_image"/></a>
+											<a href="/user/info/" class='avatar-photo'><img src="/semiproject/img/2.png" id="show_user_image"/></a>
 											<div class="avatar-info">
-													<a class="user_nickname" href="/user/info/}" title="">${userAllDTO.user_nickname}</a>
+													<a class="user_nickname" href="/user/info/" title=""></a>
 													<!-- <div class="activity block"><span class="fa fa-flash"></span> 10</div> 활동지수 삭제?-->
 											</div>
-									</div>								
-					           			<a id="edit-picture-btn">변경</a>	
-					           			<input type="file" style="display:none;" name="user_image" accept="image/gif, image/jpg, image/jpeg, image/png" id="user_image">		  						           	
+									</div>																	
+						           			<a id="edit-picture-btn">변경</a>	
+						           			<input type="file" style="display:none;" name="user_image" accept="image/gif, image/jpg, image/jpeg, image/png" id="user_image">		  						           	
 				                 			
 					            </div><!-- panel-heading -->			            
-		            
+		            				<div class="alert alert-danger" id="check_alert">		                
+	              					</div>
 				                <fieldset>
 				                    <div class="form-group">
 				                        <label class="control-label" for="user_name">이름</label>
-				                        <input type="text" name="user_name" class="form-control input-sm" placeholder="이름" required="" value="${userAllDTO.user_name}" id="user_name">
+				                        <input type="text" name="user_name" class="form-control input-sm" placeholder="이름" required="" value="" id="user_name">
 				                    	<div id="user_nameDiv"></div>
 				                    </div>
 				                    <div class="form-group">
 				                        <label class="control-label" for="user_nickname">닉네임</label>
-				                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="${userAllDTO.user_nickname}" id="user_nickname">		                        
+				                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="" id="user_nickname">		                        
 			                        	<div id="user_nicknameDiv"></div>
 			                        </div>
 				                    <div class="form-group">
 				                        <label class="control-label" for="class_academy">학원명</label>
-				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="}" value="${userAllDTO.class_academy}" id="class_academy">       
+				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="}" value="" id="class_academy">       
 			             
 			                        </div>
 				                    <div class="form-group">
 				                        <label class="control-label" for="class_class">과정명</label>
-				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="${userAllDTO.class_class}" id="class_class">
+				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">
 	
 			                        </div>
 			                        		                        			                    
@@ -81,66 +77,62 @@
 						               			<div class="col-md-8">
 							                    	<label class="control-label" for="user_email">이메일 주소</label>
 								               		<!-- <div class="field-subtitle"></div> -->
-							               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" required="" value="${userAllDTO.user_email}" id="user_email">
+							               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" required="" value="" id="user_email">
 						               			</div>
-						               			<div class="col-md-4">
-							               			<!-- <button class="btn btn-success" type="button" id="verify-email-retry-btn">전송</button> -->
+						               			<div class="col-md-4">							               			
 				                                    <label for="emailBtn" class="form-label" id="emailBtn_check">인증번호</label>				                                       			
 													<button class="btn btn-primary" type="button" id="emailBtn">인증번호 전송</button>
 												</div>	
 					               		   </div>
-					               	 <!--</div> email-edit -->
+				               		 
 						               		<div class="row" id="num_check_blank">
 								            	<div class="col-md-8">
 								              		<label for="user_email_check_number"  class="form-label" id="input_num"></label>
 										        	<input type="text" class="form-control" id="user_email_check_number"placeholder="인증번호 6자리를 입력하세요" disabled="disabled" maxlength="6">
 								            	</div>
-								           		 <div class="col-md-4">
+								           		<div class="col-md-4">
 													<label for="mail-check-input" class="form-label" id="mail-check-input_font">인증번호</label>
 											  		<button class="btn btn-success" type="button" id="mail-check-input" >인증번호 인증</button>
 								            	</div>		            	
-						               		</div>
-						        		<div id="user_emailDiv" ></div>
-					            	</div><!-- email-edit -->
-				               	</div> <!--  form-group  -->                
+						               		</div><!--num_check_blank  -->
+						        			<div id="user_emailDiv" ></div>
+					            		 </div> <!-- email-edit -->
+				               		</div> <!--  form-group  -->                
 				                </fieldset>
 				                <button class="btn btn-primary btn-block" id="userUpdateBtn">정보 수정</button>
 				            </form>
 			
 				        </div><!-- panel panel-default -->
 			       
-				       <div class="panel panel-default">
-				            <!-- <div class="panel-heading"> -->
+				        <div class="panel panel-default">				            
 				                <a href="/semiproject/user/userPasswordChange" class="btn btn-info btn-block">비밀번호 변경</a>
-				                <a href="/semiproject/user/userDeleteConfirm" class="btn btn-default btn-block">회원 탈퇴</a>
-				           <!--  </div> -->
+				                <a href="/semiproject/user/userDeleteConfirm" class="btn btn-default btn-block">회원 탈퇴</a>				           
 				        </div>
 				    </div><!-- col-md-6 main-block-left --> 	   
-				</div>	<!-- content-header -->
-			</div> <!-- create-user --> 
+				</div><!-- create-user -->  
 		
-		<%-- <jsp:include page="/WEB-INF/global/footer.jsp"/>   --%>  
+		 <jsp:include page="/WEB-INF/global/footer.jsp"/>
    </div> <!-- main -->   
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+$('#check_alert').hide();
 //회원정보 수정 - 데이터가져오기(유저/클래스 통합 DTO로 받아오자)
 $(function(){
 	$.ajax({
 		type: 'post',
 		url: '/semiproject/user/getUser',
-		//data: 'user_email=' + $('#user_email').val(),
 		dataType: 'json',
 		success: function(data){
-			alert(JSON.stringify(data));
+			//alert(JSON.stringify(data));
 		
-			//$('#show_user_img').val(data.user_img);			
+ 			//$('#show_user_img').val(data.user_img);			
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
 			//$('#class_academy').val(data.class_academy);
 			//$('#class_class').val(data.class_class);
-			$('#user_email').val(data.user_email);
+			$('#user_email').val(data.user_email); 
 		},
 		error: function(err){
 			console.log(err);
@@ -193,9 +185,10 @@ $('#emailBtn').click(function(){
 	console.log('완성된 이메일 : ' + $('#user_email').val()); // 이메일 오는지 확인
 	
 	if($('#user_email').val() == ''){
-		$('#user_emailDiv').html('이메일을 입력하세요.');
-		$('#user_emailDiv').css('color','red');
-		$('#user_emailDiv').css('font-size','8px');
+		$('#check_alert').show();
+		$('#check_alert').html('이메일을 입력하세요');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
 	}else{
 	
 	$.ajax({
@@ -237,22 +230,31 @@ $('#mail-check-input').click(function(){
 });  
 	
 $('#userUpdateBtn').click(function(){	
-	$('#user_nameDiv').empty();
-	$('#user_nicknameDiv').empty();
-	$('#user_emailDiv').empty();
-	
+	$('#check_alert').hide();
 	if($('#user_name').val()=='') {
-		$('#user_nameDiv').html('이름 입력');
+		$('#check_alert').show();
+		$('#check_alert').html('이름을 입력하세요');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
 	}
-	if($('#user_nickname').val()=='') {
-		$('#user_nicknameDiv').html('닉네임 입력');
+	else if($('#user_nickname').val()=='') {
+		$('#check_alert').show();
+		$('#check_alert').html('닉네임을 입력하세요');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
 	}
-	if($('#user_email').val()=='') {
-		$('#user_emailDiv').html('이메일 입력');
-	}
-	
-	if(!mailnumCheck){
-		$('#user_emailDiv').html('이메일 인증을 하세요');
+	else if($('#user_email').val()=='') {
+		$('#check_alert').show();
+		$('#check_alert').html('이메일을 입력하세요');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+	}	
+	else if(!mailnumCheck){
+		alert("이메일 인증을 완료하세요!");
+		$('#check_alert').show();
+		$('#check_alert').html('이메일 인증을 완료하세요');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
 	}else {
  		var formData = new FormData($('#updateForm')[0]);
 		
@@ -264,8 +266,8 @@ $('#userUpdateBtn').click(function(){
 			contentType: false,
 			data: formData,
 			success: function(){
-				alert('회원정보 수정 완료');
-				locatation.href = "/semiproject/";
+				alert('회원정보 수정을 완료하였습니다.');
+				location.href = "/semiproject/";
 			},
 			error: function(err) {
 				console.log(err);
@@ -273,6 +275,7 @@ $('#userUpdateBtn').click(function(){
 		}); 
 	}
 });
+
 
 
 

@@ -16,13 +16,14 @@
 <!-- 풍혁(220707) :  div layout container, div main 추가 -->
 <div class="layout-container">
 	<div class="main">
+		<input type="hidden" value="${session_email}" id="session_email"> 
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
 		
 		<!-- 풍혁 (220704) : 상단 네비게이션 --> 
 		<div class="nav" role="navigation">
-			    <a class="create btn btn-success btn-wide pull-right" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
+			    <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtnAtList"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
 			    
 			    <h4>Q&amp;A</h4>
 			    <form id="category-filter-form" name="category-filter-form" method="get" action="/board/questions"> <!-- 풍혁(220704) : 검색 url 태워야합니다.   -->

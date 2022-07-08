@@ -26,7 +26,8 @@
                 <div class="avatar clearfix avatar-medium pull-left">
                     <a href="/user/info/34213" class="avatar-photo"><img src="//www.gravatar.com/avatar/c649774942c3c2ab78ed58379972c2f8?d=identicon&amp;s=40"></a>
                     <div class="avatar-info">
-                            <a class="nickname" href="/user/info/34213" title="드루이드">${boardDTO.board_uid}</a>
+                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
+                            <a class="nickname" href="/user/info/34213" title="author">${author}</a>
                                 <div class="activity"><span class="fa fa-flash"></span> 267</div>
                                 <div class="date-created"><span class="timeago" title="2022-07-07T11:47:55">${dateToStr}</span>작성
                                     <span class="date-saperate">∙</span> <a href="/changes/2853281"><span class="timeago" title="2022-07-07 11:52:28">**글 수정한 날짜는 발표이후 구현**</span></a>
@@ -45,7 +46,6 @@
                             <span class="list-group-item-text -id">${board_id}</span>
             <a href="/s/life" class="list-group-item-text item-tag label label-info"><i class="fa fa-comments"></i> ${boardDTO.board_cateid}</a>
 
-                
                     <a href="/s/tagged/javascript" class="list-group-item-text item-tag label label-gray ">javascript</a>
                         </div>
                         <h2 class="panel-title">
