@@ -43,11 +43,8 @@ public class UserSignupController {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);
 
-
+	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
 	
 	@GetMapping(value = "userSignupForm")
 	public String userSignupForm() {
@@ -60,12 +57,26 @@ public class UserSignupController {
 		return userService.userSignup_emailCheck(user_email);
 	}
 	
+
+	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+	@PostMapping(value = "userSignup_nicknameCheck")
+	@ResponseBody
+	public String userSignup_nicknameCheck(@RequestParam String user_nickname) {
+		return userService.userSignup_nicknameCheck(user_nickname);
+	}
+	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+	
+	@GetMapping(value = "userSignupComplete")
+	public String userSignupComplete() {
+		return "/user/userSignupComplete";
+	}	
+
 	/*
 	 * @GetMapping(value = "userSignupComplete") public String userSignupComplete()
 	 * { return "/user/userSignupComplete"; }
 	 */
 	
-	
+
 	
 	//이메일 인증
 		@GetMapping("mailCheck")
@@ -114,6 +125,7 @@ public class UserSignupController {
 		
 		@PostMapping(value="user_register")
 		@ResponseBody
+
 		public void user_register(@ModelAttribute UserAllDTO userAllDTO,
 						   HttpSession session) {
 			

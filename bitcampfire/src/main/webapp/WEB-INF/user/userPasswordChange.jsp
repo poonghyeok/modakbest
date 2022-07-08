@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>bitcampfire - 회원정보 수정</title>
+	<title>bitcampfire - 비밀번호 변경</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 <!-- 	<style type="text/css">
@@ -76,21 +76,22 @@ $('#user_pwd').focusout(function(){
 			dataType: 'json',
 			
 			success: function(data){
-				//alert(JSON.stringify(data));
-				
+				alert(JSON.stringify(data));
+				console.log(data.user_pwd !== $('#user_pwd').val());
 				//data.user_pwd? 뭐가 틀린지
-				if(data.user_pwd != $('#user_pwd').val()) {
+				if(data.user_pwd !== $('#user_pwd').val()) {
 					$('#check_alert').show();
 					$('#check_alert').html('현재 비밀번호 불일치');
 					$('#check_alert').css('color','red');
 					$('#check_alert').css('font-size','8px');
 					pwdCheck = false;
-				}else 
+				}else {
 					$('#check_alert').show();
 					$('#check_alert').html('현재 비밀번호 일치');
 					$('#check_alert').css('color', 'blue');
 					$('#check_alert').css('font-size', '8px');
 					pwdCheck = true;
+				}	
 			},
 			error: function(err){
 				console.log(err);

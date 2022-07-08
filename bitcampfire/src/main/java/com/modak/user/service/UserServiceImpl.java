@@ -4,6 +4,8 @@ import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.modak.user.bean.UserAllDTO;
@@ -24,6 +26,12 @@ public class UserServiceImpl implements UserService {
 		//풍혁 220707 : session객체를 공통역역으로 이동시켰습니다.
 		@Autowired
 		private HttpSession session;
+		//@@@@ 연수 수정(220708)  @@@@///		
+		
+		@Autowired
+		private BCryptPasswordEncoder passwordEncoder;
+		
+		
 
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -73,32 +81,46 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		
+		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@	
+		@Override
+		public String userSignup_nicknameCheck(String user_nickname) {
+			UserAllDTO userAllDTO = userDAO.userSignup_nicknameCheck(user_nickname);
+			if(userAllDTO == null) {
+				return "non exist";
+			}else {
+				return "exist";
+			}				
+		}
+		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+		
 		@Override
 		public UserDTO getUserInformation(String user_email) {
 			return userDAO.getUserInformation(user_email);
 		}
+		
 	//유진 : 끝 ====================================
-	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-	//*******연수 수정(220707)
+		//@@@@ 연수 수정(220708)  @@@@///
 		@Override
-		public String checkIdPw(Map<String, String> map) {
-			//DB
-			UserDTO userDTO = userDAO.checkIdPw(map);
-
-			if(userDTO != null) {
-				session.setAttribute("memEmail", userDTO.getUser_email());
-				session.setAttribute("memId", userDTO.getUser_id());
-				session.setAttribute("memNickname", userDTO.getUser_nickname());
-				session.setAttribute("memImg", userDTO.getUser_img());
+		public String login(Map<String, String> map) {
+			String inputPwd = map.get("user_pwd");
+			UserAllDTO userAllDTO = userDAO.login(map.get("user_email"));
+			
+			if(userAllDTO != null && passwordEncoder.matches(inputPwd, userAllDTO.getUser_pwd())){
+				session.setAttribute("memEmail", userAllDTO.getUser_email());
+				session.setAttribute("memId", userAllDTO.getUser_id());
+				session.setAttribute("memNickname", userAllDTO.getUser_nickname());
+				session.setAttribute("memImg", userAllDTO.getUser_img());
 				
-				return "ok";				
-			}else {				
+				return "ok";
+				
+			}else {
+				
 				return "fail";
 			}
-		}	
-		
+		}
+		//@@@@ 연수 수정(220708)  @@@@///
 		@Override
 		public void userLogout() {
 			session.invalidate();
@@ -106,7 +128,6 @@ public class UserServiceImpl implements UserService {
 		}
     //*******연수 수정(220707)	
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
-
 
 
 }

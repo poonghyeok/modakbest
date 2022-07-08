@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.modak.user.bean.UserAllDTO;
 import com.modak.user.service.UserService;
 
 
@@ -27,8 +28,7 @@ public class UserLoginController {
 	UserService userService;
 	@Autowired
 	HttpSession session;
-	
-	
+
 
    //@@@@ 연수 수정(220707)  @@@@///
 	/* 로그인 기능구현 */ 
@@ -46,13 +46,14 @@ public class UserLoginController {
 //			return "/";		
 //		}
 //	}
-	
-	@PostMapping(value="checkIdPw")
+	 //@@@@ 연수 수정(220708) @@@@///
+	//로그인-비밀번호 복호화
+	@PostMapping(value="login")
 	@ResponseBody
-	public String checkIdPw(@RequestParam Map<String, String> map) {
-		return userService.checkIdPw(map);
-		 
+	public String login(@RequestParam Map<String, String> map) {
+		return userService.login(map);
 	}
+	
 	/* 로그인 기능구현  끝 */ 
 	
 	/* 로그아웃  */
@@ -61,10 +62,6 @@ public class UserLoginController {
 	public void logout() {
 		userService.userLogout();
 	}
-
-	//@@@@ 연수 수정 @@@@///
-	
-	
 	
 		
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
