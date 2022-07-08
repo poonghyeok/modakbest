@@ -1,5 +1,8 @@
 package com.modak.board.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.modak.board.bean.BoardDTO;
 
 public interface BoardService {
@@ -22,6 +25,7 @@ public interface BoardService {
 		public BoardDTO getBoardContent(int board_id);
 	// 정수 : 끝  ###################### 
 		public String getUserNameByUserId(int board_id);
+		public List<BoardDTO> getBoardReviewList(Map<String,Integer> map);
 		
 		
 					

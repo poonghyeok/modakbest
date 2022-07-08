@@ -13,7 +13,7 @@ import com.modak.user.service.UserService;
 
 @Controller
 @RequestMapping(value= "user")
-public class userMyPageController {
+public class UserMyPageController {
 	
 	@Autowired
 	private UserService userService;
@@ -24,6 +24,7 @@ public class userMyPageController {
 	}
 	
 	@PostMapping(value = "getUserInformation")
+	//풍혁220703 : board_list 나 board_view 에서 들어올 수 있게 user_id로 구현해주시면 감사하겠습니다 .	
 	public UserDTO getUserInformation(HttpSession session) {
 		String user_email = (String) session.getAttribute("memEmail");
 		return userService.getUserInformation(user_email);

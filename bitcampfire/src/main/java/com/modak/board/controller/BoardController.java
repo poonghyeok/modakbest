@@ -1,6 +1,9 @@
 package com.modak.board.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,11 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardDTO;
@@ -40,15 +44,15 @@ public class BoardController {
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg);
 			HttpSession session = req.getSession();
-			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("user_email"));
-			String session_email = (String)session.getAttribute("user_email");
+			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("memEmail"));
+			String session_email = (String)session.getAttribute("memEmail");
 			
 			String userWriteTableList = boardService.getUserWriteTablelist(pg);
 			String boardPagingList = boardService.getBoardPagingList(pg);
 			
 			ModelAndView mav = new ModelAndView();
 			if(session_email != null) {
-				mav.addObject("session_email",session_email);
+				mav.addObject("session_email", session_email);
 			}
 			mav.addObject("userWriteTableList", userWriteTableList);
 			mav.addObject("boardPagingList", boardPagingList);
@@ -58,8 +62,8 @@ public class BoardController {
 		}
 		
 		@GetMapping("/write")
-		public String boardWrite() {
-			
+		public String boardWrite(Model model) {
+			//풍혁 220708 : 어짜피 login 안되어 있으면  글쓰러 들어오지도 못한다. 그냥 바로 jsp 에서 sessionScope에서 꺼내면 될 듯
 			return "/board/boardWriteForm";
 		}
 		
@@ -86,6 +90,17 @@ public class BoardController {
 			
 			return mav;
 		} 
+		
+		//풍혁220708 : BoardDTO list로 받아보기 
+		@PostMapping("/jsonTest")
+		@ResponseBody
+		public List<BoardDTO> jsonTest(@RequestParam Map<String,Integer> map){
+			List<BoardDTO> list =  new ArrayList<>();
+			System.out.println("\n @ log @ json test .. startNum : " + map.get("startNum") );
+			list = boardService.getBoardReviewList(map);
+			
+			return list;
+		}
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 

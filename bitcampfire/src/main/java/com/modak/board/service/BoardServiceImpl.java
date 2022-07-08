@@ -90,9 +90,9 @@ public class BoardServiceImpl implements BoardService {
 		//풍혁220708 : board_uid 추가
 		@Override
 		public void boardWrite(BoardDTO boardDTO) {
-			String session_email = (String)session.getAttribute("user_email");
+			String session_email = (String)session.getAttribute("memEmail");
 			int board_uid = userDAO.getUserIdByEmail(session_email);
-			
+			System.out.println("\n@ session_eamil = " + session_email);
 			//풍혁220708 : userDAO에 user_id 받아오는 method와 query 생성해서 boardDTO에 집어넣고 글 생성할 때 반영
 			boardDTO.setBoard_uid(board_uid);
 			boardDAO.boardWrite(boardDTO);
@@ -128,7 +128,7 @@ public class BoardServiceImpl implements BoardService {
 					tr.append("<div class='list-tag clearfix'>");
 					
 						tr.append("<span class='list-group-item-text article-id'>"+ boardDTO.getBoard_id()+"</span>");
-						tr.append("<a href='/semiproject/board/list?pg=1' class='list-group-item-text item-tag label label-info'><i class='fa fa-database'></i> 자유토론</a>"); 
+						tr.append("<a 	='/semiproject/board/list?pg=1' class='list-group-item-text item-tag label label-info'><i class='fa fa-database'></i> 자유토론</a>"); 
 					tr.append("</div>");
 				
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
@@ -272,10 +272,10 @@ public class BoardServiceImpl implements BoardService {
 					sb.append("<li class='list-group-item list-group-item-small list-group-item-question list-group-has-note clearfix'>");
 						sb.append("<div class='list-title-wrapper'>");
 							sb.append("<h5 class='list-group-item-heading'>");
-								sb.append("<a href='/semiproject/baord/getBoardView?board_id='"+boardDTO.getBoard_id()+">"+ boardDTO.getBoard_title() +"</a>");
+								sb.append("<a href='/semiproject/board/getBoardView?board_id="+boardDTO.getBoard_id()+"'>"+ boardDTO.getBoard_title() +"</a>");
 								sb.append("<div class='list-group-item-author pull-right clearfix'>");
 									sb.append("<div class='avatar clearfix avatar-x-small'>");
-										sb.append("<a href='/user/info/133529' class='avatar-photo'><img src='//www.gravatar.com/avatar/9a316994cda85c56cd4f0c833ec511b6?d=identicon&amp;s=10'></a>");
+										sb.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar/9a316994cda85c56cd4f0c833ec511b6?d=identicon&amp;s=10'></a>");
 										sb.append("<div class='avatar-info'>");
 											sb.append("<a class='nickname' href='#' title=''>"+user_name+"</a>");
 											sb.append("<div class='activity'>");
@@ -293,6 +293,12 @@ public class BoardServiceImpl implements BoardService {
 			sb.append("</div>");
 			
 			return sb;
+		}
+		
+		@Override
+		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map) {
+			
+			return boardDAO.getBoardReviewList(map);
 		}
 	
 //풍혁 : 끝 =============================================

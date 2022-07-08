@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <head>
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -7,12 +8,12 @@
 </head>
 
 <body>
-	<input type = "text" name = "board_id" value="${board_id}">
+	
 	<div class="layout-container">
     <div class="main ">
         <!--사이드바1,2-->        
                 <jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
-            
+    		
         <div class="nav" role="navigation">
             <a class="create btn btn-success btn-wide pull-right" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
             <h4>${cateidToString}</h4>
@@ -20,20 +21,20 @@
 
         <!--게시글-->
         <input type = "hidden" name = "board_id" value="${board_id}">
-
+		
         <div class="panel panel-default clearfix fa-">
             <div class="panel-heading clearfix">
                 <div class="avatar clearfix avatar-medium pull-left">
-                    <a href="/user/info/34213" class="avatar-photo"><img src="//www.gravatar.com/avatar/c649774942c3c2ab78ed58379972c2f8?d=identicon&amp;s=40"></a>
+                    <a href="/semiproject/user/userMyPageForm?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="//www.gravatar.com/avatar/c649774942c3c2ab78ed58379972c2f8?d=identicon&amp;s=40"></a>
                     <div class="avatar-info">
                     	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
-                            <a class="nickname" href="/user/info/34213" title="author">${author}</a>
+                            <a class="nickname" href="/semiproject/user/userMyPageForm?user_id=${boardDTO.board_cmt_cnt}" title="author">${author}</a>
                                 <div class="activity"><span class="fa fa-flash"></span> 267</div>
                                 <div class="date-created"><span class="timeago" title="2022-07-07T11:47:55">${dateToStr}</span>작성
                                     <span class="date-saperate">∙</span> <a href="/changes/2853281"><span class="timeago" title="2022-07-07 11:52:28">**글 수정한 날짜는 발표이후 구현**</span></a>
                                 </div>
                     </div>
-                </div>
+               	 </div>
 
                     <div class="content-identity pull-right">
                     <div class="content-identity-count"><i class="fa fa-comment"></i> ${boardDTO.board_cmt_cnt}</div>
@@ -41,24 +42,22 @@
                     </div>
             </div>
             <div class="content-container clearfix">
-                    <div id="content-body" class="panel-body content-body pull-left">
-                        <div class="content-tags">
-                            <span class="list-group-item-text -id">${board_id}</span>
-            <a href="/s/life" class="list-group-item-text item-tag label label-info"><i class="fa fa-comments"></i> ${boardDTO.board_cateid}</a>
+					<div id="content-body" class="panel-body content-body pull-left">
+						<div class="content-tags">
+							<span class="list-group-item-text -id">${board_id}</span> 
+							<a href="/s/life" class="list-group-item-text item-tag label label-info">
+								<i class="fa fa-comments"></i> ${cateidToString}</a> 
+								<a href="/s/tagged/javascript" class="list-group-item-text item-tag label label-gray ">javascript</a>
+						</div>
+						<h2 class="panel-title">${boardDTO.board_title}</h2>
+						<hr>
+		                <article class="content-text" itemprop="articleBody">
+							<p>${boardDTO.board_content}</p>
+						</article>
 
-                    <a href="/s/tagged/javascript" class="list-group-item-text item-tag label label-gray ">javascript</a>
-                        </div>
-                        <h2 class="panel-title">
-                        ${boardDTO.board_title}
-                        </h2>
-                        <hr>
-                        < class="content-text" itemprop="articleBody">
-                                <p>${boardDTO.board_content}</p>
-                        </article>
+					</div>
 
-                    </div>
-                    
-                <!--추천수-->
+					<!--추천수-->
 				<div id="content-function" class="content-function pull-right text-center">
 				        <div class="content-function-group">
 						    <div class="note-evaluate-wrapper">

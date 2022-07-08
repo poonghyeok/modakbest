@@ -16,7 +16,7 @@
 <!-- 풍혁(220707) :  div layout container, div main 추가 -->
 <div class="layout-container">
 	<div class="main">
-		<input type="hidden" value="${session_email}" id="session_email"> 
+		<input type="text" value="${session_email}" id="session_email"> 
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->

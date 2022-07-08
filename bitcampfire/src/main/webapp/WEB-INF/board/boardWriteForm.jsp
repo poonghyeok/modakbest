@@ -32,14 +32,14 @@
 			
 			<div class="content-header">
 				<div class="user-profile">
-					<a href="#">
-						<img src="/semiproject/img/profile.png" id="profile-photo" alt="profile-img">
+					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
+						<img src="/semiproject/storage/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
 					</a>
 				
 					<div class="profile-info">
 						 <h1 class="eunhye">
-		                    <a href="#">
-		                        nickname
+		                    <a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
+		                    	${sessionScope.memNickname} <!-- author nickname -->
 		                    </a>
 		                </h1>
 		                <span aria-label="">point</span>

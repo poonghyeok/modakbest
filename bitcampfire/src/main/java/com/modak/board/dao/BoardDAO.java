@@ -22,12 +22,16 @@ public interface BoardDAO {
 
 		public int getTotalBoardSearchNum(String keyword);
 		
+		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map);
+		
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
 		// 목록에서 글 가져오기
 		public BoardDTO getBoardContent(int board_id);
 	// 정수 : 끝  ###################### 
+
+		
 
 			
 					

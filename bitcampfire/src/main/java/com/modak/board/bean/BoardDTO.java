@@ -29,13 +29,13 @@ public class BoardDTO {
 		public String cateidToString() {
 			String categoryString = null;
 			switch(this.board_cateid) {
-			case 1: categoryString = "1번게시판";
+			case 1: categoryString = "취업정보";
 					break;
-			case 2: categoryString = "2번게시판";
+			case 2: categoryString = "후기";
 					break;
-			case 3: categoryString = "3번게시판";
+			case 3: categoryString = "Q&A";
 					break;
-			case 4: categoryString = "4번게시판";
+			case 4: categoryString = "자유게시판";
 					break;
 			}
 

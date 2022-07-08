@@ -59,6 +59,12 @@ public class BoardDAOMyBatis implements BoardDAO {
 			System.out.print("@LOG@ : Mybatis getTotalBoardSearchNum.. ");
 			return sqlSession.selectOne("boardSQL.getTotalBoardSearchNum",keyword);
 		}
+		
+		@Override
+		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map) {
+			
+			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
+		}
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
