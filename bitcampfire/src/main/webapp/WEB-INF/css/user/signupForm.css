@@ -54,6 +54,7 @@ a {text-decoration: none;
     overflow: hidden;
     vertical-align: middle;
     margin-bottom: 15px;
+    
    
     
 }
@@ -74,14 +75,14 @@ a {text-decoration: none;
  				    vertical-align: middle;
  				    position: absolute;
  				    top: 110px;
- 				    right:40px;		
+ 				    right:100px;		
  				    cursor: pointer;			
 }
 
 #camera_icon {
 			width: 20px;
 		 	height: 20px;
-		 	margin: 0px auto;
+		 	margin: auto auto;
 }
 
 .signup-block {
