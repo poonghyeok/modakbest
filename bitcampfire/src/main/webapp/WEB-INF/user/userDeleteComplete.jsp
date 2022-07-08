@@ -18,12 +18,12 @@
 			    <div class="panel panel-default panel-margin-10">
 			        <div class="panel-body panel-body-content text-center">
 			            <p class="lead">지금까지 이용해 주셔서 감사합니다.</p>
-			            <a href="/" class="btn btn-default">완료</a> <!-- 메인페이지로 이동  -->
+			            <a href="/semiproject" class="btn btn-default">완료</a> <!-- 메인페이지로 이동  -->
 			        </div>
 			    </div>
 			</div>
 		 <!-- 메인끝  -->
- 		<%-- <jsp:include page="/WEB-INF/global/footer.jsp"/>  --%>   
+ 		<jsp:include page="/WEB-INF/global/footer.jsp"/>   
    </div> <!-- main -->   
 </div> <!-- layout-container -->
 </body>
