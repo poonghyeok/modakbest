@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,10 +41,10 @@ public class UserSignupController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
-
+	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
 	
 	@GetMapping(value = "userSignupForm")
 	public String userSignupForm() {
@@ -56,12 +57,18 @@ public class UserSignupController {
 		return userService.userSignup_emailCheck(user_email);
 	}
 	
+	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+	@PostMapping(value = "userSignup_nicknameCheck")
+	@ResponseBody
+	public String userSignup_nicknameCheck(@RequestParam String user_nickname) {
+		return userService.userSignup_nicknameCheck(user_nickname);
+	}
+	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+	
 	@GetMapping(value = "userSignupComplete")
 	public String userSignupComplete() {
 		return "/user/userSignupComplete";
-	}
-	
-	
+	}	
 	
 	//이메일 인증
 		@GetMapping("mailCheck")
@@ -110,30 +117,18 @@ public class UserSignupController {
 		
 		@PostMapping(value="user_register")
 		@ResponseBody
-		public void update(@ModelAttribute UserAllDTO userAllDTO,
-						   @RequestParam MultipartFile user_image,
-						   HttpSession session) {
+		public void user_register(@ModelAttribute UserAllDTO userAllDTO, HttpSession session) {
+			//비밀번호 암호화
+			logger.info("post user_register");
+	         
+	         String inputPass =  userAllDTO.getUser_pwd();
+	         String pwd = passwordEncoder.encode(inputPass);
+	         userAllDTO.setUser_pwd(pwd);
 			
-			//회원 프로필 사진 수정
-			String filePath = session.getServletContext().getRealPath("/WEB-INF/storage");
-			String fileName = user_image.getOriginalFilename();
-			
-			File file = new File(filePath, fileName);
-			
-			try {
-				user_image.transferTo(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			userAllDTO.setUser_img(fileName); //업로드 시 비워져있던  DTO 채워주는 역할
-			//System.out.println("\n"+fileName+"file 저장 완료 : "+ filePath);
-			//회원수정폼 정보 실어서 업데이트
 			userService.user_register(userAllDTO);
-		}	
+		}
+		
 		//회원정보 수정 끝
-	
-
 		
 	}
 	

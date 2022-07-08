@@ -36,7 +36,7 @@
 					                			            
 									<div class="avatar clearfix avatar-medium">				
 											<!-- 이동 경로가 회원번호 같은디? img src 넣기! -->	
-											<a href="/user/info/" class='avatar-photo'><img src="/semiproject/img/2.png" id="show_user_image"/></a>
+											<a href="/user/info/" class='avatar-photo'><img src="/semiproject/storage/${sessionScope.memImg}" id="show_user_image"/></a>
 											<div class="avatar-info">
 													<a class="user_nickname" href="/user/info/" title=""></a>
 													<!-- <div class="activity block"><span class="fa fa-flash"></span> 10</div> 활동지수 삭제?-->
@@ -56,7 +56,8 @@
 				                    </div>
 				                    <div class="form-group">
 				                        <label class="control-label" for="user_nickname">닉네임</label>
-				                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="" id="user_nickname">		                        
+				                        <input type="text" name="user_nickname" class="form-control input-sm" placeholder="닉네임" required="" value="" id="user_nickname">
+				                        <input type="hidden" name="user_nickname_check" id="user_nickname_check" value="">		                        
 			                        	<div id="user_nicknameDiv"></div>
 			                        </div>
 				                    <div class="form-group">
@@ -78,6 +79,8 @@
 							                    	<label class="control-label" for="user_email">이메일 주소</label>
 								               		<!-- <div class="field-subtitle"></div> -->
 							               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" required="" value="" id="user_email">
+							               			<!-- 연수 이메일 중복체크  추가(0708)  -->
+							               			<input type="hidden" name="user_email_check" id="user_email_check" value="">
 						               			</div>
 						               			<div class="col-md-4">							               			
 				                                    <label for="emailBtn" class="form-label" id="emailBtn_check">인증번호</label>				                                       			
@@ -99,7 +102,7 @@
 					            		 </div> <!-- email-edit -->
 				               		</div> <!--  form-group  -->                
 				                </fieldset>
-				                <button class="btn btn-primary btn-block" id="userUpdateBtn">정보 수정</button>
+				                <input type="button" class="btn btn-primary btn-block" id="userUpdateBtn" value="정보 수정">
 				            </form>
 			
 				        </div><!-- panel panel-default -->
@@ -172,7 +175,91 @@ $(function(){
 		}
 	}	
 });
+
 //이미지 업로드 끝
+
+/* @@@@ 이렇게가 진짜(0708) @@@@ */
+/*닉네임 중복체크*/
+$('#user_nickname').focusout(function(){
+	$('#check_alert').hide();
+	
+	if( $('#user_nickname').val() == ''){
+		$('#check_alert').show();
+		$('#check_alert').html('[닉네임]: 닉네임 먼저 입력해주세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+	}else{
+		$.ajax({
+			type: 'post',
+			url:'/semiproject/user/userSignup_nicknameCheck',
+			data: {'user_nickname' : $('#user_nickname').val()}, 
+			dataType: 'text', 
+			success: function(data){
+				//data = data.trim();
+				//alert(data);
+				if(data=='exist'){
+					$('#check_alert').show();
+					$('#check_alert').html('[닉네임]: 이미 사용하고 있는 닉네임입니다.');
+					$('#check_alert').css('color', 'red');
+					$('#check_alert').css('font-size', '8px');
+					$('#emailBtn').attr('disabled',true);
+					
+				}else if(data=='non exist'){
+					$('#check_alert').show();
+					$('input[name="user_nickname_check"]').val($('#user_nickname').val());
+					$('#check_alert').html('[닉네임]: 사용 가능한 닉네임입니다.');
+					$('#check_alert').css('color', 'blue');
+					$('#check_alert').css('font-size', '8px');
+					$('#emailBtn').attr('disabled',false);
+				}
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+	}		
+});
+
+/*이메일 중복체크*/
+$('#user_email').focusout(function(){
+	$('#check_alert').hide();
+	
+	if( $('#user_email').val() == ''){
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일]: 이메일 먼저 입력해주세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+	}else{
+		$.ajax({
+			type: 'post',
+			url:'/semiproject/user/userSignup_emailCheck',
+			data: {'user_email' : $('#user_email').val()}, 
+			dataType: 'text', 
+			success: function(data){
+				//data = data.trim();
+				//alert(data);
+				if(data=='exist'){
+					$('#check_alert').show();
+					$('#check_alert').html('[이메일]: 이미 사용하고 있는 이메일입니다.');
+					$('#check_alert').css('color', 'red');
+					$('#check_alert').css('font-size', '8px');
+					$('#emailBtn').attr('disabled',true);
+					
+				}else if(data=='non exist'){
+					$('#check_alert').show();
+					$('input[name="user_email_check"]').val($('#user_email').val());
+					$('#check_alert').html('[이메일]: 사용 가능한 이메일입니다.');
+					$('#check_alert').css('color', 'blue');
+					$('#check_alert').css('font-size', '8px');
+					$('#emailBtn').attr('disabled',false);
+				}
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+	}		
+});
 
 //이메일 인증 	
 var code = "";
@@ -243,6 +330,12 @@ $('#userUpdateBtn').click(function(){
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
 	}
+	else if($('#user_nickname').val() != $('input[name="user_nickname_check"]').val()){
+		$('#check_alert').show();
+		$('#check_alert').html('[닉네임] : 닉네임 중복체크하세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8pt');
+	}	
 	else if($('#user_email').val()=='') {
 		$('#check_alert').show();
 		$('#check_alert').html('이메일을 입력하세요');
@@ -255,6 +348,13 @@ $('#userUpdateBtn').click(function(){
 		$('#check_alert').html('이메일 인증을 완료하세요');
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
+		
+	}else if($('#user_email').val() != $('input[name="user_email_check"]').val()){
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일] : 이메일 중복체크하세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8pt');			
+	
 	}else {
  		var formData = new FormData($('#updateForm')[0]);
 		
@@ -267,7 +367,8 @@ $('#userUpdateBtn').click(function(){
 			data: formData,
 			success: function(){
 				alert('회원정보 수정을 완료하였습니다.');
-				location.href = "/semiproject/";
+				setTimeout("location.href='/semiproject/user/userLoginForm'",300);
+				//location.href = "/semiproject/";
 			},
 			error: function(err) {
 				console.log(err);
@@ -275,8 +376,7 @@ $('#userUpdateBtn').click(function(){
 		}); 
 	}
 });
-
-
+/* @@@@ 이렇게가 진짜(0708) @@@@ */
 
 
 </script>

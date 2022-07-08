@@ -1,6 +1,7 @@
 package com.modak.user.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,8 +9,10 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +32,8 @@ public class UserUpdateController {
 	private UserService userService;
 	@Autowired
 	HttpSession session;
+	
+
 
 	//회원정보 수정 시작 (이메일 인증 넣고 해	보기)
 	//회원정보 수정폼 띄우기
@@ -45,6 +50,7 @@ public class UserUpdateController {
 		return userService.getUser(user_email);
 	}	
 	
+	
 	//회원정보 수정
 	@PostMapping(value="update")
 	@ResponseBody
@@ -52,26 +58,34 @@ public class UserUpdateController {
 					   @RequestParam MultipartFile user_image,
 					   HttpSession session) {
 		
-		//회원 프로필 사진 수정
-		String filePath = session.getServletContext().getRealPath("/WEB-INF/storage");
+		//가상폴더
+		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
+		String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage";		
 		String fileName = user_image.getOriginalFilename();
 		
-		File file = new File(filePath, fileName);
+		File file = new File(filePath, fileName); //파일 생성
 		
 		try {
-			user_image.transferTo(file);
+			FileCopyUtils.copy(user_image.getInputStream(), new FileOutputStream(file)); //복사
+		
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}	
+			
 		userAllDTO.setUser_img(fileName);
-		//System.out.println("\n"+fileName+"file 저장 완료 : "+ filePath);
+		session.setAttribute("memName", userAllDTO.getUser_name());
+		session.setAttribute("memNickname", userAllDTO.getUser_nickname());
+		session.setAttribute("memEmail", userAllDTO.getUser_email());
+		session.setAttribute("memImg", userAllDTO.getUser_img());		
+		//session.setAttribute("memNickname", userAllDTO.getClass_academy());
+		//session.setAttribute("memNickname", userAllDTO.getClass_class());
 		//회원수정폼 정보 실어서 업데이트
 		userService.update(userAllDTO);
-	}	
+	}
+	
 	//회원정보 수정 끝
 	
-	//비밀번호 변경 시작 (암호화 넣기)
+	//비밀번호 변경 시작
 	//비밀번호 수정폼 띄우기
 	@GetMapping(value="userPasswordChange")
 	public String passwordChange() {
@@ -84,21 +98,7 @@ public class UserUpdateController {
 	public UserDTO checkPwd(HttpSession session){ 
 		String user_email =(String) session.getAttribute("memEmail");
 		return userService.checkPwd(user_email); 
-
 	}
-	
-	
-	//비밀번호 일치여부-테스트용 성공
-	/*
-	@PostMapping(value="checkPwd")
-	@ResponseBody
-	public UserDTO checkPwd(@RequestParam String user_email){		
-		System.out.println("checkPwd : " + user_email);
-		
-		
-		return userService.checkPwd(user_email);	
-	}
-	*/ 
 	
 	//비밀번호 변경 완료	
 	@PostMapping(value="pwdChangeComplete")
@@ -113,18 +113,6 @@ public class UserUpdateController {
 		userService.pwdChangeComplete(map);
 	}
 	
-	//비밀번호 변경-테스트용 성공
-	/*
-	@PostMapping(value="pwdChangeComplete")
-	@ResponseBody
-	public void pwdChangeComplete(@RequestParam String user_pwd) {	
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", "manbal3@aaa"); 
-		map.put("user_pwd", user_pwd);
-		
-		userService.pwdChangeComplete(map);
-	}
-	*/
 	//비밀번호 변경 끝
 	
 	//회원탈퇴 시작
@@ -141,16 +129,8 @@ public class UserUpdateController {
 		String user_email = (String) session.getAttribute("memEmail"); 
 		userService.delete(user_email);
 		session.invalidate(); 
-	}
-	 
-    /*
-	@PostMapping(value="delete")
-	@ResponseBody
-	public void delete(@RequestParam String user_email){		
-		userService.delete(user_email);	
-	}
-	*/
-	 
+	}	 
+ 
 	//회원탈퇴	완료
 	@GetMapping(value="userDeleteComplete")
 	public String userDeleteComplete() {

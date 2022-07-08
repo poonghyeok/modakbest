@@ -6,7 +6,7 @@
 <html>		
 <head>
    <meta charset="UTF-8">
-   <title>bitcampfire - 회원정보 수정</title>
+   <title>bitcampfire - 회원가입</title>
    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
    <link rel="stylesheet" href="/semiproject/css/user/application.css">  
    <link rel="stylesheet" href="/semiproject/css/user/signupForm.css"> 
@@ -50,7 +50,13 @@
 				            	</div>
 				            </div>
 							<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd">
+							
 							<input type="text" name="user_nickname" class="form-control input-sm" required="" placeholder="닉네임" value="" id="user_nickname">
+							
+							<!-- 연수 닉네임 중복체크 추가(220708)  -->
+							<input type="hidden" name="user_nickname_check" id="user_nickname_check" value="">
+							<!-- 연수 닉네임 중복체크 추가(220708)  -->
+							
 							<input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy">
 							<input type="text" name="class_class" class="form-control input-sm" required="" placeholder="과정명" value="" id="nickname">
 		                    

@@ -60,22 +60,28 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.userSignup_emailCheck",user_email);
 		}
 		
+		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@	
+		@Override
+		public UserAllDTO userSignup_nicknameCheck(String user_nickname) {		
+			return sqlSession.selectOne("userSQL.userSignup_nicknameCheck", user_nickname);
+		}
+		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@		
+
 		@Override
 		public UserDTO getUserInformation(String user_email) {
 			return sqlSession.selectOne("userSQL.getUserInformation", user_email);
 		}
+		
 	//유진 : 끝 0706====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@
-    //*******연수 수정(220707)	
-			
+		//@@@@ 연수 수정(220708)  @@@@///	
 		@Override
-		public UserDTO checkIdPw(Map<String, String> map) {
-			return sqlSession.selectOne("userSQL.checkIdPw", map);
-		}		
+		public UserAllDTO login(String user_email) {
+			return sqlSession.selectOne("userSQL.login", user_email);
+		}
 		
-    //*******연수 수정(220707)			
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 	
 	//풍혁 : 시작 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -91,5 +97,5 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-	
+
 }
