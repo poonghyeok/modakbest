@@ -66,17 +66,17 @@ public class BoardDAOMyBatis implements BoardDAO {
 		@Override
 		public BoardDTO getBoardContent(int board_id) {
 			//System.out.println("getBoardContent 마이바티스 실행");
-			BoardDTO boardDTO = sqlSession.selectOne("boardSQL.getBoardContent", board_id);
-//			System.out.println("글 개수 카운트 : " + sqlSession.selectOne("boardSQL.getBoardCount"));
+			return sqlSession.selectOne("boardSQL.getBoardContent", board_id);
+//			
+			//System.out.println("글 개수 카운트 : " + sqlSession.selectOne("boardSQL.getBoardCount"));
 //			System.out.println("board_id 테스트 = " + board_id);
 //			System.out.println("DTO 테스트 = " + boardDTO.getBoard_title());
 //			System.out.println("마이바티스 날짜 테스트 = " + boardDTO.getBoard_date_created());
-//			
-			return boardDTO;
-			//return sqlSession.selectOne("boardSQL.getBoardContent", board_id);
+			
 		}
 			@Override
 			public void setHit(int board_id) {
+				
 				sqlSession.update("boardSQL.setHit", board_id);
 			
 		}

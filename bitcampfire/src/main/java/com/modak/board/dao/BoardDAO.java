@@ -27,12 +27,14 @@ public interface BoardDAO {
 	// 정수 : 시작  ###################### 
 		// 목록에서 글 가져오기
 		public BoardDTO getBoardContent(int board_id);
+		
+		public void setHit(int board_id);
 	// 정수 : 끝  ###################### 
 
 
-		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map);
+	
 
-		public void setHit(int board_id);
+	
 
 		
 }

@@ -54,10 +54,7 @@
 	        VALUES
 	            (BOARD_QNA_SEQ.nextval,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
     	</insert>
-    	
-    	
 	<!-- ======================== 풍혁 : 끝 ============================= -->
-
 	
 	<!--  ###################### 정수 : 시작  ###################### -->
 	<!-- 글 보기 -->
@@ -65,13 +62,13 @@
 			select * from board_review where board_id = ${board_id}
 		</select>
 		
-		<select id="getBoardCount" resultType="java.lang.Integer">
+		<!-- <select id="getBoardCount" resultType="int">
 			select count(*) from board_review
-		</select>
+		</select> -->
 		
 		<!-- 조회수 증가처리 -->
 		<update id = "setHit" parameterType = "int">
-			update board_review set setHit = setHit +1 
+			update board_review set board_view_cnt = board_view_cnt +1 where board_id = #{board_id} 
 		</update>
 	<!-- ####################### 정수 : 끝  ###################### -->
 	

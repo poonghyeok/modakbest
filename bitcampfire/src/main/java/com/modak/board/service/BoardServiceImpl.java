@@ -48,6 +48,12 @@ public class BoardServiceImpl implements BoardService {
 			int startNum = 1 + boardPerPage*(pg-1);
 			int endNum = boardPerPage + boardPerPage*(pg-1);
 			
+			
+			
+			  // 세션값이 있다면 = 로그인을 했다면!
+			session.setAttribute("board_view_cnt", "0"); // 조회수에 0을 넣어라! (= 값이 존재하게 만들어주자!)
+			
+			
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("startNum", startNum);
 			map.put("endNum", endNum);
@@ -71,11 +77,6 @@ public class BoardServiceImpl implements BoardService {
 			int startNum = 1 + boardPerPage*(pg-1);
 			int endNum = boardPerPage + boardPerPage*(pg-1);
 			
-			String user_nickname = (String) session.getAttribute("user_nickname"); // 세션의 값을 가지고온다.(user에서 설정해줬음.)반환되는 형이 object라서 string 으로 변환
-			
-			if (session.getAttribute("user_nickname") != null) {  // 세션값이 있다면 = 로그인을 했다면!
-				session.setAttribute("userHit", "0"); // 조회수에 0을 넣어라! (= 값이 존재하게 만들어주자!)
-			}
 			
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("startNum", Integer.toString(startNum));
@@ -117,7 +118,8 @@ public class BoardServiceImpl implements BoardService {
 			
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 시작 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date date = boardDTO.getBoard_date_created();        
+			Date date = boardDTO.getBoard_date_created();
+			System.out.println("\n date : " + date);
 			String dateToStr = dateFormat.format(date);
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 마무리
 			 
@@ -308,28 +310,17 @@ public class BoardServiceImpl implements BoardService {
 	
 	//정수 : 시작 ############################################
 		@Override
-	public BoardDTO getBoardContent(int board_id) {
-		System.out.println("getBoardContent 서비스실행 ");
+	public BoardDTO getBoardContent(int board_id) { 
 		
-		
-			if (session.getAttribute("userHit")!=null) { // 로그인을 했다면
-				boardDAO.setHit(board_id); // 글번호에 조회수 증가하게 해
-				session.removeAttribute("userHit"); // 조회수에 해당하는 세션에 있는 값을 삭제.
-			}
-		
-		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호를 통해서 getBoard
-		//System.out.println("ServiceImpl 에서 date 값 TEST =  " + boardDTO.getBoard_date_created());
-		//String user_id = (String)session.getAttribute("user_id"); // 세션에 저장된 user_id를 가져온다.
-		
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			map.put("user_id", user_id);
-//			map.put("boardDTO", boardDTO);
-		
-		return boardDTO;
-		
+		if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
+			boardDAO.setHit(board_id); // 글번호에 조회수 증가하게 해
+			session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
 		}
 		
+		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호 가지고 dto 가지고와
 		
+		return boardDTO;
+		}
 	//정수 : 끝 ############################################
 	
 	
