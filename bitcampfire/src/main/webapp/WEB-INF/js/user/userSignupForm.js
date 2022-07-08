@@ -40,11 +40,20 @@ $(function(){
 $('#user_email').focusout(function(){
 	$('#check_alert').hide();
 	
+	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	
 	if( $('#user_email').val() == ''){
 		$('#check_alert').show();
 		$('#check_alert').html('[이메일]: 이메일 먼저 입력해주세요.');
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
+	}
+	else if($('#user_email').val().match(regExp) == null){
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일]: 이메일 형식이 올바르지 않습니다.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+		
 	}else{
 		$.ajax({
 			type: 'post',
