@@ -12,7 +12,10 @@ $(function(){
 			},
 		success : function(data){
 			console.log(JSON.stringify(data));
-			$('#index').append(outerDiv().append(listJsonToTag(data, 5)));
+			$('#index')
+			.append(
+				outerDiv(data, 5)
+			)
 		},
 		error : function(err){
 			console.log(err);
@@ -20,7 +23,7 @@ $(function(){
 	})
 })
 /*풍혁220708 home의 list를 제이쿼리로 불러보겠습니다.*/
-function outerDiv(){
+function outerDiv(data, boardNum){
 	
 	var outer =
 		$('<div/>',{
@@ -45,6 +48,9 @@ function outerDiv(){
 				$('<div/>',{
 					class : "panel panel-default"
 				})
+				.append(
+					listJsonToTag(data, boardNum)
+				)
 			)
 		);
 
@@ -57,88 +63,92 @@ function outerDiv(){
 function listJsonToTag(data, boardNum){ /*여기서 data는 json배열 */
 	
 	var panel = $('<ul/>',{ class : "list-group" });
-	
-	for(var i = 0; i < boardNum; i++){
-		for(dto in data){ /*여기서 item은 json */
-			panel.appned(
+		for(var i = 0; i < data.length; i++){ /*여기서 item은 json */
+			panel.append(
 				$('<li/>',{
 					class : "list-group-item list-group-item-small list-group-item-question list-group-has-note clearfix"
 				})
 				.append(
-					$('<h5/>',{
-						class : "list-group-item-heading"
+					$('<div/>',{
+						class : "list-title-wrapper"
 					})
 					.append(
-						$('<a/>',{
-							href : '/semiproject/board/getBoardView?board_id='+dto.board_id,
-							text : dto.board_title
-						})	
-					)
-					.append(
-						$('<div/>',{
-							class : "list-group-item-author pull-right clearfix"
-						}).append(
+						$('<h5/>',{
+							class : "list-group-item-heading"
+						})
+						.append(
+							$('<a/>',{
+								href : '/semiproject/board/getBoardView?board_id='+data[i].board_id,
+								text : data[i].board_title
+							})	
+						)
+						.append(
 							$('<div/>',{
-								class : "avatar clearfix avatar-x-small"
-							})
-							.append(
-								$('<a/>',{
-									href : "/semiproject/user/userMyPageForm?user_id="+dto.board_uid,
-									class : "avatar-photo"
-								})
-								.append(
-									$('<img/>',{
-										src : "/semiproject/storage/${sessionScope.memImg}"
-									})
-								)
-							)
-							.append(
+								class : "list-group-item-author pull-right clearfix"
+							}).append(
 								$('<div/>',{
-									class : "avatar-info"
+									class : "avatar clearfix avatar-x-small"
 								})
 								.append(
 									$('<a/>',{
-										class : "nickname",
-										href : "/semiproject/user/userMyPageForm?user_id="+dto.board_uid,
-										title : '작성자',
-										text : '작성자어떻게넣지',
-									})
-								)
-								.append(
-									$('<div/>',{
-										class : "activity",
+										href : "/semiproject/user/userMyPageForm?user_id="+data[i].board_uid,
+										class : "avatar-photo"
 									})
 									.append(
-										$('<span/>',{
-											class : "fa fa-flash"
-										})	
-									)
-									.append(
-										$('<span/>',{
-											text : "lev"
-										})	
+										$('<img/>',{
+											src : "/semiproject/storage/${sessionScope.memImg}"
+										})
 									)
 								)
 								.append(
 									$('<div/>',{
-										class : "date-created"
+										class : "avatar-info"
 									})
 									.append(
-										$('<span/>',{
-											class : "timeago",
-											title : dto.board_date_created.toLocaleString(),
-											text : '7일전'
-										})	
+										$('<a/>',{
+											class : "nickname",
+											href : "/semiproject/user/userMyPageForm?user_id="+data[i].board_uid,
+											title : '작성자',
+											text : '작성자어떻게넣지',
+										})
+									)
+									.append(
+										$('<div/>',{
+											class : "activity",
+										})
+										.append(
+											$('<span/>',{
+												class : "fa fa-flash"
+											})	
+										)
+										.append(
+											$('<span/>',{
+												text : "lev"
+											})	
+										)
+									)
+									.append(
+										$('<div/>',{
+											class : "date-created"
+										})
+										.append(
+											$('<span/>',{
+												class : "timeago",
+												title : data[i].board_date_created,
+												text : '7일전'
+											})	
+										)
 									)
 								)
 							)
-						)
+						)	
 					)
 				)
 			)
 		}
-	}
+	
 	
 	return panel;
 
 }
+

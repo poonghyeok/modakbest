@@ -26,10 +26,10 @@
 			<!-- conten tscaffold-list clearfix -->
 			<div id="index" class="content scaffold-list clearfix" role="main">
 			</div>
-			<!-- main-index -->	
-		</div>
-		<!-- layout-container -->
-	</div>
+			<!-- conten tscaffold-list clearfix -->
+				
+		</div><!-- main-index -->
+	</div><!-- layout-container -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="/semiproject/js/index.js"></script>
 </body>

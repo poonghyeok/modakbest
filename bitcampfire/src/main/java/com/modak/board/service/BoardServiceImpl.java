@@ -136,9 +136,9 @@ public class BoardServiceImpl implements BoardService {
 			tr.append("<li class='list-group-item list-group-item-question clearfix " + hasNoteClass + "'>");
 				tr.append("<div class='list-title-wrapper clearfix'>");
 					tr.append("<div class='list-tag clearfix'>");
-					
+						//풍혁220709 : 게시판 아이콘 반영 안되고있음
 						tr.append("<span class='list-group-item-text article-id'>"+ boardDTO.getBoard_id()+"</span>");
-						tr.append("<a 	='/semiproject/board/list?pg=1' class='list-group-item-text item-tag label label-info'><i class='fa fa-database'></i> 자유토론</a>"); 
+						tr.append("<a='/semiproject/board/list?pg=1' class='list-group-item-text item-tag label label-info'>"+ boardDTO.cateidToString()+"</a>"); 
 					tr.append("</div>");
 				
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
@@ -180,10 +180,10 @@ public class BoardServiceImpl implements BoardService {
 				tr.append("<div class=\"list-group-item-author clearfix\">");
 					tr.append("<div class='avatar clearfix avatar-list '>");
 						//풍혁(220707) : user click 했을 경우 user의 최근활동을 볼 수 있는 페이지로 이동 : 옵션으로
-						tr.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar/e7d844c379aaafb37172977b206d129d?d=identicon&amp;s=30\'></a>");
+						tr.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar7172977b206d129d?d=identicon&amp;s=30\'></a>");
 						tr.append("<div class='avatar-info'>");
 							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
-							tr.append("<div class='activity'>");
+							tr.append("<div class='activity'>");/e7d844c379aaafb3
 								tr.append("<span class='fa fa-flash'></span>" + "lev");
 							tr.append("</div>");
 							tr.append("<div class='date-created'>");
@@ -194,26 +194,7 @@ public class BoardServiceImpl implements BoardService {
 				tr.append("</div>");
 				
 			tr.append("</li>");
-
-			//풍혁(220705) : 처음 만들었던 테이블 
-//				tr.append("<span id = 'tdSeq'>"+ boardDTO.getBoard_id()+"</span><span id = 'categoryTag'>"+boardDTO.cateidToString()+"</span> <br>");
-//					tr.append("<span id = 'boardSubject'>"+boardDTO.getBoard_title()+"</span>");
-//				tr.append("</td>");
-//				
-//				tr.append("<td id = 'td_recommend'>");
-//					tr.append("<span id = 'boardRecommend'><img alt='thumbs_up.jpg' src='#'>"+ boardDTO.getBoard_vote_cnt() +"</span>");
-//				tr.append("</td>");
-//			
-//				tr.append("<td id = 'td_state'>");
-//					tr.append("<span id = 'boardState'>"+ boardDTO.getBoard_view_cnt()+"</span>");
-//				tr.append("</td>");
-//				
-//				tr.append("<td id = 'td_author'>");
-//					tr.append("<span id = 'boardAuthor'> <img alt='user_icon.jpg' src='#'>"+ boardDTO.getBoard_uid()+"<br><span id = 'boardLogdate'>"+ dateToStr +"</span> </span>");
-//				tr.append("</td>");
-//				
-//			tr.append("</tr>");
-			
+		
 			return tr.toString();
 		}
 		
