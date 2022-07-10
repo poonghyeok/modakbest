@@ -53,17 +53,7 @@ public class HomeController {
 		
 	// ----- 풍혁220708 : main index page list
 	
-	//기진님 화면 확인
-	@GetMapping(value="index")
-	public String index() {				
-		return "/index";
-	}	
-	
-	//메인없는 양식
-	@GetMapping(value="home2")
-	public String home2() {				
-		return "/home2";
-	}	
+	//@@@@ 연수 test용 home2 삭제(220710)
 	
 	//멤버 사이드바
 	@GetMapping(value="/user/userSideBar")

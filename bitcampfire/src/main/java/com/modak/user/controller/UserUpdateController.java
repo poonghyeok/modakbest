@@ -37,7 +37,7 @@ public class UserUpdateController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 
-	//회원정보 수정 시작 (이메일 인증 넣고 해	보기)
+	//회원정보 수정 시작
 	//회원정보 수정폼 띄우기
 	@GetMapping(value="userUpdateForm")
 	public String userUpdateForm() {				
@@ -52,17 +52,34 @@ public class UserUpdateController {
 		return userService.getUser(user_email);
 	}	
 	
-	
-	//회원정보 수정
-	@PostMapping(value="update")
+	//@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
+	//닉네임 중복체크
+	@PostMapping(value="userUpdate_nicknameCheck")
 	@ResponseBody
-	public void update(@ModelAttribute UserAllDTO userAllDTO,
-					   @RequestParam MultipartFile user_image,
-					   HttpSession session) {
+	public UserAllDTO userUpdate_nicknameCheck(@RequestParam String user_nickname) {		
+		return userService.userUpdate_nicknameCheck(user_nickname);	
+	}
+	
+	//이메일 중복체크
+	@PostMapping(value="userUpdate_emailCheck")
+	@ResponseBody
+	public UserAllDTO userUpdate_emailCheck(@RequestParam String user_email) {		
+		return userService.userUpdate_emailCheck(user_email);	
+	}
+	
+	
+	//프로필 사진 변경
+	@PostMapping(value="update_userImg")
+	@ResponseBody
+	public void update_userImg(@ModelAttribute UserAllDTO userAllDTO,
+							  @RequestParam MultipartFile user_image,
+								HttpSession session) {
 		
+		String user_email = (String) session.getAttribute("memEmail");
 		//가상폴더
 		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
-		String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage";		
+		//String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수비트캠프
+		String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
 		String fileName = user_image.getOriginalFilename();
 		
 		File file = new File(filePath, fileName); //파일 생성
@@ -74,18 +91,45 @@ public class UserUpdateController {
 			e.printStackTrace();
 		}	
 			
+		session.setAttribute("memImg", fileName);		
 		userAllDTO.setUser_img(fileName);
+		userAllDTO.setUser_email(user_email);
+		//회원수정폼 정보 실어서 업데이트
+		userService.update_userImg(userAllDTO);
+	}
+	//이메일 주소 변경
+	
+	//회원 기본정보 수정(이메일값 기준으로 수정)
+	@PostMapping(value="update_userInfo")
+	@ResponseBody
+	public void update_userInfo(@ModelAttribute UserAllDTO userAllDTO, HttpSession session) {
+		String user_email = (String) session.getAttribute("memEmail");
+		userAllDTO.setUser_email(user_email);
+		userService.update_userInfo(userAllDTO);
+
 		session.setAttribute("memName", userAllDTO.getUser_name());
-		session.setAttribute("memNickname", userAllDTO.getUser_nickname());
-		session.setAttribute("memEmail", userAllDTO.getUser_email());
-		session.setAttribute("memImg", userAllDTO.getUser_img());		
+		session.setAttribute("memNickname", userAllDTO.getUser_nickname());		
 		//session.setAttribute("memNickname", userAllDTO.getClass_academy());
 		//session.setAttribute("memNickname", userAllDTO.getClass_class());
-		//회원수정폼 정보 실어서 업데이트
-		userService.update(userAllDTO);
+		
 	}
 	
+	//이메일 주소 변경(아이디값 기준으로 수정)
+	@PostMapping(value="update_userEmail")
+	@ResponseBody
+	public void update_userEmail(@RequestParam String user_email, HttpSession session) {
+		String user_id = (String) session.getAttribute("memId");
+		session.setAttribute("memEmail", user_email);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+		map.put("user_email", user_email);		
+
+		userService.update_userEmail(map);
+	}
 	//회원정보 수정 끝
+	//@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@	
+	
 	
 	//비밀번호 변경 시작
 	//비밀번호 수정폼 띄우기
@@ -97,24 +141,19 @@ public class UserUpdateController {
 	//비밀번호 일치여부 확인 	
 	@PostMapping(value="checkPwd")	  
 	@ResponseBody 
-	public UserDTO checkPwd(HttpSession session){ 		
-		String user_email =(String) session.getAttribute("memEmail");
-		return userService.checkPwd(user_email); 
-	}
-	
+	public String checkPwd(@RequestParam String user_pwd, HttpSession session){ 
+		
+		String user_email = (String) session.getAttribute("memEmail");
+		UserDTO userDTO = userService.checkPwd(user_email); 	
+		String inputPwd = user_pwd;
 
-	//비밀번호 일치여부-테스트용 성공
-	/*
-	@PostMapping(value="checkPwd")
-	@ResponseBody
-	public UserDTO checkPwd(@RequestParam String user_email){		
-		System.out.println("checkPwd : " + user_email);
-		
-		
-		return userService.checkPwd(user_email);	
+		if(userDTO != null && passwordEncoder.matches(inputPwd, userDTO.getUser_pwd())){ //입력 비밀번호, 복호화 비밀번호
+			return "ok";
+			
+		}else {			
+			return "fail";
+		}	
 	}
-	*/ 
-	
 
 	//비밀번호 변경 완료	
 	@PostMapping(value="pwdChangeComplete")
@@ -122,9 +161,12 @@ public class UserUpdateController {
 	public void pwdChangeComplete(@RequestParam String user_pwd, HttpSession session) {
 		String user_email = (String)session.getAttribute("memEmail");
 		
+		String inputPass = user_pwd;
+		String pwd = passwordEncoder.encode(inputPass);		
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("user_email", user_email); 
-		map.put("user_pwd", user_pwd);
+		map.put("user_pwd", pwd);
 		
 		userService.pwdChangeComplete(map);
 	}

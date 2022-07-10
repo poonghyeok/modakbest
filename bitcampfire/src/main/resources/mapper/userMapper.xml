@@ -17,16 +17,34 @@
         select * from user2 where user_email=#{user_email}
     </select>
     
-    <!-- 회원정보 수정: 수정하기 --> 
-    <update id="update" parameterType="UserAllDTO">
-  		update user2 set user_email = #{user_email}
-  		  			    , user_name = #{user_name}
-  						, user_nickname = #{user_nickname}
-  						, user_img = #{user_img}
-  		  			    , user_id = user2_SEQ.nextval  		  			    
-  		  			    where user_email = #{user_email, jdbcType=VARCHAR} 		  			    
-  	</update>  
+	<!-- //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@ -->
+    <!-- 회원정보 수정: 닉네임 중복체크 -->
+    <select id="userUpdate_nicknameCheck" parameterType="String" resultType="UserAllDTO">
+  		select * from user2 where user_nickname=#{user_nickname}
+  	</select>
   	
+  	 <!-- 회원정보 수정: 이메일 중복체크 -->
+    <select id="userUpdate_emailCheck" parameterType="String" resultType="UserAllDTO">
+  		select * from user2 where user_email=#{user_email}
+  	</select>
+  	
+  	<!-- 회원정보 수정: 프로필 사진 수정 -->
+    <update id="update_userImg" parameterType="UserAllDTO">
+  		update user2 set user_img = #{user_img}, user_logtime = sysdate where user_email = #{user_email}	  			    
+  	</update>  	
+    
+    <!-- 회원정보 수정: 수정하기 / 학원명 과정명 추가하기!!--> 
+    <update id="update_userInfo" parameterType="UserAllDTO">
+  		update user2 set user_name = #{user_name} 
+  					   , user_nickname = #{user_nickname}
+  					   , user_logtime = sysdate where user_email = #{user_email} 		  			    
+  	</update>
+	<!-- //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@ -->
+  	<!-- 회원정보 수정: 이메일 수정 -->
+    <update id="update_userEmail" parameterType="java.util.Map">
+  		update user2 set user_email = #{user_email}, user_logtime = sysdate where user_id = #{user_id}	  			    
+  	</update>
+
      <!-- 비밀번호 수정: 비밀번호 일치 여부 확인 - 회원정보 불러오기 -->   	
 	<select id="checkPwd" parameterType="String" resultType="UserDTO">
         select * from user2 where user_email=#{user_email}
@@ -75,11 +93,9 @@
   		select * from user2 where user_email=#{user_email}
   	</select>
   	
-  		<!-- @@@@ 연수 닉네임 중복검사 추가(220708) @@@@ -->
   	<select id="userSignup_nicknameCheck" parameterType="String" resultType="UserAllDTO">
   		select * from user2 where user_nickname=#{user_nickname}
   	</select>	
-  		<!-- @@@@ 연수 닉네임 중복검사 추가(220708) @@@@ -->
   	
   	<select id="getUserInformation" parameterType="String" resultType="UserDTO">
   		select * from user2 where user_email=#{user_email}
@@ -88,7 +104,6 @@
 
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->
 	
-	<!--   //@@@@ 연수 수정(220708)  @@@@///	 -->
 	<!-- 로그인 -->
 	<select id="login" parameterType="String" resultType="UserAllDTO">
 		select * from user2 where user_email=#{user_email}

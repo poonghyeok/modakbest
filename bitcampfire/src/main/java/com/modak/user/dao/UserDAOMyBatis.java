@@ -25,11 +25,35 @@ public class UserDAOMyBatis implements UserDAO {
 		public UserAllDTO getUser(String user_email) {
 			return sqlSession.selectOne("userSQL.getUser", user_email);
 		}
+		
+	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
+		@Override
+		public UserAllDTO userUpdate_nicknameCheck(String user_nickname) {			
+			return sqlSession.selectOne("userSQL.userUpdate_nicknameCheck", user_nickname);
+		}
 
 		@Override
-		public void update(UserAllDTO userAllDTO) {
-			sqlSession.update("userSQL.update", userAllDTO);		
+		public UserAllDTO userUpdate_emailCheck(String user_email) {
+			return sqlSession.selectOne("userSQL.userUpdate_emailCheck", user_email);
 		}
+	
+		@Override
+		public void update_userImg(UserAllDTO userAllDTO) {
+			sqlSession.update("userSQL.update_userImg", userAllDTO);
+			
+		}
+		
+		@Override
+		public void update_userInfo(UserAllDTO userAllDTO) {
+			sqlSession.update("userSQL.update_userInfo", userAllDTO);			
+		}
+
+		@Override
+		public void update_userEmail(Map<String, String> map) {
+			sqlSession.update("userSQL.update_userEmail", map);
+			
+		}
+	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 
 		@Override
 		public UserDTO checkPwd(String user_email) {
@@ -60,12 +84,10 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.userSignup_emailCheck",user_email);
 		}
 		
-		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@	
 		@Override
 		public UserAllDTO userSignup_nicknameCheck(String user_nickname) {		
 			return sqlSession.selectOne("userSQL.userSignup_nicknameCheck", user_nickname);
 		}
-		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@		
 
 		@Override
 		public UserDTO getUserInformation(String user_email) {
@@ -76,7 +98,6 @@ public class UserDAOMyBatis implements UserDAO {
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@
-		//@@@@ 연수 수정(220708)  @@@@///	
 		@Override
 		public UserAllDTO login(String user_email) {
 			return sqlSession.selectOne("userSQL.login", user_email);
@@ -97,5 +118,10 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
+
+
+
 
 }
