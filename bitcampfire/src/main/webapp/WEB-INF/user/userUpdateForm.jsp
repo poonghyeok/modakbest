@@ -232,7 +232,7 @@ $('#update_userImgBtn').click(function(){
 			alert('프로필 이미지 변경을 완료하였습니다.');
 			$('.profile-picture-list').hide();
 			//location.href="/semiproject/user/userUpdateForm";
-			setTimeout("location.href='/semiproject/user/userUpdateForm'",300);
+			setTimeout("location.href='/semiproject/user/userUpdateForm'",100);
 			//location.href = "/semiproject/";
 		},
 		error: function(err) {

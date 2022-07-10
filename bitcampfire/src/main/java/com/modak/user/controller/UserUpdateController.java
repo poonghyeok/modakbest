@@ -36,7 +36,10 @@ public class UserUpdateController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-
+	@GetMapping(value="test")
+	public String test() {				
+		return "/user/test";
+	}	
 	//회원정보 수정 시작
 	//회원정보 수정폼 띄우기
 	@GetMapping(value="userUpdateForm")
