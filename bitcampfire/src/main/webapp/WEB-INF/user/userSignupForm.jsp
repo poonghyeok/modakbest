@@ -38,7 +38,7 @@
 			               			<input type="hidden" name="user_email_check" id="user_email_check" value="">
 		               			</div>
 		               			<div class="col-md-3">
-									<button class="btn btn-primary" type="button" id="emailBtn" disabled="disabled">인증번호</button>
+									<input type="button" value="인증번호" class="btn btn-primary" type="button" id="emailBtn" disabled="disabled">
 								</div>	
 					        </div>
 					       <div class="row"  id="num_check_blank">
@@ -46,7 +46,7 @@
 						        	<input type="text" class="form-control input-sm" id="user_email_check_number"placeholder="인증번호 6자리" maxlength="6">
 				            	</div>
 				           		<div class="col-md-3">
-							  		<button type="button" id="mail-check-input" class="btn btn-primary">번호 인증</button>
+							  		<input type="button" value="번호 인증" id="mail-check-input" class="btn btn-primary">
 				            	</div>
 				            </div>
 							<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd">
@@ -77,7 +77,7 @@
 		                    </div>
 		                </fieldset>
 		
-		                <button class="btn btn-primary btn-block" type="button" id="signUpBtn">아래 약관을 동의하며 계정 생성</button>
+		                <input type="button" value="아래 약관을 동의하며 계정 생성" class="btn btn-primary btn-block" id="signUpBtn">
 		
 		             <div class="signup-block">
                     	<a href="" data-toggle="modal"  data-target="#userAgreement">회원가입약관</a> <span class="inline-saperator">/</span> <a href="" data-toggle="modal" data-target="#userPrivacy">개인정보취급방침</a>
