@@ -1,5 +1,6 @@
 package com.modak.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -63,6 +64,8 @@ public interface UserService {
     	
     	public String getUserNameByUserId(int board_uid);
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+		public List classList();
 	
 
 

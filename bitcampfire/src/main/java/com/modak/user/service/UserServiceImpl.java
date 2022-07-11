@@ -1,5 +1,6 @@
 package com.modak.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -164,4 +165,10 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserNameByUserId(board_uid);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+		@Override
+		public List classList() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

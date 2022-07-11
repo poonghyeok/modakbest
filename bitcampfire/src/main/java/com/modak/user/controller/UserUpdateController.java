@@ -43,7 +43,7 @@ public class UserUpdateController {
 	
 	//@@@연수 추가(220711)
 	@Autowired
-	private JavaMailSender mailSender;
+	private JavaMailSender mailSender3;
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
 	//@@@연수 추가(220711)
 	
@@ -102,13 +102,13 @@ public class UserUpdateController {
         
         try {
             
-            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessage message = mailSender3.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
             helper.setFrom(setFrom);
             helper.setTo(toMail);
             helper.setSubject(title);
             helper.setText(content,true);
-            mailSender.send(message);
+            mailSender3.send(message);
             
         }catch(Exception e) {
             e.printStackTrace();
@@ -161,6 +161,7 @@ public class UserUpdateController {
 
 		session.setAttribute("memName", userAllDTO.getUser_name());
 		session.setAttribute("memNickname", userAllDTO.getUser_nickname());		
+		session.setAttribute("memClassId", userAllDTO.getUser_classid());	
 		//session.setAttribute("memNickname", userAllDTO.getClass_academy());
 		//session.setAttribute("memNickname", userAllDTO.getClass_class());
 		

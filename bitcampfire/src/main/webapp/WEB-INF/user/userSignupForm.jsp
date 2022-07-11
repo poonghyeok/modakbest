@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>		
 <head>
@@ -52,13 +52,30 @@
 							<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd">
 							
 							<input type="text" name="user_nickname" class="form-control input-sm" required="" placeholder="닉네임" value="" id="user_nickname">
+									
+							<input type="hidden" name="user_nickname_check" id="user_nickname_check" value="">	
+													
+							<!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
+							<!-- <input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy"> -->
+							<%-- <select name="user_classid" class="form-control input-sm" id="user_classid"> <!-- value="${user_classid}"  -->
+								<option disabled="" selected="" value="0"
+								<c:if test="${user_classid == 0 }"></c:if>>학원명</option>
+								<!-- <option>학원명</option> -->
+		                   		<option value="1" <c:if test="${user_classid == 1 }">selected</c:if>>유진학원</option>
+		                   		<option value="2" <c:if test="${user_classid == 2 }">selected</c:if>>연수학원</option>
+		                   		<option value="3" <c:if test="${user_classid == 3 }">selected</c:if>>정수학원</option>		                   		 
+		                    </select> --%>
+		                    <select name="user_classid" class="form-control input-sm" id="user_classid" size="1"> 
+		                    	<option selected>학원명</option>
+								<c:forEach items=${getClassList } var="classList">
+									<option><c:out value="${classList.class_academy}"/></option>
+								</c:forEach>
+							</select>
+
+							<!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
 							
-							<!-- 연수 닉네임 중복체크 추가(220708)  -->
-							<input type="hidden" name="user_nickname_check" id="user_nickname_check" value="">
-							<!-- 연수 닉네임 중복체크 추가(220708)  -->
-							
-							<input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy">
-							<input type="text" name="class_class" class="form-control input-sm" required="" placeholder="과정명" value="" id="nickname">
+							<!-- @@@ 연수 : 과정명 삭제(0711) @@@ -->
+							<!-- <input type="text" name="class_class" class="form-control input-sm" required="" placeholder="과정명" value="" id="nickname"> -->
 		                    
 							<!-- <label for="user_img" class="form-label"></label>
 							<div class="user_profile">
@@ -69,12 +86,12 @@
 						  		<input type="file" style="display:none;" name="user_image" accept="image/gif, image/jpg, image/jpeg, image/png" id="user_image">
 							</div> -->
 	
-							
-		                    <div class="checkbox">
+							<!-- @@@ 연수 : 이메일 수신 동의 삭제(0711) @@@ -->
+		                    <!-- <div class="checkbox">
 		                        <label>
 		                            <input type="checkbox" value="" id="flexCheckChecked" name="flexCheckChecked" checked> 이메일 수신 동의
 		                        </label>
-		                    </div>
+		                    </div> -->
 		                </fieldset>
 		
 		                <input type="button" value="아래 약관을 동의하며 계정 생성" class="btn btn-primary btn-block" id="signUpBtn">

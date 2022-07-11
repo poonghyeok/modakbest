@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,16 +78,30 @@
 									</div>
 									<div class="row" style="visibility:hidden;">줄맞춤을 위한 공간</div>                 
 				                    
-				                    <div class="form-group">				                    					                    				                    
+				                    <!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
+				                    <!-- <div class="form-group">				                    					                    				                    
 				                        <label class="control-label" for="class_academy">학원명</label>				                        			                        
-				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="" value="" id="class_academy">		             				
-			                        	
-			                        </div>
-			                        
-				                    <div class="form-group">
+				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="" value="" id="class_academy">		                        	
+			                        </div> -->
+			                        <div class="form-group">				                    					                    				                    
+				                        <label class="control-label" for="class_academy">학원명</label>									
+									<select name="user_classid" class="form-control input-sm" id="user_classid"> <!-- value="${user_classid}"  -->
+ 										<option disabled="" selected="" value="0"
+										<c:if test="${user_classid == 0 }"></c:if>>학원명</option>
+										<!-- <option>학원명</option> -->
+				                   		<option value="1" <c:if test="${user_classid == 1 }">selected</c:if>>유진학원</option>
+				                   		<option value="2" <c:if test="${user_classid == 2 }">selected</c:if>>연수학원</option>
+				                   		<option value="3" <c:if test="${user_classid == 3 }">selected</c:if>>정수학원</option>		                   		 
+				                    </select>
+				                    </div>
+									<!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
+			                        <!-- @@@ 연수 : 과정명 삭제(0711) @@@ -->
+				                    <!-- <div class="form-group">
 				                        <label class="control-label" for="class_class">과정명</label>
 				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">	
-			                        </div>			                                  
+			                        </div> -->	
+			                        
+			                        		                                  
 				                <input type="button" class="btn btn-primary btn-block" id="update_userInfoBtn" value="정보 수정">
 				            	</form>
 	                		</fieldset>
@@ -163,6 +178,7 @@ $(function(){
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
 			$('input[name="user_nickname_check"]').val(data.user_nickname);
+			$('select[name="user_classid"]').val(data.user_classid);
 			//$('#class_academy').val(data.class_academy);
 			//$('#class_class').val(data.class_class);
 			$('#user_email').val(data.user_email); 
@@ -173,8 +189,7 @@ $(function(){
 	});
 });   
 
-//@@@@@@@@@@@@@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) 시작 @@@@@@@@@@@@@@@@@@@@@@@@
-//@@@ 프로필 사진 변경 기능 수정(220710) @@@@
+//프로필 사진 변경
 //이미지 업로드 
 $(function(){
 	$('#edit-picture-btn').click(function(e) {
@@ -242,7 +257,6 @@ $('#update_userImgBtn').click(function(){
 });
 
 
-//@@@@ 연수 닉네임 중복검사 수정(220709) @@@@
 //닉네임 중복체크
 $('#user_nickname').change(function(){
 	$('#check_alert').hide();	
@@ -318,7 +332,8 @@ $('#update_userInfoBtn').click(function(){
 			url: '/semiproject/user/update_userInfo',
 			//data: $('#upadate_userInfoForm').serialize(),
 			data: {'user_name' : $('#user_name').val(),
-				   'user_nickname' : $('#user_nickname').val()},
+				   'user_nickname' : $('#user_nickname').val(),
+				   'user_classid' : $('select[name="user_classid"]').val()},
 				   //'class_academy' : $('#class_academy').val(),
 				   //'class_class' : $('#class_class').val(),			
 			success: function(){
@@ -485,7 +500,6 @@ $('#update_userEmailBtn').click(function(){
 		}); 
 	}	
 });
-//@@@@@@@@@@@@@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) 끝  @@@@@@@@@@@@@@@@@@@@@@@@
 </script>
 </body>
 </html>

@@ -307,25 +307,23 @@ $('#signUpBtn').click(function(){
 			$('#check_alert').html('[닉네임] : 닉네임을 입력하세요.');
 			$('#check_alert').css('color','red');
 			$('#check_alert').css('font-size','8px');
-		}
-
-		
-		/* @@@연수 닉네임 중복체크 추가(220708)@@@ */
+		}	
+	
 		else if($('#user_nickname').val() != $('input[name="user_nickname_check"]').val()){
 			$('#check_alert').show();
 			$('#check_alert').html('[닉네임] : 닉네임 중복체크하세요.');
 			$('#check_alert').css('color','red');
 			$('#check_alert').css('font-size','8pt');
 		}
-		/* @@@연수 닉네임 중복체크 추가(220708)@@@ */
 		
-		else if(!$('input[name="flexCheckChecked"]').is(':checked')){
+		/* @@@연수 이메일 수신 동의 삭제(220711)@@@ */
+	/*	else if(!$('input[name="flexCheckChecked"]').is(':checked')){
 			$('#check_alert').show();
 			$('#check_alert').html('[이메일 수신] : 이메일 수신에 동의해주세요.');
 			$('#check_alert').css('color','red');
 			$('#check_alert').css('font-size','8px');
 			
-		}
+		}*/
 
 		else{
 			//$('#userSignupWriteForm').submit();

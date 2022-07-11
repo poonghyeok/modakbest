@@ -2,7 +2,9 @@ package com.modak.user.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.home.HomeController;
+import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 import com.modak.user.service.UserService;
@@ -137,11 +141,14 @@ public class UserSignupController {
 		}	
 		
 		
+	@GetMapping(value = "getClassList")
+	public void getClassList(Model model) {
+		List<ClassDTO> classList;
+		classList = userService.classList();
+		model.addAttribute("classList", classList);	
 		
 		
-		
-		
-	
+	}
 
 		
 	}
