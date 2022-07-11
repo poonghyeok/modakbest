@@ -156,7 +156,11 @@ public class BoardController {
 			System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
 			mav.setViewName("board/boardView"); // boardView.jsp로 보냄 
 			return mav; // 스프링한테 데이터랑 목적지 꺼내봐 하는거
+			
+			
 		}
+		
+		
 
 	// 정수 : 끝  ###################### 
 			

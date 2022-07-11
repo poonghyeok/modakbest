@@ -160,6 +160,54 @@ $('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
 				});
 		}
 });
+
+<!-- <script type="text/javascript"
+	src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$('#btn-create-btn').click(function(){ //등록 버튼을 눌렀을때
+		// var queryString = $("#note-createnote-create").serialize(); //폼에 있는 걸 키&값으로 묶음.   var params = $("#폼명").serialize()
+	
+		var comment_uid = $('.nickname').val(); // 댓글 쓴 아이디
+		var image = $('').val(); // 프로필 사진
+		var cmt_content = $('.form-control').val(); // 내용 
+		
+		$.ajax({
+				type : 'post',
+				url : '/semiproject/comment/writeCommentContent', // 컨트롤러 타고 db로 등록이 되고
+				data : JSON.stringify(comment_uid,image,cmt_content), // JavaScript 값이나 객체를 JSON 문자열로 변환
+				//---------위 요청 --------아래는 응답-----
+				dataType : 'json',  // 받는 데이터 형식은 json 형태  
+				error: function(xhr, status, error){
+					alert(error);
+				},
+				success : function(json){
+					alert(json.data);
+				}
+			});
+	});
+
+/* $('#btn-create-btn').click(function(){ //등록 버튼을 눌렀을때
+	// var queryString = $("#note-createnote-create").serialize(); //폼에 있는 걸 키&값으로 묶음.   var params = $("#폼명").serialize()
+
+	var comment_uid = $('.nickname').val(); // 댓글 쓴 아이디
+	var image = $('').val(); // 프로필 사진
+	var cmt_content = $('.form-control').val(); // 내용 
+	
+	$.ajax({
+			type : 'post',
+			url : '/semiproject/comment/writeCommentContent', // 컨트롤러 타고 db로 등록이 되고
+			data : JSON.stringify(comment_uid,image,cmt_content), // JavaScript 값이나 객체를 JSON 문자열로 변환
+			//---------위 요청 --------아래는 응답-----
+			dataType : 'json',  // 받는 데이터 형식은 json 형태  
+			error: function(xhr, status, error){
+				alert(error);
+			},
+			success : function(json){
+				alert(json.data);
+			}
+		});
+}); */
+
 </script>
 
 </body>
