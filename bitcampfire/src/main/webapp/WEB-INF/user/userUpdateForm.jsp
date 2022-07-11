@@ -232,7 +232,7 @@ $('#update_userImgBtn').click(function(){
 			alert('프로필 이미지 변경을 완료하였습니다.');
 			$('.profile-picture-list').hide();
 			//location.href="/semiproject/user/userUpdateForm";
-			setTimeout("location.href='/semiproject/user/userUpdateForm'",100);
+			setTimeout("location.href='/semiproject/user/userUpdateForm'",500);
 			//location.href = "/semiproject/";
 		},
 		error: function(err) {
@@ -407,7 +407,7 @@ $('#emailBtn').click(function(){
 	}else{	
 		$.ajax({
 			type : 'get',
-			url : '/semiproject/user/mailCheck?user_email='+$('#user_email').val(), // GET방식이라 Url 뒤에 email을 붙일수있다.
+			url : '/semiproject/user/mailCheck_updateEmail?user_email='+$('#user_email').val(), // GET방식이라 Url 뒤에 email을 붙일수있다.
 			//data: {'user_email': $('#user_email').val()},
 			success : function (data) {
 				console.log("data : " +  data);

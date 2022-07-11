@@ -5,10 +5,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,14 +38,15 @@ public class UserUpdateController {
 	private UserService userService;
 	@Autowired
 	HttpSession session;
-
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
-	@GetMapping(value="test")
-	public String test() {				
-		return "/user/test";
-	}	
+	
+	//@@@연수 추가(220711)
+	@Autowired
+	private JavaMailSender mailSender;
+	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
+	//@@@연수 추가(220711)
+	
 	//회원정보 수정 시작
 	//회원정보 수정폼 띄우기
 	@GetMapping(value="userUpdateForm")
@@ -55,7 +62,6 @@ public class UserUpdateController {
 		return userService.getUser(user_email);
 	}	
 	
-	//@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 	//닉네임 중복체크
 	@PostMapping(value="userUpdate_nicknameCheck")
 	@ResponseBody
@@ -70,6 +76,49 @@ public class UserUpdateController {
 		return userService.userUpdate_emailCheck(user_email);	
 	}
 	
+	//@@@@@@@@@@@@  이메일 인증 for 이메일 변경 @@@@@@@@@@@@
+	//이메일 인증
+	@GetMapping("mailCheck_updateEmail")
+	@ResponseBody
+	public String mailCheck_updateEmail(String user_email) throws Exception{
+		logger.info("이메일 인증 요청이 들어옴!"+user_email);
+        logger.info("인증번호 : " + user_email);
+		//return  mailService.joinEmail(user_email);
+        
+        /* 인증번호(난수) 생성 */
+        Random random = new Random();
+        int checkNum = random.nextInt(888888) + 111111;
+        logger.info("인증번호 " + checkNum);
+        
+        /* 이메일 보내기 */
+        String setFrom = "manbal58@hanmail.net";
+        String toMail = user_email;
+        String title = "이메일 변경 인증 이메일 입니다.";
+        String content = 
+        "<div style='width:1000px; height: 100px; background:#286090;' align='center'> <h1 style='color:#fff; font-size: 60px;'>BITFIRE</h1></div>"
+		+ "<div><h2 style='margin-top:10px; font-size: 24px;'>홈페이지를 방문해주셔서 감사합니다.<br><br>이메일 변경을 위해 아래의 인증번호를 인증번호 확인란에 기입하여 주세요.</h2>"
+		+ "<p style='font-size:18px;'>인증 번호 : <span style='padding: 10px; background: #d2e9fc;'>" + checkNum + "</span> </p>"
+		+ "<div>";
+        
+        try {
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        String num = Integer.toString(checkNum);
+        
+        return num;
+	}
+			
+	
 	
 	//프로필 사진 변경
 	@PostMapping(value="update_userImg")
@@ -81,8 +130,8 @@ public class UserUpdateController {
 		String user_email = (String) session.getAttribute("memEmail");
 		//가상폴더
 		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
-		//String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수비트캠프
-		String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
+		String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수비트캠프
+		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
 		String fileName = user_image.getOriginalFilename();
 		
 		File file = new File(filePath, fileName); //파일 생성

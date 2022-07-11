@@ -19,7 +19,6 @@ public interface UserService {
 	//연수 : 시작(220706) ====================================
 	    public UserAllDTO getUser(String user_email);
 	
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 	    public UserAllDTO userUpdate_nicknameCheck(String user_nickname);
 	    
 	    public UserAllDTO userUpdate_emailCheck(String user_email);
@@ -29,8 +28,6 @@ public interface UserService {
 	    public void update_userInfo(UserAllDTO userAllDTO);
 
 	    public void update_userEmail(Map<String, String> map);
-
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 	
 	    public UserDTO checkPwd(String user_email);
 	
