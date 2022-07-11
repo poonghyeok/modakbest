@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
 
-db.proporties 
+db.properties 
 pom.properties
 MANIFEST.MF
 
