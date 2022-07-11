@@ -42,12 +42,15 @@ $('#user_email').focusout(function(){
 	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
 	if( $('#user_email').val() == ''){
+		$('#num_check_blank').hide();
 		$('#check_alert').show();
 		$('#check_alert').html('[이메일]: 이메일 먼저 입력해주세요.');
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
+		
 	}
 	else if($('#user_email').val().match(regExp) == null){
+		$('#num_check_blank').hide();
 		$('#check_alert').show();
 		$('#check_alert').html('[이메일]: 이메일 형식이 올바르지 않습니다.');
 		$('#check_alert').css('color','red');
@@ -63,6 +66,7 @@ $('#user_email').focusout(function(){
 				//data = data.trim();
 				//alert(data);
 				if(data=='exist'){
+					$('#num_check_blank').hide();
 					$('#check_alert').show();
 					$('#check_alert').html('[이메일]: 이미 사용하고 있는 이메일입니다.');
 					$('#check_alert').css('color', 'red');
@@ -249,18 +253,22 @@ $('#signUpBtn').click(function(){
 			$('#check_alert').css('font-size','8px');
 		}
 		else if($('#user_email').val() == ''){
+			$('#num_check_blank').hide();
 			$('#check_alert').show();
 			$('#check_alert').html('[이메일] : 이메일을 입력하세요.');
 			$('#check_alert').css('color','red');
 			$('#check_alert').css('font-size','8px');
+			
 		}
 		else if($('#user_email').val() != $('input[name="user_email_check"]').val()){
+			$('#num_check_blank').hide();
 			$('#check_alert').show();
 			$('#check_alert').html('[이메일] : 이메일 중복체크하세요.');
 			$('#check_alert').css('color','red');
 			$('#check_alert').css('font-size','8pt');
 		}
 		else if(mailnumCheck == false){
+			$('#num_check_blank').hide();
 			$('#check_alert').show();
 			$('#check_alert').html('[이메일] : 이메일 인증을 하세요.');
 			$('#check_alert').css('color','red');

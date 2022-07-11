@@ -56,10 +56,17 @@ public interface UserService {
           
     	public String login(Map<String, String> map);
     
+
+    	public void userLogout();
     // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
-		public void userLogout();
 
+    // 풍혁 : 시작 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    	public int getUserIdByEmail(String session_email);
+    	
+    	public String getUserNameByUserId(int board_uid);
+    // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+	
 
 
 

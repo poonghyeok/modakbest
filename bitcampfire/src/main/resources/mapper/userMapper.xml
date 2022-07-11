@@ -71,12 +71,14 @@
 	  						,user_pwd
 	  						,user_nickname
 	  						,user_name
+	  						,user_auth
 	  						,user_logtime) 
 	  		values(user2_SEQ.nextval
 	  			,#{user_email}
 	  			,#{user_pwd}
 	  			,#{user_nickname}
 	  			,#{user_name}
+	  			,'Y'
 	  			,sysdate);
 	  		
 	  		insert into class(class_id

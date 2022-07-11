@@ -37,6 +37,7 @@
 			            </div>
 			
 			            <form class="form-signin form-user panel-body panel-margin" id="loginForm">
+
 			                <!--@@@ 연수 pwdDiv, idDiv 삭제 (220710)@@@-->
 			                <input type="text" name="user_email" id="user_email" class="username form-control input-sm" placeholder="이메일">			                
 			                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호">							
@@ -48,6 +49,7 @@
 			                    <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block"> 
 			                	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
 			                </div>
+
 	
 
 			                <div class="signup-block">
@@ -80,6 +82,7 @@ $(document).ready(function() {
 });
  
 $('#btnUserLogin').click(function(){
+
 	$('#check_alert').hide();
 	
 	//@@@ 연수 로그인 이메일 /비밀번호 정규식 추가(220710)
@@ -132,9 +135,7 @@ $('#btnUserLogin').click(function(){
 						/* 풍혁220707 : 서버를 시작하고 처음에 session 반영이 안되는 부분 해결 시도를 위해 지연을 넣어봤습니다.  */
 						setTimeout("location.href='/semiproject/'",300);
 					}else if(data == 'fail') {
-						/* 풍혁220707 : alert 추가했습니다. */
-						//alert('이메일 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요!');
-						//setTimeout("location.href='/semiproject/user/userLoginForm'",300);
+
 						$('#check_alert').show();
 						$('#check_alert').html('[로그인 실패] 이메일 또는 비밀번호가 일치하지 않습니다.<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 다시 시도해주세요!');
 						$('#check_alert').css('color','red');
@@ -148,7 +149,9 @@ $('#btnUserLogin').click(function(){
 				}
 			});
 		}
+
 });
+
 
 </script>
 </body>

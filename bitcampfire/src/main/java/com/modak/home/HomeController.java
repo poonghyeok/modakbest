@@ -34,27 +34,13 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		String list1 = boardService.getHomeBoardList(4);
-		String list2 = boardService.getHomeBoardList(5);
-		String list3 = boardService.getHomeBoardList(8);
-		
-		model.addAttribute("list1", list1);
-		model.addAttribute("lsit2", list2);
-		model.addAttribute("list3", list3);
-		model.addAttribute("serverTime", formattedDate);
-		
-		return "home";
+		return "home2";
 	}
 	// 풍혁220708 : main index page list----
 		
 	// ----- 풍혁220708 : main index page list
 	
-	//@@@@ 연수 test용 home2 삭제(220710)
-	
+
 	//멤버 사이드바
 	@GetMapping(value="/user/userSideBar")
 	public String userSideBar() {				

@@ -1,10 +1,17 @@
 package com.modak.user.controller;
 
 import java.util.Map;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -28,6 +35,12 @@ public class UserLoginController {
 	UserService userService;
 	@Autowired
 	HttpSession session;
+//@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 추가@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+	@Autowired
+	private JavaMailSender mailSender;
+
+	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 추가 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
    //@@@@ 연수 수정(220707)  @@@@///
@@ -78,6 +91,45 @@ public class UserLoginController {
 //		System.out.println("cancelFindPwd");
 		return "index";
 	}
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 추가@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//이메일 계정찾기 전송
+	
+			@GetMapping("pwdFindmailCheck")
+			@ResponseBody
+			public String pwdFindmailCheck(String user_email) throws Exception{
+				logger.info("이메일 인증 요청이 들어옴"+user_email);
+				//return  mailService.joinEmail(user_email);
+		        
+	
+		        /* 이메일 보내기 */
+		        String setFrom = "yujin980810@gmail.com";
+		        String toMail = user_email;
+		        String title = "계정찾기 인증 이메일 입니다.";
+		        String content = 
+		        				"<div style='width:1000px; height: 100px; background:#286090;' align='center'> <h1 style='color:#fff; font-size: 60px;'>BITFIRE</h1></div>"
+		        				+ "<div><h2 style='margin-top:10px; font-size: 28px;'>계정 찾기 인증 메일입니다.</h2><p style='font-size:18px;'>아래 버튼을 눌러 비밀번호 변경을 계속 진행해 주세요.</p><br><br> <a style='text-decoration:none; padding: 13px; background:#337ab7; color:#fff; font-size: 16px;' href='http://localhost:8080/semiproject/user/userPasswordChange?user_email="+user_email+"'>비밀번호 변경</a><div>";
+		        			
+
+		        
+		        
+		        try {
+		            
+		            MimeMessage message = mailSender.createMimeMessage();
+		            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+		            helper.setFrom(setFrom);
+		            helper.setTo(toMail);
+		            helper.setSubject(title);
+		            helper.setText(content,true);
+		            mailSender.send(message);
+		            
+		        }catch(Exception e) {
+		            e.printStackTrace();
+		        }
+		        
+		        return user_email;
+			}
+//@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 

@@ -102,11 +102,11 @@ $(function(){
 							
 							
 						}else if(data=='non exist'){
-							$('#check_alert').show();
+							$('#alertDiv').show();
 							$('input[name="user_email_check"]').val($('#user_email').val());
-							$('#check_alert').html('[이메일]: 존재하지 않는 이메일입니다.');
-							$('#check_alert').css('color', 'blue');
-							$('#check_alert').css('font-size', '8px');
+							$('#alertDiv').html('[이메일]: 존재하지 않는 이메일입니다.');
+							$('#alertDiv').css('color', 'red');
+							$('#alertDiv').css('font-size', '8px');
 						}
 					},
 					error: function(err){
