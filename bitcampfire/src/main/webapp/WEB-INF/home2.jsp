@@ -18,15 +18,23 @@
 			<!-- main_banner -->
 			<div class="main-banner-wrapper">
 				<div class="main-banner">
-					<a href="#" target="_i"><img src="#"></a>
+					<a href="https://aihub.or.kr/" target="_i"><img src="/semiproject/img/okky_main_top_ad.jpg"></a>
 				</div>
 			</div>
 			<!-- main_banner -->
 
 			<!-- conten tscaffold-list clearfix -->
 			<div id="index" class="content scaffold-list clearfix" role="main">
+			
+				<!-- 풍혁 0709 : 일단 광고만 표시 이미지로 표시해보자 -->
+				
 			</div>
+				<!-- 풍혁0709 : div 내의 내용은 jquery가 구성한다. --> 
 			<!-- conten tscaffold-list clearfix -->
+			
+			<!-- footer -->
+				<jsp:include page="/WEB-INF/global/footer.jsp"/>
+			<!-- footer -->
 				
 		</div><!-- main-index -->
 	</div><!-- layout-container -->

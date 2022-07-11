@@ -183,7 +183,7 @@ public class BoardServiceImpl implements BoardService {
 						tr.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar7172977b206d129d?d=identicon&amp;s=30\'></a>");
 						tr.append("<div class='avatar-info'>");
 							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
-							tr.append("<div class='activity'>");/e7d844c379aaafb3
+							tr.append("<div class='activity'>");
 								tr.append("<span class='fa fa-flash'></span>" + "lev");
 							tr.append("</div>");
 							tr.append("<div class='date-created'>");
@@ -228,62 +228,6 @@ public class BoardServiceImpl implements BoardService {
 			String user_name = userDAO.getUserNameByUserId(board_uid);
 			
 			return user_name;
-		}
-		
-		//풍혁220708 : main board list 작업
-		@Override
-		public String getHomeBoardList(int boardNum) {
-				
-			StringBuffer indexBoardList = new StringBuffer();
-			
-			int startNum = 1;
-			int endNum = boardNum;
-			
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put("startNum", startNum);
-			map.put("endNum", endNum);
-			
-			List<BoardDTO> list = boardDAO.getBoardRangeOrderByTime(map);
-			
-			for(BoardDTO dto : list) {
-				indexBoardList.append(makingIndexBoardList(dto));
-			}
-		
-			
-			return indexBoardList.toString();
-		}
-		
-		//풍혁220706 : MAIN에 띄울 리스트들 
-		private StringBuffer makingIndexBoardList(BoardDTO boardDTO) {
-			StringBuffer sb = new StringBuffer();
-			String user_name = userDAO.getUserNameByUserId(boardDTO.getBoard_uid());
-			
-			sb.append("<div class='panel panel-default'>");
-				sb.append("<ul class='list-group'>");
-					sb.append("<li class='list-group-item list-group-item-small list-group-item-question list-group-has-note clearfix'>");
-						sb.append("<div class='list-title-wrapper'>");
-							sb.append("<h5 class='list-group-item-heading'>");
-								sb.append("<a href='/semiproject/board/getBoardView?board_id="+boardDTO.getBoard_id()+"'>"+ boardDTO.getBoard_title() +"</a>");
-								sb.append("<div class='list-group-item-author pull-right clearfix'>");
-									sb.append("<div class='avatar clearfix avatar-x-small'>");
-										sb.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar/9a316994cda85c56cd4f0c833ec511b6?d=identicon&amp;s=10'></a>");
-										sb.append("<div class='avatar-info'>");
-											sb.append("<a class='nickname' href='#' title=''>"+user_name+"</a>");
-											sb.append("<div class='activity'>");
-												sb.append("<span class='fa fa-flash'></span>2k");
-												sb.append("<div class='date-created'>");
-													sb.append("<span class='timeago' title=''>"+ boardDTO.getBoard_date_created() +"</span>");
-												sb.append("</div>");
-											sb.append("</div>");
-										sb.append("</div>");
-									sb.append("</div>");
-							sb.append("</h5>");
-						sb.append("</div>");
-					sb.append("</li>");
-				sb.append("</ul>");
-			sb.append("</div>");
-			
-			return sb;
 		}
 		
 		@Override

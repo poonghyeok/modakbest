@@ -12,11 +12,17 @@ public interface BoardService {
 
 	//풍혁 : 시작 =================================
 		public String getUserWriteTablelist(int pg);
+		
 		public String getUserSearchWriteTablelist(int pg, String keyword);
+		
 		public String getBoardPagingList(int pg);
+		
 		public void boardWrite(BoardDTO boardDTO);
+		
 		public String getBoardSearchPagingList(int pg, String keyword);
-		public String getHomeBoardList(int boardNum);
+		
+//		public String getHomeBoardList(int boardNum);
+		
 		public String getUserNameByUserId(int board_uid);
 	//풍혁 : 끝 =================================
 
@@ -24,6 +30,7 @@ public interface BoardService {
 	// 정수 : 시작  ###################### 
 		// 글번호로 (글번호, DTO) 가져오기
 		public BoardDTO getBoardContent(int board_id);
+		
 		public List<BoardDTO> getBoardReviewList(Map<String,Integer> map);
 		
 	// 정수 : 끝  ###################### 
