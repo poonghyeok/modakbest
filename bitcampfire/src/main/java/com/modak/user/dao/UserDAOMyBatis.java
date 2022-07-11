@@ -1,5 +1,6 @@
 package com.modak.user.dao;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -94,6 +95,12 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserInformation", user_email);
 		}
 		
+		@Override
+		public void pwdFindChangeComplete(Map<String, String> map) {
+			sqlSession.update("userSQL.pwdFindChangeComplete", map);
+			
+		}
+		
 	//유진 : 끝 0706====================================
 	
 
@@ -118,6 +125,10 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
+
+		
 
 
 

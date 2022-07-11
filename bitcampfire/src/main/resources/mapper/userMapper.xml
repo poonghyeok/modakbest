@@ -82,11 +82,9 @@
 	  			,sysdate);
 	  		
 	  		insert into class(class_id
-	  						, class_class
-	  						, class_academy)
+	  						, class_class)
 	  		values (CLASS_SEQ.nextval
-	  				, #{class_class}
-	  				, #{class_academy});
+	  				, #{class_class});
 	  	end;
   		
   	</insert>
@@ -102,6 +100,11 @@
   	<select id="getUserInformation" parameterType="String" resultType="UserDTO">
   		select * from user2 where user_email=#{user_email}
   	</select>
+  	
+  	<update id="pwdFindChangeComplete" parameterType="java.util.Map">
+  		update user2 set user_pwd = #{user_pwd} where user_email= #{user_email}
+  	</update>
+
 	<!-- ####################### 유진 : 끝  0706###################### -->
 
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->

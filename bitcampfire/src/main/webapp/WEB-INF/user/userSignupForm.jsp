@@ -58,7 +58,6 @@
 							<!-- 연수 닉네임 중복체크 추가(220708)  -->
 							
 							<input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy">
-							<input type="text" name="class_class" class="form-control input-sm" required="" placeholder="과정명" value="" id="nickname">
 		                    
 							<!-- <label for="user_img" class="form-label"></label>
 							<div class="user_profile">
