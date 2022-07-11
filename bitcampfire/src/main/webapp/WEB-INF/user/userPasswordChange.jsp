@@ -27,6 +27,7 @@
 				   <form id="userPwdChangeForm">
 					
 						<input type="hidden" name="_csrf" value="">
+						<input type="hidden" name="user_email" value="${user_email }">
 						  
 						    <div class="col-sm-8 col-sm-offset-2">
 						        <div class="panel panel-default panel-margin-10">

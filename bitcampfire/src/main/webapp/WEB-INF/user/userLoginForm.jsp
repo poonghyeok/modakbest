@@ -42,18 +42,16 @@
 			                <div id="user_emailDiv"></div>
 			                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호">
 							<div id="user_pwdDiv"></div>
+							<div id="divUserLogin">
+                             
 			                <div id="divUserLogin">
-<<<<<<< HEAD
-			                    <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">			               
-=======
-			                    <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">		               
->>>>>>> e8a916304b5f365049e78de2f5158a08153f2c6e
-			                </div>
-			                <br>		                
-			                <div id="divUserLogin">    
-			                    <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block"> 
-			                	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
-			                </div>
+			                   <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">
+                        	</div>
+                         <br>                      
+                         <div id="divUserLogin">    
+                             <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block"> 
+                            <span class="icon-social icon-kakao"></span>Login with Kakao</a>
+                         </div>
 	
 
 			                <div class="signup-block">
@@ -82,6 +80,7 @@ function enterkey() {
 $('#check_alert').hide();
  
 $('#btnUserLogin').click(function(){
+
 	$('#check_alert').hide();
 	/* 이메일/비밀번호 정규식 조건 추가 */
 	if($('#user_email').val()=='') {		
@@ -124,6 +123,7 @@ $('#btnUserLogin').click(function(){
 		}
 
 });
+
 
 </script>
 </body>
