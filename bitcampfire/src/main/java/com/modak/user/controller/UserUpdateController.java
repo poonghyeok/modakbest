@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 import com.modak.user.service.UserService;
@@ -49,10 +51,21 @@ public class UserUpdateController {
 	
 	//회원정보 수정 시작
 	//회원정보 수정폼 띄우기
+	//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
 	@GetMapping(value="userUpdateForm")
-	public String userUpdateForm() {				
+	public String userUpdateForm(Model model) {
+		model.addAttribute("classList", userService.classList());	
 		return "/user/userUpdateForm";
 	}	
+
+	//@@@ 연수 학원데이터 수정중(0711) - 테스트용 삭제 필요
+//	@GetMapping(value = "classList_test")
+//	public String classList_test(Model model) {
+//		model.addAttribute("classList", userService.classList());	
+//		return "/user/classList_test";
+//		
+//	}
+	
 	
 	//회원정보 수정을 위해 회원정보 가져오기(통합DTO사용하기)
 	@PostMapping(value="getUser")
@@ -248,4 +261,5 @@ public class UserUpdateController {
 		return "/user/userDeleteComplete";
 	}
 	//회원탈퇴 끝
+	
 }

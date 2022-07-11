@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>		
 <head>
-   <meta charset="UTF-8">
-   <title>bitcampfire - 회원가입</title>
-   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="/semiproject/css/user/application.css">  
-   <link rel="stylesheet" href="/semiproject/css/user/signupForm.css"> 
+	<meta charset="UTF-8">
+	<title>bitcampfire - 회원가입</title>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/semiproject/css/user/application.css">  
+	<link rel="stylesheet" href="/semiproject/css/user/signupForm.css"> 
+	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 </head>
 
 <body>
@@ -31,48 +32,40 @@
 						
 		              <fieldset>
 			
-		                 	<input type="text" name="user_name" class="form-control input-sm"  placeholder="이름" value="" id="user_name">
+		                 	<input type="text" name="user_name" class="form-control input-sm"  placeholder="이름" value="" id="user_name" style="margin-bottom: 10px;">
 							<div class="row">
 		               			<div class="col-md-8">
-			               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" value="" id="user_email">
+			               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" value="" id="user_email" style="margin-bottom: 10px;">
 			               			<input type="hidden" name="user_email_check" id="user_email_check" value="">
 		               			</div>
 		               			<div class="col-md-3">
-									<input type="button" value="인증번호" class="btn btn-primary" type="button" id="emailBtn" disabled="disabled">
+									<input type="button" value="인증번호" class="btn btn-primary" type="button" id="emailBtn" disabled="disabled" style="margin-bottom: 10px;">
 								</div>	
 					        </div>
 					       <div class="row"  id="num_check_blank">
 				            	<div class="col-md-8">
-						        	<input type="text" class="form-control input-sm" id="user_email_check_number"placeholder="인증번호 6자리" maxlength="6">
+						        	<input type="text" class="form-control input-sm" id="user_email_check_number"placeholder="인증번호 6자리" maxlength="6" style="margin-bottom: 10px;">
 				            	</div>
 				           		<div class="col-md-3">
-							  		<input type="button" value="번호 인증" id="mail-check-input" class="btn btn-primary">
+							  		<input type="button" value="번호 인증" id="mail-check-input" class="btn btn-primary" style="margin-bottom: 10px;">
 				            	</div>
 				            </div>
-							<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd">
+							<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd" style="margin-bottom: 10px;">
 							
-							<input type="text" name="user_nickname" class="form-control input-sm" required="" placeholder="닉네임" value="" id="user_nickname">
+							<input type="text" name="user_nickname" class="form-control input-sm" required="" placeholder="닉네임" value="" id="user_nickname" style="margin-bottom: 10px;">
 									
 							<input type="hidden" name="user_nickname_check" id="user_nickname_check" value="">	
 													
-							<!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
-							<!-- <input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy"> -->
-							<%-- <select name="user_classid" class="form-control input-sm" id="user_classid"> <!-- value="${user_classid}"  -->
-								<option disabled="" selected="" value="0"
-								<c:if test="${user_classid == 0 }"></c:if>>학원명</option>
-								<!-- <option>학원명</option> -->
-		                   		<option value="1" <c:if test="${user_classid == 1 }">selected</c:if>>유진학원</option>
-		                   		<option value="2" <c:if test="${user_classid == 2 }">selected</c:if>>연수학원</option>
-		                   		<option value="3" <c:if test="${user_classid == 3 }">selected</c:if>>정수학원</option>		                   		 
-		                    </select> --%>
-		                    <select name="user_classid" class="form-control input-sm" id="user_classid" size="1"> 
-		                    	<option selected>학원명</option>
-								<c:forEach items=${getClassList } var="classList">
-									<option><c:out value="${classList.class_academy}"/></option>
+		                    <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->                         
+		                    <c:if test ="${!empty classList }">
+					 		<select name="user_classid" class="form-control input-sm" id="user_classid" style="margin-bottom: 10px;"> 
+								<option selected disabled>학원명</option>
+								<c:forEach items="${classList }" var="classList">
+									<option value="${classList.class_id}">${classList.class_academy}</option>
 								</c:forEach>
-							</select>
-
-							<!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
+							</select> 
+							</c:if>							
+							<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
 							
 							<!-- @@@ 연수 : 과정명 삭제(0711) @@@ -->
 							<!-- <input type="text" name="class_class" class="form-control input-sm" required="" placeholder="과정명" value="" id="nickname"> -->
@@ -94,7 +87,7 @@
 		                    </div> -->
 		                </fieldset>
 		
-		                <input type="button" value="아래 약관을 동의하며 계정 생성" class="btn btn-primary btn-block" id="signUpBtn">
+		                <input type="button" value="아래 약관을 동의하며 계정 생성" class="btn btn-primary btn-block" id="signUpBtn" style="margin-top: 10px;">
 		
 		             <div class="signup-block">
                     	<a href="" data-toggle="modal"  data-target="#userAgreement">회원가입약관</a> <span class="inline-saperator">/</span> <a href="" data-toggle="modal" data-target="#userPrivacy">개인정보취급방침</a>
@@ -730,6 +723,8 @@
    </div> <!-- main -->   
 </div> <!-- layout-container --> 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script type = "text/javascript" src="/semiproject/js/user/userSignupForm.js"></script>
 <script type="text/javascript" src="/semiproject/js/user/all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>

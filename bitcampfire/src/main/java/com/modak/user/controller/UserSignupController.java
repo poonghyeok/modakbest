@@ -50,8 +50,10 @@ public class UserSignupController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
 	
+	//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
 	@GetMapping(value = "userSignupForm")
-	public String userSignupForm() {
+	public String userSignupForm(Model model) {
+		model.addAttribute("classList", userService.classList());
 		return "/user/userSignupForm";
 	}
 	
@@ -141,16 +143,7 @@ public class UserSignupController {
 		}	
 		
 		
-	@GetMapping(value = "getClassList")
-	public void getClassList(Model model) {
-		List<ClassDTO> classList;
-		classList = userService.classList();
-		model.addAttribute("classList", classList);	
-		
-		
-	}
-
-		
+	
 	}
 	
 

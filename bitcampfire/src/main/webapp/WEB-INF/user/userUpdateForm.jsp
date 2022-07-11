@@ -8,7 +8,9 @@
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
-	
+	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+	<!-- <link rel="stylesheet" href="/semiproject/css/user/select2.css"> -->
 </head>			
 <body>
 
@@ -78,29 +80,25 @@
 									</div>
 									<div class="row" style="visibility:hidden;">줄맞춤을 위한 공간</div>                 
 				                    
-				                    <!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
-				                    <!-- <div class="form-group">				                    					                    				                    
-				                        <label class="control-label" for="class_academy">학원명</label>				                        			                        
-				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="" value="" id="class_academy">		                        	
-			                        </div> -->
-			                        <div class="form-group">				                    					                    				                    
-				                        <label class="control-label" for="class_academy">학원명</label>									
-									<select name="user_classid" class="form-control input-sm" id="user_classid"> <!-- value="${user_classid}"  -->
- 										<option disabled="" selected="" value="0"
-										<c:if test="${user_classid == 0 }"></c:if>>학원명</option>
-										<!-- <option>학원명</option> -->
-				                   		<option value="1" <c:if test="${user_classid == 1 }">selected</c:if>>유진학원</option>
-				                   		<option value="2" <c:if test="${user_classid == 2 }">selected</c:if>>연수학원</option>
-				                   		<option value="3" <c:if test="${user_classid == 3 }">selected</c:if>>정수학원</option>		                   		 
-				                    </select>
-				                    </div>
-									<!-- @@@ 연수 : 학원 검색 기능 추가(0711) @@@ -->
+				                    <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->		                    
+				                    <div class="form-group">				                    					                    				                    
+				                        <label class="control-label" for="class_academy">학원명</label>		
+					                    <c:if test ="${!empty classList }">
+								 		<select name="user_classid" class="form-control input-sm" id="user_classid" > 
+											<option value="" selected disabled>=== 학원명 ===</option>
+											<c:forEach items="${classList }" var="classList">
+												<option value="${classList.class_id}">${classList.class_academy}</option>
+											</c:forEach>
+										</select> 
+										</c:if>
+									</div>
+									<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
+			                        
 			                        <!-- @@@ 연수 : 과정명 삭제(0711) @@@ -->
 				                    <!-- <div class="form-group">
 				                        <label class="control-label" for="class_class">과정명</label>
 				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">	
-			                        </div> -->	
-			                        
+			                        </div> -->				                        
 			                        		                                  
 				                <input type="button" class="btn btn-primary btn-block" id="update_userInfoBtn" value="정보 수정">
 				            	</form>
@@ -161,9 +159,20 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<!-- <script type="text/javascript" src="/semiproject/js/user/select2.js"></script> -->
 <script type="text/javascript">
+<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+$('#user_classid').select2({	
+	placeholder: "학원을 선택하세요",	
+	allowClear: true
+
+});
+
 $('#check_alert').hide();
 $('#check_alert_userEmail').hide();
+
 
 //회원정보 수정 - 데이터가져오기
 $(function(){
