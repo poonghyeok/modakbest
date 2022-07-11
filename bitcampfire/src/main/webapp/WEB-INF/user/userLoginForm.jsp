@@ -80,49 +80,50 @@ function enterkey() {
 $('#check_alert').hide();
  
 $('#btnUserLogin').click(function(){
-	   $('#check_alert').hide();
-	   /* 이메일/비밀번호 정규식 조건 추가 */
-	   if($('#user_email').val()=='') {      
-	      $('#check_alert').show();
-	      $('#check_alert').html('[이메일] : 이메일을 입력하세요.');
-	      $('#check_alert').css('color','red');
-	      $('#check_alert').css('font-size','8px');
-	   }else if($('#user_pwd').val()=='') {      
-	      $('#check_alert').show();
-	      $('#check_alert').html('[비밀번호] : 비밀번호를 입력하세요.');
-	      $('#check_alert').css('color','red');
-	      $('#check_alert').css('font-size','8px');
-	   }else {
-	      $.ajax({ 
-	         type: 'post',
-	         url: '/semiproject/user/login', 
-	         data: { 'user_email' : $('#user_email').val(), 
-	               'user_pwd' : $('#user_pwd').val() },       
-	         dataType: 'text', 
-	         success: function(data){
-	            //alert(data);
-	            data = data.trim();         
-	               if(data == 'ok') {
-	                  /* 풍혁220707 : 서버를 시작하고 처음에 session 반영이 안되는 부분 해결 시도를 위해 지연을 넣어봤습니다.  */
-	                  setTimeout("location.href='/semiproject/'",300);
-	               }else if(data == 'fail') {
-	                  /* 풍혁220707 : alert 추가했습니다. */
-	                  //alert('이메일 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요!');
-	                  //setTimeout("location.href='/semiproject/user/userLoginForm'",300);
-	                  $('#check_alert').show();
-	                  $('#check_alert').html('[로그인 실패] 이메일 또는 비밀번호가 일치하지 않습니다.<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 다시 시도해주세요!');
-	                  $('#check_alert').css('color','red');
-	                  $('#check_alert').css('font-size','8px');   
-	                  $('#user_email').val('');
-	                  $('#user_pwd').val('');
-	               }
-	            },
-	            error: function(err){
-	               console.log(err);
-	            }
-	         });
-	      }
-	});
+
+	$('#check_alert').hide();
+	/* 이메일/비밀번호 정규식 조건 추가 */
+	if($('#user_email').val()=='') {		
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일] : 이메일을 입력하세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+	}else if($('#user_pwd').val()=='') {		
+		$('#check_alert').show();
+		$('#check_alert').html('[비밀번호] : 비밀번호를 입력하세요.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');
+	}else {
+		$.ajax({ 
+			type: 'post',
+			url: '/semiproject/user/login', 
+			data: { 'user_email' : $('#user_email').val(), 
+					'user_pwd' : $('#user_pwd').val() }, 		
+			dataType: 'text', 
+			success: function(data){
+				//alert(data);
+				data = data.trim();			
+					if(data == 'ok') {
+						/* 풍혁220707 : 서버를 시작하고 처음에 session 반영이 안되는 부분 해결 시도를 위해 지연을 넣어봤습니다.  */
+						setTimeout("location.href='/semiproject/'",300);
+					}else if(data == 'fail') {
+
+						$('#check_alert').show();
+						$('#check_alert').html('[로그인 실패] 이메일 또는 비밀번호가 일치하지 않습니다.<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 다시 시도해주세요!');
+						$('#check_alert').css('color','red');
+						$('#check_alert').css('font-size','8px');	
+						$('#user_email').val('');
+						$('#user_pwd').val('');
+					}
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+		}
+
+});
+
 
 </script>
 </body>

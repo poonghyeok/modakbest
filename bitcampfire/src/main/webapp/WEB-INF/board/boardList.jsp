@@ -63,7 +63,7 @@
 				<div class="list-title-wrapper clearfix">
 		    		<div class="list-tag clearfix">
 		        		<span class="list-group-item-text article-id">board_id</span>
-						<a href="/articles/tech-qna" class="list-group-item-text item-tag label label-info"><i class="fa fa-database"></i> 자유주제</a>
+						<a href="/articles/tech-qna" class="list-group-item-text item-tag label label-info"><i class="fa fa-database"></i>자유주제</a>
 		    
 		        <a href="/articles/tagged/OKKY" class="list-group-item-text item-tag label label-gray ">CAMPFIRE</a>
 		    </div>

@@ -2,6 +2,7 @@ package com.modak.board.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.service.BoardService;
+import com.modak.user.service.UserService;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -28,6 +30,11 @@ public class BoardController {
 	//Board 공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		@Autowired
 		private BoardService boardService;
+		
+		//풍혁(0709) list에 작성자 반영해야해서 userService추가
+		@Autowired
+		private UserService userService;
+		
 		
 		//풍혁(0707) : session이 필요할 수도 있으니 
 		@Autowired
@@ -94,12 +101,29 @@ public class BoardController {
 		//풍혁220708 : BoardDTO list로 받아보기 
 		@PostMapping("/jsonTest")
 		@ResponseBody
-		public List<BoardDTO> jsonTest(@RequestParam Map<String,Integer> map){
+		public Map<String, Object> jsonTest(@RequestParam Map<String,Integer> map){
+			Map<String, Object> result = new HashMap<>();
+			
 			List<BoardDTO> list =  new ArrayList<>();
 			System.out.println("\n @ log @ json test .. startNum : " + map.get("startNum") );
 			list = boardService.getBoardReviewList(map);
 			
-			return list;
+			result.put("boardList", list);
+			result.put("authorArray", getUserNicknameArray(list));
+			
+			return result;
+		}
+		
+		//풍혁0709 : boardDTO로 이루어진 list에서 각 board_uid를 가지고 각 글에 대한 user_nick name 배열을 받아오는 method
+		private String[] getUserNicknameArray(List<BoardDTO> list) {
+			String[] userNickArray = new String[list.size()];
+			
+			for(int i = 0; i < list.size(); i++) {
+				int board_uid = list.get(i).getBoard_uid();
+				userNickArray[i] = userService.getUserNameByUserId(board_uid);
+			}
+			
+			return userNickArray;
 		}
 	//풍혁 : 끝 ====================================
 	
