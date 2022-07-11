@@ -37,21 +37,19 @@
 			            </div>
 			
 			            <form class="form-signin form-user panel-body panel-margin" id="loginForm">
-			                   <!--  <input type="hidden" name="redirectUrl" value="%2F"> -->
-			                <input type="text" name="user_email" id="user_email" class="username form-control input-sm" placeholder="이메일">
-			                <div id="user_emailDiv"></div>
-			                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호">
-							<div id="user_pwdDiv"></div>
-							<div id="divUserLogin">
-                             
+
+			                <!--@@@ 연수 pwdDiv, idDiv 삭제 (220710)@@@-->
+			                <input type="text" name="user_email" id="user_email" class="username form-control input-sm" placeholder="이메일">			                
+			                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호">							
 			                <div id="divUserLogin">
-			                   <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">
-                        	</div>
-                         <br>                      
-                         <div id="divUserLogin">    
-                             <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block"> 
-                            <span class="icon-social icon-kakao"></span>Login with Kakao</a>
-                         </div>
+			                    <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">
+			                </div>
+			                <br>		                
+			                <div id="divUserLogin">    
+			                    <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block"> 
+			                	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
+			                </div>
+
 	
 
 			                <div class="signup-block">
@@ -71,29 +69,59 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>    
 <script type="text/javascript">
-function enterkey() {
-	if (window.event.keyCode == 13) {
-		$('#btnUserLogin').trigger('click');
-    }
-}
-
 $('#check_alert').hide();
+
+//연수: 로그인 엔터키 이벤트 수정(220710)
+$(document).ready(function() {
+	$('input').on('keyup', function(e){
+		if(e.keyCode == 13) {
+			//alert('엔터키 눌렀다!');
+			$('#btnUserLogin').trigger('click');			
+		}
+	});
+});
  
 $('#btnUserLogin').click(function(){
 
 	$('#check_alert').hide();
-	/* 이메일/비밀번호 정규식 조건 추가 */
+	
+	//@@@ 연수 로그인 이메일 /비밀번호 정규식 추가(220710)
+	//이메일 정규식
+	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    
+	//비밀번호 정규식	
+    var pw = $("#user_pwd").val();
+    var num = pw.search(/[0-9]/g);
+    var eng = pw.search(/[a-z]/ig);
+    var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+    
 	if($('#user_email').val()=='') {		
 		$('#check_alert').show();
 		$('#check_alert').html('[이메일] : 이메일을 입력하세요.');
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
+	}else if($('#user_email').val().match(regExp) == null){
+		$('#check_alert').show();
+		$('#check_alert').html('[이메일] : 이메일 형식이 올바르지 않습니다.');
+		$('#check_alert').css('color','red');
+		$('#check_alert').css('font-size','8px');		
 	}else if($('#user_pwd').val()=='') {		
 		$('#check_alert').show();
 		$('#check_alert').html('[비밀번호] : 비밀번호를 입력하세요.');
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
-	}else {
+	}else if(pw.length < 8 || pw.length > 20){
+    	$('#check_alert').show();
+    	$('#check_alert').html('[비밀번호] : 비밀번호는 8자리 ~ 20자리 이내로 입력해주세요.');
+	}else if(pw.search(/\s/) != -1){
+	   	$('#check_alert').show();
+	   	$('#check_alert').html('[비밀번호] : 비밀번호는 공백 없이 입력해주세요.');	    	
+    }else if(num < 0 || eng < 0 || spe < 0 ){
+    	$('#check_alert').show();
+        $('#check_alert').html('[비밀번호] : 비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요.');	
+    //@@@ 연수 로그인 이메일 /비밀번호 정규식 추가(220710)
+	
+    }else {
 		$.ajax({ 
 			type: 'post',
 			url: '/semiproject/user/login', 

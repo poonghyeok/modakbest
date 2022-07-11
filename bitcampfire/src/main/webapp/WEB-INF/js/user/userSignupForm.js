@@ -90,7 +90,6 @@ $('#user_email').focusout(function(){
 		
 });
 
-/* @@@연수 닉네임 중복체크 추가(220708)@@@ */
 /*닉네임 중복체크*/
 $('#user_nickname').focusout(function(){
 	$('#check_alert').hide();
@@ -114,7 +113,6 @@ $('#user_nickname').focusout(function(){
 					$('#check_alert').html('[닉네임]: 이미 사용하고 있는 닉네임입니다.');
 					$('#check_alert').css('color', 'red');
 					$('#check_alert').css('font-size', '8px');
-					$('#emailBtn').attr('disabled',true);
 					
 				}else if(data=='non exist'){
 					$('#check_alert').show();
@@ -122,7 +120,6 @@ $('#user_nickname').focusout(function(){
 					$('#check_alert').html('[닉네임]: 사용 가능한 닉네임입니다.');
 					$('#check_alert').css('color', 'blue');
 					$('#check_alert').css('font-size', '8px');
-					$('#emailBtn').attr('disabled',false);
 				}
 			},
 			error: function(err){
@@ -131,7 +128,6 @@ $('#user_nickname').focusout(function(){
 		});
 	}		
 });
-/* @@@연수 닉네임 중복체크 추가(220708)@@@ */
 
 /*아이디 수 세기*/
 /*$("#user_id").keyup(function(e) {

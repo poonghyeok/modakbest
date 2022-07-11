@@ -41,14 +41,6 @@ public class HomeController {
 	// ----- 풍혁220708 : main index page list
 	
 
-//ㅡ
-	//기진님 화면 확인
-	@GetMapping(value="index")
-	public String index() {				
-		return "/index";
-	}	
-	
-
 	//멤버 사이드바
 	@GetMapping(value="/user/userSideBar")
 	public String userSideBar() {				

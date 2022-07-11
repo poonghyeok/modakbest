@@ -58,13 +58,12 @@ public class UserSignupController {
 	}
 	
 
-	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
 	@PostMapping(value = "userSignup_nicknameCheck")
 	@ResponseBody
 	public String userSignup_nicknameCheck(@RequestParam String user_nickname) {
 		return userService.userSignup_nicknameCheck(user_nickname);
 	}
-	//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+
 	
 	@GetMapping(value = "userSignupComplete")
 	public String userSignupComplete() {

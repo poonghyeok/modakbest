@@ -25,9 +25,7 @@ public class UserServiceImpl implements UserService {
 		private UserDAO userDAO;	
 		//풍혁 220707 : session객체를 공통역역으로 이동시켰습니다.
 		@Autowired
-		private HttpSession session;
-		//@@@@ 연수 수정(220708)  @@@@///		
-		
+		private HttpSession session;		
 		@Autowired
 		private BCryptPasswordEncoder passwordEncoder;
 		
@@ -42,10 +40,32 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUser(user_email);
 		}
 		
+	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@		
 		@Override
-		public void update(UserAllDTO userAllDTO) {
-			userDAO.update(userAllDTO);		
+		public UserAllDTO userUpdate_nicknameCheck(String user_nickname) {
+			return userDAO.userUpdate_nicknameCheck(user_nickname);			
 		}
+
+		@Override
+		public UserAllDTO userUpdate_emailCheck(String user_email) {
+			return userDAO.userUpdate_emailCheck(user_email);	
+		}
+		
+		@Override
+		public void update_userImg(UserAllDTO userAllDTO) {
+			userDAO.update_userImg(userAllDTO);			
+		}
+		
+		@Override
+		public void update_userInfo(UserAllDTO userAllDTO) {
+			userDAO.update_userInfo(userAllDTO);			
+		}		
+		
+		@Override
+		public void update_userEmail(Map<String, String> map) {
+			userDAO.update_userEmail(map);
+		}
+	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 
 		@Override
 		public UserDTO checkPwd(String user_email) {
@@ -81,7 +101,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		
-		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@	
+
 		@Override
 		public String userSignup_nicknameCheck(String user_nickname) {
 			UserAllDTO userAllDTO = userDAO.userSignup_nicknameCheck(user_nickname);
@@ -91,7 +111,7 @@ public class UserServiceImpl implements UserService {
 				return "exist";
 			}				
 		}
-		//@@@@ 연수 닉네임 중복검사 추가(220708) @@@@
+	
 		
 		@Override
 		public UserDTO getUserInformation(String user_email) {
@@ -101,7 +121,7 @@ public class UserServiceImpl implements UserService {
 	//유진 : 끝 ====================================
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-		//@@@@ 연수 수정(220708)  @@@@///
+
 		@Override
 		public String login(Map<String, String> map) {
 			String inputPwd = map.get("user_pwd");
@@ -120,13 +140,15 @@ public class UserServiceImpl implements UserService {
 				return "fail";
 			}
 		}
-		//@@@@ 연수 수정(220708)  @@@@///
+
 		@Override
 		public void userLogout() {
 			session.invalidate();
 			
 		}
+
 		//*******연수 수정(220707)	
+
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 	// 풍혁 : 시작 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 
