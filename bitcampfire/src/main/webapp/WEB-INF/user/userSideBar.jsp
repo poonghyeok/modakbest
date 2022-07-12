@@ -59,7 +59,7 @@
 			</ul>
 			<ul class="nav nav-sidebar">
                 <li ><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
-                <li ><a class="link" id="logoutBtn"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+                <li ><a class="link" id="logoutBtn" href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
             </ul>            
             </c:if>
     </div><!-- nav-user nav-sidebar -->
@@ -82,10 +82,10 @@
 </div> <!-- sidebar  -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-$('#logoutBtn').click(function(){
+/* $('#logoutBtn').click(function(){
 	$.ajax({
 		type: 'post',
-		url: '/semiproject/user/userLogout',
+		url: '/semiproject/user/logout',
 		success: function(data){
 			alert("로그아웃 되었습니다.")
 			location.href = "/semiproject/";
@@ -94,7 +94,7 @@ $('#logoutBtn').click(function(){
 				console.log(err);
 			},
 		});
-	});
+	}); */
 
 </script>
 

@@ -72,14 +72,45 @@ public class UserLoginController {
 	
 	/* 로그인 기능구현  끝 */ 
 	
+	//@@@ 연수 카카오 로그아웃 추가(220712)
 	/* 로그아웃  */
-	@PostMapping(value="userLogout")
-	@ResponseBody
-	public void logout() {
+//	@RequestMapping(value="userLogout")
+//	@ResponseBody	
+//	public void logout(HttpSession session) {
+//		String access_Token = (String)session.getAttribute("access_token");
+//		if(access_Token != null) {
+//			System.out.println(access_Token);
+//			userService.kakaoLogout(access_Token);
+//			    session.removeAttribute(access_Token);
+//			    //session.removeAttribute("email");
+//			    session.invalidate();
+//		}else {
+//			System.out.println(access_Token);
+//			userService.userLogout();
+//		}	
+//	}
+	@RequestMapping(value="logout")	
+	public String logout(HttpSession session) {
+		if((String)session.getAttribute("access_token")==null) {
+		}else {
+			userService.kakaoLogout((String)session.getAttribute("access_token"));
+			session.invalidate();
+			System.out.println((String)session.getAttribute("access_token"));			
+		}	
 		userService.userLogout();
-	}
+		return "redirect:/";
+	}	
+
+//	@RequestMapping(value="kakaoLogout")
+//	public String kakaoLogout(HttpSession session) {
+//		userService.kakaoLogout((String)session.getAttribute("access_token"));
+//		session.invalidate();
+//	    session.removeAttribute("access_token");
+//	    session.removeAttribute("email");
+//		return "home2";
+//	}
+	//@@@ 연수 카카오 로그아웃 추가(220712)
 	
-		
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="userFindPwdForm")
 	public String userFindPwdForm() {
@@ -187,6 +218,7 @@ public class UserLoginController {
 			session.setAttribute("memName", userInfo.getUser_name());
 			session.setAttribute("memEmail", userInfo.getUser_email());
 			session.setAttribute("memNickname", userInfo.getUser_nickname());
+			session.setAttribute("memImg", userInfo.getUser_img());
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
 			

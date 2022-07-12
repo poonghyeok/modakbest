@@ -12,9 +12,9 @@
 <!-- @@@@ 이게 진짜(연수 220707) @@@@  -->
 	<div class="layout-container">
 		<div class="main index">
-		<input type="hidden" value="${sessionScope.memName }"/>
-		<input type="hidden" value="${sessionScope.memNickname }"/>
-		<input type="hidden" value="${sessionScope.memEmail }"/>
+		<input type="text" value="${sessionScope.memName }"/>
+		<input type="text" value="${sessionScope.memNickname }"/>
+		<input type="text" value="${sessionScope.memEmail }"/>
 		
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />

@@ -82,6 +82,11 @@ public interface UserService {
     	public String getUserNameByUserId(int board_uid);
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
+    	//@@@ 연수 카카오 로그아웃 추가(220712)
+		public void kakaoLogout(String access_Token);
+
+		public void kakaoUnlink(String access_Token);
+
 
 		
 

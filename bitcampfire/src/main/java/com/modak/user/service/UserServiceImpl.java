@@ -401,10 +401,46 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 
+//		@Override
+//		public void userLogout() {
+//			session.invalidate();
+//			
+//		}
+		
+		//카카오 로그아웃 포함
 		@Override
 		public void userLogout() {
 			session.invalidate();
 			
+		}
+		//@@@ 연수 카카오 로그아웃 추가(220712)
+		@Override
+		public void kakaoLogout(String access_Token) {
+		    String reqURL = "https://kapi.kakao.com/v1/user/logout";
+		    try {
+		        URL url = new URL(reqURL);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		        conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		        
+		        int responseCode = conn.getResponseCode();
+		        System.out.println("responseCode : " + responseCode);
+		       
+		        if(responseCode ==400)
+	                throw new RuntimeException("카카오 로그아웃 도중 오류 발생");
+		        
+		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		        
+		        String result = "";
+		        String line = "";
+		        
+		        while ((line = br.readLine()) != null) {
+		            result += line;
+		        }
+		        System.out.println(result);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 		}
 
 
@@ -432,6 +468,35 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserNameByUserId(board_uid);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+		@Override
+		public void kakaoUnlink(String access_Token) {
+		    String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+		    try {
+		        URL url = new URL(reqURL);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		        conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		        
+		        int responseCode = conn.getResponseCode();
+		        System.out.println("responseCode : " + responseCode);
+		        
+		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		        
+		        String result = "";
+		        String line = "";
+		        
+		        while ((line = br.readLine()) != null) {
+		            result += line;
+		        }
+		        System.out.println(result);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		
+		}
+		
+		
 
 
 }

@@ -64,7 +64,7 @@
 								<c:forEach items="${classList}" var="classList">
 									<option value="${classList.class_id}">${classList.class_academy}</option>
 								</c:forEach>
-								<option value="0" hidden selected disabled></option>
+								<option value="0" selected disabled></option>
 							</select> 
 							</c:if>							
 							<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
