@@ -6,9 +6,22 @@ import com.modak.comment.bean.CommentDTO;
 
 public interface CommentDAO {
 
+//정수 시작 : #################################
 	// 댓글쓰기
 	public void writeCommentContent(CommentDTO commentDTO);
 
 	// 전체 댓글 가져오기
 	public List<CommentDTO> getCommentContent(int cmt_bid);
+
+
+//정수 끝: #################################
+	
+//풍혁 시작 : =================================
+	
+	public void write(CommentDTO commentDTO);
+
+	public List<CommentDTO> getCommentListByBoardId(int cmt_bid);
+
+//풍혁 끝: =================================
+	
 }

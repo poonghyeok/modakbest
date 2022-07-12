@@ -1,9 +1,14 @@
 package com.modak.user.service;
 
+import java.util.HashMap;
+
+import java.util.List;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 
@@ -18,8 +23,10 @@ public interface UserService {
 
 	//연수 : 시작(220706) ====================================
 	    public UserAllDTO getUser(String user_email);
-	
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
+
+	    //@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
+	    public List<ClassDTO> classList();
+
 	    public UserAllDTO userUpdate_nicknameCheck(String user_nickname);
 	    
 	    public UserAllDTO userUpdate_emailCheck(String user_email);
@@ -29,8 +36,6 @@ public interface UserService {
 	    public void update_userInfo(UserAllDTO userAllDTO);
 
 	    public void update_userEmail(Map<String, String> map);
-
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 	
 	    public UserDTO checkPwd(String user_email);
 	
@@ -48,6 +53,14 @@ public interface UserService {
     	public String userSignup_nicknameCheck(String user_nickname);   
     	
     	public UserDTO getUserInformation(String user_email);
+    	
+    	public void pwdFindChangeComplete(Map<String, String> map);
+    	
+    	public String getAccessToken(String code);
+
+		//public HashMap<String, Object> getUserInfo(String access_Token);
+    	public UserAllDTO getUserInfo(String access_Token);
+    	
     	
   	//유진 : 끝 0706====================================
 	
@@ -69,12 +82,11 @@ public interface UserService {
     	public String getUserNameByUserId(int board_uid);
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-	
+
+		
 
 
-
-
-
+		
 
 
 		

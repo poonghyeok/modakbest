@@ -1,8 +1,13 @@
 package com.modak.user.dao;
 
+
+import java.util.HashMap;
+
+import java.util.List;
+
 import java.util.Map;
 
-
+import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 
@@ -15,8 +20,9 @@ public interface UserDAO {
 
 	//연수 : 시작(220706) ====================================
 		public UserAllDTO getUser(String user_email);
-		
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
+		//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
+		public List<ClassDTO> classList();
+	    
 		public UserAllDTO userUpdate_nicknameCheck(String user_nickname);
 
 		public UserAllDTO userUpdate_emailCheck(String user_email);
@@ -44,11 +50,13 @@ public interface UserDAO {
 		public UserAllDTO userSignup_nicknameCheck(String user_nickname);
 		
 		public UserDTO getUserInformation(String user_email);
+		
+		public void pwdFindChangeComplete(Map<String, String> map);
 	//유진 : 끝 0706====================================
 	
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
-		//@@@@ 연수 수정(220708)  @@@@///
+		
 		public UserAllDTO login(String user_email);
 
 		public UserDTO getUserInfo(String user_id);
@@ -60,6 +68,15 @@ public interface UserDAO {
 
 		public String getUserNameByUserId(int board_uid);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
+
+		public void kakaoinsert(HashMap<String, Object> userInfo);
+
+
+
+		
+
 
 
 

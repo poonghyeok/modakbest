@@ -4,9 +4,10 @@
 
 <mapper namespace="commentSQL">
 
+<!-- #################### 정수 시작 ########################## -->
 	<insert id = "writeCommentContent" parameterType="CommentDTO"> 
 		INSERT INTO COMMENT VALUES(
-							COMMENT_SEQ.nextval, 
+							COMMENT2_SEQ.nextval, 
 							#{cmt_id},
 							#{cmt_uid},
 							#{cmt_cateid},
@@ -18,4 +19,22 @@
 	<select id = "getCommentDTO" parameterType="int" resultType="CommentDTO"> 
 		SELECT * FROM COMMENT WHERE CMT_BID = #{CMT_BID}
 	</select>
+<!-- #################### 정수 끝 ########################## -->
+
+<!-- ======================== 풍혁 시작 ======================== -->
+	<insert id="write">
+		INSERT INTO COMMENT2 VALUES(
+								COMMENT2_SEQ.nextval,
+								#{cmt_uid},
+								#{cmt_cateid},
+								#{cmt_bid},
+								#{cmt_content},
+								SYSDATE
+								)
+	</insert>
+	
+	<select id="getCommentListByBoardId" parameterType="java.lang.String" resultType="CommentDTO">
+		SELECT * FROM COMMENT2 WHERE cmt_bid = ${cmt_bid}
+	</select>
+<!-- ======================== 풍혁 끝 ======================== -->	
 </mapper>
