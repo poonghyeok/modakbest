@@ -43,7 +43,7 @@
             </ul>
             </c:if>
             <!-- 로그인 상태 -->
-         	<c:if test="${sessionScope.memEmail != null }">   
+         	<c:if test="${sessionScope.memEmail != null }">
             <ul class="nav nav-sidebar">
 	      		<div class="avatar clearfix avatar-medium">				
 						<!-- 이동 경로가 회원번호 같은디? -->

@@ -14,6 +14,8 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	public CommentDAO commentDAO; // db로 갈거니까 생성해주고
 	
+	
+//정수 시작 : #################################
 	// 전체 댓글 가져오기
 	@Override
 	public List<CommentDTO> getCommentContent(int cmt_bid) {
@@ -26,4 +28,19 @@ public class CommentServiceImpl implements CommentService {
 		commentDAO.writeCommentContent(commentDTO);
 		
 	}
+//정수 끝: #################################
+	
+//풍혁 시작 : =================================
+	@Override
+	public void write(CommentDTO commentDTO) {
+		commentDAO.write(commentDTO);
+	}
+	
+	@Override
+	public List<CommentDTO> getCommentListByBoardId(int cmt_bid) {
+		
+		return commentDAO.getCommentListByBoardId(cmt_bid);
+	}
+//풍혁 끝: =================================
+
 }

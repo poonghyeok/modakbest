@@ -17,6 +17,7 @@
 
 	<resources mapping="/css/**" location="/WEB-INF/css/" />
 	<resources mapping="/js/**" location="/WEB-INF/js/" />
+	<resources mapping="/summernote3/**" location="/summernote3/" />
 
 	<resources mapping="/img/**" location="/WEB-INF/img/" />
 	<!--  ###################### 유진 : 시작  0706###################### -->	

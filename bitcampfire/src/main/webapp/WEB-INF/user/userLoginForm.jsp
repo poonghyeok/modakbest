@@ -45,9 +45,11 @@
 			                    <input type="button" class="btn btn-primary btn-block" id="btnUserLogin" value="로그인">
 			                </div>
 			                <br>		                
-			                <div id="divUserLogin">    
-			                    <a href="/oauth2/authorization/kakao" id="kakao-connect-link" class="btn btn-kakao btn-block"> 
-			                	<span class="icon-social icon-kakao"></span>Login with Kakao</a>
+			                <div id="divUserLogin">  
+			              		<a class="p-2 btn btn-kakao btn-block" id="kakaoBtn" href="https://kauth.kakao.com/oauth/authorize?client_id=99d19c4d787174d74fec051d2035c26e&redirect_uri=http://localhost:8080/semiproject/user/userKakaoLoginForm&response_type=code">  
+			                		<span class="icon-social icon-kakao"></span>Login with Kakao
+			                	</a>
+
 			                </div>
 
 	
@@ -68,8 +70,9 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>    
+
 <script type="text/javascript">
-$('#check_alert').hide();
+$('#check_alert').hide();  
 
 //연수: 로그인 엔터키 이벤트 수정(220710)
 $(document).ready(function() {
@@ -149,7 +152,11 @@ $('#btnUserLogin').click(function(){
 				}
 			});
 		}
-
+	
+	
+	////////////////////////////유진수정//////////////////////////////////
+	
+	//$('#kakaoBtn').click(function(){})
 });
 
 
