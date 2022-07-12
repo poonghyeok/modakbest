@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,9 @@
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
-	
+	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> -->
+	<link rel="stylesheet" href="/semiproject/css/user/select2.css">
 </head>			
 <body>
 
@@ -77,16 +80,27 @@
 									</div>
 									<div class="row" style="visibility:hidden;">줄맞춤을 위한 공간</div>                 
 				                    
+				                    <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->		                    
 				                    <div class="form-group">				                    					                    				                    
-				                        <label class="control-label" for="class_academy">학원명</label>				                        			                        
-				                        <input type="text" name="class_academy" class="form-control input-sm" placeholder="학원명" required="" value="" id="class_academy">		             				
-			                        	
-			                        </div>
+				                        <label class="control-label" for="class_academy">학원명</label>		
+					                    <c:if test ="${!empty classList }">
+								 		<select name="user_classid" class="form-control input-sm" id="user_classid" > 
+											<option></option>
+											<c:forEach items="${classList }" var="classList">
+												<option value="${classList.class_id}">${classList.class_academy}</option>
+											</c:forEach>
+											<option hidden value="0" selected disabled ></option>										
+										</select> 
+										</c:if>
+									</div>
+									<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
 			                        
-				                    <div class="form-group">
+			                        <!-- @@@ 연수 : 과정명 삭제(0711) @@@ -->
+				                    <!-- <div class="form-group">
 				                        <label class="control-label" for="class_class">과정명</label>
 				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">	
-			                        </div>			                                  
+			                        </div> -->				                        
+			                        		                                  
 				                <input type="button" class="btn btn-primary btn-block" id="update_userInfoBtn" value="정보 수정">
 				            	</form>
 	                		</fieldset>
@@ -146,9 +160,19 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
+<script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
 <script type="text/javascript">
+<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+$('#user_classid').select2({	
+	placeholder: "학원을 선택하세요",	
+	allowClear: true
+});
+
 $('#check_alert').hide();
 $('#check_alert_userEmail').hide();
+
 
 //회원정보 수정 - 데이터가져오기
 $(function(){
@@ -157,15 +181,22 @@ $(function(){
 		url: '/semiproject/user/getUser',
 		dataType: 'json',
 		success: function(data){
-			//alert(JSON.stringify(data));
-		
- 			//$('#show_user_img').val(data.user_img);			
+			//alert(JSON.stringify(data));		
+ 					
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
 			$('input[name="user_nickname_check"]').val(data.user_nickname);
+			if(data.user_classid == '0'){
+				$('#user_classid').val();
+			}else{
+				$('#user_classid').val(data.user_classid).select2();
+			}; 
+			//$('#user_classid').val(data.user_classid).select2();
+			$('#user_email').val(data.user_email); 
+			//$('select[name="user_classid"]').val(data.user_classid);
 			//$('#class_academy').val(data.class_academy);
 			//$('#class_class').val(data.class_class);
-			$('#user_email').val(data.user_email); 
+			
 		},
 		error: function(err){
 			console.log(err);
@@ -173,8 +204,7 @@ $(function(){
 	});
 });   
 
-//@@@@@@@@@@@@@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) 시작 @@@@@@@@@@@@@@@@@@@@@@@@
-//@@@ 프로필 사진 변경 기능 수정(220710) @@@@
+//프로필 사진 변경
 //이미지 업로드 
 $(function(){
 	$('#edit-picture-btn').click(function(e) {
@@ -232,7 +262,7 @@ $('#update_userImgBtn').click(function(){
 			alert('프로필 이미지 변경을 완료하였습니다.');
 			$('.profile-picture-list').hide();
 			//location.href="/semiproject/user/userUpdateForm";
-			setTimeout("location.href='/semiproject/user/userUpdateForm'",100);
+			setTimeout("location.href='/semiproject/user/userUpdateForm'",500);
 			//location.href = "/semiproject/";
 		},
 		error: function(err) {
@@ -242,7 +272,6 @@ $('#update_userImgBtn').click(function(){
 });
 
 
-//@@@@ 연수 닉네임 중복검사 수정(220709) @@@@
 //닉네임 중복체크
 $('#user_nickname').change(function(){
 	$('#check_alert').hide();	
@@ -318,7 +347,8 @@ $('#update_userInfoBtn').click(function(){
 			url: '/semiproject/user/update_userInfo',
 			//data: $('#upadate_userInfoForm').serialize(),
 			data: {'user_name' : $('#user_name').val(),
-				   'user_nickname' : $('#user_nickname').val()},
+				   'user_nickname' : $('#user_nickname').val(),
+				   'user_classid' : $('select[name="user_classid"]').val()},
 				   //'class_academy' : $('#class_academy').val(),
 				   //'class_class' : $('#class_class').val(),			
 			success: function(){
@@ -407,7 +437,7 @@ $('#emailBtn').click(function(){
 	}else{	
 		$.ajax({
 			type : 'get',
-			url : '/semiproject/user/mailCheck?user_email='+$('#user_email').val(), // GET방식이라 Url 뒤에 email을 붙일수있다.
+			url : '/semiproject/user/mailCheck_updateEmail?user_email='+$('#user_email').val(), // GET방식이라 Url 뒤에 email을 붙일수있다.
 			//data: {'user_email': $('#user_email').val()},
 			success : function (data) {
 				console.log("data : " +  data);
@@ -485,7 +515,6 @@ $('#update_userEmailBtn').click(function(){
 		}); 
 	}	
 });
-//@@@@@@@@@@@@@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) 끝  @@@@@@@@@@@@@@@@@@@@@@@@
 </script>
 </body>
 </html>

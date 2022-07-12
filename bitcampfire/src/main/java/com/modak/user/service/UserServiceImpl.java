@@ -1,5 +1,6 @@
 package com.modak.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAllDTO;
 import javax.servlet.http.HttpSession;
 
@@ -40,7 +42,12 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUser(user_email);
 		}
 		
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@		
+		//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
+		@Override
+		public List<ClassDTO> classList() {			
+			return userDAO.classList();
+		}
+		
 		@Override
 		public UserAllDTO userUpdate_nicknameCheck(String user_nickname) {
 			return userDAO.userUpdate_nicknameCheck(user_nickname);			
@@ -65,7 +72,6 @@ public class UserServiceImpl implements UserService {
 		public void update_userEmail(Map<String, String> map) {
 			userDAO.update_userEmail(map);
 		}
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 
 		@Override
 		public UserDTO checkPwd(String user_email) {
@@ -147,8 +153,6 @@ public class UserServiceImpl implements UserService {
 			
 		}
 
-		//*******연수 수정(220707)	
-
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 	// 풍혁 : 시작 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 
@@ -164,4 +168,7 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserNameByUserId(board_uid);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+
 }
