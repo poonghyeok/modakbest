@@ -30,8 +30,9 @@
 	
         <div class="panel panel-default clearfix fa-">
             <div class="panel-heading clearfix">
-                <div class="avatar clearfix avatar-medium pull-left">
-                    <a href="/semiproject/user/userMyPageForm?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="//www.gravatar.com/avatar/c649774942c3c2ab78ed58379972c2f8?d=identicon&amp;s=40"></a>
+                <div class="avatar clearfix avatar-medium pull-left"> 
+            	    <!-- 07/11 user page를 위해 href를 user 수정하였습니다 -->
+                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="//www.gravatar.com/avatar/c649774942c3c2ab78ed58379972c2f8?d=identicon&amp;s=40"></a>
                     <div class="avatar-info">
                     	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
                             <a class="nickname" href="/semiproject/user/userMyPageForm?user_id=${boardDTO.board_cmt_cnt}" title="author">${author}</a>

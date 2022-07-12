@@ -116,7 +116,13 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.login", user_email);
 		}
 		
-	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
+		@Override
+		public UserDTO getUserInfo(String user_id) {
+			
+			return sqlSession.selectOne("userSQL.getUserInfo", user_id);
+		}
+
+		// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 	
 	//풍혁 : 시작 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 		@Override
@@ -151,6 +157,7 @@ public class UserDAOMyBatis implements UserDAO {
 
 
 		
+
 
 
 

@@ -407,6 +407,16 @@ public class UserServiceImpl implements UserService {
 			
 		}
 
+
+		//*******연수 수정(220707)	
+		@Override
+		public UserDTO getUserInfo(String user_id) {
+			UserDTO userDTO = userDAO.getUserInfo(user_id);
+			System.out.println("userService getUserInfo DTO : " + userDTO);
+			return userDTO;
+		}
+
+
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 	// 풍혁 : 시작 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 
