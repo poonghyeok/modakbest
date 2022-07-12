@@ -51,6 +51,7 @@ public interface UserDAO {
 		//@@@@ 연수 수정(220708)  @@@@///
 		public UserAllDTO login(String user_email);
 
+		public UserDTO getUserInfo(String user_id);
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 	// 풍혁 : 시작 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -59,6 +60,7 @@ public interface UserDAO {
 
 		public String getUserNameByUserId(int board_uid);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
 
 
 

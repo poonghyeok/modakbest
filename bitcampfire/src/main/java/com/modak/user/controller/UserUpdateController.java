@@ -82,7 +82,8 @@ public class UserUpdateController {
 		//가상폴더
 		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
 		//String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수비트캠프
-		String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
+		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
+		String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage";
 		String fileName = user_image.getOriginalFilename();
 		
 		File file = new File(filePath, fileName); //파일 생성

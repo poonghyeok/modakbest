@@ -112,6 +112,10 @@
 	</select>
 	
 	
+	 <select id="getUserInfo" parameterType="String" resultType="UserDTO">
+	 	select * from user2 where user_id=#{user_id}
+	 </select>
+	
 	<!-- @@@@@@@@@@@@@@ 기진 : 끝  @@@@@@@@@@@@@@ -->
 
 

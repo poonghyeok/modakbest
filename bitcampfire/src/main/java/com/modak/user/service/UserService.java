@@ -58,6 +58,8 @@ public interface UserService {
     
 
     	public void userLogout();
+
+    	public UserDTO getUserInfo(String user_id);
     // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -66,6 +68,7 @@ public interface UserService {
     	
     	public String getUserNameByUserId(int board_uid);
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
 	
 
 

@@ -34,7 +34,7 @@
 		            <div class="form-group">
 		                <input id="user_email" type="email" name="email" class="form-control form-control-inline text-center" placeholder="이메일 주소" value="">
 		            </div>
-		            <input type="button" id="findPwdButton" class="btn btn-primary" value="계정 찾기" /> <a href="/" class="btn btn-default">취소</a>
+		            <input type="button" id="findPwdButton" class="btn btn-primary" value="계정 찾기" /> <a href="/semiproject/" class="btn btn-default">취소</a>
 		        </div>
 		    </div>
 		</div>
