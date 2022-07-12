@@ -8,55 +8,11 @@
 /*풍혁220709 : 성공 ..!*/
 
 $(function(){
-	editor();
-	//makeIndexDiv(1,5,'left', 'Editor choice');
-	//makeIndexDiv(1,5,'right', 'Weekly Best');
-	//makeIndexDiv(1,8,'left', 'Q&A');
-	//makeIndexDiv(1,10,'left', '커뮤니티');
-	
-})
-
-function editor(){
 	makeIndexDiv(1,5,'left', 'Editor choice');
-	setTimeout(weekly,10);
-}
-function weekly(){
 	makeIndexDiv(1,5,'right', 'Weekly Best');
-	setTimeout(qna,10);
-}
-
-
-function qna(){
 	makeIndexDiv(1,8,'left', 'Q&A');
-	setTimeout(community,10);
-}
-
-function community(){
 	makeIndexDiv(1,10,'left', '커뮤니티');
-}
-
-/*풍혁0709 메인 우측 광0고 이미지로 띄우기 1차시도 실패*/
-/*function getRightAd(){
-	var temp_ad = 
-		
-		$('<div/>',{
-			class : "temporaryAd"
-		})
-		.append($('<a/>',{
-						href : "https://aihub.or.kr/"
-					}
-				)
-				.append($('<img/>',{
-					src : "/semiproject/img/okky_rigth_ad.png"
-				}))
-		)
-		.appendTo(
-			$('<div>',{class : 'main-block'})		
-		);
-	
-	return categoryOuter('ad','right').append(temp_ad);
-}*/
-
+})
 
 /* 풍혁220709 function 분리하기 */
 function makeIndexDiv(startNum, endNum, location, category){
@@ -72,6 +28,7 @@ function makeIndexDiv(startNum, endNum, location, category){
 			startNum : startNum,
 			endNum : endNum
 			},
+		async : false,
 		success : function(data){
 			console.log(JSON.stringify(data));
 			$('#index').append(categoryOuter(category,location)	.append(getMainBlock(data, category)))

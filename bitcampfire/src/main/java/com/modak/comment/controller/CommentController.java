@@ -52,6 +52,7 @@ public class CommentController {
 		public void write(@ModelAttribute CommentDTO commentDTO) {
 			
 			commentService.write(commentDTO);
+			commentService.increaseCommentCount(commentDTO.getCmt_bid());
 			
 			return ;
 		}
@@ -66,7 +67,7 @@ public class CommentController {
 		}
 
 		//풍혁0709 : comment_uid로 부터 nickname 을 받아오기 
-		@PostMapping(value = "/getNicknameByUserId")
+		@PostMapping(value = "/getNicknameByUserId", produces = "application/text; charset=UTF-8")
 		@ResponseBody
 		public String getNicknameByUserId(@RequestParam int user_id) {
 			String user_nickname = userService.getUserNameByUserId(user_id); 

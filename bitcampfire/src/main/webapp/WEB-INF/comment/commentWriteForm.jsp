@@ -4,9 +4,6 @@
 <!DOCTYPE html>
 		<!--댓글 -->
             <ul class="list-group" id = "comment_list">
-                <li id="note-title" class="list-group-item note-title">
-			       <h3 class="panel-title">댓글 <span id="note-count">${boardDTO.board_cmt_cnt}</span></h3> 
-                </li>
                 <li class="list-group-item note-form clearfix">
 					<c:if test="${empty sessionScope.memEmail}">
 						<div class="panel-body">
