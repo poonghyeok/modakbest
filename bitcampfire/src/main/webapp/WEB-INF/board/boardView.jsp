@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>   
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <head>
@@ -9,17 +10,22 @@
 </head>
 
 <body>
+
 	<div class="layout-container">
     <div class="main ">
         <!--사이드바1,2-->        
                 <jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
     		
-        <div class="nav" role="navigation">
-            <a class="create btn btn-success btn-wide pull-right" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
+        <div class="nav" role="navigation"></div>
+            <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
             <h4>${cateidToString}</h4>
         </div>
 
         <!--게시글-->
+
+        <input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
+		
+
         <input type = "text" id ="board_id" name = "board_id" value="${board_id}">
         <input type = "text" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
         <input type = "text" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardDTO.board_cmt_cnt}">
@@ -27,7 +33,7 @@
         <input type = "text" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
         <input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
         
-	
+
         <div class="panel panel-default clearfix fa-">
             <div class="panel-heading clearfix">
                 <div class="avatar clearfix avatar-medium pull-left"> 
@@ -119,7 +125,7 @@
 				<jsp:include page="/WEB-INF/comment/commentWriteForm.jsp"></jsp:include>
 			</div>
 			<!-- 댓글 div -->
-			
+
         </div>
       	
         <!--footer-->     
@@ -127,6 +133,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/semiproject/js/board/boardView.js"></script>
 <script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-ko-KR.js"></script>
@@ -368,5 +375,6 @@ $('#btn-create-btn').click(function(){
 
 </script>
 
+ 
 </body>
 </html> 

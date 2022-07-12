@@ -149,7 +149,6 @@ public class BoardController {
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
 			mav.addObject("dateToStr",dateToStr);
 
-			
 			//풍혁220708 : boadr_uid로 유저nickname 받아서 작성자에 넣겠습니다.
 			String author = boardService.getUserNameByUserId(boardDTO.getBoard_uid());
 			mav.addObject("author", author);
@@ -161,7 +160,33 @@ public class BoardController {
 			mav.setViewName("board/boardView"); // boardView.jsp로 보냄 
 			return mav; // 스프링한테 데이터랑 목적지 꺼내봐 하는거
 		}
-
+		
+		@GetMapping(value = "/recommend")
+		@ResponseBody
+		public int recommend(@RequestParam int vote_uid, int vote_bid) { // 게시글 번호와, 추천유저아이디 
+			
+			System.out.println("****** TEST recommend Controller");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+		
+			map.put("vote_uid", vote_uid);
+			map.put("vote_bid", vote_bid);
+			
+			int recommendCheck =  boardService.recommendCheck(map);	 // 추천수를 이미 눌렀는지 체크 - DB에서 가져와서 보자
+			
+			System.out.println("****** TEST recommendCheck" + recommendCheck);
+			
+			// 0또는 1일때 
+			if (recommendCheck == 0 ) {
+				boardService.increaseRecommend(map);
+			} else {
+				System.out.println("추천을 취소하시겠습니까?");
+				boardService.recommendCancel(map);
+			}
+			
+			return recommendCheck;
+			
+		}
 	// 정수 : 끝  ###################### 
 			
 }

@@ -70,6 +70,22 @@
 		<update id = "setHit" parameterType = "int">
 			update board_review set board_view_cnt = board_view_cnt +1 where board_id = #{board_id} 
 		</update>
+		
+		<!-- 추천수 중복방지 -->
+		<select id = "recommendCheck" resultType = "int">
+			select count(*) from vote where board_id = #{board_id} and board_uid = #{board_uid}
+		</select>
+		
+		<!-- 추천수 -->		
+		<update id = "increaseRecommend" parameterType = "int">
+			update vote set board_vote_cnt = board_vote_cnt +1 where board_id = #{board_id}
+		</update>
+		
+		<!-- 추천수 취소 -->
+		<update id = "recommendCancel" parameterType = "int">
+			update vote set board_vote_cnt = board_vote_cnt -1 where board_id = #{board_id}
+		</update>
+		
 	<!-- ####################### 정수 : 끝  ###################### -->
 	
 

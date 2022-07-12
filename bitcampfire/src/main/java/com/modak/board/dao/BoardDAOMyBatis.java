@@ -1,6 +1,7 @@
 package com.modak.board.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,10 +83,29 @@ public class BoardDAOMyBatis implements BoardDAO {
 		}
 			@Override
 			public void setHit(int board_id) {
-				
 				sqlSession.update("boardSQL.setHit", board_id);
-			
 		}
+
+			@Override
+			public int recommendCheck(Map<String, Object> map) {
+				return sqlSession.selectOne("boardSQL.recommendCheck", map);
+				
+			}
+
+			@Override
+			public void increaseRecommend(Map<String, Object> map) {
+				sqlSession.update("boardSQL.increaseRecommend", map);
+				
+			}
+
+			@Override
+			public void recommendCancel(Map<String, Object> map) {
+				sqlSession.update("boardSQL.recommendCancel", map);
+			}
+
+		
+			
 	// 정수 : 끝  ###################### 
+
 
 }
