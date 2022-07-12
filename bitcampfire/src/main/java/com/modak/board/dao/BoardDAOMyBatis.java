@@ -88,7 +88,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 
 			@Override
 			public int recommendCheck(Map<String, Object> map) {
-				return sqlSession.selectOne("boardSQL.recommendCheck", map);
+				return (int)sqlSession.selectOne("boardSQL.recommendCheck", map);
 				
 			}
 

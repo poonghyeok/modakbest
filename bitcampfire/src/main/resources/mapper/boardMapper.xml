@@ -72,8 +72,8 @@
 		</update>
 		
 		<!-- 추천수 중복방지 -->
-		<select id = "recommendCheck" resultType = "int">
-			select count(*) from vote where board_id = #{board_id} and board_uid = #{board_uid}
+		<select id = "recommendCheck" parameterType = "java.util.Map" resultType= "int">
+			select count(*) from vote where board_id = ${vote_bid} and board_uid = ${vote_uid}
 		</select>
 		
 		<!-- 추천수 -->		
