@@ -16,9 +16,13 @@
 	<select id="getUser" parameterType="String" resultType="UserAllDTO">
         select * from user2 where user_email=#{user_email}
     </select>
+
+    <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->    
+	<select id="classList" resultType="UserAllDTO">
+        select * from class order by class_id
+    </select>
     
-	<!-- //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@ -->
-    <!-- 회원정보 수정: 닉네임 중복체크 -->
+	<!-- 회원정보 수정: 닉네임 중복체크 -->
     <select id="userUpdate_nicknameCheck" parameterType="String" resultType="UserAllDTO">
   		select * from user2 where user_nickname=#{user_nickname}
   	</select>
@@ -37,9 +41,10 @@
     <update id="update_userInfo" parameterType="UserAllDTO">
   		update user2 set user_name = #{user_name} 
   					   , user_nickname = #{user_nickname}
+  					   , user_classid = #{user_classid}
   					   , user_logtime = sysdate where user_email = #{user_email} 		  			    
   	</update>
-	<!-- //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@ -->
+	
   	<!-- 회원정보 수정: 이메일 수정 -->
     <update id="update_userEmail" parameterType="java.util.Map">
   		update user2 set user_email = #{user_email}, user_logtime = sysdate where user_id = #{user_id}	  			    
@@ -64,7 +69,27 @@
 
 	
 	<!--  ###################### 유진 : 시작  0706###################### -->
+	<!-- @@@@ 연수 : class 테이블 사용하지 않고 user_classid 수정(0711) @@@@  -->
 	<insert id="user_register" parameterType="UserAllDTO">
+  		insert into user2(user_id
+  						,user_email
+  						,user_pwd
+  						,user_nickname
+  						,user_name
+  						,user_classid
+  						,user_auth
+  						,user_logtime) 
+  		values(user2_SEQ.nextval
+  			,#{user_email}
+  			,#{user_pwd}
+  			,#{user_nickname}
+  			,#{user_name}
+  			,#{user_classid}
+  			,'Y'
+  			,sysdate)	
+  	</insert>
+  	<!-- @@@@ 연수 : class 테이블 사용하지 않고 user_classid 수정(0711) @@@@  --> 
+	<!-- <insert id="user_register" parameterType="UserAllDTO">
 		begin
 	  		insert into user2(user_id
 	  						,user_email
@@ -87,7 +112,7 @@
 	  				, #{class_class});
 	  	end;
   		
-  	</insert>
+  	</insert> -->
 
   	<select id="userSignup_emailCheck" parameterType="String" resultType="UserAllDTO">
   		select * from user2 where user_email=#{user_email}

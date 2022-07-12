@@ -1,6 +1,9 @@
 package com.modak.user.dao;
 
 import java.util.HashMap;
+
+import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 
@@ -26,9 +29,13 @@ public class UserDAOMyBatis implements UserDAO {
 		public UserAllDTO getUser(String user_email) {
 			return sqlSession.selectOne("userSQL.getUser", user_email);
 		}
-		
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
+		//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
 		@Override
+		public List<ClassDTO> classList() {	
+			return sqlSession.selectList("userSQL.classList");
+		}
+		
+	    @Override
 		public UserAllDTO userUpdate_nicknameCheck(String user_nickname) {			
 			return sqlSession.selectOne("userSQL.userUpdate_nicknameCheck", user_nickname);
 		}
@@ -54,7 +61,6 @@ public class UserDAOMyBatis implements UserDAO {
 			sqlSession.update("userSQL.update_userEmail", map);
 			
 		}
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 
 		@Override
 		public UserDTO checkPwd(String user_email) {
@@ -122,7 +128,10 @@ public class UserDAOMyBatis implements UserDAO {
 		@Override
 		public String getUserNameByUserId(int board_uid) {
 			
-			return sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
+			System.out.println("\n @LOG@ myBatis.. getUserNameByUserId... user_id : " + board_uid);
+			String user_nickname = sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
+			System.out.println("user_nickname : " + user_nickname);
+			return user_nickname;
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
@@ -142,6 +151,7 @@ public class UserDAOMyBatis implements UserDAO {
 
 
 		
+
 
 
 

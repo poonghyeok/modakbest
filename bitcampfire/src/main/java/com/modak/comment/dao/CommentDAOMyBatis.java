@@ -11,6 +11,8 @@ import com.modak.comment.bean.CommentDTO;
 @Repository
 public class CommentDAOMyBatis implements CommentDAO {
 
+	
+//정수 시작 : #################################
 	@Autowired
 	public SqlSession sqlSession;
 
@@ -25,4 +27,22 @@ public class CommentDAOMyBatis implements CommentDAO {
 	public List<CommentDTO> getCommentContent(int cmt_bid) {
 		return sqlSession.selectOne("commentSQL.getCommentDTO",cmt_bid);
 	}
+
+//정수 끝: #################################
+	
+//풍혁 시작 : =================================
+	@Override
+	public void write(CommentDTO commentDTO) {
+		sqlSession.insert("commentSQL.write", commentDTO);
+		
+		return;
+	}
+	
+	@Override
+	public List<CommentDTO> getCommentListByBoardId(int cmt_bid) {
+		
+		return sqlSession.selectList("getCommentListByBoardId", cmt_bid);
+	}
+//풍혁 끝: =================================
+
 }
