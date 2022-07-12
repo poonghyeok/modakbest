@@ -107,11 +107,9 @@
 	  			,sysdate);
 	  		
 	  		insert into class(class_id
-	  						, class_class
-	  						, class_academy)
+	  						, class_class)
 	  		values (CLASS_SEQ.nextval
-	  				, #{class_class}
-	  				, #{class_academy});
+	  				, #{class_class});
 	  	end;
   		
   	</insert> -->
@@ -127,6 +125,22 @@
   	<select id="getUserInformation" parameterType="String" resultType="UserDTO">
   		select * from user2 where user_email=#{user_email}
   	</select>
+  	
+  	<update id="pwdFindChangeComplete" parameterType="java.util.Map">
+  		update user2 set user_pwd = #{user_pwd} where user_email= #{user_email}
+  	</update>
+  	
+  	
+  	<select id="findKakao" parameterType="java.util.HashMap" resultType="UserAllDTO">
+		select * from user2 where user_name=#{nickname} and user_email=#{email}
+	</select>
+
+	<!-- 정보 저장 -->
+	<insert id="kakaoInsert" parameterType="java.util.HashMap">
+		insert into user2(user_id, user_name, user_email)
+			values(user2_SEQ.nextval, #{nickname}, #{email})
+	</insert>
+
 	<!-- ####################### 유진 : 끝  0706###################### -->
 
 	<!--  @@@@@@@@@@@@@@ 기진 : 시작  @@@@@@@@@@@@@@-->
@@ -151,6 +165,7 @@
 	
 	
 	<!-- %%%%%%%%%%%%%%%%%% 풍혁 : 끝  %%%%%%%%%%%%%%%%%% -->
+	
 	
 	
 

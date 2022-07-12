@@ -1,6 +1,10 @@
 package com.modak.user.dao;
 
+
+import java.util.HashMap;
+
 import java.util.List;
+
 import java.util.Map;
 
 import com.modak.user.bean.ClassDTO;
@@ -46,6 +50,8 @@ public interface UserDAO {
 		public UserAllDTO userSignup_nicknameCheck(String user_nickname);
 		
 		public UserDTO getUserInformation(String user_email);
+		
+		public void pwdFindChangeComplete(Map<String, String> map);
 	//유진 : 끝 0706====================================
 	
 
@@ -61,6 +67,14 @@ public interface UserDAO {
 
 		public String getUserNameByUserId(int board_uid);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
+
+		public void kakaoinsert(HashMap<String, Object> userInfo);
+
+
+
+		
 
 
 

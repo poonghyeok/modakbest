@@ -1,6 +1,9 @@
 package com.modak.user.dao;
 
+import java.util.HashMap;
+
 import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -98,6 +101,12 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserInformation", user_email);
 		}
 		
+		@Override
+		public void pwdFindChangeComplete(Map<String, String> map) {
+			sqlSession.update("userSQL.pwdFindChangeComplete", map);
+			
+		}
+		
 	//유진 : 끝 0706====================================
 	
 
@@ -125,6 +134,23 @@ public class UserDAOMyBatis implements UserDAO {
 			return user_nickname;
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+		@Override
+		public UserAllDTO findkakao(HashMap<String, Object> userInfo) {
+			System.out.println("RN:"+userInfo.get("nickname"));
+			System.out.println("RE:"+userInfo.get("email"));
+			return sqlSession.selectOne("userSQL.findKakao", userInfo);
+		}
+
+		@Override
+		public void kakaoinsert(HashMap<String, Object> userInfo) {
+			sqlSession.insert("userSQL.kakaoInsert",userInfo);
+		}
+
+
+
+
+		
 
 
 

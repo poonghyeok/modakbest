@@ -48,11 +48,15 @@ $(function(){
 	}
 });*/
 
+/*이메일 정규식*/
+
+
 /*이메일 중복체크*/
 $('#user_email').focusout(function(){
 	$('#check_alert').hide();
 	
-	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var regExp =/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+	///^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
 	if( $('#user_email').val() == ''){
 		$('#num_check_blank').hide();

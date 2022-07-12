@@ -1,6 +1,9 @@
 package com.modak.user.service;
 
+import java.util.HashMap;
+
 import java.util.List;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -51,6 +54,14 @@ public interface UserService {
     	
     	public UserDTO getUserInformation(String user_email);
     	
+    	public void pwdFindChangeComplete(Map<String, String> map);
+    	
+    	public String getAccessToken(String code);
+
+		//public HashMap<String, Object> getUserInfo(String access_Token);
+    	public UserAllDTO getUserInfo(String access_Token);
+    	
+    	
   	//유진 : 끝 0706====================================
 	
 
@@ -69,13 +80,10 @@ public interface UserService {
     	public String getUserNameByUserId(int board_uid);
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-
-	
-
+		
 
 
-
-
+		
 
 
 		

@@ -69,8 +69,9 @@
 							</c:if>							
 							<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
 							
-							<!-- @@@ 연수 : 과정명 삭제(0711) @@@ -->
-							<!-- <input type="text" name="class_class" class="form-control input-sm" required="" placeholder="과정명" value="" id="nickname"> -->
+
+							<input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy">
+
 		                    
 							<!-- <label for="user_img" class="form-label"></label>
 							<div class="user_profile">
