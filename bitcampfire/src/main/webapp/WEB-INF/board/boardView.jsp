@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>   
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <head>
@@ -9,18 +10,19 @@
 
 <body>
 	
+	
 	<div class="layout-container">
     <div class="main ">
         <!--사이드바1,2-->        
                 <jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
     		
-        <div class="nav" role="navigation">
-            <a class="create btn btn-success btn-wide pull-right" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
+        <div class="nav" role="navigation"></div>
+            <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
             <h4>${cateidToString}</h4>
         </div>
 
         <!--게시글-->
-        <input type = "hidden" name = "board_id" value="${board_id}">
+        <input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
 		
         <div class="panel panel-default clearfix fa-">
             <div class="panel-heading clearfix">
@@ -55,14 +57,17 @@
 		                <article class="content-text" itemprop="articleBody">
 							<p>${boardDTO.board_content}</p>
 						</article>
+						</div>
 
 					<!--추천수-->
 				<div id="content-function" class="content-function pull-right text-center">
 				        <div class="content-function-group">
 						    <div class="note-evaluate-wrapper">
-						        <a href="javascript://" class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281">
-						            <i id="note-evaluate-assent-2853281" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
+						        <a class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281">
+						            <input type = "text" name = "memId" id = "memId" value = "${sessionScope.memId}">
+						            <i id="note-evaluate-assent-2853281" value = "recommend" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
 						        </a>
+						        
 							    <div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
 							
 							        <a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
@@ -90,10 +95,11 @@
             <!--댓글 -->
             <ul class="list-group">
                 <li id="note-title" class="list-group-item note-title">
-<!-- 댓글 개수 -->       <h3 class="panel-title">댓글 <span id="note-count">${boardDTO.board_cmt_cnt}</span></h3> 
+<!-- 댓글 개수 --> <h3 class="panel-title">댓글 <span id="note-count">${boardDTO.board_cmt_cnt}</span></h3> 
                 </li>
                 <li class="list-group-item note-form clearfix">
                     <form action="/article/addNote/1266491" method="post" class="note-create-form">
+                        <input type = "text" name = "memEmail" id = "memEmail" value = "${sessionScope.memEmail}">
                         <input type="hidden" name="_csrf" value="42dc26cb-81c3-410c-8701-d0f0b774ff29">
                             <div class="content-body panel-body pull-left">
                                 <div style="margin-left: 5px;">
@@ -121,94 +127,7 @@
         <!--footer-->     
         <jsp:include page="/WEB-INF/global/footer.jsp"/>
     </div>
-</div>
-
-<script type="text/javascript"  src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-
-/* $('#btn btn-success btn-wide').click(function(){ // 등록 버튼을 눌렀을때  
-	$.ajax({
-		  type:'post',
-		  url:'/semiproject/comment/writeCommentContent',
-		  data: JSON.stringify(queryString), //{서버로 전송할 데이터}
-		  dataType: 'json', //'서버에서 전송받을 데이터 형식'
-		  success: { //정상 요청, 응답 시 처리 작업
-		     
-		  },
-		  error : function(xhr,status,error) {
-		      //오류 발생 시 처리
-		 },
-	});
-}); */
-
-$('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
-	function to_ajax(){
-			var queryString = $("form[name=testForm]").serialize(); // 키 값 을 묶어서 
-		
-				$.ajax({
-					type : 'post',
-					url : '/semiproject/comment/writeCommentContent', 
-					data : JSON.stringify(queryString), // 
-					dataType : 'json',
-					error: function(xhr, status, error){
-						alert(error);
-					},
-					success : function(json){
-						alert(json.data);
-						location.href="/board/getCommentContent"
-					}
-				});
-		}
-});
-
-<!-- <script type="text/javascript"
-	src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-$('#btn-create-btn').click(function(){ //등록 버튼을 눌렀을때
-		// var queryString = $("#note-createnote-create").serialize(); //폼에 있는 걸 키&값으로 묶음.   var params = $("#폼명").serialize()
-	
-		var comment_uid = $('.nickname').val(); // 댓글 쓴 아이디
-		var image = $('').val(); // 프로필 사진
-		var cmt_content = $('.form-control').val(); // 내용 
-		
-		$.ajax({
-				type : 'post',
-				url : '/semiproject/comment/writeCommentContent', // 컨트롤러 타고 db로 등록이 되고
-				data : JSON.stringify(comment_uid,image,cmt_content), // JavaScript 값이나 객체를 JSON 문자열로 변환
-				//---------위 요청 --------아래는 응답-----
-				dataType : 'json',  // 받는 데이터 형식은 json 형태  
-				error: function(xhr, status, error){
-					alert(error);
-				},
-				success : function(json){
-					alert(json.data);
-				}
-			});
-	});
-
-/* $('#btn-create-btn').click(function(){ //등록 버튼을 눌렀을때
-	// var queryString = $("#note-createnote-create").serialize(); //폼에 있는 걸 키&값으로 묶음.   var params = $("#폼명").serialize()
-
-	var comment_uid = $('.nickname').val(); // 댓글 쓴 아이디
-	var image = $('').val(); // 프로필 사진
-	var cmt_content = $('.form-control').val(); // 내용 
-	
-	$.ajax({
-			type : 'post',
-			url : '/semiproject/comment/writeCommentContent', // 컨트롤러 타고 db로 등록이 되고
-			data : JSON.stringify(comment_uid,image,cmt_content), // JavaScript 값이나 객체를 JSON 문자열로 변환
-			//---------위 요청 --------아래는 응답-----
-			dataType : 'json',  // 받는 데이터 형식은 json 형태  
-			error: function(xhr, status, error){
-				alert(error);
-			},
-			success : function(json){
-				alert(json.data);
-			}
-		});
-}); */
-
-</script>
-
+	<script type="text/javascript" src="/semiproject/js/board/boardView.js"></script>
+ 	<script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html> 

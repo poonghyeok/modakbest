@@ -32,6 +32,12 @@ public interface BoardService {
 		public BoardDTO getBoardContent(int board_id);
 		
 		public List<BoardDTO> getBoardReviewList(Map<String,Integer> map);
+
+		public int recommendCheck(Map<String, Object> map);
+
+		public void increaseRecommend(Map<String, Object> map);
+
+		public void recommendCancel(Map<String, Object> map);
 		
 	// 정수 : 끝  ###################### 
 

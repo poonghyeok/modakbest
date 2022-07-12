@@ -33,6 +33,15 @@ public interface BoardDAO {
 		public void setHit(int board_id);
 	// 정수 : 끝  ###################### 
 
+		public int recommendCheck(Map<String, Object> map);
+
+		public void increaseRecommend(Map<String, Object> map);
+
+		public void recommendCancel(Map<String, Object> map);
+
+
+
+
 
 		
 }

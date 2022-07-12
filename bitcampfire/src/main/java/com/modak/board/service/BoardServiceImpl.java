@@ -240,8 +240,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	//정수 : 시작 ############################################
+
 		@Override
-	public BoardDTO getBoardContent(int board_id) { 
+		public BoardDTO getBoardContent(int board_id) { 
 		
 		if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
 			boardDAO.setHit(board_id); // 글번호에 조회수 증가하게 해
@@ -252,7 +253,33 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardDTO;
 		}
-	//정수 : 끝 ############################################
+		
+		//추천수가 있는지 체크
+		
+		@Override
+		public int recommendCheck(Map<String, Object> map) {
+			
+			return boardDAO.recommendCheck(map);
+			
+		}
+
+		@Override
+		public void increaseRecommend(Map<String, Object> map) {
+			
+			boardDAO.increaseRecommend(map);
+			
+		}
+
+		@Override
+		public void recommendCancel(Map<String, Object> map) {
+			
+			boardDAO.recommendCancel(map);
+			
+		}
+	
+		
+		//정수 : 끝 ############################################
+
 	
 	
 	
