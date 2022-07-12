@@ -10,7 +10,8 @@
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">  
 	<link rel="stylesheet" href="/semiproject/css/user/signupForm.css"> 
 	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> -->
+	<link rel="stylesheet" href="/semiproject/css/user/select2.css">
 </head>
 
 <body>
@@ -58,11 +59,12 @@
 													
 		                    <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->                         
 		                    <c:if test ="${!empty classList }">
-					 		<select name="user_classid" class="form-control input-sm" id="user_classid" style="margin-bottom: 10px;"> 
-								<option selected disabled>학원명</option>
-								<c:forEach items="${classList }" var="classList">
+					 		<select name="user_classid" class="form-control input-sm" id="user_classid" style="margin-bottom: 10px;">								
+								<option></option>
+								<c:forEach items="${classList}" var="classList">
 									<option value="${classList.class_id}">${classList.class_academy}</option>
 								</c:forEach>
+								<option value="0" hidden selected disabled></option>
 							</select> 
 							</c:if>							
 							<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
@@ -724,7 +726,8 @@
 </div> <!-- layout-container --> 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
+<script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
 <script type = "text/javascript" src="/semiproject/js/user/userSignupForm.js"></script>
 <script type="text/javascript" src="/semiproject/js/user/all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>

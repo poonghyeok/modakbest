@@ -1,8 +1,15 @@
 /*<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->*/
-$('#user_classid').select2({	
-	placeholder: "학원을 선택하세요",	
+/*$(document).ready(function() {
+	$selectElement = $('#user_classid').select2({	
+	placeholder: "",	
 	allowClear: true
-});
+	});
+});*/
+
+$('#user_classid').select2({	
+	placeholder: "학원명을 입력하세요.",	
+	allowClear: true
+	});
 
 $('#num_check_blank').hide();
 $('#check_alert').hide();

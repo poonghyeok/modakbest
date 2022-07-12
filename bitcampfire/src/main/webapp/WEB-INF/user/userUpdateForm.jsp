@@ -9,8 +9,8 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
-	<!-- <link rel="stylesheet" href="/semiproject/css/user/select2.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> -->
+	<link rel="stylesheet" href="/semiproject/css/user/select2.css">
 </head>			
 <body>
 
@@ -85,10 +85,11 @@
 				                        <label class="control-label" for="class_academy">학원명</label>		
 					                    <c:if test ="${!empty classList }">
 								 		<select name="user_classid" class="form-control input-sm" id="user_classid" > 
-											<option value="" selected disabled>=== 학원명 ===</option>
+											<option></option>
 											<c:forEach items="${classList }" var="classList">
 												<option value="${classList.class_id}">${classList.class_academy}</option>
 											</c:forEach>
+											<option hidden value="0" selected disabled ></option>										
 										</select> 
 										</c:if>
 									</div>
@@ -160,14 +161,13 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<!-- <script type="text/javascript" src="/semiproject/js/user/select2.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
+<script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
 <script type="text/javascript">
 <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
 $('#user_classid').select2({	
 	placeholder: "학원을 선택하세요",	
 	allowClear: true
-
 });
 
 $('#check_alert').hide();
@@ -181,16 +181,22 @@ $(function(){
 		url: '/semiproject/user/getUser',
 		dataType: 'json',
 		success: function(data){
-			//alert(JSON.stringify(data));
-		
- 			//$('#show_user_img').val(data.user_img);			
+			//alert(JSON.stringify(data));		
+ 					
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
 			$('input[name="user_nickname_check"]').val(data.user_nickname);
-			$('select[name="user_classid"]').val(data.user_classid);
+			if(data.user_classid == '0'){
+				$('#user_classid').val();
+			}else{
+				$('#user_classid').val(data.user_classid).select2();
+			}; 
+			//$('#user_classid').val(data.user_classid).select2();
+			$('#user_email').val(data.user_email); 
+			//$('select[name="user_classid"]').val(data.user_classid);
 			//$('#class_academy').val(data.class_academy);
 			//$('#class_class').val(data.class_class);
-			$('#user_email').val(data.user_email); 
+			
 		},
 		error: function(err){
 			console.log(err);
