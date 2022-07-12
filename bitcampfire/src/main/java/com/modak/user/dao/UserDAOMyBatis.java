@@ -115,7 +115,10 @@ public class UserDAOMyBatis implements UserDAO {
 		@Override
 		public String getUserNameByUserId(int board_uid) {
 			
-			return sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
+			System.out.println("\n @LOG@ myBatis.. getUserNameByUserId... user_id : " + board_uid);
+			String user_nickname = sqlSession.selectOne("userSQL.getUserNameByUserId",board_uid);
+			System.out.println("user_nickname : " + user_nickname);
+			return user_nickname;
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 

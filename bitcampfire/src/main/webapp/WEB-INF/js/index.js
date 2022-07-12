@@ -35,7 +35,7 @@ function community(){
 	makeIndexDiv(1,10,'left', '커뮤니티');
 }
 
-/*풍혁0709 메인 우측 광고 이미지로 띄우기 1차시도 실패*/
+/*풍혁0709 메인 우측 광0고 이미지로 띄우기 1차시도 실패*/
 /*function getRightAd(){
 	var temp_ad = 
 		
