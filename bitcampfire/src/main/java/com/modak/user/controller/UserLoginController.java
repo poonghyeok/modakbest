@@ -157,6 +157,7 @@ public class UserLoginController {
 		}
 		
 		//카카오 로그인
+		/*
 		@GetMapping(value="userKakaoLoginForm")
 		public String userKakaoLoginForm(@RequestParam(value = "code", required = false) String code) throws Exception {
 			System.out.println("#########" + code);
@@ -166,7 +167,33 @@ public class UserLoginController {
 			System.out.println("###nickname#### : " + userInfo.get("nickname"));
 			System.out.println("###email#### : " + userInfo.get("email"));
 			return "member/testPage";
+	    	}*/
+		
+		@GetMapping(value="userKakaoLoginForm")
+		public String userKakaoLoginForm(@RequestParam(value = "code", required = false) String code) throws Exception {
+			System.out.println("#########" + code);
+			String access_Token = userService.getAccessToken(code);
+			
+			// userInfo의 타입을 KakaoDTO로 변경 및 import.
+			UserAllDTO userInfo = userService.getUserInfo(access_Token);
+		    
+			System.out.println("###access_Token#### : " + access_Token);
+			System.out.println("###nickname#### : " + userInfo.getUser_name());
+			System.out.println("###email#### : " + userInfo.getUser_email());
+			
+			// 아래 코드가 추가되는 내용
+			session.invalidate();
+			// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+			session.setAttribute("memName", userInfo.getUser_name());
+			session.setAttribute("memEmail", userInfo.getUser_email());
+			session.setAttribute("memNickname", userInfo.getUser_nickname());
+			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
+			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
+			
+			return "home2";
 	    	}
+		
+		
 		
 //@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

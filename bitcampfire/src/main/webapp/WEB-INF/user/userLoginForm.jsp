@@ -46,7 +46,7 @@
 			                </div>
 			                <br>		                
 			                <div id="divUserLogin">  
-			              		<a class="p-2 btn btn-kakao btn-block" href="https://kauth.kakao.com/oauth/authorize?client_id=99d19c4d787174d74fec051d2035c26e&redirect_uri=http://localhost:8080/semiproject/user/userLoginForm&response_type=code">  
+			              		<a class="p-2 btn btn-kakao btn-block" id="kakaoBtn" href="https://kauth.kakao.com/oauth/authorize?client_id=99d19c4d787174d74fec051d2035c26e&redirect_uri=http://localhost:8080/semiproject/user/userKakaoLoginForm&response_type=code">  
 			                		<span class="icon-social icon-kakao"></span>Login with Kakao
 			                	</a>
 
@@ -152,7 +152,11 @@ $('#btnUserLogin').click(function(){
 				}
 			});
 		}
-
+	
+	
+	////////////////////////////유진수정//////////////////////////////////
+	
+	//$('#kakaoBtn').click(function(){})
 });
 
 

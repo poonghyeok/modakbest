@@ -63,6 +63,10 @@ public interface UserDAO {
 		public String getUserNameByUserId(int board_uid);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
+		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
+
+		public void kakaoinsert(HashMap<String, Object> userInfo);
+
 
 
 		

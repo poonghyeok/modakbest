@@ -52,9 +52,12 @@ public interface UserService {
     	
     	public void pwdFindChangeComplete(Map<String, String> map);
     	
-    	public String getAccessToken(String authorize_code);
+    	public String getAccessToken(String code);
+
+		//public HashMap<String, Object> getUserInfo(String access_Token);
+    	public UserAllDTO getUserInfo(String access_Token);
     	
-    	public HashMap<String, Object> getUserInfo(String access_Token);
+    	
   	//유진 : 끝 0706====================================
 	
 
@@ -73,19 +76,10 @@ public interface UserService {
     	public String getUserNameByUserId(int board_uid);
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-
+		
 
 
 		
-
-	
-		
-	
-
-
-
-
-
 
 
 		
