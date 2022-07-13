@@ -94,32 +94,27 @@
 						</article>
 					</div>
 
-						<!--추천수-->
-						<div id="content-function" class="content-function pull-right text-center">
-							<div class="content-function-group">
-								<div class="note-evaluate-wrapper">
-									<a href="javascript://" class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281"> 
-										<i id="note-evaluate-assent-2853281" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
-									</a>
-									<div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
-									<a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
-									 <i id="note-evaluate-dissent-2853281" class="fa fa-angle-down note-evaluate-dissent-dissent" data-placement="left" data-toggle="tooltip" title="" data-original-title="반대"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-						<!--페이스북-->
-						<div class="content-function-cog share-btn-wrapper">
-							<div class="dropdown">
-								<a	href="http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fokky.kr%2Farticle%2F1266491" class="btn-facebook-share">
-									<i class="fa fa-facebook-square fa-fw" data-toggle="tooltip" data-placement="left" title="" data-original-title="페이스북 공유"></i>
+					<!--추천수-->
+					<div id="content-function" class="content-function pull-right text-center">
+						<div class="content-function-group">
+							<div class="note-evaluate-wrapper">
+								<a href="javascript://" class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281"> 
+									<i id="note-evaluate-assent-2853281" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
+								</a>
+								<div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
+								<a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
+								 <i id="note-evaluate-dissent-2853281" class="fa fa-angle-down note-evaluate-dissent-dissent" data-placement="left" data-toggle="tooltip" title="" data-original-title="반대"></i>
 								</a>
 							</div>
 						</div>
-	
-						<div id="content-function" class="content-function pull-right text-center">
-							<div class="content-function-group"></div>
-						</div>
+					</div>
+					<!--페이스북, 글관리-->
+					<div class="content-function-cog note-submit-buttons clearfix">
+	                    <p><a href="#" id="boardDelete" class="btn btn-default btn-wide">삭제</a></p>
+	                    <input type="button" name="boardUpdate" id="boardUpdate" class="btn btn-success btn-wide" value="수정">
+                    </div>
+		            <!--페이스북, 글관리-->
+		            
 				</div> <!-- <div class="content-container clearfix"> -->
 			</div><!-- <div class="panel panel-default clearfix fa-"> -->
 			
