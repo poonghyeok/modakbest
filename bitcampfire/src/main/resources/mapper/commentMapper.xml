@@ -36,5 +36,11 @@
 	<select id="getCommentListByBoardId" parameterType="java.lang.String" resultType="CommentDTO">
 		SELECT * FROM COMMENT2 WHERE cmt_bid = ${cmt_bid}
 	</select>
+	
+	<update id="increaseCommentCount" parameterType="java.lang.String">
+		UPDATE board_review
+		SET board_cmt_cnt = board_cmt_cnt + 1
+		WHERE board_id = ${cmt_bid} 
+	</update>
 <!-- ======================== 풍혁 끝 ======================== -->	
 </mapper>

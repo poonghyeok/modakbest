@@ -4,9 +4,6 @@
 <!DOCTYPE html>
 		<!--댓글 -->
             <ul class="list-group" id = "comment_list">
-                <li id="note-title" class="list-group-item note-title">
-			       <h3 class="panel-title">댓글 <span id="note-count">${boardDTO.board_cmt_cnt}</span></h3> 
-                </li>
                 <li class="list-group-item note-form clearfix">
 					<c:if test="${empty sessionScope.memEmail}">
 						<div class="panel-body">
@@ -23,7 +20,7 @@
 					            <div style="margin-left: 5px;">
 					                <div class="avatar clearfix avatar-medium ">
 					                    <a href="/user/info/133376" class="avatar-photo"><img
-					                            src=	"https://phinf.pstatic.net/contact/20211028_110/1635420435445Maxwx_JPEG/IMG_5687.jpg"></a>
+					                            src="https://phinf.pstatic.net/contact/20211028_110/1635420435445Maxwx_JPEG/IMG_5687.jpg"></a>
 					                    <div class="avatar-info">
 					                        <a class="nickname" href="/user/info/133376" title="${sessionScope.memNickname}">${sessionScope.memNickname}</a>
 					                        <div class="activity block"><span class="fa fa-flash"></span> 0</div>
@@ -33,11 +30,11 @@
 					            <fieldset class="form" id="commentFormChange">
 					                <input type="hidden" name="textType" value="HTML" id="note.textType">
 					                <textarea name="note.text" id="note-create" placeholder="댓글 쓰기" class="form-control"></textarea>
+				            		<form id="commentContent" style="display:none"><textarea id="summernote" name="editordata"></textarea></form>
 					            </fieldset>
 					        </div>
 					        <div class="content-function-cog note-submit-buttons clearfix">
-					            <p><a href="javascript://" id="note-create-cancel-btn" class="btn btn-default btn-wide"
-					                    style="display: none;">취소</a></p>
+					            <p><span id="note-create-cancel-btn" class="btn btn-default btn-wide">취소</a></span>
 					            <input type="button" name="create" id="btn-create-btn" class="btn btn-success btn-wide" value="등록">
 					        </div>
 				    </c:if>

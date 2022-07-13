@@ -23,7 +23,9 @@ public interface BoardDAO {
 		public int getTotalBoardSearchNum(String keyword);
 		
 		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map);
-		
+
+		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption);
+
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
@@ -31,13 +33,17 @@ public interface BoardDAO {
 		public BoardDTO getBoardContent(int board_id);
 		
 		public void setHit(int board_id);
-	// 정수 : 끝  ###################### 
 
 		public int recommendCheck(Map<String, Object> map);
 
 		public void increaseRecommend(Map<String, Object> map);
 
 		public void recommendCancel(Map<String, Object> map);
+
+
+		
+
+	// 정수 : 끝  ###################### 
 
 
 

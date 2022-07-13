@@ -41,7 +41,13 @@ public class CommentDAOMyBatis implements CommentDAO {
 	@Override
 	public List<CommentDTO> getCommentListByBoardId(int cmt_bid) {
 		
-		return sqlSession.selectList("getCommentListByBoardId", cmt_bid);
+		return sqlSession.selectList("commentSQL.getCommentListByBoardId", cmt_bid);
+	}
+	
+	@Override
+	public void increaseCommentCount(int cmt_bid) {
+		
+		sqlSession.update("commentSQL.increaseCommentCount",cmt_bid);
 	}
 //풍혁 끝: =================================
 

@@ -15,6 +15,7 @@ public interface CommentService {
 //풍혁 시작 : =================================
 	public void write(CommentDTO commentDTO);
 	public List<CommentDTO> getCommentListByBoardId(int cmt_bid);
+	public void increaseCommentCount(int cmt_bid);
 //풍혁 끝: =================================
 
 	
