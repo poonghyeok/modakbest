@@ -132,7 +132,7 @@
   	
   	
   	<select id="findKakao" parameterType="java.util.HashMap" resultType="UserAllDTO">
-		select * from user2 where user_name=#{nickname} and user_email=#{email}
+		select * from user2 where user_email=#{email}
 	</select>
 
 	<!-- 정보 저장 -->

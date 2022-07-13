@@ -70,9 +70,6 @@
 							<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
 							
 
-							<input type="text" name="class_academy" class="form-control input-sm" required="" placeholder="학원명" value="" id="class_academy">
-
-		                    
 							<!-- <label for="user_img" class="form-label"></label>
 							<div class="user_profile">
 								<div class='avatar-photo' id="avatar-photo"><img id="basic_profile_img" src=""></div>

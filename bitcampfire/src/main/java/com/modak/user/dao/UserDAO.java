@@ -52,6 +52,10 @@ public interface UserDAO {
 		public UserDTO getUserInformation(String user_email);
 		
 		public void pwdFindChangeComplete(Map<String, String> map);
+		
+		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
+
+		public void kakaoinsert(HashMap<String, Object> userInfo);
 	//유진 : 끝 0706====================================
 	
 
@@ -69,9 +73,7 @@ public interface UserDAO {
 		public String getUserNameByUserId(int board_uid);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
-		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
 
-		public void kakaoinsert(HashMap<String, Object> userInfo);
 
 
 

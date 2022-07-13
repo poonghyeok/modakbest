@@ -36,7 +36,7 @@ public class UserMyPageController {
 	public ModelAndView userPageForm(@RequestParam("user_id") String user_id) {
 		System.out.println("mypage con =" + user_id);
 		ModelAndView mav = new ModelAndView();
-		UserDTO userDTO = (UserDTO)userService.getUserInfo(user_id);
+		UserDTO userDTO = (UserDTO)userService.getUserInfo2(user_id);
 		
 		mav.setViewName("/user/userPageForm");
 		mav.addObject("userDTO",userDTO);
