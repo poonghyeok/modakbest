@@ -64,6 +64,7 @@ public class BoardController {
 			mav.addObject("userWriteTableList", userWriteTableList);
 			mav.addObject("boardPagingList", boardPagingList);
 			mav.setViewName("/board/boardList");
+			System.out.println();
 			
 			return mav;
 		}
@@ -114,7 +115,6 @@ public class BoardController {
 			return result;
 		}
 		
-		
 		//풍혁0709 : boardDTO로 이루어진 list에서 각 board_uid를 가지고 각 글에 대한 user_nick name 배열을 받아오는 method
 		private String[] getUserNicknameArray(List<BoardDTO> list) {
 			String[] userNickArray = new String[list.size()];
@@ -126,16 +126,13 @@ public class BoardController {
 			
 			return userNickArray;
 		}
-		
-		
-		
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
 		//목록에서 글 가져와서 jsp 띄우기
 		@GetMapping(value = "getBoardView") // 데이터값 담아서 jsp로 이동
 		public ModelAndView getBoardView(@RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) { // 글번호, 페이지값 
-			//System.out.println("getBoardView 컨트롤러 실행....");
+			System.out.println("getBoardView 컨트롤러 실행....");
 		
 			ModelAndView mav = new ModelAndView(); // boardView.jsp 에 데이터 넣어 보내기
 			mav.addObject("board_id", board_id); // 글번호값이랑 
@@ -155,38 +152,72 @@ public class BoardController {
 			
 			mav.addObject("cateidToString", boardDTO.cateidToString());
 			
-			//System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
-			//System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
+			System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
+			System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
 			mav.setViewName("board/boardView"); // boardView.jsp로 보냄 
 			return mav; // 스프링한테 데이터랑 목적지 꺼내봐 하는거
 		}
 		
 		@GetMapping(value = "/recommend")
 		@ResponseBody
-		public int recommend(@RequestParam int vote_uid, int vote_bid) { // 게시글 번호와, 추천유저아이디 
+		public int recommend(@RequestParam int vote_uid, int vote_cateid, int vote_bid) { // 게시글 번호와, 추천유저아이디 
 			
-			System.out.println("****** TEST recommend Controller");
+			System.out.println("****** TEST 추천 컨트롤러*************");
+			System.out.println("추천글번호 :" + vote_bid + " | " + "유저번호 :" +  vote_uid + "|" +  "카테번호 :" + vote_cateid);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 		
 			map.put("vote_uid", vote_uid);
+			map.put("vote_cateid", vote_cateid);
 			map.put("vote_bid", vote_bid);
 			
 			int recommendCheck =  boardService.recommendCheck(map);	 // 추천수를 이미 눌렀는지 체크 - DB에서 가져와서 보자
 			
-			System.out.println("****** TEST recommendCheck" + recommendCheck);
+			System.out.println("****** TEST recommendCheck : " + recommendCheck);
 			
 			// 0또는 1일때 
-			if (recommendCheck == 0 ) {
-				boardService.increaseRecommend(map);
-			} else {
-				System.out.println("추천을 취소하시겠습니까?");
-				boardService.recommendCancel(map);
-			}
-			
+			if (recommendCheck == 0) {
+				boardService.increaseRecommend(map); // 추천수 한번만 누르면 db가서 추천됨
+				boardService.addVote(map);  // 추천 정보를 (추천유저, 추천한 게시글번호) vote 테이블에 넣어주기! 그래야 0에서 1이 되고 더 올라가지 않음. 1이 되면 ajax가서 반환되어서 추천을 취소? 물어봄
+			} 
 			return recommendCheck;
 			
 		}
-	// 정수 : 끝  ###################### 
+		
+		  // 추천수 취소 기능
+		  @GetMapping(value = "/recommendCancel")
+		  @ResponseBody 
+		  public void recommendCancel(@RequestParam int vote_uid,@RequestParam int vote_cateid,@RequestParam int vote_bid) {
 			
+			System.out.println("**** 추천취소 컨트롤러");
+					  
+			Map<String, Object> map = new HashMap<String, Object>();
+					  
+			map.put("vote_uid", vote_uid); 
+			map.put("vote_cateid", vote_cateid);
+			map.put("vote_bid", vote_bid);
+					  
+			boardService.deleteVote(map); 
+			boardService.recommendCancel(map);
+		  
+		  }
+		  
+		  // 글 수정
+		  @PostMapping(value = "/boardEditForm")
+		  @ResponseBody
+		  public BoardDTO boardEdit(@RequestParam int board_id) {
+			  
+			   BoardDTO boardDTO = boardService.boardEditForm(board_id);
+			   return boardDTO;
+		  }
+		  
+		  
+		  
+		  // 글 삭제
+		  
+		  
+		  
+		  
+		  
+	// 정수 : 끝  ###################### 
 }

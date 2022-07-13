@@ -72,7 +72,7 @@ public interface UserService {
 
     	public void userLogout();
 
-    	public UserDTO getUserInfo(String user_id);
+    	public UserDTO getUserInfo2(String user_id);
     // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 

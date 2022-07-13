@@ -71,22 +71,35 @@
 			update board_review set board_view_cnt = board_view_cnt +1 where board_id = #{board_id} 
 		</update>
 		
-		<!-- 추천수 중복방지 -->
+		<!-- 추천수 체크 (중복방지) -->
 		<select id = "recommendCheck" parameterType = "java.util.Map" resultType= "int">
-			select count(*) from vote where board_id = ${vote_bid} and board_uid = ${vote_uid}
+			select count(*) from vote where vote_bid = ${vote_bid} and vote_uid = ${vote_uid}
 		</select>
 		
-		<!-- 추천수 -->		
-		<update id = "increaseRecommend" parameterType = "int">
-			update vote set board_vote_cnt = board_vote_cnt +1 where board_id = #{board_id}
+		<!-- 추천수 증가 (board_review 에 증가시켜 view에서 보여줌)-->
+		<!-- #: String(" ") / $:not String(" "없음) -->
+		<update id = "increaseRecommend" parameterType = "java.util.Map">
+			update board_review set board_vote_cnt=board_vote_cnt+1 where board_id = ${vote_bid} 
 		</update>
 		
-		<!-- 추천수 취소 -->
+		<!-- 추천 정보 추가 (vote테이블에 추가) -->
+		<insert id="addVote" parameterType="java.util.Map">
+			insert into vote values(vote_seq.nextval, ${vote_uid}, 1, ${vote_bid})
+		</insert>
+			
+		<!-- 추천수 취소 (board_review에서 삭제)-->
 		<update id = "recommendCancel" parameterType = "int">
-			update vote set board_vote_cnt = board_vote_cnt -1 where board_id = #{board_id}
+			update board_review set board_vote_cnt = board_vote_cnt-1 where board_id = ${vote_bid}
 		</update>
 		
+		<!-- 추천 정보 삭제 (vote 에서 삭제)-->
+		<update id="deleteVote" parameterType="java.util.Map">
+			delete from vote where vote_uid = ${vote_uid} and vote_bid = ${vote_bid} and vote_cateid = ${vote_cateid}
+		</update>
+		
+		<!-- 글 수정 -->
+		<insert id="boardEditForm" parameterType = "BoardDTO">
+			select * from board_review where board_id = ${board_id}
+		</insert>
 	<!-- ####################### 정수 : 끝  ###################### -->
-	
-
 </mapper>

@@ -39,6 +39,12 @@ public interface BoardDAO {
 
 		public void recommendCancel(Map<String, Object> map);
 
+		public void addVote(Map<String, Object> map);
+
+		public void deleteVote(Map<String, Object> map);
+
+		public BoardDTO boardEditForm(int board_id);
+
 
 
 
