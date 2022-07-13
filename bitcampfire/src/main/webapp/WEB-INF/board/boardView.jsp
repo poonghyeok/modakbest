@@ -28,7 +28,7 @@
 	        
 	   		<!-- main-banner -->  
         
-      <!-- 글 카테고리, 새글쓰기  -->
+        	<!-- 글 카테고리, 새글쓰기  -->
 	        <div class="nav" role="navigation">
 	            <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
 	            <h4>${cateidToString}</h4>
@@ -95,7 +95,6 @@
 					</div>
 
 					<!--추천수-->
-
 					<div id="content-function" class="content-function pull-right text-center">
 						<div class="content-function-group">
 							<div class="note-evaluate-wrapper">
@@ -105,7 +104,19 @@
 								<div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
 								<a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
 								 <i id="note-evaluate-dissent-2853281" class="fa fa-angle-down note-evaluate-dissent-dissent" data-placement="left" data-toggle="tooltip" title="" data-original-title="반대"></i>
-
+								</a>
+							</div>
+						</div>
+					</div>
+					<!--페이스북, 글관리-->
+					<div class="content-function-cog note-submit-buttons clearfix">
+	                    <p><a href="#" id="boardDelete" class="btn btn-default btn-wide">삭제</a></p>
+	                    <input type="button" name="boardUpdate" id="boardUpdate" class="btn btn-success btn-wide" value="수정">
+                    </div>
+		            <!--페이스북, 글관리-->
+		            
+				</div> <!-- <div class="content-container clearfix"> -->
+			</div><!-- <div class="panel panel-default clearfix fa-"> -->
 			
 			<!-- 중간배너광고 -->
 			<div class="main-banner-wrapper">
