@@ -66,8 +66,7 @@ public class UserLoginController {
 	@ResponseBody
 	public String login(@RequestParam Map<String, String> map) {
 		return userService.login(map);
-	}
-	
+	}	
 	/* 로그인 기능구현  끝 */ 
 	
 
@@ -177,6 +176,7 @@ public class UserLoginController {
 			// 아래 코드가 추가되는 내용
 			//session.invalidate();
 			// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+			//if(userInfo==null) {
 			session.setAttribute("memName", userInfo.getUser_name());
 			session.setAttribute("memEmail", userInfo.getUser_email());
 
@@ -186,10 +186,13 @@ public class UserLoginController {
 
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
-			
+					
 			return "home2";
-	    	}
-		
+//				return userService.kakaoinsert(userInfo);
+//	    	}else { 	    
+//	    		return "home2"; //로그인 실패 창
+//	    	}
+		}
 		
 		
 //@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

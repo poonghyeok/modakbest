@@ -41,17 +41,13 @@ public class UserUpdateController {
 	@Autowired
 	HttpSession session;
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-	
-	//@@@연수 추가(220711)
+	private BCryptPasswordEncoder passwordEncoder;	
 	@Autowired
 	private JavaMailSender mailSender3;
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
-	//@@@연수 추가(220711)
 	
 	//회원정보 수정 시작
 	//회원정보 수정폼 띄우기
-	//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
 	@GetMapping(value="userUpdateForm")
 	public String userUpdateForm(Model model) {
 		model.addAttribute("classList", userService.classList());	
@@ -81,8 +77,7 @@ public class UserUpdateController {
 		return userService.userUpdate_emailCheck(user_email);	
 	}
 	
-	//@@@@@@@@@@@@  이메일 인증 for 이메일 변경 @@@@@@@@@@@@
-	//이메일 인증
+	///이메일 인증 - 이메일 변경
 	@GetMapping("mailCheck_updateEmail")
 	@ResponseBody
 	public String mailCheck_updateEmail(String user_email) throws Exception{
@@ -188,8 +183,6 @@ public class UserUpdateController {
 		userService.update_userEmail(map);
 	}
 	//회원정보 수정 끝
-	//@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@	
-	
 	
 	//비밀번호 변경 시작
 	//비밀번호 수정폼 띄우기
@@ -265,26 +258,6 @@ public class UserUpdateController {
 	public String userDeleteComplete() {
 		return "/user/userDeleteComplete";
 	}
-	//회원탈퇴 끝
-	
-	
-	
-	//삭제해주세요
-	   //@@@ 연수 카카오 탈퇴 추가(220713)
-	   //회원탈퇴-탈퇴 후 정보보관 기간(60일) 기능 ??
-	   @RequestMapping(value="delete")   
-	   public String delete(HttpSession session) {
-	      String access_Token = (String)session.getAttribute("memAccessToken");
-	      String user_email = (String) session.getAttribute("memEmail"); 
-	      if(access_Token==null) {
-	         userService.delete(user_email);
-	      }else {   
-	         userService.kakaoUnlink(access_Token);
-	         userService.delete(user_email);
-	      }
-	      session.invalidate();
-	      return "redirect:/";
-	   }    
-	   //@@@ 연수 카카오 탈퇴 추가(220713)
+	//회원탈퇴 끝	
 	
 }

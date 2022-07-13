@@ -85,7 +85,10 @@ public interface UserService {
 
     	//@@@ 연수 카카오 로그아웃 추가(220712)
 		public void kakaoLogout(String access_Token);
-    public void kakaoUnlink(String access_Token);
+		public void kakaoUnlink(String access_Token);
+
+		//연수 수정중!!!!!
+		//public String kakaoinsert(UserAllDTO userInfo);
 
 
 		

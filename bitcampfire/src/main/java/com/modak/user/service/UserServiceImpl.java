@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUser(user_email);
 		}
 		
-		//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
 		@Override
 		public List<ClassDTO> classList() {			
 			return userDAO.classList();
@@ -367,18 +366,70 @@ public class UserServiceImpl implements UserService {
 			// catch 아래 코드 추가.
 			UserAllDTO result = userDAO.findkakao(userInfo);
 			// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
-			System.out.println("S:" + result);
+			System.out.println("S:" + result.getUser_email());
 			if(result==null) {
 			// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
+				//System.out.println("삽입가능");
 				userDAO.kakaoinsert(userInfo);
 				// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
 				return userDAO.findkakao(userInfo); 
 				// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
 				//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
 			} else {
-				return result;
+				return userDAO.findkakao(userInfo); 
 			}
 		}
+		
+//		@Override
+//		public UserAllDTO getUserInfo(String access_Token) {
+//			HashMap<String, Object> userInfo = new HashMap<String, Object>();
+//			
+//			String reqURL = "https://kapi.kakao.com/v2/user/me";
+//			
+//			 //access_token을 이용하여 사용자 정보 조회
+//			try {
+//				URL url = new URL(reqURL);
+//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//				
+//				conn.setRequestMethod("POST");
+//			    conn.setDoOutput(true);
+//				conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+//				
+//				//결과 코드가 200이라면 성공
+//				int responseCode = conn.getResponseCode();
+//				System.out.println("responseCode : " + responseCode);
+//				
+//				//요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+//				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//				String line = "";
+//				String result = "";
+//				
+//				while ((line = br.readLine()) != null) {
+//					result += line;
+//				}
+//				
+//				System.out.println("response body : " + result);
+//				
+//				//Gson 라이브러리로 JSON파싱
+//				JsonParser parser = new JsonParser();
+//				JsonElement element = parser.parse(result);
+//				
+//				JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+//				JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+//				//name도 가져오면 안되남?
+//				String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+//				String email = kakao_account.getAsJsonObject().get("email").getAsString();
+//				//String name = kakao_account.getAsJsonObject().get("name").getAsString();
+//				//name도 가져오면 안되남?
+//				userInfo.put("nickname", nickname);
+//				userInfo.put("email", email);
+//				//userInfo.put("name", name);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			//연수수정중(220713)			
+//			  return userDAO.findkakao(userInfo);
+//		}
 		
 		
 	//유진 : 끝 ====================================
@@ -500,6 +551,11 @@ public class UserServiceImpl implements UserService {
 		    }
 		
 		}
+
+//		@Override
+//		public String kakaoinsert(UserAllDTO userInfo) {			
+//			return userDAO.kakaoinsert(userInfo);
+//		}
 		
 
 
