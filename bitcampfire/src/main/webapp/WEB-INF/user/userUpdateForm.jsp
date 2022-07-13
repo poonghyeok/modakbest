@@ -9,7 +9,6 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> -->
 	<link rel="stylesheet" href="/semiproject/css/user/select2.css">
 </head>			
 <body>
@@ -19,6 +18,8 @@
  		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/>
  		
 				<div id="create-user" class="content clearfix" role="main">
+				<input type="hidden" id="accessToken_kakao" value="${sessionScope.memAccessToken}">
+				
 				    <h3 class="content-header">회원 정보 수정</h3>
 				    <div class="col-md-6 main-block-left">				    
 				        <div class="panel panel-default">				                    		
@@ -31,18 +32,11 @@
 										</div>
 									</div>				
 																					
-				           			<a id="edit-picture-btn">변경</a>	
-				           			<!-- input type="file" style="display:none;" name="user_image" accept="image/gif, image/jpg, image/jpeg, image/png" id="user_image"> -->		  						           	
+				           			<a id="edit-picture-btn">변경</a>					           				  						           	
 	           			
 					            <!-- user_imgUpdateForm -->
 			           			<form id="update_userImgForm">				           			
-			           				<div class="profile-picture-list" style="display:none; width: 153px;" id="user_imglist">	           			
-			           			    	<!-- 일단 삭제: 만약 해준다면 기본이미지를 어떻게 넣어주지?			
-				            		    <div class="profile-picture" data-id="0">
-						   					<span class="avatar-photo"><img src='/semiproject/storage/basic.png'/></span> 
-						   					<span>기본이미지</span>
-				   						</div> -->		
-				   						
+			           				<div class="profile-picture-list" style="display:none; width: 153px;" id="user_imglist">			   						
 					           			<div class="profile-picture selected" style="width: 130px;"><!-- id=profile-uploaded-image -->
 						   					<span class="avatar-photo"><img src="/semiproject/storage/${sessionScope.memImg}" id="uploaded_user_image"/></span>
 						   					<span style="font-size: 15px;">my profile</span>
@@ -84,12 +78,11 @@
 				                    <div class="form-group">				                    					                    				                    
 				                        <label class="control-label" for="class_academy">학원명</label>		
 					                    <c:if test ="${!empty classList }">
-								 		<select name="user_classid" class="form-control input-sm" id="user_classid" > 
-											<option></option>
+								 		<select name="user_classid" class="form-control input-sm" id="user_classid" >
+											<option value="0" selected>==선택안함==</option>							
 											<c:forEach items="${classList }" var="classList">
 												<option value="${classList.class_id}">${classList.class_academy}</option>
 											</c:forEach>
-											<option hidden value="0" selected disabled ></option>										
 										</select> 
 										</c:if>
 									</div>
@@ -107,7 +100,7 @@
 				        </div><!-- panel panel-default -->
 				    </div><!-- col-md-6 main-block-left -->
 				    
-			        <div class="col-md-6 main-block-right">
+			        <div class="col-md-6 main-block-right">				       
 				    	<div class="panel panel-default">
 				    		<div class="panel-heading">
 				                <h5 class="panel-header">이메일 변경</h5>
@@ -125,7 +118,7 @@
 							               		   	<input type="hidden" name="user_email_check" id="user_email_check" value="">
 						               			</div>
 						               			<div class="col-sm-1 col-xs-offset-1">			                                    		                                       			
-													<button class="btn btn-primary btn-xm btn-sm" type="button" id="emailBtn" style="font-size:9pt;" disabled>인증번호</button>
+													<button class="btn btn-primary btn-xm btn-sm" type="button" id="emailBtn" style="font-size:9pt;" disabled id="emailCode_kakao">인증번호</button>
 												</div>	
 					               		   </div>
 				               		 
@@ -143,31 +136,41 @@
 								<input type="button" class="btn btn-primary btn-block" id="update_userEmailBtn" value="이메일 변경">
 								</form>
 							<!-- </div>  panel-body panel-margin   -->
-				    	</div><!-- panel panel-default -->				     
+				    	</div><!-- panel panel-default -->				    	     
 				        <!-- 비밀번호 변경  / 회원탈퇴 -->
 		               <div class="panel panel-default">
-            				<form class="form-signup form-user panel-body">			            
-				                <a href="/semiproject/user/userPasswordChange" class="btn btn-info btn-block">비밀번호 변경</a>
+            				<form class="form-signup form-user panel-body">			 
+         				 		<!-- @@@ 연수 수정(220713) 카카오톡 가입자는 노출안됨 @@@ -->        
+				                <a href="/semiproject/user/userPasswordChange" class="btn btn-info btn-block" id="pwdChange_kakao">비밀번호 변경</a>				                
 				                <a href="/semiproject/user/userDeleteConfirm" class="btn btn-default btn-block">회원 탈퇴</a>				           
 				        	</form>
+		
 				        </div> <!--panel panel-default -->				
 			    	</div> <!-- col-md-6 main-block-right -->	
 			    	   
 			</div><!-- create-user -->  
-		
 		 <jsp:include page="/WEB-INF/global/footer.jsp"/>
    </div> <!-- main -->   
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
 <script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
 <script type="text/javascript">
-<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-$('#user_classid').select2({	
-	placeholder: "학원을 선택하세요",	
-	allowClear: true
+/* @@@ 카카오톡 가입회원이 사용할 수 없는 기능 추가(220713) */
+$(function(){
+	if($('#accessToken_kakao').val()!='') {
+		$('#pwdChange_kakao').click(function(){
+			alert('[비밀번호] : 카카오톡 연동 가입회원은 비밀번호 변경이 불가합니다.');
+			return false;
+		});
+		$('#update_userEmailBtn').attr('disabled', true);	
+		$('#user_email').attr('disabled', true);
+		$('#check_alert_userEmail').show();
+		$('#check_alert_userEmail').html('[이메일] : 카카오톡 연동 가입회원은 이메일 변경이 불가합니다.');
+		$('#check_alert_userEmail').css('color', 'red');
+		$('#check_alert_userEmail').css('font-size', '8px');
+	}	
 });
 
 $('#check_alert').hide();
@@ -368,8 +371,9 @@ $('#update_userInfoBtn').click(function(){
 $('#user_email').change(function(){
 	$('#check_alert_userEmail').hide();
 	$('#emailBtn').attr('disabled',false);
-	
-	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+	var regExp =/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+	//var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
 	if($('#user_email').val() == ''){		
 		$('#check_alert_userEmail').show();
@@ -410,12 +414,13 @@ $('#user_email').change(function(){
 					$('#check_alert_userEmail').css('font-size', '8px');
 					$('#emailBtn').attr('disabled',true);
 				} 
+				
 			},
 			error: function(err){
 				console.log(err);
 			}
 		});
-	}		
+	}	
 });
 
 //이메일 인증 	
