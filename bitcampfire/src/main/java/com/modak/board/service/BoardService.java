@@ -38,6 +38,12 @@ public interface BoardService {
 		public void increaseRecommend(Map<String, Object> map);
 
 		public void recommendCancel(Map<String, Object> map);
+
+		public void addVote(Map<String, Object> map);
+
+		public void deleteVote(Map<String, Object> map);
+
+		public BoardDTO boardEditForm(int board_id);
 		
 	// 정수 : 끝  ###################### 
 

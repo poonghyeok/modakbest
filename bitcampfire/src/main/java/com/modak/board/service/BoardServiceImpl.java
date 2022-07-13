@@ -278,11 +278,26 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.recommendCancel(map);
 			
 		}
+
+		@Override
+		public void addVote(Map<String, Object> map) {
+			boardDAO.addVote(map);
+		}
+
+		@Override
+		public void deleteVote(Map<String, Object> map) {
+			boardDAO.deleteVote(map);
+			
+		}
+
+		@Override
+		public BoardDTO boardEditForm(int board_id) {
+			return boardDAO.boardEditForm(board_id);
+			
+		}
 	
 		
 		//정수 : 끝 ############################################
 
-	
-	
 	
 }
