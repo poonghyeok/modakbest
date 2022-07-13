@@ -41,6 +41,11 @@ public class CommentServiceImpl implements CommentService {
 		
 		return commentDAO.getCommentListByBoardId(cmt_bid);
 	}
+	
+	@Override
+	public void increaseCommentCount(int cmt_bid) {
+		commentDAO.increaseCommentCount(cmt_bid);
+	}
 //풍혁 끝: =================================
 
 }

@@ -49,6 +49,16 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>   
 <script type = "text/javascript" src="/semiproject/js/user/userSignupForm.js"></script> 
 <script type="text/javascript">
+//연수: 로그인 엔터키 이벤트 수정(220712)
+$(document).ready(function() {
+	$('input').on('keyup', function(e){
+		if(e.keyCode == 13) {
+			//alert('엔터키 눌렀다!');
+			$('#findPwdButton').trigger('click');			
+		}
+	});
+});
+
 var code = "";
 var mailnumCheck = false;
 

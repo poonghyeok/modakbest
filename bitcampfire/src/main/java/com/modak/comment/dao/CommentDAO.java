@@ -22,6 +22,8 @@ public interface CommentDAO {
 
 	public List<CommentDTO> getCommentListByBoardId(int cmt_bid);
 
+	public void increaseCommentCount(int cmt_bid);
+
 //풍혁 끝: =================================
 	
 }

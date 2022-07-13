@@ -9,13 +9,15 @@
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 </head>			
 <body>
-<!-- @@@@ 이게 진짜(연수 220707) @@@@  -->
 	<div class="layout-container">
 		<div class="main index">
-		<input type="hidden" value="${sessionScope.memName }"/>
-		<input type="hidden" value="${sessionScope.memNickname }"/>
-		<input type="hidden" value="${sessionScope.memEmail }"/>
-		
+
+		<!-- 연수 테스트용(220713) -->
+		<input type="text" value="${sessionScope.memName }"/>
+		<input type="text" value="${sessionScope.memNickname }"/>
+		<input type="text" value="${sessionScope.memEmail }"/>
+		<input type="text" value="${sessionScope.memAccessToken }"/>
+
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />
 			<!-- sidebar -->
@@ -29,15 +31,15 @@
 
 			<!-- conten tscaffold-list clearfix -->
 			<div id="index" class="content scaffold-list clearfix" role="main">
-			
-				<!-- 풍혁 0709 : 일단 광고만 표시 이미지로 표시해보자 -->
-				
-			</div>
 				<!-- 풍혁0709 : div 내의 내용은 jquery가 구성한다. --> 
+			</div>
 			<!-- conten tscaffold-list clearfix -->
+
+			<div class="right-banner-wrapper">			
+			</div>	
 			
 			<!-- footer -->
-				<jsp:include page="/WEB-INF/global/footer.jsp"/>
+			<jsp:include page="/WEB-INF/global/footer.jsp"/>
 			<!-- footer -->
 				
 		</div><!-- main-index -->
@@ -46,4 +48,3 @@
 	<script type="text/javascript" src="/semiproject/js/index.js"></script>
 </body>
 </html>
-<!-- @@@@ 이게 진짜(연수 220707) @@@@  -->

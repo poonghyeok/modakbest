@@ -8,55 +8,11 @@
 /*풍혁220709 : 성공 ..!*/
 
 $(function(){
-	editor();
-	//makeIndexDiv(1,5,'left', 'Editor choice');
-	//makeIndexDiv(1,5,'right', 'Weekly Best');
-	//makeIndexDiv(1,8,'left', 'Q&A');
-	//makeIndexDiv(1,10,'left', '커뮤니티');
-	
-})
-
-function editor(){
 	makeIndexDiv(1,5,'left', 'Editor choice');
-	setTimeout(weekly,10);
-}
-function weekly(){
 	makeIndexDiv(1,5,'right', 'Weekly Best');
-	setTimeout(qna,10);
-}
-
-
-function qna(){
 	makeIndexDiv(1,8,'left', 'Q&A');
-	setTimeout(community,10);
-}
-
-function community(){
 	makeIndexDiv(1,10,'left', '커뮤니티');
-}
-
-/*풍혁0709 메인 우측 광0고 이미지로 띄우기 1차시도 실패*/
-/*function getRightAd(){
-	var temp_ad = 
-		
-		$('<div/>',{
-			class : "temporaryAd"
-		})
-		.append($('<a/>',{
-						href : "https://aihub.or.kr/"
-					}
-				)
-				.append($('<img/>',{
-					src : "/semiproject/img/okky_rigth_ad.png"
-				}))
-		)
-		.appendTo(
-			$('<div>',{class : 'main-block'})		
-		);
-	
-	return categoryOuter('ad','right').append(temp_ad);
-}*/
-
+})
 
 /* 풍혁220709 function 분리하기 */
 function makeIndexDiv(startNum, endNum, location, category){
@@ -72,6 +28,7 @@ function makeIndexDiv(startNum, endNum, location, category){
 			startNum : startNum,
 			endNum : endNum
 			},
+		async : false,
 		success : function(data){
 			console.log(JSON.stringify(data));
 			$('#index').append(categoryOuter(category,location)	.append(getMainBlock(data, category)))
@@ -182,8 +139,13 @@ function getBoardListlink(category){
 /*AJAX에서 BoardDTO 여러개가 들어있는 데이터를 JSON으로 받았을 때*/
 /*여러개의 li tag로 이루어진 ul tag 만들기*/
 function listJsonToTag(data){ /*여기서 data는 json배열 */
+	
 	var panel = $('<ul/>',{ class : "list-group" });
 		for(var i = 0; i < data.boardList.length; i++){ /*여기서 item은 json */
+			let board_title = data.boardList[i].board_title;
+			if(board_title.length > 15){
+				board_title = board_title.substring(0,15) + '...'
+			}
 			panel.append(
 				$('<li/>',{
 					class : "list-group-item list-group-item-small list-group-item-question list-group-has-note clearfix"
@@ -199,7 +161,7 @@ function listJsonToTag(data){ /*여기서 data는 json배열 */
 						.append(
 							$('<a/>',{
 								href : '/semiproject/board/getBoardView?board_id='+data.boardList[i].board_id,
-								text : data.boardList[i].board_title
+								text : board_title
 							})	
 						)
 						.append(

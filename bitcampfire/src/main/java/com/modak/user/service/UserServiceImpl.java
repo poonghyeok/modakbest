@@ -353,10 +353,14 @@ public class UserServiceImpl implements UserService {
 				
 				JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 				JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+				//name도 가져오면 안되남?
 				String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 				String email = kakao_account.getAsJsonObject().get("email").getAsString();
+				//String name = kakao_account.getAsJsonObject().get("name").getAsString();
+				//name도 가져오면 안되남?
 				userInfo.put("nickname", nickname);
 				userInfo.put("email", email);
+				//userInfo.put("name", name);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -368,12 +372,11 @@ public class UserServiceImpl implements UserService {
 			// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
 				userDAO.kakaoinsert(userInfo);
 				// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
-				return userDAO.findkakao(userInfo);
+				return userDAO.findkakao(userInfo); 
 				// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
 				//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
 			} else {
 				return result;
-				// 정보가 이미 있기 때문에 result를 리턴함.
 			}
 		}
 		
@@ -401,11 +404,19 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 
+//		@Override
+//		public void userLogout() {
+//			session.invalidate();
+//			
+//		}
+		
+		//카카오 로그아웃 포함
 		@Override
 		public void userLogout() {
 			session.invalidate();
 			
 		}
+
 
 
 		//*******연수 수정(220707)	
@@ -432,6 +443,65 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserNameByUserId(board_uid);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+		//@@@ 연수 카카오 로그아웃 추가(220712)
+		@Override
+		public void kakaoLogout(String access_Token) {			
+			String reqURL = "https://kapi.kakao.com/v1/user/logout";
+		    try {
+		        URL url = new URL(reqURL);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		        conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		        
+		        int responseCode = conn.getResponseCode();
+		        System.out.println("responseCode : " + responseCode);
+		       
+		        if(responseCode ==400)
+	                throw new RuntimeException("카카오 로그아웃 도중 오류 발생");
+		        
+		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		        
+		        String result = "";
+		        String line = "";
+		        
+		        while ((line = br.readLine()) != null) {
+		            result += line;
+		        }
+		        System.out.println(result);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+		
+		@Override
+		public void kakaoUnlink(String access_Token) {
+		    String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+		    try {
+		        URL url = new URL(reqURL);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		        conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+		        
+		        int responseCode = conn.getResponseCode();
+		        System.out.println("responseCode : " + responseCode);
+		        
+		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		        
+		        String result = "";
+		        String line = "";
+		        
+		        while ((line = br.readLine()) != null) {
+		            result += line;
+		        }
+		        System.out.println(result);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		
+		}
+		
+
 
 
 }

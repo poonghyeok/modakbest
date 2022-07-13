@@ -46,7 +46,8 @@ public class BoardController {
 	//풍혁 : 시작 ==================================
 		//boardList 띄우기.. 게시판 별 boardList
 		@GetMapping(value = "/list")
-		public ModelAndView boardList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req) {
+		public ModelAndView boardList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption) {
+			 
 			
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg);
@@ -54,7 +55,7 @@ public class BoardController {
 			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("memEmail"));
 			String session_email = (String)session.getAttribute("memEmail");
 			
-			String userWriteTableList = boardService.getUserWriteTablelist(pg);
+			String userWriteTableList = boardService.getUserWriteTablelist(pg, sortOption);
 			String boardPagingList = boardService.getBoardPagingList(pg);
 			
 			ModelAndView mav = new ModelAndView();

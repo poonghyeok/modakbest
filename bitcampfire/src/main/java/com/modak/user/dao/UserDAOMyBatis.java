@@ -107,6 +107,18 @@ public class UserDAOMyBatis implements UserDAO {
 			
 		}
 		
+		@Override
+		public UserAllDTO findkakao(HashMap<String, Object> userInfo) {
+			System.out.println("RN:"+userInfo.get("nickname"));
+			System.out.println("RE:"+userInfo.get("email"));
+			return sqlSession.selectOne("userSQL.findKakao", userInfo);
+		}
+
+		@Override
+		public void kakaoinsert(HashMap<String, Object> userInfo) {
+			sqlSession.insert("userSQL.kakaoInsert",userInfo);
+		}
+		
 	//유진 : 끝 0706====================================
 	
 
@@ -141,17 +153,7 @@ public class UserDAOMyBatis implements UserDAO {
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
-		@Override
-		public UserAllDTO findkakao(HashMap<String, Object> userInfo) {
-			System.out.println("RN:"+userInfo.get("nickname"));
-			System.out.println("RE:"+userInfo.get("email"));
-			return sqlSession.selectOne("userSQL.findKakao", userInfo);
-		}
 
-		@Override
-		public void kakaoinsert(HashMap<String, Object> userInfo) {
-			sqlSession.insert("userSQL.kakaoInsert",userInfo);
-		}
 
 
 

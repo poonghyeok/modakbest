@@ -45,9 +45,7 @@ public class UserLoginController {
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 추가 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-
-   //@@@@ 연수 수정(220707)  @@@@///
-	/* 로그인 기능구현 */ 
+   	/* 로그인 기능구현 */ 
 	@GetMapping(value="userLoginForm")
 	public String userLoginForm() {
 		return "/user/userLoginForm";
@@ -62,7 +60,7 @@ public class UserLoginController {
 //			return "/";		
 //		}
 //	}
-	 //@@@@ 연수 수정(220708) @@@@///
+	
 	//로그인-비밀번호 복호화
 	@PostMapping(value="login")
 	@ResponseBody
@@ -72,14 +70,7 @@ public class UserLoginController {
 	
 	/* 로그인 기능구현  끝 */ 
 	
-	/* 로그아웃  */
-	@PostMapping(value="userLogout")
-	@ResponseBody
-	public void logout() {
-		userService.userLogout();
-	}
-	
-		
+
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="userFindPwdForm")
 	public String userFindPwdForm() {
@@ -129,7 +120,7 @@ public class UserLoginController {
 		        }catch(Exception e) {
 		            e.printStackTrace();
 		        }
-		        
+		    
 		        return user_email;
 			}
 			
@@ -153,6 +144,7 @@ public class UserLoginController {
 			map.put("user_email", user_email); 
 			map.put("user_pwd", pwd);
 			
+			session.invalidate();
 			userService.pwdFindChangeComplete(map);
 		}
 		
@@ -180,13 +172,18 @@ public class UserLoginController {
 			System.out.println("###access_Token#### : " + access_Token);
 			System.out.println("###nickname#### : " + userInfo.getUser_name());
 			System.out.println("###email#### : " + userInfo.getUser_email());
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 			
 			// 아래 코드가 추가되는 내용
-			session.invalidate();
+			//session.invalidate();
 			// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
 			session.setAttribute("memName", userInfo.getUser_name());
 			session.setAttribute("memEmail", userInfo.getUser_email());
-			session.setAttribute("memNickname", userInfo.getUser_nickname());
+
+			session.setAttribute("memNickname", userInfo.getUser_nickname()); 
+			session.setAttribute("memImg", userInfo.getUser_img()); //연수추가(220713)
+			session.setAttribute("memAccessToken", access_Token); //연수추가(220713)
+
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
 			
@@ -197,6 +194,22 @@ public class UserLoginController {
 		
 //@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+		//@@@ 연수 카카오 로그아웃 추가(220712)
+		/* 로그아웃  */
+		@RequestMapping(value="logout")	
+		public String logout(HttpSession session) {
+			String access_Token = (String)session.getAttribute("memAccessToken");
+		    
+			if(access_Token==null) {
+			}else {
+				userService.kakaoLogout(access_Token);
+				session.invalidate();
+			}	
+			userService.userLogout();
+			return "redirect:/";
+		}
 
+		//@@@ 연수 카카오 로그아웃 추가(220712)
+		
 
 }

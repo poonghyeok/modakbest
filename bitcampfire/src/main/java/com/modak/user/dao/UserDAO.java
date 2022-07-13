@@ -20,7 +20,7 @@ public interface UserDAO {
 
 	//연수 : 시작(220706) ====================================
 		public UserAllDTO getUser(String user_email);
-		//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
+		
 		public List<ClassDTO> classList();
 	    
 		public UserAllDTO userUpdate_nicknameCheck(String user_nickname);
@@ -32,8 +32,6 @@ public interface UserDAO {
 		public void update_userInfo(UserAllDTO userAllDTO);
 
 		public void update_userEmail(Map<String, String> map);
-
-	    //@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@
 
 		public UserDTO checkPwd(String user_email);
 
@@ -52,6 +50,10 @@ public interface UserDAO {
 		public UserDTO getUserInformation(String user_email);
 		
 		public void pwdFindChangeComplete(Map<String, String> map);
+		
+		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
+
+		public void kakaoinsert(HashMap<String, Object> userInfo);
 	//유진 : 끝 0706====================================
 	
 
@@ -69,9 +71,7 @@ public interface UserDAO {
 		public String getUserNameByUserId(int board_uid);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
-		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
 
-		public void kakaoinsert(HashMap<String, Object> userInfo);
 
 
 
