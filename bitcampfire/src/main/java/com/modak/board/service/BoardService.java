@@ -11,7 +11,7 @@ public interface BoardService {
 	//공통 영역: 끝 =================================
 
 	//풍혁 : 시작 =================================
-		public String getUserWriteTablelist(int pg);
+		public String getUserWriteTablelist(int pg, String sortOption);
 		
 		public String getUserSearchWriteTablelist(int pg, String keyword);
 		

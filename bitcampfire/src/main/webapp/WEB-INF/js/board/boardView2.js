@@ -41,6 +41,13 @@ function getCommentBanner(){
 
 
 $(function(){
+	/*댓글창 summernote 숨기고 시작하기, focus 했을 경우 summernote로 변경됨*/
+	$('#commentContent').hide();
+	/*댓글작성 취소버튼 숨기고 시작하기 */
+	$('#note-create-cancel-btn').hide();
+	/*댓글작성 등록버튼 사용불가능한 상태로 만들어두고 시작*/
+	$('#btn-create-btn').attr('disabled',true);
+	
 	$.ajax({
 		type : 'post',
 		url : '/semiproject/comment/getCommentListByBoardId',
@@ -187,16 +194,137 @@ function jsonToComment(comment){
 				)
 			)
 		)
-	);
+	)
+	.append(
+		/*풍혁 0713 : 댓글 추천 삭제 관리*/
+		$('<div/>',{
+			class : "content-function pull-right text-center" 
+		})
+		.append(
+			$('<div/>',{
+				class : "content-function-group"
+			})
+			.append(
+				$('<div/>',{
+					class : "note-evaluate-wrapper"
+				})
+				.append(
+					$('<span/>',{
+						style : "cursor : pointer",
+						class : "note-vote-btn",
+					})
+					.append(
+						$('<i/>',{
+							class : "fa fa-angle-up note-evaluate-assent-assent",
+							title : '추천'
+						})
+					)
+				)
+				/* 풍혁 0713 : 댓글 추천 보류
+				 * .append(
+					$(
+						$('<div/>',{
+							class : "content-eval-count",
+							text : $('')	
+						})
+					)
+				)*/
+			)
+		)
+	)
+	/*.append( 풍혁0713 : 댓글 수정 삭제 보류, 일단 게시글 목록 정렬 부터 
+		$('<div/>',{
+			class : "content-function-cog",
+			id : "content-function-cog-2860246"
+		})
+		.append(
+			$('<div/>',{
+				class : "dropdown"
+			})
+			.append(
+				$('<a/>',{
+					href : "javascript://",
+					data-toggle : "dropdown"
+				})
+				.append(
+					$('<i/>',{
+						class : "fa fa-cog",
+						data-toggle : "tooltip",
+						data-placement : "left",
+						data-original-title : "게시물 설정"
+						풍혁 0713 : 이 부분 뒤에 prop 으로 해야하는건가...
+						
+					})	
+				)
+			)
+			.append(
+				$('<ul/>',{
+					class : "dropdown-menu",
+					role : "menu"
+				})
+				.append(
+					$('<li/>')
+					.append(
+						$('<a/>',{
+							href : "javascript://",
+							class : "note-edit-btn",
+							data-id : "2860246",
+							text : '수정'
+						})
+						.append(
+							$('<i/>',{
+								class : "fa fa-edit fa-fw"
+							})
+						)
+					)
+				)
+				.append(
+					$('<li/>')
+					.append(
+						$('<a/>',{
+							href : "javascript://",
+							class : "note-delete-btn",
+							data-id : "2860246",
+							text : '삭제'
+						})
+						.append(
+							$('<i/>',{
+								class : "fa fa-trash-o fa-fw"
+							})
+						)
+					)
+				)
+			)
+		)
+	)*/
+	
 	
 	return li.append(form);
 }
 
 
 $('#note-create').focus(function(){
-	$('#commentFormChange').html('<form id="commentContent"><textarea id="summernote" name="editordata"></textarea></form>');
-	setTimeout('summernoteLoad()',0);
+	/*summerNote style 적용*/
+	summernoteLoad();
+	/*summerNote style 적용*/
+	
+	$('#note-create').hide();
+	$('#commentContent').show();
+	$('#note-create-cancel-btn').show();
+	$('#btn-create-btn').attr('disabled', false);
+
 })
+
+$('#note-create-cancel-btn').click(function(){
+	if(confirm('작성하던 내용을 모두 지워집니다. 정말 취소하시겠습니까?')){
+		$('#summernote').summernote('reset');
+		$('#note-create').show();
+		$('#commentContent').hide();
+		$('#note-create-cancel-btn').hide();
+		$('#btn-create-btn').attr('disabled', true);
+	}
+})
+
 
 function summernoteLoad(){
 	$('#summernote').summernote({

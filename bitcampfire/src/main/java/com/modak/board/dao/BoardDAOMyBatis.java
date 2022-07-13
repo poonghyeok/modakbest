@@ -66,6 +66,16 @@ public class BoardDAOMyBatis implements BoardDAO {
 			
 			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
 		}
+		
+		@Override
+		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption) {
+			Map<String, String> newMap = new HashMap<>();
+			newMap.put("startNum", map.get("startNum").toString());
+			newMap.put("endNum", map.get("endNum").toString());
+			newMap.put("sortOption", sortOption);
+			
+			return sqlSession.selectList("boardSQL.getBoardRangeOrder", newMap);
+		}
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 

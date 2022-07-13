@@ -34,7 +34,7 @@
 	            <h4>${cateidToString}</h4>
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
-	    
+			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
 			<input type = "text" id ="board_id" name = "board_id" value="${board_id}">
@@ -175,7 +175,5 @@ $('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
 		}
 });
 </script>
-
- 
 </body>
 </html> 

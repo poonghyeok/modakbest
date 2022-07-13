@@ -77,7 +77,7 @@
 
 	<!-- okky-깃허브에 연동 -->
     <ul class="nav nav-sidebar nav-bottom">
-        <li ><a href="https://github.com/okjsp/okky/issues" class="link" target="_blank"><i class="fa fa-github"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Github Issues</span></a></li>
+        <li ><a href="https://github.com/poonghyeok/modakbest/issues" class="link" target="_blank"><i class="fa fa-github"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Github Issues</span></a></li>
     </ul>
 </div> <!-- sidebar  -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -2,6 +2,7 @@ package com.modak.board.service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	//풍혁 : 시작 ===========================================
 		@Override
-		public String getUserWriteTablelist(int pg) {
+		public String getUserWriteTablelist(int pg, String sortOption) {
 			StringBuffer sb = new StringBuffer();
 			//페이징 처리하려면 다 받아오면 안되잖아. 몇개씩 표시할지 start랑 end정해줘야 되잖아. 
 			
@@ -58,7 +59,8 @@ public class BoardServiceImpl implements BoardService {
 			map.put("startNum", startNum);
 			map.put("endNum", endNum);
 			
-			List<BoardDTO> list = boardDAO.getBoardRangeOrderByTime(map); 
+			List<BoardDTO> list = boardDAO.getBoardRangeOrder(map, sortOption);
+ 
 			System.out.println("\n @ boardTalbeList size : " + list.size());
 			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");

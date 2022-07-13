@@ -29,15 +29,15 @@
 
 			<!-- conten tscaffold-list clearfix -->
 			<div id="index" class="content scaffold-list clearfix" role="main">
-			
-				<!-- 풍혁 0709 : 일단 광고만 표시 이미지로 표시해보자 -->
-				
-			</div>
 				<!-- 풍혁0709 : div 내의 내용은 jquery가 구성한다. --> 
+			</div>
 			<!-- conten tscaffold-list clearfix -->
+
+			<div class="right-banner-wrapper">			
+			</div>	
 			
 			<!-- footer -->
-				<jsp:include page="/WEB-INF/global/footer.jsp"/>
+			<jsp:include page="/WEB-INF/global/footer.jsp"/>
 			<!-- footer -->
 				
 		</div><!-- main-index -->
