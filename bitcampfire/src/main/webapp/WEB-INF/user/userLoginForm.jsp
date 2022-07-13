@@ -46,7 +46,7 @@
 			                </div>
 			                <br>		                
 			                <div id="divUserLogin">  
-			              		<a class="p-2 btn btn-kakao btn-block" id="kakaoBtn" href="https://kauth.kakao.com/oauth/authorize?client_id=99d19c4d787174d74fec051d2035c26e&redirect_uri=http://localhost:8080/semiproject/user/userKakaoLoginForm&response_type=code">  
+			              		<a class="p-2 btn btn-kakao btn-block" id="kakaoBtn" href="#" onclick='window.open("https://kauth.kakao.com/oauth/authorize?client_id=99d19c4d787174d74fec051d2035c26e&redirect_uri=http://localhost:8080/semiproject/user/userKakaoLoginForm&response_type=code", "_blank", "width=500, height=500, scrollbars=no, toolbar=no, menubar=no, status=no, location=no"); return false'>  
 			                		<span class="icon-social icon-kakao"></span>Login with Kakao
 			                	</a>
 
@@ -72,6 +72,22 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>    
 
 <script type="text/javascript">
+/* function open1(url) {
+    //한번 생성된 팝업창을 재사용
+    window.open(url,
+                "myWindow",
+                "width=500, height=500, scrollbars=no, toolbar=no, menubar=no, status=no, location=no");
+			    opener.location.href="http://localhost:8080/semiproject/";
+			    self.close();
+    window.opener.location.reload();
+    window.close();
+} */
+
+setTimeout(function() {
+    opener.location.reload(); //부모창 리프레쉬
+    self.close(); //현재창 닫기
+    }, 2000);
+
 $('#check_alert').hide();  
 
 //연수: 로그인 엔터키 이벤트 수정(220710)

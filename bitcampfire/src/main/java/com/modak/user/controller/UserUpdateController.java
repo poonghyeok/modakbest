@@ -163,10 +163,7 @@ public class UserUpdateController {
 
 		session.setAttribute("memName", userAllDTO.getUser_name());
 		session.setAttribute("memNickname", userAllDTO.getUser_nickname());		
-		session.setAttribute("memClassId", userAllDTO.getUser_classid());	
-		//session.setAttribute("memNickname", userAllDTO.getClass_academy());
-		//session.setAttribute("memNickname", userAllDTO.getClass_class());
-		
+		session.setAttribute("memClassId", userAllDTO.getUser_classid());		
 	}
 	
 	//이메일 주소 변경(아이디값 기준으로 수정)

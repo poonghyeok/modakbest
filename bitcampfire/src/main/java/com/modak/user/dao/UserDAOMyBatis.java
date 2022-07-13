@@ -29,7 +29,7 @@ public class UserDAOMyBatis implements UserDAO {
 		public UserAllDTO getUser(String user_email) {
 			return sqlSession.selectOne("userSQL.getUser", user_email);
 		}
-		//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
+		
 		@Override
 		public List<ClassDTO> classList() {	
 			return sqlSession.selectList("userSQL.classList");
@@ -77,6 +77,21 @@ public class UserDAOMyBatis implements UserDAO {
 		public void delete(String user_email) {
 			sqlSession.delete("userSQL.delete", user_email);		
 		}
+		
+		//@@@@@@ 연수 : 기존 가입 회원 카카오 연동 로그인 시 정보 수정(220712) @@@@@@ 
+//		@Override
+//		public void resetBykakao(HashMap<String, Object> userInfo) {
+//			//기존 데이터 삭제
+//			sqlSession.delete("userSQL.deleteBykakako", userInfo);	
+//			//카카오 데이터 입력
+//			sqlSession.insert("userSQL.insertFromkakako", userInfo);	
+//		}
+
+		@Override
+		public void updateBykakao(HashMap<String, Object> userInfo) {
+			sqlSession.update("userSQL.updateBykakao", userInfo);				
+		}
+
 	//연수 : 끝(220706)====================================
 
 	
@@ -152,19 +167,6 @@ public class UserDAOMyBatis implements UserDAO {
 			return user_nickname;
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-
-
-
-
-
-
-		
-
-
-
-
-
-
 
 
 }

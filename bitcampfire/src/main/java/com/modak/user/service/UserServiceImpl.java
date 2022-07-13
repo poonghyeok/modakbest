@@ -107,6 +107,67 @@ public class UserServiceImpl implements UserService {
 			userDAO.delete(user_email);
 			
 		}
+		
+		//@@@@@@ 연수 : 카카오 로그아웃 추가(220712) @@@@@@ 
+		@Override
+		public void kakaoLogout(String access_Token) {			
+			String reqURL = "https://kapi.kakao.com/v1/user/logout";
+			try {
+				URL url = new URL(reqURL);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+				
+				int responseCode = conn.getResponseCode();
+				System.out.println("responseCode : " + responseCode);
+				
+				if(responseCode ==400)
+					throw new RuntimeException("카카오 로그아웃 도중 오류 발생");
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
+				String result = "";
+				String line = "";
+				
+				while ((line = br.readLine()) != null) {
+					result += line;
+				}
+				System.out.println(result);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		//@@@@@@ 연수 : 카카오 로그아웃 추가(220712) @@@@@@ 
+				
+		//@@@@@@ 연수 : 카카오 회원탈퇴 시 연결 끊기(220712) @@@@@@ 		
+		@Override
+		public void kakaoUnlink(String access_Token) {
+			String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+			try {
+				URL url = new URL(reqURL);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+				
+				int responseCode = conn.getResponseCode();
+				System.out.println("responseCode : " + responseCode);
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
+				String result = "";
+				String line = "";
+				
+				while ((line = br.readLine()) != null) {
+					result += line;
+				}
+				System.out.println(result);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		//@@@@@@ 연수 : 카카오 회원탈퇴 시 연결 끊기(220712) @@@@@@ 	
+				
 	//연수 : 끝(220706) ====================================
 
 	
@@ -313,8 +374,7 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			}
 			return access_Token;
-		}
-		
+		}		
 		
 		@Override
 		public UserAllDTO getUserInfo(String access_Token) {
@@ -352,85 +412,47 @@ public class UserServiceImpl implements UserService {
 				
 				JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 				JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-				//name도 가져오면 안되남?
+				
+				//########## 연수 : name은 개인정보 기본 제공항목에 해당하지 않아 닉네임이 네임으로 대체됨(220713)
 				String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-				String email = kakao_account.getAsJsonObject().get("email").getAsString();
-				//String name = kakao_account.getAsJsonObject().get("name").getAsString();
-				//name도 가져오면 안되남?
+				String email = kakao_account.getAsJsonObject().get("email").getAsString();				
+				
 				userInfo.put("nickname", nickname);
 				userInfo.put("email", email);
-				//userInfo.put("name", name);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}			
 			// catch 아래 코드 추가.
 			UserAllDTO result = userDAO.findkakao(userInfo);
+			//String user_social = result.getUser_social(); //연수 추가
 			// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
-			System.out.println("S:" + result.getUser_email());
+			System.out.println("S:" + result);
+			
+			//@@@@@@@@@@@ 연수 : 기존 이메일 가입 여부에 따른 카카오 연동 가입 회원 정보 입력 방식 변경(220713) @@@@@@@@@@@
+			//미가입자 : 카카오에서 받아온 정보를 넣는다
 			if(result==null) {
-			// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
-				//System.out.println("삽입가능");
+				// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
 				userDAO.kakaoinsert(userInfo);
 				// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
-				return userDAO.findkakao(userInfo); 
+				return userDAO.findkakao(userInfo);
 				// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
-				//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-			} else {
-				return userDAO.findkakao(userInfo); 
+				// result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
+			//기존 이메일 가입자 : 1) 기존 정보 삭제 후 카카오에서 받아온 정보를 넣는다 (id 변경)
+			//}else if(result!=null && result.getUser_social().equals("X") ){
+			//	userDAO.resetBykakao(userInfo); //update or delete+insert
+			//	return userDAO.findkakao(userInfo);
+			//기존 이메일 가입자 : 2) 기존 정보를 업데이트(id 유지)
+			}else if(result!=null && result.getUser_social().equals("X") ){
+				userDAO.updateBykakao(userInfo); //update or delete+insert
+				return userDAO.findkakao(userInfo);	
+			//기존 이메일 가입자&1회 소셜 로그인 성공 후 정보 변경이 완료된 자
+			}else {	
+				// 정보가 이미 있기 때문에 result를 리턴함.
+				return result;				
 			}
-		}
-		
-//		@Override
-//		public UserAllDTO getUserInfo(String access_Token) {
-//			HashMap<String, Object> userInfo = new HashMap<String, Object>();
-//			
-//			String reqURL = "https://kapi.kakao.com/v2/user/me";
-//			
-//			 //access_token을 이용하여 사용자 정보 조회
-//			try {
-//				URL url = new URL(reqURL);
-//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//				
-//				conn.setRequestMethod("POST");
-//			    conn.setDoOutput(true);
-//				conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-//				
-//				//결과 코드가 200이라면 성공
-//				int responseCode = conn.getResponseCode();
-//				System.out.println("responseCode : " + responseCode);
-//				
-//				//요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-//				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//				String line = "";
-//				String result = "";
-//				
-//				while ((line = br.readLine()) != null) {
-//					result += line;
-//				}
-//				
-//				System.out.println("response body : " + result);
-//				
-//				//Gson 라이브러리로 JSON파싱
-//				JsonParser parser = new JsonParser();
-//				JsonElement element = parser.parse(result);
-//				
-//				JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-//				JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-//				//name도 가져오면 안되남?
-//				String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-//				String email = kakao_account.getAsJsonObject().get("email").getAsString();
-//				//String name = kakao_account.getAsJsonObject().get("name").getAsString();
-//				//name도 가져오면 안되남?
-//				userInfo.put("nickname", nickname);
-//				userInfo.put("email", email);
-//				//userInfo.put("name", name);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			//연수수정중(220713)			
-//			  return userDAO.findkakao(userInfo);
-//		}
-		
+			
+		}		
 		
 	//유진 : 끝 ====================================
 
@@ -442,10 +464,12 @@ public class UserServiceImpl implements UserService {
 			UserAllDTO userAllDTO = userDAO.login(map.get("user_email"));
 			
 			if(userAllDTO != null && passwordEncoder.matches(inputPwd, userAllDTO.getUser_pwd())){
-				session.setAttribute("memEmail", userAllDTO.getUser_email());
 				session.setAttribute("memId", userAllDTO.getUser_id());
+				session.setAttribute("memEmail", userAllDTO.getUser_email());
 				session.setAttribute("memNickname", userAllDTO.getUser_nickname());
-				session.setAttribute("memImg", userAllDTO.getUser_img());
+				session.setAttribute("memName", userAllDTO.getUser_name()); //연수추가(220713)
+				session.setAttribute("memImg", userAllDTO.getUser_img());				
+				session.setAttribute("memSocial", userAllDTO.getUser_social()); //연수추가(220713)
 				
 				return "ok";
 				
@@ -454,23 +478,15 @@ public class UserServiceImpl implements UserService {
 				return "fail";
 			}
 		}
-
-//		@Override
-//		public void userLogout() {
-//			session.invalidate();
-//			
-//		}
-		
-		//카카오 로그아웃 포함
+	
+		//로그아웃(이메일 로그인 및 카카오 연동로그인 포함)
 		@Override
 		public void userLogout() {
 			session.invalidate();
 			
 		}
-
-
-
-		//*******연수 수정(220707)	
+		
+		
 		@Override
 		public UserDTO getUserInfo2(String user_id) {
 			UserDTO userDTO = userDAO.getUserInfo(user_id);
@@ -494,70 +510,5 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserNameByUserId(board_uid);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-		//@@@ 연수 카카오 로그아웃 추가(220712)
-		@Override
-		public void kakaoLogout(String access_Token) {			
-			String reqURL = "https://kapi.kakao.com/v1/user/logout";
-		    try {
-		        URL url = new URL(reqURL);
-		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		        conn.setRequestMethod("POST");
-		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-		        
-		        int responseCode = conn.getResponseCode();
-		        System.out.println("responseCode : " + responseCode);
-		       
-		        if(responseCode ==400)
-	                throw new RuntimeException("카카오 로그아웃 도중 오류 발생");
-		        
-		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        
-		        String result = "";
-		        String line = "";
-		        
-		        while ((line = br.readLine()) != null) {
-		            result += line;
-		        }
-		        System.out.println(result);
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		}
-		
-		@Override
-		public void kakaoUnlink(String access_Token) {
-		    String reqURL = "https://kapi.kakao.com/v1/user/unlink";
-		    try {
-		        URL url = new URL(reqURL);
-		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		        conn.setRequestMethod("POST");
-		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-		        
-		        int responseCode = conn.getResponseCode();
-		        System.out.println("responseCode : " + responseCode);
-		        
-		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        
-		        String result = "";
-		        String line = "";
-		        
-		        while ((line = br.readLine()) != null) {
-		            result += line;
-		        }
-		        System.out.println(result);
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		
-		}
-
-//		@Override
-//		public String kakaoinsert(UserAllDTO userInfo) {			
-//			return userDAO.kakaoinsert(userInfo);
-//		}
-		
-
-
 
 }

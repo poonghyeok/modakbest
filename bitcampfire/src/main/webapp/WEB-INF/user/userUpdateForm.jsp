@@ -18,7 +18,7 @@
  		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/>
  		
 				<div id="create-user" class="content clearfix" role="main">
-				<input type="hidden" id="accessToken_kakao" value="${sessionScope.memAccessToken}">
+				<input type="hidden" id="user_social" value="${sessionScope.memSocial}">
 				
 				    <h3 class="content-header">회원 정보 수정</h3>
 				    <div class="col-md-6 main-block-left">				    
@@ -159,7 +159,7 @@
 <script type="text/javascript">
 /* @@@ 카카오톡 가입회원이 사용할 수 없는 기능 추가(220713) */
 $(function(){
-	if($('#accessToken_kakao').val()!='') {
+	if($('#user_social').val()!='X') {
 		$('#pwdChange_kakao').click(function(){
 			alert('[비밀번호] : 카카오톡 연동 가입회원은 비밀번호 변경이 불가합니다.');
 			return false;

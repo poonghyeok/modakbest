@@ -38,6 +38,12 @@ public interface UserDAO {
 		public void pwdChangeComplete(Map<String, String> map);
 
 		public void delete(String user_email);
+		
+		//@@@@@@ 연수 : 기존 가입 회원 카카오 연동 로그인 시 정보 수정(220712) @@@@@@ 
+		//public void resetBykakao(HashMap<String, Object> userInfo);
+		
+		public void updateBykakao(HashMap<String, Object> userInfo);
+		
 	//연수 : 끝시작(220706) ====================================
 	
 	//유진 : 시작 0706 ====================================
@@ -70,6 +76,9 @@ public interface UserDAO {
 
 		public String getUserNameByUserId(int board_uid);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
+		
 
 
 

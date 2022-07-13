@@ -17,7 +17,8 @@
 		<input type="text" value="${sessionScope.memNickname }"/>
 		<input type="text" value="${sessionScope.memEmail }"/>
 		<input type="text" value="${sessionScope.memAccessToken }"/>
-
+		<input type="text" value="${sessionScope.memSocial }"/>
+		
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />
 			<!-- sidebar -->
