@@ -9,12 +9,13 @@
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 </head>			
 <body>
-<!-- @@@@ 이게 진짜(연수 220707) @@@@  -->
 	<div class="layout-container">
 		<div class="main index">
+		<!-- 연수 테스트용(220713) -->
 		<input type="text" value="${sessionScope.memName }"/>
 		<input type="text" value="${sessionScope.memNickname }"/>
 		<input type="text" value="${sessionScope.memEmail }"/>
+		<input type="text" value="${sessionScope.memAccessToken }"/>
 		
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />
@@ -46,4 +47,3 @@
 	<script type="text/javascript" src="/semiproject/js/index.js"></script>
 </body>
 </html>
-<!-- @@@@ 이게 진짜(연수 220707) @@@@  -->

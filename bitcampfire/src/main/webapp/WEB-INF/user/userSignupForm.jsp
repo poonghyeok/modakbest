@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">  
 	<link rel="stylesheet" href="/semiproject/css/user/signupForm.css"> 
 	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> -->
 	<link rel="stylesheet" href="/semiproject/css/user/select2.css">
 </head>
 
@@ -30,43 +29,58 @@
 		              </div>
 		          </div>
 		          <form action="/bitcampfire/user/userSignupComplete" method="post" class="form-signup form-user panel-body" id="userSignupWriteForm">
-						
+					  
+					  <!-- @@@ 연수 : signup form 양식 수정(220713) @@@ -->		
 		              <fieldset>
-			
-		                 	<input type="text" name="user_name" class="form-control input-sm"  placeholder="이름" value="" id="user_name" style="margin-bottom: 10px;">
-							<div class="row">
-		               			<div class="col-md-8">
-			               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" value="" id="user_email" style="margin-bottom: 10px;">
-			               			<input type="hidden" name="user_email_check" id="user_email_check" value="">
-		               			</div>
-		               			<div class="col-md-3">
-									<input type="button" value="인증번호" class="btn btn-primary" type="button" id="emailBtn" disabled="disabled" style="margin-bottom: 10px;">
-								</div>	
-					        </div>
-					       <div class="row"  id="num_check_blank">
-				            	<div class="col-md-8">
-						        	<input type="text" class="form-control input-sm" id="user_email_check_number"placeholder="인증번호 6자리" maxlength="6" style="margin-bottom: 10px;">
-				            	</div>
-				           		<div class="col-md-3">
-							  		<input type="button" value="번호 인증" id="mail-check-input" class="btn btn-primary" style="margin-bottom: 10px;">
-				            	</div>
-				            </div>
-							<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd" style="margin-bottom: 10px;">
+							<div class="form-group">				                    					                    				                    
+					            <label class="control-label" for="class_academy">이름</label>			
+		                 		<input type="text" name="user_name" class="form-control input-sm"  placeholder="이름" value="" id="user_name" >
+							</div>
 							
-							<input type="text" name="user_nickname" class="form-control input-sm" required="" placeholder="닉네임" value="" id="user_nickname" style="margin-bottom: 10px;">
-									
-							<input type="hidden" name="user_nickname_check" id="user_nickname_check" value="">	
-													
+							<div class="form-group">				                    					                    				                    
+					            <label class="control-label" for="class_academy">이메일 주소</label>
+								<div class="row">
+			               			<div class="col-md-8">
+				               			<input type="email" name="user_email" class="form-control input-sm" placeholder="이메일" value="" id="user_email" >
+				               			<input type="hidden" name="user_email_check" id="user_email_check" value="">
+			               			</div>
+			               			<div class="col-md-3">
+										<input type="button" value="인증번호" class="btn btn-primary" type="button" id="emailBtn" disabled="disabled" >
+									</div>	
+						        </div>
+						       <div class="row"  id="num_check_blank">
+					            	<div class="col-md-8">
+							        	<input type="text" class="form-control input-sm" id="user_email_check_number"placeholder="인증번호 6자리" maxlength="6" style="margin-top: 10px;" >
+					            	</div>
+					           		<div class="col-md-3">
+								  		<input type="button" value="번호 인증" id="mail-check-input" class="btn btn-primary" style="margin-top: 10px;">
+					            	</div>
+					            </div>
+					        </div>    
+				            <div class="row" style="visibility:hidden;">줄맞춤을 위한 공간</div> 
+				            <div class="form-group">				                    					                    				                    
+					            <label class="control-label" for="class_academy">비밀번호</label>
+								<input type="password" name="user_pwd" class="form-control input-sm" required="" placeholder="비밀번호" value="" id="user_pwd" >
+							</div>
+						 	
+						 	<div class="form-group">				                    					                    				                    
+					            <label class="control-label" for="class_academy">닉네임</label>
+								<input type="text" name="user_nickname" class="form-control input-sm" required="" placeholder="닉네임" value="" id="user_nickname" >
+										
+								<input type="hidden" name="user_nickname_check" id="user_nickname_check" value="">	
+							</div>						
 		                    <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->                         
-		                    <c:if test ="${!empty classList }">
-					 		<select name="user_classid" class="form-control input-sm" id="user_classid" style="margin-bottom: 10px;">								
-								<option></option>
-								<c:forEach items="${classList}" var="classList">
-									<option value="${classList.class_id}">${classList.class_academy}</option>
-								</c:forEach>
-								<option value="0" selected disabled></option>
-							</select> 
-							</c:if>							
+		                    <div class="form-group">				                    					                    				                    
+					            <label class="control-label" for="class_academy">학원명</label>	
+			                    <c:if test ="${!empty classList }">
+						 		<select name="user_classid" class="form-control input-sm" id="user_classid" >								
+									<option value="0" selected>==선택안함==</option>
+									<c:forEach items="${classList}" var="classList">
+										<option value="${classList.class_id}">${classList.class_academy}</option>
+									</c:forEach>
+								</select> 
+								</c:if>
+							</div>							
 							<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
 							                    
 							<!-- <label for="user_img" class="form-label"></label>
@@ -723,7 +737,6 @@
 </div> <!-- layout-container --> 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
 <script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
 <script type = "text/javascript" src="/semiproject/js/user/userSignupForm.js"></script>
 <script type="text/javascript" src="/semiproject/js/user/all.js"></script>
