@@ -98,7 +98,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 
 			@Override
 			public int recommendCheck(Map<String, Object> map) {
-				return sqlSession.selectOne("boardSQL.recommendCheck", map);
+				return (int)sqlSession.selectOne("boardSQL.recommendCheck", map);
 				
 			}
 
@@ -111,6 +111,23 @@ public class BoardDAOMyBatis implements BoardDAO {
 			@Override
 			public void recommendCancel(Map<String, Object> map) {
 				sqlSession.update("boardSQL.recommendCancel", map);
+			}
+
+			@Override
+			public void addVote(Map<String, Object> map) {
+				sqlSession.insert("boardSQL.addVote", map);
+			}
+
+			@Override
+			public void deleteVote(Map<String, Object> map) {
+				sqlSession.update("boardSQL.deleteVote", map);
+				
+			}
+
+			@Override
+			public BoardDTO boardEditForm(int board_id) {
+				return sqlSession.selectOne("boardSQL.boardEditForm", board_id);
+				// selectList 는 객체 여러개 받아올때
 			}
 
 		
