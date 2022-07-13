@@ -11,12 +11,13 @@
 <body>
 	<div class="layout-container">
 		<div class="main index">
+
 		<!-- 연수 테스트용(220713) -->
 		<input type="text" value="${sessionScope.memName }"/>
 		<input type="text" value="${sessionScope.memNickname }"/>
 		<input type="text" value="${sessionScope.memEmail }"/>
 		<input type="text" value="${sessionScope.memAccessToken }"/>
-		
+
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />
 			<!-- sidebar -->

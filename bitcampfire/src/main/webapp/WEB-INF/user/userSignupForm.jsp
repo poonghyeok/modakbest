@@ -82,7 +82,8 @@
 								</c:if>
 							</div>							
 							<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
-							                    
+
+
 							<!-- <label for="user_img" class="form-label"></label>
 							<div class="user_profile">
 								<div class='avatar-photo' id="avatar-photo"><img id="basic_profile_img" src=""></div>

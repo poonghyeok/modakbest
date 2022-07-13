@@ -134,7 +134,9 @@
   	
   	
   	<select id="findKakao" parameterType="java.util.HashMap" resultType="UserAllDTO">
-		select * from user2 where user_email=#{email} <!-- user_name=#{nickname} and   -->
+
+		select * from user2 where user_email=#{email}
+
 	</select>
 	
 	<!-- 연수 변수 추가(220713)  -->

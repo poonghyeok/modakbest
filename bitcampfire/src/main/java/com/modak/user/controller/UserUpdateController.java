@@ -239,6 +239,7 @@ public class UserUpdateController {
 	public String userDeleteConfirm() {
 		return "/user/userDeleteConfirm";
 	}
+
 	
 	//@@@ 연수 카카오 탈퇴 추가(220713)
 	//회원탈퇴-탈퇴 후 정보보관 기간(60일) 기능 ??
@@ -246,6 +247,7 @@ public class UserUpdateController {
 	public String delete(HttpSession session) {
 		String access_Token = (String)session.getAttribute("memAccessToken");
 		String user_email = (String) session.getAttribute("memEmail"); 
+
 		if(access_Token==null) {
 			userService.delete(user_email);
 		}else {	
@@ -257,11 +259,32 @@ public class UserUpdateController {
 	}	 
 	//@@@ 연수 카카오 탈퇴 추가(220713)
 	
+
 	//회원탈퇴	완료
 	@GetMapping(value="userDeleteComplete")
 	public String userDeleteComplete() {
 		return "/user/userDeleteComplete";
 	}
 	//회원탈퇴 끝
+	
+	
+	
+	//삭제해주세요
+	   //@@@ 연수 카카오 탈퇴 추가(220713)
+	   //회원탈퇴-탈퇴 후 정보보관 기간(60일) 기능 ??
+	   @RequestMapping(value="delete")   
+	   public String delete(HttpSession session) {
+	      String access_Token = (String)session.getAttribute("memAccessToken");
+	      String user_email = (String) session.getAttribute("memEmail"); 
+	      if(access_Token==null) {
+	         userService.delete(user_email);
+	      }else {   
+	         userService.kakaoUnlink(access_Token);
+	         userService.delete(user_email);
+	      }
+	      session.invalidate();
+	      return "redirect:/";
+	   }    
+	   //@@@ 연수 카카오 탈퇴 추가(220713)
 	
 }
