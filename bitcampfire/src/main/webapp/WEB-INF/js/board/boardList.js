@@ -3,6 +3,10 @@
  * 					: 검색은 원래 배웠던대로 
  * 
  */
+$(function(){
+	let sort = $('#sortOption').val();
+	$('#sort'+sort).addClass('active');
+})
 
 $('button.btn btn-default').click(function(){
 	alert('button clicked..!');

@@ -40,9 +40,9 @@
 			            <ul class="list-sort pull-left">
 			            	<!-- 정렬할 때  -->
 			            	<!-- 풍혁 -->
-			            	<li><a href="/semiproject/board/list?pg=1&sortOption=date" data-sort="id" data-order="desc" class="category-sort-link active">최신순</a></li>
-			                <li><a href="/semiproject/board/list?pg=1&sortOption=vote" data-sort="voteCount" data-order="desc" class="category-sort-link ">추천순</a></li>
-			                <li><a href="/semiproject/board/list?pg=1&sortOption=view" data-sort="viewCount" data-order="desc" class="category-sort-link ">조회순</a></li>
+			            	<li><a href="/semiproject/board/list?pg=1&sortOption=date" data-sort="id" id = "sortdate" data-order="desc" class="category-sort-link ">최신순</a></li>
+			                <li><a href="/semiproject/board/list?pg=1&sortOption=vote" data-sort="voteCount" id = "sortvote" data-order="desc" class="category-sort-link ">추천순</a></li>
+			                <li><a href="/semiproject/board/list?pg=1&sortOption=view" data-sort="viewCount" id = "sortview" data-order="desc" class="category-sort-link ">조회순</a></li>
 			            </ul>
 			            <input type="hidden" name="sort" id="category-sort-input" value="id"> <!-- 실제로 hidden type을 사용하네요  -->
 			            <input type="hidden" name="order" id="category-order-input" value="desc">
@@ -116,7 +116,7 @@
 		    <div class="avatar-info">
 		            <a class="nickname" href="/user/info/45597" title="OKKY">BIRCAMPFIRE</a>
 		                <div class="activity"><span class="fa fa-flash"></span> 레벨</div>
-		                <div class="date-created"><span class="timeago" title="2017-11-06T11:25:10">여긴 공지 작성 시간 들어와야 됨</span></div>
+		                <div class="date-created"><span class="timeago" title="2017-11-06T11:25:10">2017-11-06T11:25:10</span></div>
 		    </div>
 		</div>
 		</div>

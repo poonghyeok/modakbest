@@ -172,6 +172,8 @@ public class BoardServiceImpl implements BoardService {
 						tr.append("</ul>");
 					tr.append("</div>");
 				tr.append("</div>");
+				
+				//풍혁0714 : QNA는 아래의 코드가 들어가기 때문에 일단 남겨두겠습니다.
 //				tr.append("<div class='list-summary-wrapper clearfix'>");
 //					tr.append("<div class='item-evaluate-wrapper pull-right clearfix'>");
 //						tr.append("<div class='item-evaluate'>");
@@ -245,6 +247,18 @@ public class BoardServiceImpl implements BoardService {
 			
 			return boardPaging.getPagingHTML().toString();
 		}
+		
+//		@Override
+//		public String getBoardSortList(String sortOption) {
+//			StringBuffer sortListBuffer = new StringBuffer();
+//			
+//			sortListBuffer.append("<li><a href='/semiproject/board/list?pg=1&sortOption=date' data-sort='id' data-order='desc' class='category-sort-link active'>최신순</a></li>");
+//			sortListBuffer.append("<li><a href='/semiproject/board/list?pg=1&sortOption=vote' data-sort='voteCount' data-order='desc' class='category-sort-link '>추천순</a></li>");
+//			sortListBuffer.append("<li><a href='/semiproject/board/list?pg=1&sortOption=view' data-sort='viewCount' data-order='desc' class='category-sort-link '>조회순</a></li>");
+//			
+//			
+//			return null;
+//		}
 		
 		@Override
 		public String getUserNameByUserId(int board_uid) {

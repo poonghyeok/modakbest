@@ -91,8 +91,9 @@ public class BoardController {
 			
 			String userWriteTableList = boardService.getUserSearchWriteTablelist(pg, keyword, sortOption);
 			String boardPagingList = boardService.getBoardSearchPagingList(pg, keyword, sortOption);
-			
+//			String boardSortList = boardService.getBoardSortList(sortOption);
 			ModelAndView mav = new ModelAndView();
+//			mav.addObject("boardSortList", boardSortList);
 			mav.addObject("userWriteTableList", userWriteTableList);
 			mav.addObject("boardPagingList", boardPagingList);
 			mav.setViewName("/board/boardList");

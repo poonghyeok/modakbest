@@ -24,6 +24,8 @@ public interface BoardService {
 //		public String getHomeBoardList(int boardNum);
 		
 		public String getUserNameByUserId(int board_uid);
+
+//		public String getBoardSortList(String sortOption);
 	//풍혁 : 끝 =================================
 
 	
