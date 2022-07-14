@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="/semiproject/css/board/application.css">
 <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-<script type="text/javascript" src = "/semiproject/board/boardView.js"></script>
 </head>
 <body>
 
@@ -30,11 +29,11 @@
 			<div class="content-header">
 	    		<h3>새 글 쓰기</h3>
 			</div>
-		<input type = "text" id = "board_id" class = "board_id" value = "${board_id}">
+		<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
 			<div class="content-header">
 				<div class="user-profile">
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-						<img src="/semiproject/storage/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
+						<img src="#" id="profile-photo" alt="profile-img">
 					</a>
 				
 					<div class="profile-info">
@@ -67,7 +66,7 @@
 							<tr>
 								<td>
 									<label for="title" class="eunhye">제목</label>
-									<div><input type="text" name="board_title" class="eunhye" id="board_title" placeholder="제목을 입력해 주세요."></div>
+									<div><input type="text" name="board_title" class="board_title" id="board_title" ></div>
 									<div class="alertMsg" id="board_titleDiv"></div> 
 								</td>
 							</tr>
@@ -80,21 +79,25 @@
 							<tr>
 								<td>
 									<div id="editor">
-										<!-- <textarea name="board_content" id="board_content" cols="60" rows="20"></textarea> -->
+										 <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> 
 									</div>
 									
 										<script>
-											let editor;							    
-											ClassicEditor
-										        .create( document.querySelector( '#editor' ) )
-										        .then(newEditor => {							        	
-										        	editor = newEditor
-										        })
-										        .catch( error => {
-										            cnsole.error( error );
-										        });
-										</script>
-									
+											 let editor;							    
+											
+											 ClassicEditor
+											  .create(document.querySelector( '#editor' ), {
+											    language: 'ko'
+											  })
+											  .then( newEditor => {
+											    editor = newEditor;
+											  } )
+											  .catch( error => {
+											    console.error( error );
+											  } );
+											  
+											
+									</script>
 								</td>
 							</tr>		
 						</table>
@@ -209,6 +212,8 @@ $(function(){
 });
 </script>
 
+<script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/semiproject/js/board/boardEditForm.js"></script>
 
 </body>
 </html>

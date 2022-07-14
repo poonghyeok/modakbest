@@ -111,9 +111,9 @@
 					<!--페이스북, 글관리-->
 					<div class="content-function-cog note-submit-buttons clearfix">
 
-	                    <p><a href="" id="boardDelete" class="btn btn-default btn-wide">삭제</a></p>
+	                    <p><input type = "button" id="boardDelete" value = "삭제" class="btn btn-default btn-wide"></p>
 
-	                    <input type="button" name="boardUpdate" id="boardUpdate" class="btn btn-success btn-wide" value="수정">
+	                    <input type="button" name="boardUpdate" id="boardUpdate" onclick = "location.href='/semiproject/board/boardEditForm?board_id='+${board_id}" class="btn btn-success btn-wide" value="수정">
                     </div>
 		            <!--페이스북, 글관리-->
 		            
