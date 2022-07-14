@@ -130,6 +130,18 @@ public class BoardDAOMyBatis implements BoardDAO {
 				// selectList 는 객체 여러개 받아올때
 			}
 
+			@Override
+			public void boardEdit(BoardDTO boardDTO) {
+				 sqlSession.insert("boardSQL.boardEdit",boardDTO);
+				
+			}
+
+			@Override
+			public void boardDelete(int board_id) {
+				sqlSession.update("boardSQL.boardDelete", board_id);
+				
+			}
+
 		
 			
 	// 정수 : 끝  ###################### 
