@@ -27,7 +27,7 @@
 		<div id="article-create" class="content" role="main">
 			<!-- 풍혁(220707) : css 분리 적용을 위해, class eunhye를 추가하겠습니다. -->
 			<div class="content-header">
-	    		<h3>새 글 쓰기</h3>
+	    		<h3>글 수정하기</h3>
 			</div>
 		<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
 			<div class="content-header">
@@ -79,7 +79,7 @@
 							<tr>
 								<td>
 									<div id="editor">
-										 <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> 
+										 <!-- <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> --> 
 									</div>
 									
 										<script>
@@ -105,8 +105,8 @@
 						<!-- 풍혁(220707) : 이렇게 요소에 style로 들어오면 안될거 같깉한데.. 일단 display 해야하니깐 ... -->	
 						<fieldset class="buttons" style="width: 630px; margin-top: 10px;">
 	                       <!-- 풍혁 (220707) : 취소했을 경우 보던 게시판으로 나가자  -->
-	                       <a href="/semiproject/board/list?pg=1" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
-	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="등록" id="boardWriteBtn">
+	                       <a href="/semiproject/board/list?pg=1&sortOption=date" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
+	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="수정" id="boardUpdateBtn">
 	                    </fieldset>
 							
 					</div>
@@ -126,6 +126,18 @@
 <script type="text/javascript">
 $(function(){
 	
+	$.ajax({
+		type : 'get',
+		url : '/semiproject/board/getBoard',
+		data : {"board_id":$('#board_id').val()},
+		success :function(data){
+			console.log(JSON.stringify(data));
+			$('#board_title').val(data.board_title);
+			editor.setData(data.board_content);
+			$('#board_cateid option:eq('+(data.board_cateid)+')').prop('selected', true);
+		}
+	})
+
 	//에디터
 	
 	/*  if($('#board_title').focusout()){
@@ -135,7 +147,7 @@ $(function(){
 		 $('#board_content').removeClass('empty');
 	 } */
 	
-	$('#boardWriteBtn').click(function(){
+	$('#boardUpdateBtn').click(function(){
 		const editorData = editor.getData();
 		
 		//비엇을때 진해지고 포커스아웃시 풀리고
@@ -153,34 +165,34 @@ $(function(){
 	    	$('#board_content').addClass('empty');
 	    	
 		} */
-		else if(editor.getData()==''){
+		else if(!editor.getData()){
 			alert("내용을 입력하세요");
 		}
 		else if( $('#board_cateid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
 		else{
-
 			//글 등록 전 확인
 	        if(!confirm('정말 등록하시겠습니까?')){
 	            return false;
 	        }	
 	        else{
-				
-	        	$.ajax({
+				$.ajax({
 					type: 'post',
-					url: '/semiproject/board/write',
-					data: {'board_title': $('#board_title').val(),
-					       //'board_content': $('#board_content').val()
-							'board_content': editorData,
-							'board_cateid' : $('#board_cateid option:selected').val()
+					url: '/semiproject/board/update',
+					data: {'board_title' : $('#board_title').val(),
+					       'board_content' : $('div.ck-blurred').html(),
+							'board_cateid' : $('#board_cateid option:selected').val(),
+							'board_id' : $('#board_id').val()
 					},
 			       	success: function(){
-						alert('게시글을 등록하였습니다.');
-			            location.href='/semiproject/board/list?pg=1';
+						alert('게시글을 수정하였습니다.');
+			            location.href='/semiproject/board/getBoardView?board_id='+$('#board_id').val();
 					},
 					error: function(e){
 						console.log(e);
+						/* 풍혁 0714 success 에서 location.href까지 먹히지 않아서 임시로 error 에도 location href를 써두었습니다~ */
+						location.href='/semiproject/board/getBoardView?board_id='+$('#board_id').val();
 					}
 				});//ajax
 			
