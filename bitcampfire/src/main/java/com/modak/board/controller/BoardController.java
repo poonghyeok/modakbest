@@ -47,7 +47,6 @@ public class BoardController {
 		//boardList 띄우기.. 게시판 별 boardList
 		@GetMapping(value = "/list")
 		public ModelAndView boardList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption) {
-			 
 			
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg);
@@ -84,13 +83,13 @@ public class BoardController {
 		}
 		
 		@GetMapping("/search")
-		public ModelAndView boardSearchList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword) {
+		public ModelAndView boardSearchList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword, @RequestParam String sortOption) {
 			
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
 			
-			String userWriteTableList = boardService.getUserSearchWriteTablelist(pg, keyword);
-			String boardPagingList = boardService.getBoardSearchPagingList(pg, keyword);
+			String userWriteTableList = boardService.getUserSearchWriteTablelist(pg, keyword, sortOption);
+			String boardPagingList = boardService.getBoardSearchPagingList(pg, keyword, sortOption);
 			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("userWriteTableList", userWriteTableList);
@@ -128,7 +127,21 @@ public class BoardController {
 			
 			return userNickArray;
 		}
-	//풍혁 : 끝 ====================================
+		
+		//풍혁0714 : boardUpdate 기능구현
+		@PostMapping(value = "update")
+		public void update(@RequestParam Map<String,String> map) {
+			System.out.println("\n@board update LOG @");
+			System.out.println("board_title" + map.get("board_title"));
+			System.out.println("board_content" + map.get("board_content"));
+			System.out.println("board_cateid" + map.get("board_cateid"));
+			System.out.println("board_id" + map.get("board_id"));
+			
+			boardService.update(map);
+		};
+		  	
+		  
+//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
 		//목록에서 글 가져와서 jsp 띄우기

@@ -55,7 +55,10 @@ $('.note-vote-btn').click(function(){
 			};
 		}
 	}, error: function (error) {
-        console.log("ERROR!!!");
+        console.log("ERROR!!!")
+        alert('추천을 하려면 먼저 로그을 해야합니다')
+        /*풍혁 0714 : 여기도 로직은 틀렸듯한데, 일단 금요일 발표를 위해 임시로 이렇게 해두었습니다. 로직체크 다시 부탁드려요. */
+        location.href = "/semiproject/user/userLoginForm"
     	} 
 	}); 
 }) 
@@ -84,6 +87,7 @@ $('.note-vote-btn').click(function(){
 	$('#boardDelete').click(function(){
 		
 		var board_id = $('#board_id').val();
+
 		// alert("글 삭제?")
 		if(!$('#board_watcher').val()){
 			alert("먼저 로그인하세요 .")
@@ -94,6 +98,7 @@ $('.note-vote-btn').click(function(){
 		} else {
 			
 			if (confirm(" 글을 삭제하시겠습니까?")){
+
 				
 				$.ajax({
 					type : 'get',

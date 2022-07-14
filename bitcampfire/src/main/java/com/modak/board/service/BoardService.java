@@ -26,6 +26,8 @@ public interface BoardService {
 		public String getUserNameByUserId(int board_uid);
 
 //		public String getBoardSortList(String sortOption);
+	
+		public void update(Map<String, String> map);
 	//풍혁 : 끝 =================================
 
 	
@@ -50,6 +52,8 @@ public interface BoardService {
 		public void boardEdit(BoardDTO boardDTO);
 
 		public void boardDelete(int board_id);
+
+		
 		
 	// 정수 : 끝  ###################### 
 

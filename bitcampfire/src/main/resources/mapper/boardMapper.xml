@@ -74,6 +74,15 @@
 	            (BOARD_QNA_SEQ.nextval,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
     	</insert>
     	
+    	<update id="update" parameterType="java.util.Map">
+    		UPDATE board_review
+				SET 
+					board_title = #{board_title},
+					board_content = #{board_content},
+					board_cateid = ${board_cateid}
+				WHERE board_id = ${board_id}	 
+		</update>
+    	
     
 	<!-- ======================== 풍혁 : 끝 ============================= -->
 	
