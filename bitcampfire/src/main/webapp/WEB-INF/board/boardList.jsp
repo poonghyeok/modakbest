@@ -33,7 +33,7 @@
 			                <div class="input-group input-group-sm">
 			                    <input type="text" name="query" id="search-field" class="form-control" placeholder="검색어" value="">
 			                    <span class="input-group-btn">
-			                        <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+			                        <input type="button" class="btn btn-default" value = "검색"><!-- <i class="fa fa-search"></i> -->
 			                    </span>
 			                </div>
 			            </div>

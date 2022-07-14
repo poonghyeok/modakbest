@@ -51,7 +51,6 @@ public class BoardDAOMyBatis implements BoardDAO {
 		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map) {
 			List<BoardDTO> list = new ArrayList<>();
 			list = sqlSession.selectList("boardSQL.getBoardSearchRangeOrderByTime", map);
-			System.out.println("\n @LOG@ myBatis getBoardSearchRangeOrderByTime ... 마지막 요소 제목 꺼내보기 : " + list.get(list.size()-1).getBoard_title());
 			return sqlSession.selectList("boardSQL.getBoardSearchRangeOrderByTime", map);
 		}
 		
@@ -75,6 +74,13 @@ public class BoardDAOMyBatis implements BoardDAO {
 			newMap.put("sortOption", sortOption);
 			
 			return sqlSession.selectList("boardSQL.getBoardRangeOrder", newMap);
+		}
+		
+		@Override
+		public void update(Map<String, String> map) {
+			
+			sqlSession.update("boardSQL.update", map);
+		
 		}
 	//풍혁 : 끝 ====================================
 	
