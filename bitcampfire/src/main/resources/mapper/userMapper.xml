@@ -10,7 +10,7 @@
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~ 공통 : 끝  ~~~~~~~~~~~~~~~~~~~~~~ -->
 	
    
-  	 <!-- ======================== 연수: 시작(220706)  ============================= -->
+  	<!-- ======================== 연수: 시작(220706)  ============================= -->
    <!-- 회원정보 수정 시작  -->
  	<!-- 회원정보 수정  : 정보 가져오기-->   	
 	<select id="getUser" parameterType="String" resultType="UserAllDTO">
@@ -37,7 +37,7 @@
   		update user2 set user_img = #{user_img}, user_logtime = sysdate where user_email = #{user_email}	  			    
   	</update>  	
     
-    <!-- 회원정보 수정: 수정하기 / 학원명 과정명 추가하기!!--> 
+    <!-- 회원정보 수정: 수정하기 --> 
     <update id="update_userInfo" parameterType="UserAllDTO">
   		update user2 set user_name = #{user_name} 
   					   , user_nickname = #{user_nickname}
@@ -65,11 +65,25 @@
      <delete id="delete" parameterType="String">
          delete user2 where user_email = #{user_email}
      </delete>
+     
+	 <!-- @@@@@@ 연수 : 기존 가입 회원 카카오 연동 로그인 시 정보 수정(220714) @@@@@@  -->
+ 	<update id="updateBykakao" parameterType="java.util.HashMap">
+		update user2 set user_name = #{nickname}
+						, user_email = #{email}
+						, user_nickname = ''
+						, user_pwd = ''
+						, user_img = 'campfire.jpg'
+						, user_auth = 'Y'
+						, user_classid = 0
+						, user_social = 'K'
+						, user_logtime = sysdate where user_email = #{email}
+	</update>
+     
 	<!-- ======================== 연수 : 끝(220706) ============================= -->
 
 	
 	<!--  ###################### 유진 : 시작  0706###################### -->
-	<!-- @@@@ 연수 : class 테이블 사용하지 않고 user_classid 수정(0711) / img 추가 @@@@  -->
+	<!-- @@@@@@@@@@ 연수 : class 테이블 사용하지 않고 user_classid 수정(0711) / img, social 추가 @@@@@@@@@@ -->
 	<insert id="user_register" parameterType="UserAllDTO">
   		insert into user2(user_id
   						,user_email
@@ -79,6 +93,7 @@
   						,user_classid
   						,user_img
   						,user_auth
+  						,user_social
   						,user_logtime) 
   		values(user2_SEQ.nextval
   			,#{user_email}
@@ -88,6 +103,7 @@
   			,#{user_classid}
   			,'campfire.jpg'
   			,'Y'
+  			,'X' <!-- 일반 로그인 회원  -->
   			,sysdate)	
   	</insert>
   	<!-- @@@@ 연수 : class 테이블 사용하지 않고 user_classid 수정(0711) @@@@  --> 
@@ -139,11 +155,25 @@
 
 	</select>
 	
-	<!-- 연수 변수 추가(220713)  -->
 	<!-- 정보 저장 -->
+	<!-- @@@@@@@@@@ 연수 변수(img, auth, classid, social, logtime 추가(220713) @@@@@@@@@@ -->
 	<insert id="kakaoInsert" parameterType="java.util.HashMap">
-		insert into user2(user_id, user_name, user_email, user_img, user_auth, user_classid, user_logtime)
-			values(user2_SEQ.nextval, #{nickname}, #{email}, 'campfire.jpg', 'Y', 0, sysdate)
+		insert into user2(user_id
+						, user_name
+						, user_email
+						, user_img
+						, user_auth
+						, user_classid
+						, user_social
+						, user_logtime)
+		values(user2_SEQ.nextval
+			, #{nickname}
+			, #{email}
+			, 'campfire.jpg'
+			, 'Y'
+			, 0
+			, 'K'
+			, sysdate)
 			
 	</insert>
 

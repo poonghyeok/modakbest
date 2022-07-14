@@ -41,17 +41,13 @@ public class UserUpdateController {
 	@Autowired
 	HttpSession session;
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-	
-	//@@@연수 추가(220711)
+	private BCryptPasswordEncoder passwordEncoder;	
 	@Autowired
 	private JavaMailSender mailSender3;
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
-	//@@@연수 추가(220711)
 	
 	//회원정보 수정 시작
 	//회원정보 수정폼 띄우기
-	//@@@ 연수 : 학원 검색 기능 수정중(0711) @@@
 	@GetMapping(value="userUpdateForm")
 	public String userUpdateForm(Model model) {
 		model.addAttribute("classList", userService.classList());	
@@ -81,8 +77,7 @@ public class UserUpdateController {
 		return userService.userUpdate_emailCheck(user_email);	
 	}
 	
-	//@@@@@@@@@@@@  이메일 인증 for 이메일 변경 @@@@@@@@@@@@
-	//이메일 인증
+	///이메일 인증 - 이메일 변경
 	@GetMapping("mailCheck_updateEmail")
 	@ResponseBody
 	public String mailCheck_updateEmail(String user_email) throws Exception{
@@ -135,8 +130,8 @@ public class UserUpdateController {
 		String user_email = (String) session.getAttribute("memEmail");
 		//가상폴더
 		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
-		//String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수비트캠프
-		String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
+		String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수비트캠프
+		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
 		//String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage";
 
 		String fileName = user_image.getOriginalFilename();
@@ -168,10 +163,7 @@ public class UserUpdateController {
 
 		session.setAttribute("memName", userAllDTO.getUser_name());
 		session.setAttribute("memNickname", userAllDTO.getUser_nickname());		
-		session.setAttribute("memClassId", userAllDTO.getUser_classid());	
-		//session.setAttribute("memNickname", userAllDTO.getClass_academy());
-		//session.setAttribute("memNickname", userAllDTO.getClass_class());
-		
+		session.setAttribute("memClassId", userAllDTO.getUser_classid());		
 	}
 	
 	//이메일 주소 변경(아이디값 기준으로 수정)
@@ -188,8 +180,6 @@ public class UserUpdateController {
 		userService.update_userEmail(map);
 	}
 	//회원정보 수정 끝
-	//@@@@@@@@@@@@  연수 회원정보 수정창 전면수정(220710) @@@@@@@@@@@@	
-	
 	
 	//비밀번호 변경 시작
 	//비밀번호 수정폼 띄우기
@@ -265,7 +255,5 @@ public class UserUpdateController {
 	public String userDeleteComplete() {
 		return "/user/userDeleteComplete";
 	}
-	//회원탈퇴 끝
-	
 
 }

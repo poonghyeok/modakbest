@@ -13,11 +13,12 @@
 		<div class="main index">
 
 		<!-- 연수 테스트용(220713) -->
-		<input type="text" value="${sessionScope.memName }"/>
-		<input type="text" value="${sessionScope.memNickname }"/>
-		<input type="text" value="${sessionScope.memEmail }"/>
-		<input type="text" value="${sessionScope.memAccessToken }"/>
-
+		<input type="hidden" value="${sessionScope.memName }"/>
+		<input type="hidden" value="${sessionScope.memNickname }"/>
+		<input type="hidden" value="${sessionScope.memEmail }"/>
+		<input type="hidden" value="${sessionScope.memAccessToken }"/>
+		<input type="hidden" value="${sessionScope.memSocial }"/>
+		
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />
 			<!-- sidebar -->

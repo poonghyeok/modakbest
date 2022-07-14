@@ -42,6 +42,11 @@ public interface UserService {
 	    public void pwdChangeComplete(Map<String, String> map);
 	
 	    public void delete(String user_email);
+	    
+    	//@@@ 연수 카카오 로그아웃 추가(220712)
+		public void kakaoLogout(String access_Token);
+		
+		public void kakaoUnlink(String access_Token);
 	//연수 : 끝(220706) ====================================
 
 	
@@ -67,8 +72,7 @@ public interface UserService {
 
 	// 기진 : 시작  @@@@@@@@@@@@@@@@@@@@ 
           
-    	public String login(Map<String, String> map);
-    
+    	public String login(Map<String, String> map);    
 
     	public void userLogout();
 
@@ -82,10 +86,6 @@ public interface UserService {
     	public String getUserNameByUserId(int board_uid);
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-
-    	//@@@ 연수 카카오 로그아웃 추가(220712)
-		public void kakaoLogout(String access_Token);
-    public void kakaoUnlink(String access_Token);
 
 
 		
