@@ -46,6 +46,10 @@ public interface BoardDAO {
 
 		public BoardDTO boardEditForm(int board_id);
 
+		public void boardEdit(BoardDTO boardDTO);
+
+		public void boardDelete(int board_id);
+
 
 		
 

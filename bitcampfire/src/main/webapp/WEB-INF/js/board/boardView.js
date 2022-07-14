@@ -61,23 +61,43 @@ $('.note-vote-btn').click(function(){
 	}); 
 }) 
 
-	$('.edit').click(function(){  // 글 수정
+	$('#boardUpdate').click(function(){  // 글 수정
 		
-		alert("글수정")
 		var board_id = $('#board_id').val();
+		alert("글수정 board_id = " + board_id);
 		
 		$.ajax({
-			type : 'post',
-			url : '/semiproject/board/boardEditForm',
-			data : {"board_id" : board_id}, // "board_id=" + board_id
-			dataType : "json",
+			type : 'get',
+			url : "/semiproject/board/boardEditForm", // 요청될 주소 
+			data : {board_id : board_id},  // "board_id=" + board_id // 글번호를 가지고가서
+			dataType : "json", // dto 받아와
 			success : function(data) {
-				
+				let url = "/semiproject/board/boardEdit";
+				location.replace(url);
+			}, error : function(err) {
+				console.log(err);
+			}
+		})
+	})
+	
+	
+	$('#boardDelete').click(function(){
+		
+		var board_id = $('#board_id').val();
+		alert("삭제? board_id = " + board_id)
+		
+		$.ajax({
+			type : 'get',
+			url : "/semiproject/board/boardDelete",
+			data : {board_id : board_id},
+			success: function() {
+				alert("글이 삭제되었습니다.")
+			}, error : function(err) {
+				console.log(err);
 			}
 				
 		})
 	})
 		
+	
 		
-		
-
