@@ -46,6 +46,10 @@ public interface BoardService {
 		public void deleteVote(Map<String, Object> map);
 
 		public BoardDTO boardEditForm(int board_id);
+
+		public void boardEdit(BoardDTO boardDTO);
+
+		public void boardDelete(int board_id);
 		
 	// 정수 : 끝  ###################### 
 

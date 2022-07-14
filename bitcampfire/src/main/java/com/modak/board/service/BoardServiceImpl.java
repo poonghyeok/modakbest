@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
@@ -329,6 +330,17 @@ public class BoardServiceImpl implements BoardService {
 		public BoardDTO boardEditForm(int board_id) {
 			return boardDAO.boardEditForm(board_id);
 			
+		}
+
+		@Override
+		public void boardEdit(BoardDTO boardDTO) {
+			
+			boardDAO.boardEdit(boardDTO);
+		}
+
+		@Override
+		public void boardDelete(int board_id) {
+			boardDAO.boardDelete(board_id);
 		}
 	
 		

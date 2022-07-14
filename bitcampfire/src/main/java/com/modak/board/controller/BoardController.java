@@ -204,19 +204,32 @@ public class BoardController {
 		  
 		  }
 		  
-		  // 글 수정
-		  @PostMapping(value = "/boardEditForm")
+		  // 글 수정 데이터 불러오기
+		  @GetMapping(value = "/boardEditForm")
 		  @ResponseBody
-		  public BoardDTO boardEdit(@RequestParam int board_id) {
-			  
+		  public BoardDTO boardEditForm(@RequestParam int board_id) {
+			  System.out.println("boardEditForm 오닝????????");
 			   BoardDTO boardDTO = boardService.boardEditForm(board_id);
+			   System.out.println("***boardEdit*** TEST boardDTO = " + boardDTO );
 			   return boardDTO;
 		  }
 		  
-		  
+		  // 글 수정
+		  @GetMapping(value = "/boardEdit")
+		  @ResponseBody 
+		  public void boardEdit(@RequestParam BoardDTO boardDTO) {
+			  System.out.println("boardEdit오냥!!!!!");
+			  boardService.boardEdit(boardDTO);
+		  }
+			  
 		  
 		  // 글 삭제
-		  
+		  @GetMapping(value = "/boardDelete")
+		  @ResponseBody
+		  public void boardDelete(@RequestParam int board_id) {
+			  System.out.println("글 삭제???");
+			  boardService.boardDelete(board_id);
+		  }
 		  
 		  
 		  

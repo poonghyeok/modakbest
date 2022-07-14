@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/semiproject/css/board/application.css">
 <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+<script type="text/javascript" src = "/semiproject/board/boardView.js"></script>
 </head>
 <body>
 
@@ -29,7 +30,7 @@
 			<div class="content-header">
 	    		<h3>새 글 쓰기</h3>
 			</div>
-			
+		<input type = "text" id = "board_id" class = "board_id" value = "${board_id}">
 			<div class="content-header">
 				<div class="user-profile">
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
