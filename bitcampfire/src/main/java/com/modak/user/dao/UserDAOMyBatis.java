@@ -78,7 +78,6 @@ public class UserDAOMyBatis implements UserDAO {
 			sqlSession.delete("userSQL.delete", user_email);		
 		}
 		
-		//@@@@@@ 연수 : 기존 가입 회원 카카오 연동 로그인 시 정보 수정(220714) @@@@@@ 
 		@Override
 		public void updateBykakao(HashMap<String, Object> userInfo) {
 			sqlSession.update("userSQL.updateBykakao", userInfo);				

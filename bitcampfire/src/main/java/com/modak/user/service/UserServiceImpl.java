@@ -108,7 +108,6 @@ public class UserServiceImpl implements UserService {
 			
 		}
 		
-		//@@@@@@ 연수 : 카카오 로그아웃 추가(220712) @@@@@@ 
 		@Override
 		public void kakaoLogout(String access_Token) {			
 			String reqURL = "https://kapi.kakao.com/v1/user/logout";
@@ -119,7 +118,7 @@ public class UserServiceImpl implements UserService {
 				conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 				
 				int responseCode = conn.getResponseCode();
-				System.out.println("responseCode : " + responseCode);
+				//System.out.println("responseCode : " + responseCode);
 				
 				if(responseCode ==400)
 					throw new RuntimeException("카카오 로그아웃 도중 오류 발생");
@@ -132,14 +131,12 @@ public class UserServiceImpl implements UserService {
 				while ((line = br.readLine()) != null) {
 					result += line;
 				}
-				System.out.println(result);
+				//System.out.println(result);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		//@@@@@@ 연수 : 카카오 로그아웃 추가(220712) @@@@@@ 
-				
-		//@@@@@@ 연수 : 카카오 회원탈퇴 시 연결 끊기(220712) @@@@@@ 		
+		
 		@Override
 		public void kakaoUnlink(String access_Token) {
 			String reqURL = "https://kapi.kakao.com/v1/user/unlink";
@@ -150,7 +147,7 @@ public class UserServiceImpl implements UserService {
 				conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 				
 				int responseCode = conn.getResponseCode();
-				System.out.println("responseCode : " + responseCode);
+				//System.out.println("responseCode : " + responseCode);
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				
@@ -160,13 +157,12 @@ public class UserServiceImpl implements UserService {
 				while ((line = br.readLine()) != null) {
 					result += line;
 				}
-				System.out.println(result);
+				//System.out.println(result);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
 		}
-		//@@@@@@ 연수 : 카카오 회원탈퇴 시 연결 끊기(220712) @@@@@@ 	
 				
 	//연수 : 끝(220706) ====================================
 
