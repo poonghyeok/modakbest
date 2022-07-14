@@ -43,7 +43,7 @@ public class UserUpdateController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;	
 	@Autowired
-	private JavaMailSender mailSender3;
+	private JavaMailSender mailSender4;
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
 	
 	//회원정보 수정 시작
@@ -91,7 +91,7 @@ public class UserUpdateController {
       //  logger.info("인증번호 " + checkNum);
         
         /* 이메일 보내기 */
-        String setFrom = "manbal58@hanmail.net";
+        String setFrom = "dustn551@gmail.com";
         String toMail = user_email;
         String title = "이메일 변경 인증 이메일 입니다.";
         String content = 
@@ -102,13 +102,13 @@ public class UserUpdateController {
         
         try {
             
-            MimeMessage message = mailSender3.createMimeMessage();
+            MimeMessage message = mailSender4.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
             helper.setFrom(setFrom);
             helper.setTo(toMail);
             helper.setSubject(title);
             helper.setText(content,true);
-            mailSender3.send(message);
+            mailSender4.send(message);
             
         }catch(Exception e) {
             e.printStackTrace();
@@ -130,11 +130,19 @@ public class UserUpdateController {
 		String user_email = (String) session.getAttribute("memEmail");
 		//가상폴더
 		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
+
+		//String filePath = session.getServletContext().getRealPath("/storage");		
+		String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수비트캠프
+		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수집
+		//String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";
+				
+
 		String filePath = "C:\\Users\\이풍혁\\Documents\\bitcamp2\\세미프로젝트\\github\\github_backup\\220706_ver2\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수비트캠프
 		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수집
 		//String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";
 		//풍혁 노트북 : "C:\\Users\\이풍혁\\Documents\\bitcamp2\\세미프로젝트\\github\\github_backup\\220706_ver2\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"
     //String filePath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";//우진놑북
+
 
 		String fileName = user_image.getOriginalFilename();
 		
@@ -142,7 +150,7 @@ public class UserUpdateController {
 		
 		try {
 			FileCopyUtils.copy(user_image.getInputStream(), new FileOutputStream(file)); //복사
-		
+			//user_image.transferTo(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
