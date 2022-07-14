@@ -196,7 +196,7 @@ public class UserLoginController {
 			session.setAttribute("memNickname", userInfo.getUser_nickname()); 
 			session.setAttribute("memImg", userInfo.getUser_img()); //연수추가(220713)
 			session.setAttribute("memAccessToken", access_Token); //연수추가(220713)
-			session.setAttribute("memSocial", userInfo.getUser_social()); //연수추가(220713)
+			session.setAttribute("memSocial", userInfo.getUser_social()); //연수추가(220714)
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
 			

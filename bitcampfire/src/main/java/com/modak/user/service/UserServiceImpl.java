@@ -438,11 +438,7 @@ public class UserServiceImpl implements UserService {
 				return userDAO.findkakao(userInfo);
 				// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
 				// result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-			//기존 이메일 가입자 : 1) 기존 정보 삭제 후 카카오에서 받아온 정보를 넣는다 (id 변경)
-			//}else if(result!=null && result.getUser_social().equals("X") ){
-			//	userDAO.resetBykakao(userInfo); //update or delete+insert
-			//	return userDAO.findkakao(userInfo);
-			//기존 이메일 가입자 : 2) 기존 정보를 업데이트(id 유지)
+			//기존 이메일 가입자 : 기존 정보를 업데이트(id 유지)
 			}else if(result!=null && result.getUser_social().equals("X") ){
 				userDAO.updateBykakao(userInfo); //update or delete+insert
 				return userDAO.findkakao(userInfo);	

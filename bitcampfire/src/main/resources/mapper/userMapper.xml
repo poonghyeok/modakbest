@@ -66,33 +66,7 @@
          delete user2 where user_email = #{user_email}
      </delete>
      
-	 <!-- resetBykako기존 회원 카카오톡 연동 로그인 시 리셋  reset 안에 delete/insert -->
-     <!-- @@@@@@ 연수 : 기존 가입 회원 카카오 연동 로그인 시 정보 수정(220712) @@@@@@  -->
-     <!-- 1) reset -->
-     <!-- 기존 가입 정보 삭제 -->
-	 <!-- <delete id="deleteBykakako" parameterType="java.util.HashMap">
-	     delete user2 where user_email = #{email}
-	 </delete> -->
-	<!-- 카카오 회원 정보 입력 -->
-	<!--  <insert id="insertFromkakako" parameterType="java.util.HashMap">
-	 	 insert into user2(user_id
-	 	  				 , user_name
-						 , user_email
-						 , user_img
-						 , user_auth
-						 , user_classid
-						 , user_social
-						 , user_logtime)
-		 values(user2_SEQ.nextval
-			 , #{nickname}
-			 , #{email}
-			 , 'campfire.jpg'
-			 , 'Y'
-			 , 0
-			 , 'K'
-			 , sysdate)			
-	 </insert> -->
-	 <!-- 2) updqte -->
+	 <!-- @@@@@@ 연수 : 기존 가입 회원 카카오 연동 로그인 시 정보 수정(220714) @@@@@@  -->
  	<update id="updateBykakao" parameterType="java.util.HashMap">
 		update user2 set user_name = #{nickname}
 						, user_email = #{email}
