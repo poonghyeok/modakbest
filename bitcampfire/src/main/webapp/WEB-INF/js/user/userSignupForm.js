@@ -1,5 +1,6 @@
 $('#num_check_blank').hide();
 $('#check_alert').hide();
+
 /*
 $(function(){
 	

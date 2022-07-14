@@ -10,14 +10,6 @@
 	<title>bitcampfire - 로그인</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">	
-	<style type="text/css">
-		#user_emailDiv, #user_pwdDiv{
-		color: red;
-		font-size: 8pt;
-		font-weight: bold;
-		}
-	</style>
-
 </head>
 
 <body>
@@ -36,9 +28,7 @@
 	              			</div>
 			            </div>
 			
-			            <form class="form-signin form-user panel-body panel-margin" id="loginForm">
-
-			                <!--@@@ 연수 pwdDiv, idDiv 삭제 (220710)@@@-->
+			            <form class="form-signin form-user panel-body panel-margin" id="loginForm">			                
 			                <input type="text" name="user_email" id="user_email" class="username form-control input-sm" placeholder="이메일">			                
 			                <input type="password" name="user_pwd" id="user_pwd" class="password form-control input-sm" placeholder="비밀번호">							
 			                <div id="divUserLogin">
@@ -49,10 +39,7 @@
 			              		<a class="p-2 btn btn-kakao btn-block" id="kakaoBtn" href="https://kauth.kakao.com/oauth/authorize?client_id=99d19c4d787174d74fec051d2035c26e&redirect_uri=http://localhost:8080/semiproject/user/userKakaoLoginForm&response_type=code">  
 			                		<span class="icon-social icon-kakao"></span>Login with Kakao
 			                	</a>
-
-			                </div>
-
-	
+			                </div>	                
 
 			                <div class="signup-block">
 			                    <a href="/semiproject/user/userFindPwdForm">계정 찾기</a>
@@ -70,28 +57,24 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>    
-
 <script type="text/javascript">
 $('#check_alert').hide();  
 
-//연수: 로그인 엔터키 이벤트 수정(220710)
+//로그인 엔터키 이벤트 
 $(document).ready(function() {
 	$('input').on('keyup', function(e){
 		if(e.keyCode == 13) {
-			//alert('엔터키 눌렀다!');
 			$('#btnUserLogin').trigger('click');			
 		}
 	});
 });
  
+//로그인 
 $('#btnUserLogin').click(function(){
 
-	$('#check_alert').hide();
-	
-	//@@@ 연수 로그인 이메일  정규식 수정(220714)
+	$('#check_alert').hide();	
 	//이메일 정규식
 	var regExp =/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-	//var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     
 	//비밀번호 정규식	
     var pw = $("#user_pwd").val();
@@ -122,8 +105,7 @@ $('#btnUserLogin').click(function(){
 	   	$('#check_alert').html('[비밀번호] : 비밀번호는 공백 없이 입력해주세요.');	    	
     }else if(num < 0 || eng < 0 || spe < 0 ){
     	$('#check_alert').show();
-        $('#check_alert').html('[비밀번호] : 비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요.');	
-    //@@@ 연수 로그인 이메일 /비밀번호 정규식 추가(220710)
+        $('#check_alert').html('[비밀번호] : 비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요.');	    
 	
     }else {
 		$.ajax({ 
@@ -153,12 +135,8 @@ $('#btnUserLogin').click(function(){
 				}
 			});
 		}
-	
-	
-	
+
 });  
-
-
 
 </script>
 </body>

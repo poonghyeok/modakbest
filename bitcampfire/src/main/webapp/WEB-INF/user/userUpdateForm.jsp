@@ -25,7 +25,7 @@
 				        <div class="panel panel-default">				                    		
 				            <div class="panel-heading"> 				            
 									<div class="avatar clearfix avatar-medium">											
-										<a href="/semiproject/user/userMyPageForm" class='avatar-photo'><img src="/semiproject/storage/${sessionScope.memImg}" id="show_user_image"/></a>
+										<a href="/semiproject/user/userMyPageForm" class='avatar-photo'><img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="show_user_image"/></a>
 										<div class="avatar-info">
 												<a class="user_nickname" href="/user/info/" title="">${sessionScope.memNickname}</a>
 												<!-- <div class="activity block"><span class="fa fa-flash"></span> 10</div> 활동지수 삭제?-->
@@ -38,7 +38,7 @@
 			           			<form id="update_userImgForm">				           			
 			           				<div class="profile-picture-list" style="display:none; width: 153px;" id="user_imglist">			   						
 					           			<div class="profile-picture selected" style="width: 130px;"><!-- id=profile-uploaded-image -->
-						   					<span class="avatar-photo"><img src="/semiproject/storage/${sessionScope.memImg}" id="uploaded_user_image"/></span>
+						   					<span class="avatar-photo"><img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="uploaded_user_image"/></span>
 						   					<span style="font-size: 15px;">my profile</span>
 					   					</div> 
 					   					

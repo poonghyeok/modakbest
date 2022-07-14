@@ -7,13 +7,6 @@
 	<title>bitcampfire - 비밀번호 변경</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
-<!-- 	<style type="text/css">
-	#user_pwdDiv, #newPwdDiv, #newPwdCheckDiv{
-		color: red;
-		font-size: 8pt;
-		font-weight: bold;
-		}
-	</style> -->
 </head>
 <body>
 <div class="layout-container">
@@ -69,7 +62,6 @@
 $('#check_alert').hide();
 var pwdCheck = false;
 
-//@@@ 연수 알럿 메시지 일부 워딩 수정(220710)
 $('#user_pwd').focusout(function(){
 	$('#check_alert').hide();
  	if($('#user_pwd').val()!=null){
@@ -160,8 +152,7 @@ $('#userPwdChangeBtn').click(function(){
 		$('#check_alert').css('color','red');
 		$('#check_alert').css('font-size','8px');
  	
-    }else {
-    	 //$('#userPwdChangeForm').submit();	
+    }else {    	 	
 		 $.ajax({
 			type: 'post',
 			url: '/semiproject/user/pwdChangeComplete',
@@ -176,7 +167,6 @@ $('#userPwdChangeBtn').click(function(){
 		}); 
 	}
 });
-
 
 </script>
 </body>

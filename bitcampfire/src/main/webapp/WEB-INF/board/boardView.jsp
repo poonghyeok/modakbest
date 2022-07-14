@@ -30,7 +30,7 @@
         
         	<!-- 글 카테고리, 새글쓰기  -->
 	        <div class="nav" role="navigation">
-	            <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
+	            <input type="button" value="새 글  쓰기 " class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn"><i class="fa fa-pencil"></i>
 	            <h4>${cateidToString}</h4>
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
@@ -51,7 +51,7 @@
 	            <div class="panel-heading clearfix">
 	                <div class="avatar clearfix avatar-medium pull-left"> 
 	            	    <!-- 07/11기진: user page를 위해 href를 user 수정하였습니다 -->
-	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="//www.gravatar.com/avatar/c649774942c3c2ab78ed58379972c2f8?d=identicon&amp;s=40"></a>
+	                    <a href="#" class="avatar-photo"><img src="#"></a>
 	                    <div class="avatar-info">
 	                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
                             <a class="nickname" href="/semiproject/user/userMyPageForm?user_id=${boardDTO.board_cmt_cnt}" title="author">${author}</a>
@@ -152,7 +152,7 @@
 <script src="${pageContext.request.contextPath}/summernote3/summernote-ko-KR.js"></script>
 
 <script type="text/javascript">
-$('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
+/* $('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
 	function to_ajax(){
 			var queryString = $("form[name=testForm]").serialize(); // 키 값 을 묶어서 
 		
@@ -170,7 +170,7 @@ $('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
 					}
 				});
 		}
-});
+}); */
 </script>
 </body>
 </html> 

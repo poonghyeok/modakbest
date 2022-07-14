@@ -33,7 +33,7 @@
 			<div class="content-header">
 				<div class="user-profile">
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-						<img src="/semiproject/storage/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
+						<img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
 					</a>
 				
 					<div class="profile-info">
@@ -60,7 +60,7 @@
 									    <option name="board_cateid" value="2">후기</option>
 									    <option name="board_cateid" value="3">Q &amp; A</option>
 									    <option name="board_cateid" value="4">자유게시판</option>
-									  </select>
+									  </select>        
 								</td>
 							</tr>
 							<tr>
@@ -173,7 +173,8 @@ $(function(){
 					},
 			       	success: function(){
 						alert('게시글을 등록하였습니다.');
-			            location.href='/semiproject/board/list?pg=1';
+			            //풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
+						location.href='/semiproject/board/list?pg=1&sortOption=date';
 					},
 					error: function(e){
 						console.log(e);
