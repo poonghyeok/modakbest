@@ -30,7 +30,7 @@
         
         	<!-- 글 카테고리, 새글쓰기  -->
 	        <div class="nav" role="navigation">
-	            <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
+	            <input type="button" value="새 글  쓰기 " class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn"><i class="fa fa-pencil"></i>
 	            <h4>${cateidToString}</h4>
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
@@ -111,9 +111,9 @@
 					<!--페이스북, 글관리-->
 					<div class="content-function-cog note-submit-buttons clearfix">
 
-	                    <p><a href="" id="boardDelete" class="btn btn-default btn-wide">삭제</a></p>
+	                    <p><input type = "button" id="boardDelete" value = "삭제" class="btn btn-default btn-wide"></p>
 
-	                    <input type="button" name="boardUpdate" id="boardUpdate" class="btn btn-success btn-wide" value="수정">
+	                    <input type="button" name="boardUpdate" id="boardUpdate" onclick = "location.href='/semiproject/board/boardEditForm?board_id='+${board_id}" class="btn btn-success btn-wide" value="수정">
                     </div>
 		            <!--페이스북, 글관리-->
 		            
@@ -152,7 +152,7 @@
 <script src="${pageContext.request.contextPath}/summernote3/summernote-ko-KR.js"></script>
 
 <script type="text/javascript">
-$('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
+/* $('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
 	function to_ajax(){
 			var queryString = $("form[name=testForm]").serialize(); // 키 값 을 묶어서 
 		
@@ -170,7 +170,7 @@ $('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
 					}
 				});
 		}
-});
+}); */
 </script>
 </body>
 </html> 

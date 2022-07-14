@@ -70,7 +70,6 @@ public class UserLoginController {
 	/* 로그인 기능구현  끝 */ 
 	
 	/* 로그아웃  */
-	//@@@@@@ 연수 : 카카오 로그아웃 추가(220712) @@@@@@ 
 	@RequestMapping(value="logout")	
 	public String logout(HttpSession session) {
 		String access_Token = (String)session.getAttribute("memAccessToken");
@@ -83,12 +82,11 @@ public class UserLoginController {
 		userService.userLogout();
 		return "redirect:/";
 	}
-	//@@@@@@ 연수 카카오 로그아웃 추가(220712) @@@@@@ 
 
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="userFindPwdForm")
 	public String userFindPwdForm() {
-		System.out.println("userFindPwdForm");
+		//System.out.println("userFindPwdForm");
 		return "/user/userFindPwdForm";
 	}
 
@@ -101,6 +99,7 @@ public class UserLoginController {
 	}
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@유진0709 추가@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 	//이메일 계정찾기 전송
 	
 			@GetMapping("pwdFindmailCheck")
@@ -108,42 +107,42 @@ public class UserLoginController {
 			public String pwdFindmailCheck(String user_email, HttpSession session) throws Exception{
 				//user_email = (String)session.getAttribute("memEmail");
 				session.setAttribute("memEmail", user_email);
-				logger.info("이메일 인증 요청이 들어옴"+user_email);
-	
-		        /* 이메일 보내기 */
-		        String setFrom = "yujin980810@gmail.com";
-		        String toMail = user_email;
-		        String title = "계정찾기 인증 이메일 입니다.";
-		        String content = 
-		        				"<div style='width:1000px; height: 100px; background:#286090;' align='center'> <h1 style='color:#fff; font-size: 60px;'>BITFIRE</h1></div>"
-		        				+ "<div><h2 style='margin-top:10px; font-size: 28px;'>계정 찾기 인증 메일입니다.</h2><p style='font-size:18px;'>아래 버튼을 눌러 비밀번호 변경을 계속 진행해 주세요.</p><br><br> <a style='text-decoration:none; padding: 13px; background:#337ab7; color:#fff; font-size: 16px;' href='http://localhost:8080/semiproject/user/userFindPasswordChange?user_email="+user_email+"'>비밀번호 변경</a><div>";
-		        			
+				//logger.info("이메일 인증 요청이 들어옴"+user_email);
 
-		        
-		        
-		        try {
-		            
-		            MimeMessage message = mailSender.createMimeMessage();
-		            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-		            helper.setFrom(setFrom);
-		            helper.setTo(toMail);
-		            helper.setSubject(title);
-		            helper.setText(content,true);
-		            mailSender.send(message);
-		            
-		        }catch(Exception e) {
-		            e.printStackTrace();
-		        }
-		    
-		        return user_email;
-			}
+
+        /* 이메일 보내기 */
+        String setFrom = "yujin980810@gmail.com";
+        String toMail = user_email;
+        String title = "계정찾기 인증 이메일 입니다.";
+        String content = 
+        				"<div style='width:1000px; height: 100px; background:#286090;' align='center'> <h1 style='color:#fff; font-size: 60px;'>BITFIRE</h1></div>"
+        				+ "<div><h2 style='margin-top:10px; font-size: 28px;'>계정 찾기 인증 메일입니다.</h2><p style='font-size:18px;'>아래 버튼을 눌러 비밀번호 변경을 계속 진행해 주세요.</p><br><br> <a style='text-decoration:none; padding: 13px; background:#337ab7; color:#fff; font-size: 16px;' href='http://localhost:8080/semiproject/user/userFindPasswordChange?user_email="+user_email+"'>비밀번호 변경</a><div>";
+        			
+
+        
+        
+        try {
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    
+        return user_email;
+	}
 			
 		
 		@GetMapping(value = "userFindPasswordChange")
 		public String userFindPasswordChange() {
 			return "/user/userFindPasswordChange";
-		}
-			
+		}			
 			
 		//계정찾기 비밀번호 변경 
 		@PostMapping(value = "pwdFindChangeComplete")
@@ -162,33 +161,15 @@ public class UserLoginController {
 			userService.pwdFindChangeComplete(map);
 		}
 		
-		//카카오 로그인
-		/*
-		@GetMapping(value="userKakaoLoginForm")
-		public String userKakaoLoginForm(@RequestParam(value = "code", required = false) String code) throws Exception {
-			System.out.println("#########" + code);
-			String access_Token = userService.getAccessToken(code);
-			HashMap<String, Object> userInfo = userService.getUserInfo(access_Token);
-			System.out.println("###access_Token#### : " + access_Token);
-			System.out.println("###nickname#### : " + userInfo.get("nickname"));
-			System.out.println("###email#### : " + userInfo.get("email"));
-			return "member/testPage";
-	    	}*/
 		
 		@GetMapping(value="userKakaoLoginForm")
 		public String userKakaoLoginForm(@RequestParam(value = "code", required = false) String code) throws Exception {
-			System.out.println("#########" + code);
+			//System.out.println("#########" + code);
 			String access_Token = userService.getAccessToken(code);
 			
 			// userInfo의 타입을 KakaoDTO로 변경 및 import.
 			UserAllDTO userInfo = userService.getUserInfo(access_Token);
 		    
-			System.out.println("###access_Token#### : " + access_Token);
-			System.out.println("###nickname#### : " + userInfo.getUser_name());
-			System.out.println("###email#### : " + userInfo.getUser_email());
-			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-			
-			// 아래 코드가 추가되는 내용
 			session.invalidate();
 			// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.			
 			session.setAttribute("memName", userInfo.getUser_name());
@@ -200,7 +181,14 @@ public class UserLoginController {
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
 			
-			return "home2";
+			if(userInfo.getUser_nickname() == null) {
+				session.setAttribute("memSocial", userInfo.getUser_social());
+				return "/user/userUpdateForm";
+			}
+			else {
+				return "home2";
+			}
+			
 		}
 		
 		

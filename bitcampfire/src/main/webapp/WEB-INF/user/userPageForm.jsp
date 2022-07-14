@@ -14,8 +14,7 @@
 <body>
 <div class="layout-container">
     <div class="main">
-		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/> 
-		
+		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/> 		
 		
 			<div id="user" class="content clearfix" role="main" >
 				<div class="panel panel-default" style="height:180px;" >

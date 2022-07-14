@@ -133,7 +133,7 @@
 		
 		<!-- 글 삭제 -->
 		<delete id="boardDelete" parameterType="int">
-			delete from board_review board_id = ${board_id}
+			delete from board_review where board_id = ${board_id}
 		</delete>
 		
 	<!-- ####################### 정수 : 끝  ###################### -->

@@ -158,8 +158,11 @@
 <script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
 <script type="text/javascript">
 /* @@@ 카카오톡 가입회원이 사용할 수 없는 기능 추가(220713) */
+
+  
 $(function(){
 	if($('#user_social').val()!='X') {
+
 		$('#pwdChange_kakao').click(function(){
 			alert('[비밀번호] : 카카오톡 연동 가입회원은 비밀번호 변경이 불가합니다.');
 			return false;

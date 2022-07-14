@@ -1,5 +1,6 @@
 $('#num_check_blank').hide();
 $('#check_alert').hide();
+
 /*
 $(function(){
 	
@@ -186,7 +187,7 @@ $('#emailBtn').click(function(){
 	
 	$('#check_alert').hide();
 	
-	console.log('완성된 이메일 : ' + $('#user_email').val()); // 이메일 오는지 확인
+	//console.log('완성된 이메일 : ' + $('#user_email').val()); // 이메일 오는지 확인
 	
 	if($('#user_email').val() == ''){
 		$('#check_alert').show();
@@ -200,7 +201,7 @@ $('#emailBtn').click(function(){
 		url : '/semiproject/user/mailCheck?user_email='+$('#user_email').val(), // GET방식이라 Url 뒤에 email을 붙일수있다.
 		//data: {'user_email': $('#user_email').val()},
 		success : function (data) {
-			console.log("data : " +  data);
+			//console.log("data : " +  data);
 			$('#user_email_check_number').attr('disabled',false);
 			code = data;
 			alert('인증번호가 전송되었습니다.');
@@ -216,7 +217,7 @@ $('#emailBtn').click(function(){
 $('#mail-check-input').click(function () {
 	
 	$('#check_').hide();
-	console.log(code);
+	//console.log(code);
 	var inputCode = $(this).val();
 	var $resultMsg = $('#check_alert');
 	

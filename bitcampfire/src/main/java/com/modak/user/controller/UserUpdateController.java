@@ -81,14 +81,14 @@ public class UserUpdateController {
 	@GetMapping("mailCheck_updateEmail")
 	@ResponseBody
 	public String mailCheck_updateEmail(String user_email) throws Exception{
-		logger.info("이메일 인증 요청이 들어옴!"+user_email);
-        logger.info("인증번호 : " + user_email);
+		//logger.info("이메일 인증 요청이 들어옴!"+user_email);
+     //   logger.info("인증번호 : " + user_email);
 		//return  mailService.joinEmail(user_email);
         
         /* 인증번호(난수) 생성 */
         Random random = new Random();
         int checkNum = random.nextInt(888888) + 111111;
-        logger.info("인증번호 " + checkNum);
+      //  logger.info("인증번호 " + checkNum);
         
         /* 이메일 보내기 */
         String setFrom = "manbal58@hanmail.net";
@@ -130,9 +130,10 @@ public class UserUpdateController {
 		String user_email = (String) session.getAttribute("memEmail");
 		//가상폴더
 		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
-		//String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수비트캠프
-		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage"; //연수집
-		String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";
+		String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수비트캠프
+		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수집
+		//String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";
+
 
 		String fileName = user_image.getOriginalFilename();
 		
