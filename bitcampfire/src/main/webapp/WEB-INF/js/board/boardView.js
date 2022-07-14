@@ -60,27 +60,55 @@ $('.note-vote-btn').click(function(){
 	}); 
 }) 
 
+//글 수정버튼을 눌렀을때 자신의 아이디가 아니면 로그인
 
+	$('#boardUpdateFormBtn').click(function(){ // 수정버튼을 눌렀을떄
+		
+		if (confirm ("글을 수정하시겠습니까?")){ // 세션의 아이디가 없으면 로그인
+			if(!$('#board_watcher').val()){
+				alert("먼저 로그인하세요.")
+				location.href = "/semiproject/user/userLoginForm"
+			} else if ($('#board_watcher').val() != $('#board_uid').val()){ 
+				alert("본인의 글만 수정할 수 있습니다.")
+			} else if($('#board_watcher').val() == $('#board_uid').val()){ // 세션의 아이디가 맞으면 (자신의 아이디면) 글 수정 폼 띄우기
+				//location.href = "/semiproject/board/boardEditForm?board_id=" + ${board_id};
+				location.href = "/semiproject/board/boardEditForm?board_id="+$('#board_id').val();
+				}
+		} else {
+			location.reload();
+			
+		}
+	})
 	
 // 글 삭제	
 	$('#boardDelete').click(function(){
 		
 		var board_id = $('#board_id').val();
-		alert("글 삭제?")
-		
-		$.ajax({
-			type : 'get',
-			url : "/semiproject/board/boardDelete",
-			data : {board_id : board_id},
-			success: function() {
-				alert("글이 삭제되었습니다.")
-				location.href="/semiproject/";
-			}, error : function(err) {
-				console.log(err);
-			}
+		// alert("글 삭제?")
+		if(!$('#board_watcher').val()){
+			alert("먼저 로그인하세요 .")
+			location.href = "/semiproject/user/userLoginForm";
+		}else if ($('#board_watcher').val() != $('#board_uid').val()){
+			
+			alert("자신의 글만 삭제할 수 있습니다.")
+		} else {
+			
+			if (confirm(" 글을 삭제하시겠습니까?")){
 				
-		})
+				$.ajax({
+					type : 'get',
+					url : "/semiproject/board/boardDelete",
+					data : {board_id : board_id},
+					success: function() {
+						alert("글이 삭제되었습니다.")
+						location.href="/semiproject/";
+					},
+					error : function(err) {
+						console.log(err);
+					}
+				})
+			}
+
+		}
 	})
-		
 	
-		

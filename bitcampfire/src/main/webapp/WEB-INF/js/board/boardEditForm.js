@@ -1,4 +1,4 @@
-$(function(){
+/*$(function(){
 	$.ajax({
 		type : 'get',
 		url : '/semiproject/board/getBoard',
@@ -8,6 +8,6 @@ $(function(){
 			$('#board_title').val(data.board_title) 
 			$('#board_content').html(data.board_content) 
 		}
-		
 	})
-})
+})*/
+
