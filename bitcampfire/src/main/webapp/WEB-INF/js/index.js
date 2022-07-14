@@ -258,7 +258,7 @@ function getBoardBeforedayString(board_date){
 					return (diff + '일 전');
 				}else{
 					var diff = Math.floor(diff / 7);
-					return (dff + '주 전');
+					return (diff + '주 전');
 				}
 			}else{
 				/*풍혁0709 : 30일 보다 클 경우 달 단위*/
