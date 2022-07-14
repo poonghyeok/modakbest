@@ -49,7 +49,7 @@
 						<!-- 이동 경로가 회원번호 같은디? -->
 						<!-- img src 불러오기 다시 -->
 						
-						<a href="/semiproject/user/userMyPageForm" class='avatar-photo' style="margin-left: 25px;"><img src="/semiproject/storage/${sessionScope.memImg}" id="MyPg_user_image"></a>
+						<a href="/semiproject/user/userMyPageForm" class='avatar-photo' style="margin-left: 25px;"><img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="MyPg_user_image"></a>
 						<div class="avatar-info" style="width: 500px;">
 								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.memNickname}</a>
 						</div>

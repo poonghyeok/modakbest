@@ -51,10 +51,10 @@
 	            <div class="panel-heading clearfix">
 	                <div class="avatar clearfix avatar-medium pull-left"> 
 	            	    <!-- 07/11기진: user page를 위해 href를 user 수정하였습니다 -->
-	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="//www.gravatar.com/avatar/c649774942c3c2ab78ed58379972c2f8?d=identicon&amp;s=40"></a>
+	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${sessionScope .memImg}"></a>
 	                    <div class="avatar-info">
 	                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
-                            <a class="nickname" href="/semiproject/user/userMyPageForm?user_id=${boardDTO.board_cmt_cnt}" title="author">${author}</a>
+                            <a class="nickname" href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" title="author">${author}</a>
                             <div class="activity">
                             	<span class="fa fa-flash"></span> 
                             	lev

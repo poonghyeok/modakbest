@@ -22,7 +22,7 @@
 					<div class="panel-body">
 						<div class="avatar clearfix avatar-big col-sm-3 text-center">
 							<%-- <input type="hidden" value="${user_id }"> --%>
-							<a href="/user/info/145381" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/${userDTO.user_img}"/></a>
+							<a href="/user/info/145381" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/userprofile/${userDTO.user_img}"/></a>
 						</div><!-- avatar clearfix avatar-big col-sm-3 text-center -->
 						<div class="user-info col-sm-9">
 							<div class="clearfix">
