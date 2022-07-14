@@ -43,6 +43,7 @@
             <ul class="nav nav-sidebar">
 	      		<div class="avatar clearfix avatar-medium">				
 
+
 						<a href="/semiproject/user/userMyPageForm" class='avatar-photo' style="margin-left: 25px;"><img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="MyPg_user_image"></a>
 						<div class="avatar-info" style="width: 500px;">
 								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.memNickname}</a>

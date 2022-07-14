@@ -20,7 +20,7 @@
 					            <div style="margin-left: 5px;">
 					                <div class="avatar clearfix avatar-medium ">
 					                    <a href="/user/info/133376" class="avatar-photo"><img
-					                            src="https://phinf.pstatic.net/contact/20211028_110/1635420435445Maxwx_JPEG/IMG_5687.jpg"></a>
+					                            src="/semiproject/storage/userprofile/${sessionScope.memImg}"></a>
 					                    <div class="avatar-info">
 					                        <a class="nickname" href="/user/info/133376" title="${sessionScope.memNickname}">${sessionScope.memNickname}</a>
 					                        <div class="activity block"><span class="fa fa-flash"></span> 0</div>
