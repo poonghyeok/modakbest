@@ -66,14 +66,14 @@ public class BoardServiceImpl implements BoardService {
 			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");
 			for(BoardDTO dto : list) {
-				sb.append(boardDtoToTrTag(dto));
+				sb.append(boardDtoToTrTag(dto, sortOption));
 			}
 			sb.append("</ul>");
 			return sb.toString(); 
 		}
-		
+		 	
 		@Override
-		public String getUserSearchWriteTablelist(int pg, String keyword) {
+		public String getUserSearchWriteTablelist(int pg, String keyword, String sortOption) {
 			StringBuffer sb = new StringBuffer();
 			
 			int boardPerPage = 10;
@@ -91,7 +91,7 @@ public class BoardServiceImpl implements BoardService {
 			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class='list-group '>");
 			for(BoardDTO dto : list) {
-				sb.append(boardDtoToTrTag(dto));
+				sb.append(boardDtoToTrTag(dto, sortOption));
 			}
 			sb.append("</ul>");
 			
@@ -112,7 +112,7 @@ public class BoardServiceImpl implements BoardService {
 		
 	
 		//풍혁 (220703) : getUserWriteTablelist() method에서 table에 tr을 추가하는 코드가 너무 길어질 것으로 판단해, tr을 만들어주는 method를 생성했습니다. 
-		private String boardDtoToTrTag(BoardDTO boardDTO) {
+		private String boardDtoToTrTag(BoardDTO boardDTO, String sortOption) {
 			//풍혁220708 : user_name 받아오기 
 			int board_uid = boardDTO.getBoard_uid();
 			String author = userDAO.getUserNameByUserId(board_uid);
@@ -153,32 +153,53 @@ public class BoardServiceImpl implements BoardService {
 				tr.append("</div>");
 			
 				tr.append("<div class='list-summary-wrapper clearfix'>");
-					tr.append("<div class='item-evaluate-wrapper pull-right clearfix'>");
-						tr.append("<div class='item-evaluate'>");
-							tr.append("<div class='item-evaluate-icon'>");
-								tr.append("<i class='item-icon fa fa-thumbs-o-up'>");
-								
-								tr.append("</i>");
-							tr.append("</div>");
-							
-							tr.append("<div class='item-evaluate-icon'>");
-								tr.append(boardDTO.getBoard_vote_cnt());
-							tr.append("</div>");
-						tr.append("</div>");
-						
-						tr.append("<div class='item-evaluate item-evaluate-has-note'>");
-							tr.append("<div class='item-evaluate-icon'>");
-								tr.append("<i class='item-icon fa fa-exclamation-circle'>");
-								
-								tr.append("</i>");
-							tr.append("</div>");
-							
-							tr.append("<div class='item-evaluate-icon'>");
+					tr.append("<div class='list-group-item-summary clearfix'>");
+						tr.append("<ul>");
+							tr.append("<li class=''>");
+								tr.append("<i class='item-icon fa fa-comment '></i>");
 								tr.append(boardDTO.getBoard_cmt_cnt());
-							tr.append("</div>");
-						tr.append("</div>");
+							tr.append("</li'>");
+							
+							tr.append("<li class=''>");
+								tr.append("<i class='item-icon fa fa-thumbs-up '></i>");
+								tr.append(boardDTO.getBoard_vote_cnt());
+							tr.append("</li'>");
+							
+							tr.append("<li class=''>");
+								tr.append("<i class='item-icon fa fa-eye '></i>");
+								tr.append(boardDTO.getBoard_view_cnt());
+							tr.append("</li'>");
+							
+						tr.append("</ul>");
 					tr.append("</div>");
 				tr.append("</div>");
+//				tr.append("<div class='list-summary-wrapper clearfix'>");
+//					tr.append("<div class='item-evaluate-wrapper pull-right clearfix'>");
+//						tr.append("<div class='item-evaluate'>");
+//							tr.append("<div class='item-evaluate-icon'>");
+//								tr.append("<i class='item-icon fa fa-thumbs-o-up'>");
+//								
+//								tr.append("</i>");
+//							tr.append("</div>");
+//							
+//							tr.append("<div class='item-evaluate-icon'>");
+//								tr.append(boardDTO.getBoard_vote_cnt());
+//							tr.append("</div>");
+//						tr.append("</div>");
+//						
+//						tr.append("<div class='item-evaluate item-evaluate-has-note'>");
+//							tr.append("<div class='item-evaluate-icon'>");
+//								tr.append("<i class='item-icon fa fa-exclamation-circle'>");
+//								
+//								tr.append("</i>");
+//							tr.append("</div>");
+//							
+//							tr.append("<div class='item-evaluate-icon'>");
+//								tr.append(boardDTO.getBoard_cmt_cnt());
+//							tr.append("</div>");
+//						tr.append("</div>");
+//					tr.append("</div>");
+//				tr.append("</div>");
 				
 				tr.append("<div class=\"list-group-item-author clearfix\">");
 					tr.append("<div class='avatar clearfix avatar-list '>");
@@ -203,27 +224,27 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 풍혁(220703) : list 하단에 pageList 입니다. container에 bean으로 올려서 받아쓰는 방법도 있으나 일단 객체생성 방식으로 사용해보겠습니다. 
 		@Override
-		public String getBoardPagingList(int pg) {
+		public String getBoardPagingList(int pg, String sortOption) {
 			BoardPaging boardPaging = new BoardPaging();
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
 			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
-			boardPaging.makePagingHTML();
+			boardPaging.makePagingHTML(sortOption);
 			
 			return boardPaging.getPagingHTML().toString();
 		}
 		
 		@Override
-		public String getBoardSearchPagingList(int pg, String keyword) {
+		public String getBoardSearchPagingList(int pg, String keyword, String sortOption) {
 			BoardPaging boardPaging = new BoardPaging();
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
 			boardPaging.setTotalA(boardDAO.getTotalBoardSearchNum(keyword));
-			boardPaging.makePagingHTML();
+			boardPaging.makeSearchPagingHTML(keyword, sortOption);
 			
-			return null;
+			return boardPaging.getPagingHTML().toString();
 		}
 		
 		@Override
