@@ -76,10 +76,11 @@
 
     <ul class="nav nav-sidebar nav-main">
     		<!-- link 누르면 호버기능?  -->
-    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
-    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
-    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
-    		<li  ><a href="/semiproject/board/list?pg=1" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
+    			<!-- 풍혁220714 : list로 url에는 pg와  sortOption이 있어야 한다. sortOption은 기본이 date다. -->
+    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
+    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
+    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
+    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
     </ul>
 
 	<!-- okky-깃허브에 연동 -->
