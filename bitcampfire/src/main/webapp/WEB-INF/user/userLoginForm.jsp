@@ -135,6 +135,7 @@ $('#btnUserLogin').click(function(){
 				}
 			});
 		}
+
 });  
 
 </script>

@@ -71,7 +71,7 @@ $(function(){
 		$('#findPwdButton').click(function(){
 			$('#alertDiv').hide();
 			
-			console.log('완성된 이메일 : ' + $('#user_email').val()); // 이메일 오는지 확인	
+			//console.log('완성된 이메일 : ' + $('#user_email').val()); // 이메일 오는지 확인	
 			
 			if($('#user_email').val() == '') {
 				$('#alertDiv').show();
@@ -101,7 +101,7 @@ $(function(){
 								type : 'get',
 								url : '/semiproject/user/pwdFindmailCheck?user_email='+$('#user_email').val(),
 								success : function (data) {
-									console.log("data : " +  data);
+									//console.log("data : " +  data);
 									code = data;
 									alert('메일을 전송했습니다.\n메일에 들어가서 링크를 클릭하세요.');
 								},
@@ -132,32 +132,6 @@ $(function(){
 });
 
 
-//비밀번호 유효성검사
-/*  $('#user_email').focusout(function(){
-	$('..alert alert-danger').hide();
-	
- 	if($('#user_email').val()!=null){
-		$.ajax({ 
-			url: '/semiproject/user/checkPwd',
-			type: 'post',
-			data: 'user_email='+$('#user_email').val(), */
-			//data: 'user_email='+'manbal3@aaa',
-			/* dataType: 'json', */
-	
-		/* 	success: function(data){
-				alert(JSON.stringify(data));
-							
-				if(data == '') {
-					$('.alert alert-danger').show();		
-				}else $('.alert alert-danger').hide();					
-			},
-			error: function(err){
-				console.log(err);
-			}
-		});
- 	}
-}); 
- */
 </script>
 
 </body>
