@@ -1,4 +1,4 @@
-package com.modak.board.service;
+ package com.modak.board.service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -272,6 +272,14 @@ public class BoardServiceImpl implements BoardService {
 		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map) {
 			
 			return boardDAO.getBoardReviewList(map);
+		}
+		
+		//풍혁220714 : board 수정기능입니다~
+		@Override
+		public void update(Map<String, String> map) {
+			
+			boardDAO.update(map);
+			return;
 		}
 	
 //풍혁 : 끝 =============================================

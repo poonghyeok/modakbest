@@ -26,6 +26,8 @@ public interface BoardDAO {
 
 		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption);
 
+		public void update(Map<String, String> map);
+
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 
@@ -49,6 +51,7 @@ public interface BoardDAO {
 		public void boardEdit(BoardDTO boardDTO);
 
 		public void boardDelete(int board_id);
+
 
 
 		
