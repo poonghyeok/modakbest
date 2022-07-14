@@ -81,14 +81,14 @@ public class UserUpdateController {
 	@GetMapping("mailCheck_updateEmail")
 	@ResponseBody
 	public String mailCheck_updateEmail(String user_email) throws Exception{
-		logger.info("이메일 인증 요청이 들어옴!"+user_email);
-        logger.info("인증번호 : " + user_email);
+		//logger.info("이메일 인증 요청이 들어옴!"+user_email);
+     //   logger.info("인증번호 : " + user_email);
 		//return  mailService.joinEmail(user_email);
         
         /* 인증번호(난수) 생성 */
         Random random = new Random();
         int checkNum = random.nextInt(888888) + 111111;
-        logger.info("인증번호 " + checkNum);
+      //  logger.info("인증번호 " + checkNum);
         
         /* 이메일 보내기 */
         String setFrom = "manbal58@hanmail.net";

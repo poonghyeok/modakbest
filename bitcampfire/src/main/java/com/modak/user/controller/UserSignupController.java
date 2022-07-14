@@ -87,14 +87,12 @@ public class UserSignupController {
 		@GetMapping("mailCheck")
 		@ResponseBody
 		public String mailCheck(String user_email) throws Exception{
-			logger.info("이메일 인증 요청이 들어옴!"+user_email);
-	        logger.info("인증번호 : " + user_email);
 			//return  mailService.joinEmail(user_email);
 	        
 	        /* 인증번호(난수) 생성 */
 	        Random random = new Random();
 	        int checkNum = random.nextInt(888888) + 111111;
-	        logger.info("인증번호 " + checkNum);
+	  //      logger.info("인증번호 " + checkNum);
 	        
 	        /* 이메일 보내기 */
 	        String setFrom = "yujin980810@gmail.com";
@@ -133,7 +131,7 @@ public class UserSignupController {
 		public void user_register(@ModelAttribute UserAllDTO userAllDTO,
 						   HttpSession session) {
 			
-			logger.info("post user_register");
+		//	logger.info("post user_register");
 			
 			String inputPass =  userAllDTO.getUser_pwd();
 			String pwd = passwordEncoder.encode(inputPass);

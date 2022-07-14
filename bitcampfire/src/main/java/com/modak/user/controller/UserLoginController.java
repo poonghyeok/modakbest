@@ -88,7 +88,7 @@ public class UserLoginController {
 	/* 이메일 계정을 통한 비밀번호 찾기 jsp 호출  */ 
 	@RequestMapping(value="userFindPwdForm")
 	public String userFindPwdForm() {
-		System.out.println("userFindPwdForm");
+		//System.out.println("userFindPwdForm");
 		return "/user/userFindPwdForm";
 	}
 
@@ -108,7 +108,7 @@ public class UserLoginController {
 			public String pwdFindmailCheck(String user_email, HttpSession session) throws Exception{
 				//user_email = (String)session.getAttribute("memEmail");
 				session.setAttribute("memEmail", user_email);
-				logger.info("이메일 인증 요청이 들어옴"+user_email);
+				//logger.info("이메일 인증 요청이 들어옴"+user_email);
 	
 		        /* 이메일 보내기 */
 		        String setFrom = "yujin980810@gmail.com";
@@ -162,33 +162,15 @@ public class UserLoginController {
 			userService.pwdFindChangeComplete(map);
 		}
 		
-		//카카오 로그인
-		/*
-		@GetMapping(value="userKakaoLoginForm")
-		public String userKakaoLoginForm(@RequestParam(value = "code", required = false) String code) throws Exception {
-			System.out.println("#########" + code);
-			String access_Token = userService.getAccessToken(code);
-			HashMap<String, Object> userInfo = userService.getUserInfo(access_Token);
-			System.out.println("###access_Token#### : " + access_Token);
-			System.out.println("###nickname#### : " + userInfo.get("nickname"));
-			System.out.println("###email#### : " + userInfo.get("email"));
-			return "member/testPage";
-	    	}*/
 		
 		@GetMapping(value="userKakaoLoginForm")
 		public String userKakaoLoginForm(@RequestParam(value = "code", required = false) String code) throws Exception {
-			System.out.println("#########" + code);
+			//System.out.println("#########" + code);
 			String access_Token = userService.getAccessToken(code);
 			
 			// userInfo의 타입을 KakaoDTO로 변경 및 import.
 			UserAllDTO userInfo = userService.getUserInfo(access_Token);
 		    
-			System.out.println("###access_Token#### : " + access_Token);
-			System.out.println("###nickname#### : " + userInfo.getUser_name());
-			System.out.println("###email#### : " + userInfo.getUser_email());
-			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-			
-			// 아래 코드가 추가되는 내용
 			session.invalidate();
 			// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.			
 			session.setAttribute("memName", userInfo.getUser_name());
@@ -200,7 +182,14 @@ public class UserLoginController {
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
 			
-			return "home2";
+			if(userInfo.getUser_nickname() == null) {
+				session.setAttribute("memSocial", userInfo.getUser_social());
+				return "/user/userUpdateForm";
+			}
+			else {
+				return "home2";
+			}
+			
 		}
 		
 		

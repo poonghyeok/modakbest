@@ -67,7 +67,6 @@
 $(document).ready(function() {
 	$('input').on('keyup', function(e){
 		if(e.keyCode == 13) {
-			//alert('엔터키 눌렀다!');
 			$('#userPwdChangeBtn').trigger('click');			
 		}
 	});
