@@ -113,7 +113,7 @@
 
 	                    <p><input type = "button" id="boardDelete" value = "삭제" class="btn btn-default btn-wide"></p>
 
-	                    <input type="button" name="boardUpdate" id="boardUpdate" onclick = "location.href='/semiproject/board/boardEditForm?board_id='+${board_id}" class="btn btn-success btn-wide" value="수정">
+	                    <input type="button" name="boardUpdate" id="boardUpdateFormBtn" class="btn btn-success btn-wide" value="수정">
                     </div>
 		            <!--페이스북, 글관리-->
 		            
@@ -150,27 +150,5 @@
 <script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-ko-KR.js"></script>
-
-<script type="text/javascript">
-/* $('#btn btn-success btn-wide').click(function(){ //댓글버튼 눌렀을때
-	function to_ajax(){
-			var queryString = $("form[name=testForm]").serialize(); // 키 값 을 묶어서 
-		
-				$.ajax({
-					type : 'post',
-					url : '/semiproject/comment/writeCommentContent', 
-					data : JSON.stringify(queryString), // 
-					dataType : 'json',
-					error: function(xhr, status, error){
-						alert(error);
-					},
-					success : function(json){
-						alert(json.data);
-						location.href="/board/getCommentContent"
-					}
-				});
-		}
-}); */
-</script>
 </body>
 </html> 

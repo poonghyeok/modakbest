@@ -204,7 +204,7 @@ public class BoardController {
 		  @ResponseBody 
 		  public void recommendCancel(@RequestParam int vote_uid,@RequestParam int vote_cateid,@RequestParam int vote_bid) {
 			
-			System.out.println("**** 추천취소 컨트롤러");
+			//System.out.println("**** 추천취소 컨트롤러");
 					  
 			Map<String, Object> map = new HashMap<String, Object>();
 					  
@@ -222,11 +222,9 @@ public class BoardController {
 		  @GetMapping(value = "/getBoard")
 		  @ResponseBody
 		  public BoardDTO getBoard(@RequestParam int board_id) { 
-			  System.out.println("boardEditForm 오닝????????"); 
 			  
 			  BoardDTO boardDTO= boardService.boardEditForm(board_id); 
-			  System.out.println("***boardEdit*** TEST boardDTO = " + boardDTO); 
-			  
+			  //System.out.println("***boardEdit*** TEST boardDTO = " + boardDTO); 
 			  return boardDTO; 
 			 }
 		  
@@ -239,9 +237,7 @@ public class BoardController {
 		  @GetMapping(value = "/boardDelete")
 		  @ResponseBody
 		  public void boardDelete(@RequestParam int board_id) {
-			  System.out.println("글 삭제???");
 			  boardService.boardDelete(board_id);
-			  System.out.println("dkadddkdkdk");
 		  }
 		  
 		  
