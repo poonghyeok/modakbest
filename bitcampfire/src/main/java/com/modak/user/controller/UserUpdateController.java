@@ -43,7 +43,7 @@ public class UserUpdateController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;	
 	@Autowired
-	private JavaMailSender mailSender3;
+	private JavaMailSender mailSender4;
 	private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);	
 	
 	//회원정보 수정 시작
@@ -91,7 +91,7 @@ public class UserUpdateController {
       //  logger.info("인증번호 " + checkNum);
         
         /* 이메일 보내기 */
-        String setFrom = "manbal58@hanmail.net";
+        String setFrom = "dustn551@gmail.com";
         String toMail = user_email;
         String title = "이메일 변경 인증 이메일 입니다.";
         String content = 
@@ -102,13 +102,13 @@ public class UserUpdateController {
         
         try {
             
-            MimeMessage message = mailSender3.createMimeMessage();
+            MimeMessage message = mailSender4.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
             helper.setFrom(setFrom);
             helper.setTo(toMail);
             helper.setSubject(title);
             helper.setText(content,true);
-            mailSender3.send(message);
+            mailSender4.send(message);
             
         }catch(Exception e) {
             e.printStackTrace();
