@@ -1,10 +1,9 @@
 // View 에서 새글쓰기 버튼 눌렀을때-> 로그인 먼저
 $('#boardWriteBtn').click(function(){ // 상세페이지에서 새글쓰기 버튼 눌렀을때
-	
-	if (!$('#memEmail').val()) {
-		alert('먼저 로그인하세요.');
+	if(!$('#board_watcher').val()){
+		alert('글을 쓰려면 먼저 로그인을 해주세요.');
 		location.href = "/semiproject/user/userLoginForm";
-	} else {
+	}else{
 		location.href = "/semiproject/board/write";
 	}
 })
