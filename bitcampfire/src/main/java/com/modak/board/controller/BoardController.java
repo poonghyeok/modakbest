@@ -56,7 +56,7 @@ public class BoardController {
 			String session_email = (String)session.getAttribute("memEmail");
 			
 			String userWriteTableList = boardService.getUserWriteTablelist(pg, sortOption);
-			String boardPagingList = boardService.getBoardPagingList(pg);
+			String boardPagingList = boardService.getBoardPagingList(pg, sortOption);
 			
 			ModelAndView mav = new ModelAndView();
 			if(session_email != null) {
@@ -84,13 +84,13 @@ public class BoardController {
 		}
 		
 		@GetMapping("/search")
-		public ModelAndView boardSearchList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword) {
+		public ModelAndView boardSearchList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword, @RequestParam(required = false, defaultValue = "date") String sortOption) {
 			
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
 			
-			String userWriteTableList = boardService.getUserSearchWriteTablelist(pg, keyword);
-			String boardPagingList = boardService.getBoardSearchPagingList(pg, keyword);
+			String userWriteTableList = boardService.getUserSearchWriteTablelist(pg, keyword, sortOption);
+			String boardPagingList = boardService.getBoardSearchPagingList(pg, keyword, sortOption);
 			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("userWriteTableList", userWriteTableList);
@@ -203,19 +203,32 @@ public class BoardController {
 		  
 		  }
 		  
-		  // 글 수정
-		  @PostMapping(value = "/boardEditForm")
+		  // 글 수정 데이터 불러오기
+		  @GetMapping(value = "/boardEditForm")
 		  @ResponseBody
-		  public BoardDTO boardEdit(@RequestParam int board_id) {
-			  
+		  public BoardDTO boardEditForm(@RequestParam int board_id) {
+			  System.out.println("boardEditForm 오닝????????");
 			   BoardDTO boardDTO = boardService.boardEditForm(board_id);
+			   System.out.println("***boardEdit*** TEST boardDTO = " + boardDTO );
 			   return boardDTO;
 		  }
 		  
-		  
+		  // 글 수정
+		  @GetMapping(value = "/boardEdit")
+		  @ResponseBody 
+		  public void boardEdit(@RequestParam BoardDTO boardDTO) {
+			  System.out.println("boardEdit오냥!!!!!");
+			  boardService.boardEdit(boardDTO);
+		  }
+			  
 		  
 		  // 글 삭제
-		  
+		  @GetMapping(value = "/boardDelete")
+		  @ResponseBody
+		  public void boardDelete(@RequestParam int board_id) {
+			  System.out.println("글 삭제???");
+			  boardService.boardDelete(board_id);
+		  }
 		  
 		  
 		  

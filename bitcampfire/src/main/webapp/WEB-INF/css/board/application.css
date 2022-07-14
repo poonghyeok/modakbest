@@ -6207,11 +6207,10 @@ button.close {
     background: transparent;
     border: 0;
 }
-
- .modal-open {
+.modal-open {
     overflow: hidden;
-} 
- .modal {
+}
+.modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -6222,8 +6221,8 @@ button.close {
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     outline: 0;
-} 
- ..fade .-dialog {
+}
+.modal.fade .modal-dialog {
     -webkit-transition: -webkit-transform 0.3s ease-out;
     -o-transition: -o-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
@@ -6231,14 +6230,14 @@ button.close {
     -ms-transform: translate(0, -25%);
     -o-transform: translate(0, -25%);
     transform: translate(0, -25%);
-} 
- .modal.in .modal-dialog {
+}
+.modal.in .modal-dialog {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
     transform: translate(0, 0);
-} 
- .modal-open .modal {
+}
+.modal-open .modal {
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -6246,8 +6245,8 @@ button.close {
     position: relative;
     width: auto;
     margin: 10px;
-} 
- .modal-content {
+}
+.modal-content {
     position: relative;
     background-color: #fff;
     -webkit-background-clip: padding-box;
@@ -6258,14 +6257,14 @@ button.close {
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-} 
- .modal-backdrop {
+}
+.modal-backdrop {
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     background-color: #000;
-} 
+}
 .modal-backdrop.fade {
     filter: alpha(opacity=0);
     opacity: 0;
@@ -6433,7 +6432,7 @@ button.close {
     margin-top: -5px;
     border-width: 0 5px 5px;
     border-bottom-color: #000;
-} 
+}
 .popover {
     position: absolute;
     top: 0;
@@ -6806,8 +6805,8 @@ button.close {
 .pager:after,
 .panel-body:before,
 .panel-body:after,
-.modal-footer:before
-.modal-footer:after  {
+.modal-footer:before,
+.modal-footer:after {
     display: table;
     content: " ";
 }
@@ -6824,7 +6823,7 @@ button.close {
 .navbar-header:after,
 .navbar-collapse:after,
 .pager:after,
-.panel-body:after
+.panel-body:after,
 .modal-footer:after {
     clear: both;
 }
@@ -8130,9 +8129,9 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
     margin-right: 0;
     margin-left: 0;
 }
- .note-dialog .note-modal-form {
+.note-dialog .note-modal-form {
     margin: 0;
-} 
+}
 .note-dialog .note-image-dialog .note-dropzone {
     min-height: 100px;
     margin-bottom: 10px;
@@ -8155,7 +8154,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
     -ms-filter: alpha(opacity=90);
     filter: alpha(opacity=90);
 }
-.note-dialog .note-help-dialog .-content {
+.note-dialog .note-help-dialog .modal-content {
     background: transparent;
     border: 1px solid white;
     -webkit-border-radius: 5px;
@@ -8177,7 +8176,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
     color: white;
     border-bottom: white 1px solid;
 }
-.note-dialog .note-help-dialog .-close {
+.note-dialog .note-help-dialog .modal-close {
     font-size: 14px;
     color: #dd0;
     cursor: pointer;
@@ -9392,7 +9391,7 @@ blockquote {
 .job-filter-search {
     margin-left: auto;
 }
-#job-filter- {
+#job-filter-modal {
     display: flex;
     position: fixed;
     width: 100%;
@@ -9402,10 +9401,10 @@ blockquote {
     background-color: #5a5a5a9e;
     z-index: 99;
 }
-#job-filter-.width-fixed {
+#job-filter-modal.width-fixed {
     width: 35%;
 }
-.job-filter--top {
+.job-filter-modal-top {
     display: flex;
     background-color: #F7F7F7;
     border-bottom: 1px solid #dedede;
@@ -9413,14 +9412,14 @@ blockquote {
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
 }
-.job-filter--item-title {
+.job-filter-modal-item-title {
     text-align: center;
     background-color: #F7F7F7;
     padding: 1em;
     position: relative;
     cursor: pointer;
 }
-.job-filter--item-title.active {
+.job-filter-modal-item-title.active {
     font-weight: bold;
     border-bottom: 2px solid #3488D5;
 }
@@ -9439,7 +9438,7 @@ span.filter-count {
     align-items: center;
     justify-content: center;
 }
-.job-filter--container {
+.job-filter-modal-container {
     display: flex;
     flex-flow: column;
     background-color: #ffffff;

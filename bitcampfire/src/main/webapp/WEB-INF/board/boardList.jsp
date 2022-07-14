@@ -77,6 +77,17 @@
 		</div>
 		
 		<div class="list-summary-wrapper clearfix">
+            <div class="list-group-item-summary clearfix">
+                <ul>
+                    <li class=""><i class="item-icon fa fa-comment "></i> 27</li>
+                    <li class="">
+                        <i class="item-icon fa fa-thumbs-up"></i> 5
+                    </li>
+                    <li class=""><i class="item-icon fa fa-eye"></i> 4k</li>
+                </ul>
+            </div>
+        </div>
+		<!-- <div class="list-summary-wrapper clearfix">
 		        <div class="item-evaluate-wrapper pull-right clearfix">
 		            <div class="item-evaluate">
 		                <div class="item-evaluate-icon">
@@ -95,8 +106,7 @@
 		                </div>
 		            </div>
 		        </div>
-		    
-		</div>
+		</div> -->
 		
 		<div class="list-group-item-author clearfix">
 		
@@ -116,6 +126,15 @@
 		</div>
 		<!-- 풍혁 (220704) : 고정 (공지)list -->
 		
+		<!-- 풍혁(220714) : 중간광고 -->
+		<div class="main-banner-wrapper">
+           <div class="main-banner">
+           	  <a href="/banner/stats/527" target="_i"><img src="//file.okky.kr/banner/1657005748618.png"></a>
+           </div>
+        </div>
+		<!-- 풍혁(220714) : 중간광고 -->
+
+		
 		<!-- 풍혁(220705) : 유저작성 list-->
 			<!-- 풍혁(220705) : 댓글이 있는 글 없는 글 li class 다름 -->
 				<!-- 풍혁(220704) : table tag에서 okky 따라서 ul tag로 수정해보겠습니다.  -->
@@ -133,6 +152,10 @@
 			</ul>
 		</div>
 		<!-- 풍혁(220706) : page list -->
+		
+		<!-- 풍혁0714 우측광고, 추후 학원전용 채팅방으로 변경 예정 -->
+
+		<!-- 풍혁0714 우측광고, 추후 학원전용 채팅방으로 변경 예정 -->
 		
 		<!-- 풍혁 (220707) : 보드 유저 공용 푸터 jsp include -->
 			<jsp:include page="/WEB-INF/global/footer.jsp"/>

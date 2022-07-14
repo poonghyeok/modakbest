@@ -13,13 +13,13 @@ public interface BoardService {
 	//풍혁 : 시작 =================================
 		public String getUserWriteTablelist(int pg, String sortOption);
 		
-		public String getUserSearchWriteTablelist(int pg, String keyword);
+		public String getUserSearchWriteTablelist(int pg, String keyword, String sortOption);
 		
-		public String getBoardPagingList(int pg);
+		public String getBoardPagingList(int pg, String sortOption);
 		
 		public void boardWrite(BoardDTO boardDTO);
 		
-		public String getBoardSearchPagingList(int pg, String keyword);
+		public String getBoardSearchPagingList(int pg, String keyword, String sortOption);
 		
 //		public String getHomeBoardList(int boardNum);
 		
@@ -44,6 +44,10 @@ public interface BoardService {
 		public void deleteVote(Map<String, Object> map);
 
 		public BoardDTO boardEditForm(int board_id);
+
+		public void boardEdit(BoardDTO boardDTO);
+
+		public void boardDelete(int board_id);
 		
 	// 정수 : 끝  ###################### 
 

@@ -255,6 +255,5 @@ public class UserUpdateController {
 	public String userDeleteComplete() {
 		return "/user/userDeleteComplete";
 	}
-	//회원탈퇴 끝	
-	
+
 }

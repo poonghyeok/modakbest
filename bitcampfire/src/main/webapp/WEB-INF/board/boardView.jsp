@@ -28,7 +28,7 @@
 	        
 	   		<!-- main-banner -->  
         
-      <!-- 글 카테고리, 새글쓰기  -->
+        	<!-- 글 카테고리, 새글쓰기  -->
 	        <div class="nav" role="navigation">
 	            <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn" href="/semiproject/board/write"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
 	            <h4>${cateidToString}</h4>
@@ -95,58 +95,30 @@
 					</div>
 
 					<!--추천수-->
-					<div id="content-function"
-						class="content-function pull-right text-center">
+					<div id="content-function" class="content-function pull-right text-center">
 						<div class="content-function-group">
 							<div class="note-evaluate-wrapper">
-								<a href="javascript://" class="note-vote-btn" role="button" 
-									data-type="assent" data-eval="true" data-id="2853281"> <i
-									id="note-evaluate-assent-2853281"
-									class="fa fa-angle-up note-evaluate-assent-assent"
-									data-placement="left" data-toggle="tooltip" title=""
-									data-original-title="추천"></i>
+								<a href="javascript://" class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281"> 
+									<i id="note-evaluate-assent-2853281" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
 								</a>
 								<div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
-
-								<a href="javascript://" class="note-vote-btn" role="button"
-									data-type="dissent" data-eval="true" data-id="2853281"> <i
-									id="note-evaluate-dissent-2853281"
-									class="fa fa-angle-down note-evaluate-dissent-dissent"
-									data-placement="left" data-toggle="tooltip" title=""
-									data-original-title="반대"></i>
+								<a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
+								 <i id="note-evaluate-dissent-2853281" class="fa fa-angle-down note-evaluate-dissent-dissent" data-placement="left" data-toggle="tooltip" title="" data-original-title="반대"></i>
 								</a>
 							</div>
 						</div>
 					</div>
-					
-				<!-- 글 수정 / 삭제 -->
-			
-			<!-- 페이스북  / 글 수정 삭제  -->
-            <div class="content-function-cog share-btn-wrapper">
-	             <div class="dropdown">
-	                 <a href="http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fokky.kr%2Farticle%2F1271479" class="btn-facebook-share"><i class="fa fa-facebook-square fa-fw" data-toggle="tooltip" data-placement="left" title="" data-original-title="페이스북 공유"></i></a>
-	             </div>
-	            <div class="dropdown">
-	            	<form action="/article/delete/1271479" method="post" name="article-delete-form" id="article-delete-form">
-						<input type="hidden" name="_csrf" value="984fb4e0-2a17-412c-8e1e-2390b8c53d86">
-	           			<input type="hidden" name="_method" value="DELETE" id="_method">
-		                    <div class="dropdown">
-	                        	<a href="javascript://" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-cog" data-toggle="tooltip" data-placement="left" title="" data-original-title="게시물 설정"></i></a>
-		                        <ul class="" role="menu">
-		                            <li><a href="/article/edit/1271479" class="edit"><i class="fa fa-edit fa-fw"></i> 수정 </a></li>
-		                                <li><a href="javascript://" id="article-delete-btn"><i class="fa fa-trash-o fa-fw"></i> 삭제 </a></li>   
-		                        </ul>
-		                  </div>
-	                </form>
-	            </div>
-            </div>
-					
-			<div id="content-function"
-				class="content-function pull-right text-center">
-				<div class="content-function-group"></div>
-			</div>
-		</div>
+					<!--페이스북, 글관리-->
+					<div class="content-function-cog note-submit-buttons clearfix">
 
+	                    <p><a href="" id="boardDelete" class="btn btn-default btn-wide">삭제</a></p>
+
+	                    <input type="button" name="boardUpdate" id="boardUpdate" class="btn btn-success btn-wide" value="수정">
+                    </div>
+		            <!--페이스북, 글관리-->
+		            
+				</div> <!-- <div class="content-container clearfix"> -->
+			</div><!-- <div class="panel panel-default clearfix fa-"> -->
 			
 			<!-- 중간배너광고 -->
 			<div class="main-banner-wrapper">

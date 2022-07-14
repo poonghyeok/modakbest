@@ -16,7 +16,7 @@ public class BoardPaging {
 	private int totalA; //총글수
 	private StringBuffer pagingHTML;
 	
-	public void makePagingHTML() {
+	public void makePagingHTML(String sortOption) {
 		System.out.println("페이지 리스트 만들기 현재 페이지 : " + currentPage + " 페이지 블럭 : " + pageBlock + " 페이지 당 글 " + pageSize);
 		
 		this.pagingHTML = new StringBuffer();
@@ -35,7 +35,7 @@ public class BoardPaging {
 		if(currentPage != 1) { //if(startPage > pageBlock)                         
 			int previousPage = currentPage-1;                                      
 			pagingHTML.append("<li class='prev'>");
-				pagingHTML.append("<a href='/semiproject/board/list?pg="+previousPage+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
+				pagingHTML.append("<a href='/semiproject/board/list?pg="+previousPage+"&sortOption="+sortOption+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
 					pagingHTML.append("«");
 				pagingHTML.append("</a>"); 
 			pagingHTML.append("</li>");
@@ -52,7 +52,7 @@ public class BoardPaging {
 				pagingHTML.append("</li>");
 			}else {
 				pagingHTML.append("<li>");
-					pagingHTML.append("<a href='/semiproject/board/list?pg="+i+"'>");
+					pagingHTML.append("<a href='/semiproject/board/list?pg="+i+"&sortOption="+sortOption+"'>");
 						pagingHTML.append(i);
 					pagingHTML.append("</a>");
 				pagingHTML.append("</li>");
@@ -62,14 +62,14 @@ public class BoardPaging {
 		if(currentPage < endPage) {                                                            
 			int nextPage = currentPage+1;
 			pagingHTML.append("<li class='next'>");
-				pagingHTML.append("<a href='/semiproject/board/list?pg="+nextPage+"'>"); //풍혁(220706) : href 현재페이지에서 다음페이지로 넘겨주는 url로 수정해야 됨.
+				pagingHTML.append("<a href='/semiproject/board/list?pg="+nextPage+"&sortOption="+sortOption+"'>"); //풍혁(220706) : href 현재페이지에서 다음페이지로 넘겨주는 url로 수정해야 됨.
 					pagingHTML.append("»");
 				pagingHTML.append("</a>"); 
 			pagingHTML.append("</li>");
 		}
 	}
 		
-		public void makeSearchPagingHTML(String keyword) {
+		public void makeSearchPagingHTML(String keyword, String sortOption) {
 			this.pagingHTML = new StringBuffer();
 		
 			int totalP = (int)(Math.ceil(totalA / (float)pageSize));
@@ -86,7 +86,7 @@ public class BoardPaging {
 			if(currentPage != 1) { //if(startPage > pageBlock)                         
 				int previousPage = currentPage-1;                                      
 				pagingHTML.append("<li class='prev'>");
-					pagingHTML.append("<a href='/semiproject/board/search?pg="+previousPage+"&keword="+keyword+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
+					pagingHTML.append("<a href='/semiproject/board/search?pg="+previousPage+"&keword="+keyword+"&sortOption="+sortOption+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
 						pagingHTML.append("«");
 					pagingHTML.append("</a>"); 
 				pagingHTML.append("</li>");
@@ -103,7 +103,7 @@ public class BoardPaging {
 					pagingHTML.append("</li>");
 				}else {
 					pagingHTML.append("<li>");
-						pagingHTML.append("<a href='/semiproject/board/search?pg="+i+"&keword="+keyword+"'>");
+						pagingHTML.append("<a href='/semiproject/board/search?pg="+i+"&keword="+keyword+"&sortOption="+sortOption+"'>");
 						
 							pagingHTML.append(i);
 						pagingHTML.append("</a>");
@@ -114,7 +114,7 @@ public class BoardPaging {
 			if(currentPage < endPage) {                                                            
 				int nextPage = currentPage+1;
 				pagingHTML.append("<li class='next'>");
-					pagingHTML.append("<a href='/semiproject/board/search?pg="+nextPage+"&keword="+keyword+"'>"); //풍혁(220706) : href 현재페이지에서 다음페이지로 넘겨주는 url로 수정해야 됨.
+					pagingHTML.append("<a href='/semiproject/board/search?pg="+nextPage+"&keword="+keyword+"&sortOption="+sortOption+"'>"); //풍혁(220706) : href 현재페이지에서 다음페이지로 넘겨주는 url로 수정해야 됨.
 						pagingHTML.append("»");
 					pagingHTML.append("</a>"); 
 				pagingHTML.append("</li>");
