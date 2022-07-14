@@ -339,7 +339,8 @@
 								</div>	
 							</div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<!-- 연수 :  취소버튼 기능 수정(220714) 기존(class="btn btn-secondary")-->
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					      </div>
 					    </div>
 					</div>
@@ -721,8 +722,9 @@
 																
 								</div>	
 							</div>
-							    <div class="modal-footer">
-							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							    <div class="modal-footer">							        
+									<!-- 연수 :  취소버튼 기능 수정(220714) 기존(class="btn btn-secondary")-->
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					        	</div>
 					    	</div>
 					</div>

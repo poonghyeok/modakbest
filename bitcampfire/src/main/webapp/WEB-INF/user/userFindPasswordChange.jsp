@@ -7,13 +7,6 @@
 	<title>bitcampfire - 비밀번호 변경</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
-<!-- 	<style type="text/css">
-	#user_pwdDiv, #newPwdDiv, #newPwdCheckDiv{
-		color: red;
-		font-size: 8pt;
-		font-weight: bold;
-		}
-	</style> -->
 </head>
 <body>
 <div class="layout-container">
@@ -27,8 +20,7 @@
 				   <form id="userPwdChangeForm">
 					
 						<input type="hidden" name="_csrf" value="">
-						<input type="hidden" name="user_email" id="user_email" value="${sessionScope.memEmail }">
-						<!-- <div>${sessionScope.memEmail}</div> -->
+						<input type="hidden" name="user_email" id="user_email" value="${sessionScope.memEmail }">						
 						  
 						    <div class="col-sm-8 col-sm-offset-2">
 						        <div class="panel panel-default panel-margin-10">
@@ -63,21 +55,19 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-//연수: 로그인 엔터키 이벤트 수정(220712)
+//로그인 엔터키 이벤트
 $(document).ready(function() {
 	$('input').on('keyup', function(e){
 		if(e.keyCode == 13) {
-			//alert('엔터키 눌렀다!');
 			$('#userPwdChangeBtn').trigger('click');			
 		}
 	});
 });
 
+//계정찾기-비밀번호 변경
 //비밀번호 유효성검사
 $('#check_alert').hide();
 var pwdCheck = false;
-
-//@@@ 연수 알럿 메시지 일부 워딩 수정(220710)
 
 $('#userPwdChangeBtn').click(function(){
 	$('#check_alert').hide();

@@ -14,14 +14,13 @@
 <body>
 <div class="layout-container">
     <div class="main">
-		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/> 
-		
+		<jsp:include page="/WEB-INF/user/userSideBar.jsp"/> 		
 		
 			<div id="user" class="content clearfix" role="main" >
 				<div class="panel panel-default" style="height:180px;" >
 					<div class="panel-body">
 						<div class="avatar clearfix avatar-big col-sm-3 text-center">
-							<a href="/user/info/145381" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/${sessionScope.memImg}"/></a>
+							<a href="/semiproject/user/userMyPageForm" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/userprofile/${sessionScope.memImg}"/></a>
 						</div><!-- avatar clearfix avatar-big col-sm-3 text-center -->
 						<div class="user-info col-sm-9">
 							<div class="clearfix">
@@ -61,7 +60,6 @@
 			      <div class="text-center"></div>
 				</div>
 			</div> <!-- content clearfix -->
-
 	        
 		<jsp:include page="/WEB-INF/global/footer.jsp"/>   	
 	</div> <!-- main -->   
