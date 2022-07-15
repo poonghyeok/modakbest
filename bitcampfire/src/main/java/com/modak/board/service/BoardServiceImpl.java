@@ -209,7 +209,7 @@ public class BoardServiceImpl implements BoardService {
 						String userProfileImg = userDAO.getUserImgByUserid(boardDTO.getBoard_uid());
 						tr.append("<a href='/semiproject/user/userPage?user_id="+boardDTO.getBoard_uid()+"' class='avatar-photo'><img src='/semiproject/storage/userprofile/"+userProfileImg+"'></a>");
 						tr.append("<div class='avatar-info'>");
-							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
+							tr.append("<a class='nickname' href='/semiproject/user/userPage?user_id="+boardDTO.getBoard_uid()+"' title='"+ author +"'>"+ author +"</a>");
 							tr.append("<div class='activity'>");
 								tr.append("<span class='fa fa-flash'></span>" + "lev");
 							tr.append("</div>");
