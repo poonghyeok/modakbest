@@ -30,7 +30,7 @@ function makeIndexDiv(startNum, endNum, location, category){
 			},
 		async : false,
 		success : function(data){
-			console.log(JSON.stringify(data));
+			/*console.log(JSON.stringify(data));*/
 			$('#index').append(categoryOuter(category,location)	.append(getMainBlock(data, category)))
 			
 		},
@@ -118,7 +118,7 @@ function getMainBlock(data, category){
 /*풍혁0709 : category가 qna이거나 커뮤니티인 경우만 append*/
 function getBoardListlink(category){
 	var linkTag = $('<a/>',{
-		href : "/semiproject/board/list?pg=1",
+		href : "/semiproject/board/list?pg=1&sortOption=date",
 		class : "main-more-btn pull-right"
 	});
 	
@@ -135,6 +135,24 @@ function getBoardListlink(category){
 	
 }
 
+/*풍혁 0714 : board_uid로 user의 img 받아오는 function 만들기*/ 
+function getUserImgByBoardUid(board_uid){
+	let user_img;
+	$.ajax({
+		type : 'post',
+		url : '/semiproject/board/getUserImgByBoardUid',
+		async : false,
+		data : { 'user_id' : board_uid},
+		success : function(data){
+			user_img = data;
+		},
+		error : function(err){
+			console.log(err);
+		}
+	})
+	
+	return user_img;
+}
 
 /*AJAX에서 BoardDTO 여러개가 들어있는 데이터를 JSON으로 받았을 때*/
 /*여러개의 li tag로 이루어진 ul tag 만들기*/
@@ -143,6 +161,9 @@ function listJsonToTag(data){ /*여기서 data는 json배열 */
 	var panel = $('<ul/>',{ class : "list-group" });
 		for(var i = 0; i < data.boardList.length; i++){ /*여기서 item은 json */
 			let board_title = data.boardList[i].board_title;
+			let board_uid = data.boardList[i].board_uid;
+			let user_img = getUserImgByBoardUid(board_uid);
+			
 			if(board_title.length > 15){
 				board_title = board_title.substring(0,15) + '...'
 			}
@@ -173,12 +194,12 @@ function listJsonToTag(data){ /*여기서 data는 json배열 */
 								})
 								.append(
 									$('<a/>',{
-										href : "/semiproject/user/userMyPageForm?user_id="+data.boardList[i].board_uid,
+										href : "/semiproject/user/userPage?user_id="+data.boardList[i].board_uid,
 										class : "avatar-photo"
 									})
 									.append(
 										$('<img/>',{
-											src : "/semiproject/storage/${sessionScope.memImg}"
+											src : "/semiproject/storage/userprofile/"+user_img 
 										})
 									)
 								)
@@ -189,7 +210,7 @@ function listJsonToTag(data){ /*여기서 data는 json배열 */
 									.append(
 										$('<a/>',{
 											class : "nickname",
-											href : "/semiproject/user/userMyPageForm?user_id="+data.boardList[i].board_uid,
+											href : "/semiproject/user/userPage?user_id="+data.boardList[i].board_uid,
 											title : data.authorArray[i],
 											text : data.authorArray[i],
 										})
@@ -236,10 +257,13 @@ function listJsonToTag(data){ /*여기서 data는 json배열 */
 
 /* 풍혁 0709 : 현재시간을 기준으로 n분전, n시간전, n일전, n주전을 구하는 function을 만들어보겠수다*/ 
 function getBoardBeforedayString(board_date){
+	
 	var now = new Date();
 
+	/*console.log('board date : ' + board_date + ' now : ' + now);*/
 	/*풍혁0709 : 가장 작은 단위 분으로 시작*/
 	var diff = Math.floor((now - new Date(board_date))/(1000 * 60));
+	
 	if(diff < 60 && diff >= 1){
 		return (diff + '분 전');
 	}else if( diff < 1){

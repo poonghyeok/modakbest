@@ -72,7 +72,10 @@ public interface UserDAO {
 		public int getUserIdByEmail(String session_email);		
 
 		public String getUserNameByUserId(int board_uid);
+
+		public String getUserImgByUserid(int user_id);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
 
 
 		

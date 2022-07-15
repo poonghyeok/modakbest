@@ -33,7 +33,7 @@
 							<div class="user-points" style="margin-top:70px; margin-right:30px;">
 						         <div class="user-point" >
 						             <div class="user-point-label"><i class="fa fa-flash"></i> 활동점수</div>
-						             <div class="user-point-num"><a href="/user/info/145381/activity">0</a></div>
+						             <div class="user-point-num"><a href="#">0</a></div>
 						         </div>
 						         <div class="user-point" >
 						             <div class="user-point-label"><i class="fa fa-user"></i> 팔로잉</div>
@@ -50,9 +50,9 @@
 				</div>
 				<div class="col-sm-2 user-info-nav pull-right">
 					<ul class="nav">
-						<li class="active"><a href="/user/info/145381/activity">최근 활동</a> </li>
-						<li class=""><a href="/user/info/145381/articles">게시물 </a></li>
-						<li class=""><a href="/user/info/145381/scrapped">스크랩 </a></li>
+						<li class="active"><a href="#">최근 활동</a> </li>
+						<li class=""><a href="#">게시물 </a></li>
+						<li class=""><a href="#">스크랩 </a></li>
 					</ul>
 				</div>
 				<!-- 본인이 쓴 글자리  -->

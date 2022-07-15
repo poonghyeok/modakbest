@@ -57,13 +57,24 @@
 	   	</select>
 	   	
 	   	<!-- 풍혁(220707) : 일단 title이나 내용으로 검색하는 SQL입니다. 최신순정렬 -->
-    	<select id="getBoardSearchRangeOrderByTime" parameterType="java.util.Map" resultType="BoardDTO">
+    	<select id="getBoardSearchRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">
 	    	SELECT * FROM (	
-	    		SELECT ROWNUM AS RN, TT.* FROM (SELECT * FROM BOARD_REVIEW 
-	    			WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	    		SELECT ROWNUM AS RN, TT.* FROM 
+	    			(SELECT * FROM BOARD_REVIEW 
+	    				WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'
 	    				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
-	    				ORDER BY BOARD_DATE_CREATED DESC
-	 			)TT
+	    					<if test="sortOption == 'date'">
+			 				ORDER BY BOARD_DATE_CREATED DESC
+		 					</if>
+			 				
+			 				<if test="sortOption == 'vote'">
+			 				ORDER BY BOARD_VOTE_CNT DESC
+		 					</if>
+		 					
+			 				<if test="sortOption == 'view'">
+			 				ORDER BY BOARD_VIEW_CNT DESC
+		 					</if>
+	 				)TT
  			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
     	</select>
     	

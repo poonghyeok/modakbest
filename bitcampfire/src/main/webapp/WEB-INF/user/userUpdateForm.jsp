@@ -264,17 +264,21 @@ $('#update_userImgBtn').click(function(){
 		processData: false,
 		contentType: false,
 		data: formData,
+		async : false, //풍혁0714 : ajax 를 동기방식으로 변경하기
 		success: function(){
 			alert('프로필 이미지 변경을 완료하였습니다.');
 			$('.profile-picture-list').hide();
 			//location.href="/semiproject/user/userUpdateForm";
-			setTimeout("location.href='/semiproject/user/userUpdateForm'",500);
+			//풍혁0714 : sts refresh 설정을 했는데도, 변경 사진이 바로 반영이 안돼서 ajax를 동기방식으로 변경하고 location.href를 밑으로 내려봤습니다. + 대기시간 넉넉히 2초 
 			//location.href = "/semiproject/";
 		},
 		error: function(err) {
 			console.log(err);
+			return;
 		}				
-	});		
+	});
+	
+	setTimeout("location.href='/semiproject/user/userUpdateForm'",2000);
 });
 
 

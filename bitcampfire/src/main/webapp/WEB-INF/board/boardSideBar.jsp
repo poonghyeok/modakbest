@@ -42,8 +42,8 @@
     <div class="nav-user nav-sidebar">
     	<c:if test="${sessionScope.memEmail == null }">
         <ul class="nav nav-sidebar">
-            <li data-toggle="tooltip" data-container="body" title="" data-original-title="로그인"><a href="/semiproject/user/userLoginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
-            <li data-toggle="tooltip" data-container="body" title="" data-original-title="회원가입"><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="로그인" data-original-title="로그인"><a href="/semiproject/user/userLoginForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="회원가입" data-original-title="회원가입"><a href="/semiproject/user/userSignupForm" class="link"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
         </ul>
         </c:if>
     </div>
@@ -51,14 +51,14 @@
     <div class="nav-user nav-sidebar">
     	<c:if test="${sessionScope.memEmail != null }">
         <ul class="nav nav-sidebar">
-            <li data-toggle="tooltip" data-container="body" title="" data-original-title="정보수정"><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="정보수정" data-original-title="정보수정"><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
             <!-- 카카오 로그인 X-->
             <c:if test="${sessionScope.memAccessToken == null}">
-            <li data-toggle="tooltip" data-container="body" title="" data-original-title="로그아웃"><a class="link" id="logoutBtn1"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃"><a class="link" id="logoutBtn1"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
         	</c:if>
         	<!-- 카카오 로그인 O-->
         	<c:if test="${sessionScope.memAccessToken != null}">
-            <li data-toggle="tooltip" data-container="body" title="" data-original-title="로그아웃" ><a href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout" class="link" id="logoutBtn2"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃" ><a href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout" class="link" id="logoutBtn2"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
         	</c:if>
         </ul>
         </c:if>
@@ -96,7 +96,7 @@
 <!-- 풍혁(220707) : sidebar에서 active 변경하기  -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	$('ul.nav,.nav-sidebar,.nav-main a.link').click(function(){
+/* 	$('ul.nav,.nav-sidebar,.nav-main a.link').click(function(){
 		alert('접근성공!');
 		var target = $('ul.nav,.nav-sidebar,.nav-main').children('li[data-toggle="tooltip"]')
 		
@@ -104,7 +104,7 @@
 		target.not($(this)).addClass("");
 		
 	})	
-
+ */
 /* @@@@@@@ 연수 : 일반 로그인 회원 로그아웃 기능(220714) @@@@@@@*/
 $('#logoutBtn1').click(function(){
 	$.ajax({

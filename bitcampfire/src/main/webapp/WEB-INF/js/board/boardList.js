@@ -26,7 +26,20 @@ $('#boardWriteBtnAtList').click(function(){
 	}
 })
 	
-
+$('.category-sort-link').click(function(){
+	let searchKeyword = $('#searchKeyword').val();
+	let sortOption = $(this).attr('id').substring(4);
+	
+	/*	console.log('sortOption : ' + sortOption + ' searchKeyword : ' + searchKeyword);*/
+	
+	if(searchKeyword){
+		//풍혁0714 : searchKeword가 있을 경우
+		location.href="/semiproject/board/search?pg=1&sortOption="+sortOption+"&keyword="+searchKeyword;
+	}else{
+		location.href="/semiproject/board/list?pg=1&sortOption="+sortOption;
+	}
+	
+})
 	
 
 

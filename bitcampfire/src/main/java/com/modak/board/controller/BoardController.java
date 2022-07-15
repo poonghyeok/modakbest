@@ -94,6 +94,7 @@ public class BoardController {
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("userWriteTableList", userWriteTableList);
 			mav.addObject("boardPagingList", boardPagingList);
+			mav.addObject("keyword",keyword);
 			
 			mav.setViewName("/board/boardList");
 			
@@ -139,6 +140,14 @@ public class BoardController {
 			
 			boardService.update(map);
 		};
+		
+		//풍혁0714 : indexList 에서 user 사진 보여주기, board_uid 로 user_img 받아오기
+		@PostMapping(value = "getUserImgByBoardUid")
+		@ResponseBody
+		public String getUserImgByBoardUid(@RequestParam int user_id) {
+			
+			return userService.getUserImgByUserid(user_id);
+		}
 		  	
 		  
 //풍혁 : 끝 ====================================
@@ -164,6 +173,11 @@ public class BoardController {
 			//풍혁220708 : boadr_uid로 유저nickname 받아서 작성자에 넣겠습니다.
 			String author = boardService.getUserNameByUserId(boardDTO.getBoard_uid());
 			mav.addObject("author", author);
+			
+			//풍혁220714 : board_uid로 user_img를 받아서 프로필 사진 반영하겠습니다. 
+			String userImg = userService.getUserImgByUserid(boardDTO.getBoard_uid());
+			System.out.println("\n @log@ userimg : " + userImg);
+			mav.addObject("user_img", userImg);
 			
 			mav.addObject("cateidToString", boardDTO.cateidToString());
 			
