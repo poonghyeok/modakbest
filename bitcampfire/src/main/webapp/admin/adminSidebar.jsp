@@ -74,7 +74,7 @@
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤</span></a></li>
         
         <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자 조건 추가 필요(220715)  @@@@@@@@@@@@@@-->
-        <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/userAllList" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+        <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
     	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715)  @@@@@@@@@@@@@@-->
     </ul>
 
@@ -85,12 +85,13 @@
 
 <!-- sdiebar2 -->
 <div class="sidebar-category-nav">
-    <h3 class="sub-title">Q&amp;A</h3>
+    <h3 class="sub-title">관리자페이지</h3>
     <ul class="nav">
-            <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">All</span> <span class="nav-indicator nav-selected"><span class="nav-selected-dot"></span></span></a></li>
+           <!--  <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">All</span> <span class="nav-indicator nav-selected"><span class="nav-selected-dot"></span></span></a></li> -->
                     <!-- 풍혁 (220707 0847) : 여기 list는 게시판마다 달라지게 해야됨. 1. ajax 2. controller 에서 addobject ... -->
-                    <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Tech Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-                    <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Career Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+                    <li><a href="/semiproject/admin/adminUserAllList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">회원관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+                    <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">게시판관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+                    <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">공지사항</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
     </ul>
     <div class="special-nav">
     </div>

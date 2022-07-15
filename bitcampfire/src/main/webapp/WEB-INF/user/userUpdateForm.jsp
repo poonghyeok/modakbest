@@ -157,9 +157,10 @@
 <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
 <script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
 <script type="text/javascript">
-/* @@@ 카카오톡 가입회원이 사용할 수 없는 기능 추가(220713) */
+//@@@@@@@@@ 연수 : 학원명 검색 기능 적용(0715)
+$('#user_classid').select2({});
 
-  
+/* @@@ 카카오톡 가입회원이 사용할 수 없는 기능 추가(220713) */
 $(function(){
 	if($('#user_social').val()!='X') {
 

@@ -47,6 +47,9 @@ public interface UserService {
 		public void kakaoLogout(String access_Token);
 		
 		public void kakaoUnlink(String access_Token);
+		
+		//@@@ 연수 : useradmincontroller 어드민 페이지를 위한 유저 리스트 가져오기(220715)
+		public List<UserAllDTO> getUserAllList();
 	//연수 : 끝(220706) ====================================
 
 	
@@ -87,6 +90,7 @@ public interface UserService {
     	
     	//풍혁0714 : board_uid로 user_img를 받아가려고 만들었습니다. 
     	public String getUserImgByUserid(int user_id);
+
     
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 

@@ -163,7 +163,11 @@ public class UserServiceImpl implements UserService {
 			}
 			
 		}
-				
+		//@@@ 연수 : useradmincontroller 어드민 페이지를 위한 유저 리스트 가져오기(220715)		
+		@Override
+		public List<UserAllDTO> getUserAllList() {			
+			return userDAO.getUserAllList();
+		}
 	//연수 : 끝(220706) ====================================
 
 	
@@ -400,5 +404,6 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserImgByUserid(user_id);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
 
 }

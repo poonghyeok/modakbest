@@ -1,3 +1,6 @@
+//@@@@@@@@@ 연수 : 학원명 검색 기능 적용(0715)
+$('#user_classid').select2({});
+
 $('#num_check_blank').hide();
 $('#check_alert').hide();
 
