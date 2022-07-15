@@ -86,7 +86,7 @@ public class BoardServiceImpl implements BoardService {
 			map.put("endNum", Integer.toString(endNum));
 			map.put("keyword", keyword);
 			
-			List<BoardDTO> list = boardDAO.getBoardSearchRangeOrderByTime(map); 
+			List<BoardDTO> list = boardDAO.getBoardSearchRangeOrder(map, sortOption); 
 			System.out.println("\n @ boardTalbeList size : " + list.size());
 			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class='list-group '>");
@@ -206,7 +206,8 @@ public class BoardServiceImpl implements BoardService {
 				tr.append("<div class=\"list-group-item-author clearfix\">");
 					tr.append("<div class='avatar clearfix avatar-list '>");
 						//풍혁(220707) : user click 했을 경우 user의 최근활동을 볼 수 있는 페이지로 이동 : 옵션으로
-						tr.append("<a href='#' class='avatar-photo'><img src='//www.gravatar.com/avatar7172977b206d129d?d=identicon&amp;s=30\'></a>");
+						String userProfileImg = userDAO.getUserImgByUserid(boardDTO.getBoard_uid());
+						tr.append("<a href='/semiproject/user/userPage?user_id="+boardDTO.getBoard_uid()+"' class='avatar-photo'><img src='/semiproject/storage/userprofile/"+userProfileImg+"'></a>");
 						tr.append("<div class='avatar-info'>");
 							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
 							tr.append("<div class='activity'>");

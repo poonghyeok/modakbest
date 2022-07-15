@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
 <div class="layout-container">
     <div class="main ">
        	<!--사이드바1,2-->        
@@ -22,7 +21,7 @@
 	        <!-- main-banner -->
 	   		<div class="main-banner-wrapper">
 		        <div class="main-banner">
-		            <a href="/banner/stats/527" target="_i"><img src="//file.okky.kr/banner/1657005748618.png"></a>
+		            <a href="#" target="_i"><img src="//file.okky.kr/banner/1657005748618.png"></a>
 		        </div>
 	        </div><!-- <div class="main-banner-wrapper"> -->
 	        
@@ -37,12 +36,12 @@
 			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
-			<input type = "text" id ="board_id" name = "board_id" value="${board_id}">
-	        <input type = "text" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
-	        <input type = "text" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardDTO.board_cmt_cnt}">
-	        <input type = "text" id = "board_author"  name = "board_author" value="${author}">
-	        <input type = "text" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
-	        <input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">
+	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
+	        <input type = "hidden" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardDTO.board_cmt_cnt}">
+	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
+	        <input type = "hidden" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
+	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
 			<!-- 본격 글 내용 ( 작성자 ~ 페이스북 ) -->
@@ -51,7 +50,7 @@
 	            <div class="panel-heading clearfix">
 	                <div class="avatar clearfix avatar-medium pull-left"> 
 	            	    <!-- 07/11기진: user page를 위해 href를 user 수정하였습니다 -->
-	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${sessionScope .memImg}"></a>
+	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${user_img}"></a>
 	                    <div class="avatar-info">
 	                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
                             <a class="nickname" href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" title="author">${author}</a>

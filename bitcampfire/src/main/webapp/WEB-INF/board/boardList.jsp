@@ -16,8 +16,9 @@
 <!-- 풍혁(220707) :  div layout container, div main 추가 -->
 <div class="layout-container">
 	<div class="main">
-		<input type="text" value="${session_email}" id="session_email"> 
-		<input type="text" value="${param.sortOption}" id="sortOption"> 
+		<input type="hidden" value="${sessionScope.memEmail}" id="session_email"> 
+		<input type="hidden" value="${param.sortOption}" id="sortOption"> 
+		<input type="hidden" value="${keyword}" id="searchKeyword"> 
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
@@ -40,9 +41,12 @@
 			            <ul class="list-sort pull-left">
 			            	<!-- 정렬할 때  -->
 			            	<!-- 풍혁 -->
-			            	<li><a href="/semiproject/board/list?pg=1&sortOption=date" data-sort="id" id = "sortdate" data-order="desc" class="category-sort-link ">최신순</a></li>
+<!-- 			            	<li><a href="/semiproject/board/list?pg=1&sortOption=date" data-sort="id" id = "sortdate" data-order="desc" class="category-sort-link ">최신순</a></li>
 			                <li><a href="/semiproject/board/list?pg=1&sortOption=vote" data-sort="voteCount" id = "sortvote" data-order="desc" class="category-sort-link ">추천순</a></li>
 			                <li><a href="/semiproject/board/list?pg=1&sortOption=view" data-sort="viewCount" id = "sortview" data-order="desc" class="category-sort-link ">조회순</a></li>
+ -->			            <li><a data-sort="id" id = "sortdate" data-order="desc" class="category-sort-link " style = "cursor: pointer;">최신순</a></li>
+			                <li><a data-sort="voteCount" id = "sortvote" data-order="desc" class="category-sort-link " style = "cursor: pointer;">추천순</a></li>
+			                <li><a data-sort="viewCount" id = "sortview" data-order="desc" class="category-sort-link " style = "cursor: pointer;">조회순</a></li>
 			            </ul>
 			            <input type="hidden" name="sort" id="category-sort-input" value="id"> <!-- 실제로 hidden type을 사용하네요  -->
 			            <input type="hidden" name="order" id="category-order-input" value="desc">
@@ -112,7 +116,7 @@
 		
 		
 		<div class="avatar clearfix avatar-list ">
-		    <a href="/user/info/45597" class="avatar-photo"><img src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&amp;s=30"></a>
+		    <a href="#" class="avatar-photo"><img src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&amp;s=30"></a>
 		    <div class="avatar-info">
 		            <a class="nickname" href="/user/info/45597" title="OKKY">BIRCAMPFIRE</a>
 		                <div class="activity"><span class="fa fa-flash"></span> 레벨</div>

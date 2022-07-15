@@ -24,7 +24,7 @@ public class BoardDTO {
 			private int board_cmt_cnt;   
 			private int board_selected_ans;
 			//풍혁0709 : jsonFormat 기능사용, java date 객체에서 json 객체로 변환될 때 format 지정
-			@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.S")
+			@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.S", timezone = "Asia/Seoul")
 			private Date board_date_created; 
 		// 공통영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

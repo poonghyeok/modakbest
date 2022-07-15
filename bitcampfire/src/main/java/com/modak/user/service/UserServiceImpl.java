@@ -393,6 +393,12 @@ public class UserServiceImpl implements UserService {
 			
 			return userDAO.getUserNameByUserId(board_uid);
 		}
+		
+		@Override
+		public String getUserImgByUserid(int user_id) {
+			
+			return userDAO.getUserImgByUserid(user_id);
+		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 }

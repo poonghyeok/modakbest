@@ -200,6 +200,9 @@
 		select user_nickname from user2 where user_id=${board_uid}
 	</select>
 	
+	<select id="getUserImgByUserid" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select user_img from user2 where user_id = ${user_id}
+	</select>
 	
 	<!-- %%%%%%%%%%%%%%%%%% 풍혁 : 끝  %%%%%%%%%%%%%%%%%% -->
 	

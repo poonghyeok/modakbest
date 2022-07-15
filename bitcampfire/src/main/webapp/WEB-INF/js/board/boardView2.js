@@ -88,6 +88,28 @@ function getCommentList_nickname(comment_uid){
 	return nickname;
 	/* return '<span class="nickname" title="'+user_nickname+'">'+user_nickname+'</span>' */
 }
+
+function getUserImgByCommentUid(comment_uid){
+	let user_img;
+
+	$.ajax({
+		type : 'post',
+		/*풍혁0714 : indexjs function 이름만 변경해서 재사용*/
+		url : '/semiproject/board/getUserImgByBoardUid',
+		async : false,
+		data : { 'user_id' : comment_uid},
+		success : function(data){
+			user_img = data;
+		},
+		error : function(err){
+			console.log(err);
+		}
+	})
+	
+	return user_img;
+}
+
+
 	/* 풍혁0712 : 댓글을 작성한 시간 받아오기 */
 /* function getCommentList_date(comment_uid){
 	var date;
@@ -117,6 +139,7 @@ function jsonArrayToCommentList(jsonArray){
 	
 function jsonToComment(comment){
 	let user_nickname = getCommentList_nickname(comment.cmt_uid);
+	var user_image = getUserImgByCommentUid(comment.cmt_uid);
 	
 	var li = $('<li/>',{
 		class : "list-group-item note-item clearfix"
@@ -143,10 +166,10 @@ function jsonToComment(comment){
 			}).append(
 				$('<a/>',{
 					class : "avatar-photo",
-					href : "#"
+					href : "/semiproject/user/userpage?user_id="+comment.cmt_uid
 				}).append(
 					$('<img/>',{
-						src : "https://phinf.pstatic.net/contact/20190225_94/1551076747070IDoQC_PNG/image.png"
+						src : "/semiproject/storage/userprofile/"+user_image
 					})		
 				)
 			).append(

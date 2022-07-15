@@ -48,10 +48,11 @@ public class BoardDAOMyBatis implements BoardDAO {
 		}
 		
 		@Override
-		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map) {
+		public List<BoardDTO> getBoardSearchRangeOrder(Map<String, String> map, String sortOption) {
 			List<BoardDTO> list = new ArrayList<>();
-			list = sqlSession.selectList("boardSQL.getBoardSearchRangeOrderByTime", map);
-			return sqlSession.selectList("boardSQL.getBoardSearchRangeOrderByTime", map);
+			map.put("sortOption", sortOption);
+			list = sqlSession.selectList("boardSQL.getBoardSearchRangeOrder", map);
+			return list;
 		}
 		
 		@Override

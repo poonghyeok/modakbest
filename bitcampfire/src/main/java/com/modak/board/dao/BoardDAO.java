@@ -18,7 +18,7 @@ public interface BoardDAO {
 		
 		public void boardWrite(BoardDTO boardDTO);
 
-		public List<BoardDTO> getBoardSearchRangeOrderByTime(Map<String, String> map);
+		public List<BoardDTO> getBoardSearchRangeOrder(Map<String, String> map, String sortOption);
 
 		public int getTotalBoardSearchNum(String keyword);
 		
