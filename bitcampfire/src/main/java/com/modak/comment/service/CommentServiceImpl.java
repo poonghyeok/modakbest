@@ -30,6 +30,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 //정수 끝: #################################
 	
+	
 //풍혁 시작 : =================================
 	@Override
 	public void write(CommentDTO commentDTO) {
@@ -42,9 +43,38 @@ public class CommentServiceImpl implements CommentService {
 		return commentDAO.getCommentListByBoardId(cmt_bid);
 	}
 	
+	//풍혁0715 : increase decrease 가 여기가 아니라 board쪽에 있어야하는데... 일단..
 	@Override
 	public void increaseCommentCount(int cmt_bid) {
 		commentDAO.increaseCommentCount(cmt_bid);
+	}
+	
+	@Override
+	public void decreaseCommentCount(int cmt_bid) {
+		commentDAO.decreaseCommentCount(cmt_bid);
+	}
+	//
+	
+	@Override
+	public String getCommentContentById(int cmt_id) {
+		
+		return commentDAO.getCommentContentById(cmt_id);
+	}
+	
+	@Override
+	public void update(int cmt_id, String cmt_content) {
+		
+		commentDAO.update(cmt_id,cmt_content);
+		
+		return ;
+	}
+	
+	@Override
+	public void delete(int cmt_id) {
+		
+		commentDAO.delete(cmt_id);
+		
+		return;
 	}
 //풍혁 끝: =================================
 
