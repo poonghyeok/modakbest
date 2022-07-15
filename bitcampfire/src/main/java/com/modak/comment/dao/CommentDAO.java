@@ -24,6 +24,14 @@ public interface CommentDAO {
 
 	public void increaseCommentCount(int cmt_bid);
 
+	public String getCommentContentById(int cmt_id);
+
+	public void update(int cmt_id, String cmt_content);
+
+	public void delete(int cmt_id);
+
+	public void decreaseCommentCount(int cmt_bid);
+
 //풍혁 끝: =================================
 	
 }

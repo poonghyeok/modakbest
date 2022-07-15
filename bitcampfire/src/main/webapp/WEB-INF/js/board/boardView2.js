@@ -214,17 +214,30 @@ function jsonToComment(comment){
 		)
 		.append(
 			$('<fieldset/>',{
-				class : 'form'
+				class : 'form',
+				id : 'comment-'+comment.cmt_id
 			}).append(
 				$('<article/>',{
-					id : "note-text-2857406",
-					class : "list-group-item-text note-text"
+					class : "list-group-item-text note-text",
+					'data-id' : comment.cmt_id
 				}).append(
 					$('<p/>',{
 						html : comment.cmt_content
 					})		
 				)
 			)
+			.append(
+				$('<form/>',{
+					id : 'commentUpdate',
+					style : "display:none"
+				})
+				.append(
+					$('<textarea/>',{
+						id : 'summernoteUpdate',
+						name : 'editordataUpdate'
+					})
+				)
+			)		
 		)
 	)
 	.append(
@@ -276,14 +289,19 @@ function jsonToComment(comment){
 	.append(  
 		$('<div/>',{
 			class : "content-function-cog",
+			
 		})
 		.append(
 			$('<div/>',{
-				class : "dropdown "
+				class : "dropdown ",
+				'data-id' : comment.cmt_id,
+				'data-uid' : comment.cmt_uid
 			})
 			.append(
 				$('<a/>',{
-					id : 'comment_manage',
+					class : 'comment_manage',
+					'data-id' : comment.cmt_id,
+					'data-uid' : comment.cmt_uid,
 					'aria-expanded' : false,
 					style : 'cursor : pointer'
 				})
@@ -309,7 +327,8 @@ function jsonToComment(comment){
 							id : 'comment_edit',
 							'text' : '수정',
 							style : 'cursor : pointer',
-							'data-id' : comment.cmt_id
+							'data-id' : comment.cmt_id,
+							'data-bid' : comment.cmt_bid
 						})
 						.append(
 							$('<i/>',{
@@ -323,10 +342,11 @@ function jsonToComment(comment){
 					.append(
 						$('<a/>',{
 							class : "note-delete-btn",
-							id : 'comment_delete',
+							id : 'commentDeleteBtn',
 							text : '삭제',
 							style : 'cursor : pointer',
-							'data-id' : comment.cmt_id
+							'data-id' : comment.cmt_id,
+							'data-bid' : comment.cmt_bid,
 						})
 						.append(
 							$('<i/>',{
@@ -337,44 +357,190 @@ function jsonToComment(comment){
 				)
 			)
 		)
+		.append(
+			$('<div/>',{
+				class : "buttons",
+				style : "display:none"
+			})
+			.append(
+				$('<p/>',{
+					
+				})
+				.append(
+					$('<a/>',{
+						id : 'commentUpdateCancelBtn',
+						class : "btn btn-default btn-wide note-edit-cancel-btn",
+						style : "cursor : pointer",
+						'data-id' : comment.cmt_id,
+						'data-bid' : comment.cmt_bid,
+						text : '취소'
+					})	
+				)
+			)
+			.append(
+				$('<p/>',{
+					
+				})
+				.append(
+					$('<input/>',{
+						type : 'button',
+						name : 'commentUpdateBtn',
+						class : "btn btn-success btn-wide",
+						'data-id' : comment.cmt_id,
+						'data-bid' : comment.cmt_bid,
+						value : "저장",
+						id : 'commentUpdateBtn'
+					})	
+				)
+			)
+		)
 	)
 	return li.append(form);
 }
 
-$(document).on("click", "#comment_manage", function() {
-	let isOpen = JSON.parse($('#comment_manage').attr('aria-expanded'));
+//댓글 톱니바퀴 버튼 눌렀을 때
+$(document).on("click", ".comment_manage", function() {
+	let user_id = $('#board_watcher').val();
+	let comment_uid = $(this).attr('data-uid');
 	
-    if(!isOpen){
-		$('div.dropdown').addClass('open ');
-		$('#comment_manage').attr('aria-expanded', true);
+	
+	let comment_id = $(this).attr('data-id');
+
+	console.log('user_id : ' + user_id);
+	console.log('comment_uid : ' + comment_uid);
+	console.log('comment_id : ' + comment_id);
+	console.log('isOpen : ' + $(this).attr('aria-expanded'));
+	let isOpen = JSON.parse($(this).attr('aria-expanded'));
+	
+	if(user_id == comment_uid){
+		if(!isOpen){
+			$('div.dropdown[data-id='+comment_id+']').addClass('open ');
+			$(this).attr('aria-expanded', true);
+		}else{
+			$('div.dropdown[data-id='+comment_id+']').removeClass('open ');
+			$(this).attr('aria-expanded', false);
+		}
 	}else{
-		$('div.dropdown').removeClass('open ');
-		$('#comment_manage').attr('aria-expanded', false);
+		alert('본인의 글만 수정삭제가 가능합니다!');
 	}
     
 });
 
+function getCommentContentByCommendId(comment_id){
+	let comment_content;
+	
+	$.ajax({
+		type : 'post',
+		url : '/semiproject/comment/getCommentContentById',
+		data : {cmt_id : comment_id},
+		async : false,
+		success : function(data){
+			comment_content = data;
+		},
+		error : function(err){
+			console.log(err);
+		}
+	})
+	
+	return comment_content;
+}
+
 $(document).on("click", "#comment_edit", function() {
-	alert($(this).attr('data-id')+' 번 댓글 수정버튼클릭!');
-	console.log($(this).siblings('div.content-body').addClass('test'));
+	//풍혁0715 : 수정할 때에도 editor 사용하기. 기존의 내용을 넣어줘야한다.  
+	summernoteLoad('#summernoteUpdate');
+	
+	let comment_id = $(this).attr('data-id');
+	let comment_content = $('#summernoteUpdate').summernote('code', getCommentContentByCommendId(comment_id));
+
+	
+	//풍혁0715 수정이나 삭제 버튼 클릭했으면 톱니바퀴 드랍다운은 사라지도록
+	$('div.dropdown').removeClass('open ');
+	$('.comment_manage').attr('aria-expanded', false);
+	//
+	
+	$('fieldset#comment-'+comment_id+' article').hide();
+	$('#commentUpdate').show();
+	$('div.buttons').show();
+	
 });
 
-$(document).on("click", "#comment_delete", function() {
-	alert($(this).attr('data-id')+'번 댓글 삭제버튼클릭!');
-});
 
+//풍혁0715 : 댓글 수정 취소 눌렀을 때
+$(document).on('click','#commentUpdateCancelBtn', function(){
+	let comment_id = $(this).attr('data-id');
+	
+	if(confirm('작성하던 내용을 모두 지워집니다. 정말 취소하시겠습니까?')){
+		$('#summernoteUpdate').summernote('reset');
+		$('fieldset#comment-'+comment_id+' article').show();
+		$('#commentUpdate').hide();
+		$('div.buttons').hide();
+	}
+})
+//
+
+//풍혁0715 : 댓글 수정하고 수정버튼 눌렀을 때
+$(document).on('click','#commentUpdateBtn', function(){
+	let comment_id = $(this).attr('data-id');
+	let comment_content_update = $('#commentUpdate div.note-editable').html();
+	
+	if(confirm('댓글을 수정하시겠습니까?')){
+		$.ajax({
+			type : 'post',
+			url : '/semiproject/comment/update',
+			data : {'cmt_id' : comment_id, 'cmt_content' : comment_content_update},
+			async : false,
+			success : function(){
+				alert('댓글 수정을 완료하였습니다.');
+				location.reload();
+			},
+			error : function(err){
+				console.log(err);
+				return;
+			}
+		})
+	}
+})
+//
+
+//풍혁0715 : 댓글 삭제버튼눌렀을 때
+$(document).on('click','#commentDeleteBtn', function(){
+	let comment_id = $(this).attr('data-id');
+	let comment_bid = $(this).attr('data-bid');
+	
+	if(confirm('댓글을 정말 삭제하시겠습니까?')){
+		$.ajax({
+			type : 'post',
+			url : '/semiproject/comment/delete',
+			data : {'cmt_id' : comment_id, 'cmt_bid' : comment_bid},
+			async : false,
+			success : function(){
+				alert('댓글을 삭제 하였습니다.');
+				location.reload();
+			},
+			error : function(err){
+				console.log(err);
+				return;
+			}
+		})
+	}
+})
+//
+
+//풍혁0713 : 댓글 작성하려고 칸에 마우스 올렸을 때
 $('#note-create').focus(function(){
 	/*summerNote style 적용*/
-	summernoteLoad();
+	summernoteLoad('#summernote');
 	/*summerNote style 적용*/
 	
 	$('#note-create').hide();
 	$('#commentContent').show();
 	$('#note-create-cancel-btn').show();
 	$('#btn-create-btn').attr('disabled', false);
+	
 
-})
+	})
 
+/*풍혁0715 : 댓글 작성 취소버튼 클릭했을 때*/
 $('#note-create-cancel-btn').click(function(){
 	if(confirm('작성하던 내용을 모두 지워집니다. 정말 취소하시겠습니까?')){
 		$('#summernote').summernote('reset');
@@ -384,11 +550,10 @@ $('#note-create-cancel-btn').click(function(){
 		$('#btn-create-btn').attr('disabled', true);
 	}
 })
+//
 
-
-
-function summernoteLoad(){
-	$('#summernote').summernote({
+function summernoteLoad(param){
+	$(param).summernote({
 		  height: 50,                 // 에디터 높이
 		  minHeight: null,             // 최소 높이
 		  maxHeight: null,             // 최대 높이
@@ -404,15 +569,13 @@ $('#btn-create-btn').click(function(){
 	if(!content_without_tag){
 		alert('댓글 내용을 입력하세요!');
 	}else{
-		/*  'dsard=dasr=s=rs=a=d'.substring('dsard=dasr=s=rs=a=d'.indexOf('=')+1); */
-		/* var equalIndex = $('#summernote').serialize.indexOf('=') + 1;
-		content = content.substirng(equalIndex);
-		 */
-		console.log('content : ' + content_with_tag);
+		
+		/*console.log('content : ' + content_with_tag);
 		console.log('cmt_uid : ' + $('#board_watcher').val());
 		console.log('cmt_cateid : ' + $('#board_cateid').val());
 		console.log('cmt_bid : ' + $('#board_id').val());
-	 	$.ajax({
+	 	*/
+		$.ajax({
 			type : 'post',
 			url : '/semiproject/comment/write',
 			data : {

@@ -75,6 +75,37 @@ public class CommentController {
 			
 			return user_nickname;
 		}
+		
+		@PostMapping(value = "/getCommentContentById", produces = "application/text; charset=UTF-8")
+		@ResponseBody
+		public String getCommentContentById(@RequestParam int cmt_id) {
+			
+			return commentService.getCommentContentById(cmt_id);
+		}
+		
+		@PostMapping(value = "/update")
+		@ResponseBody
+		public void update(@RequestParam int cmt_id, @RequestParam String cmt_content) {
+			
+			System.out.println("\n @LOG@ comment...update : " + cmt_id + " cmt_ content : "+ cmt_content);
+			commentService.update(cmt_id, cmt_content);
+			
+			return ;
+		}
+		
+		@PostMapping(value = "/delete")
+		@ResponseBody
+		public void delete(@RequestParam int cmt_id, @RequestParam int cmt_bid) {
+			
+			System.out.println("\n @LOG@ comment...delete : " + cmt_id + cmt_bid);
+			
+			commentService.delete(cmt_id);
+			commentService.decreaseCommentCount(cmt_bid);
+			
+			return ;
+		}
+		
+		
 	
 		
 //풍혁 :  끝 =====================================
