@@ -139,8 +139,10 @@ function jsonArrayToCommentList(jsonArray){
 	
 function jsonToComment(comment){
 	let user_nickname = getCommentList_nickname(comment.cmt_uid);
-	var user_image = getUserImgByCommentUid(comment.cmt_uid);
-	
+	let user_image = getUserImgByCommentUid(comment.cmt_uid);
+
+	/*풍혁0715 댓글에도 정보를 표시해주기 위해서 input hidden 생성해두겠습니다*/
+
 	var li = $('<li/>',{
 		class : "list-group-item note-item clearfix"
 	});
@@ -156,6 +158,13 @@ function jsonToComment(comment){
 			id : '_method',
 			value : 'PUT'
 		})		
+	)
+	.append(
+		$('<input/>',{
+			type : 'hidden',
+			class : 'comment_info',
+			/* 풍혁 */
+		})	
 	)
 	.append(
 		$('<div/>',{
@@ -243,56 +252,64 @@ function jsonToComment(comment){
 						})
 					)
 				)
-				/* 풍혁 0713 : 댓글 추천 보류
-				 * .append(
-					$(
-						$('<div/>',{
-							class : "content-eval-count",
-							text : $('')	
+				.append(
+					$('<div/>',{
+						class : "content-eval-count",
+						text : 0
+					})
+				)
+				.append(
+					$('<span/>',{
+						style : "cursor : pointer",
+						class : "note-vote-btn",
+					})
+					.append(
+						$('<i/>',{
+							class : "fa fa-angle-down note-evaluate-dissent-dissent",
+							title : '반대'
 						})
 					)
-				)*/
+				)
 			)
 		)
 	)
-	/*.append( 풍혁0713 : 댓글 수정 삭제 보류, 일단 게시글 목록 정렬 부터 
+	.append(  
 		$('<div/>',{
 			class : "content-function-cog",
-			id : "content-function-cog-2860246"
 		})
 		.append(
 			$('<div/>',{
-				class : "dropdown"
+				class : "dropdown "
 			})
 			.append(
 				$('<a/>',{
-					href : "javascript://",
-					data-toggle : "dropdown"
+					id : 'comment_manage',
+					'aria-expanded' : false,
+					style : 'cursor : pointer'
 				})
 				.append(
 					$('<i/>',{
 						class : "fa fa-cog",
-						data-toggle : "tooltip",
-						data-placement : "left",
-						data-original-title : "게시물 설정"
-						풍혁 0713 : 이 부분 뒤에 prop 으로 해야하는건가...
-						
-					})	
+						'data-toggle' : "tooltip",
+						'data-placement' : "left",
+						'data-original-title' : "게시물 설정" 
+					})
 				)
 			)
 			.append(
 				$('<ul/>',{
 					class : "dropdown-menu",
-					role : "menu"
+					role : 'menu'
 				})
 				.append(
 					$('<li/>')
 					.append(
 						$('<a/>',{
-							href : "javascript://",
 							class : "note-edit-btn",
-							data-id : "2860246",
-							text : '수정'
+							id : 'comment_edit',
+							'text' : '수정',
+							style : 'cursor : pointer',
+							'data-id' : comment.cmt_id
 						})
 						.append(
 							$('<i/>',{
@@ -305,10 +322,11 @@ function jsonToComment(comment){
 					$('<li/>')
 					.append(
 						$('<a/>',{
-							href : "javascript://",
 							class : "note-delete-btn",
-							data-id : "2860246",
-							text : '삭제'
+							id : 'comment_delete',
+							text : '삭제',
+							style : 'cursor : pointer',
+							'data-id' : comment.cmt_id
 						})
 						.append(
 							$('<i/>',{
@@ -319,12 +337,31 @@ function jsonToComment(comment){
 				)
 			)
 		)
-	)*/
-	
-	
+	)
 	return li.append(form);
 }
 
+$(document).on("click", "#comment_manage", function() {
+	let isOpen = JSON.parse($('#comment_manage').attr('aria-expanded'));
+	
+    if(!isOpen){
+		$('div.dropdown').addClass('open ');
+		$('#comment_manage').attr('aria-expanded', true);
+	}else{
+		$('div.dropdown').removeClass('open ');
+		$('#comment_manage').attr('aria-expanded', false);
+	}
+    
+});
+
+$(document).on("click", "#comment_edit", function() {
+	alert($(this).attr('data-id')+' 번 댓글 수정버튼클릭!');
+	console.log($(this).siblings('div.content-body').addClass('test'));
+});
+
+$(document).on("click", "#comment_delete", function() {
+	alert($(this).attr('data-id')+'번 댓글 삭제버튼클릭!');
+});
 
 $('#note-create').focus(function(){
 	/*summerNote style 적용*/
@@ -347,6 +384,7 @@ $('#note-create-cancel-btn').click(function(){
 		$('#btn-create-btn').attr('disabled', true);
 	}
 })
+
 
 
 function summernoteLoad(){

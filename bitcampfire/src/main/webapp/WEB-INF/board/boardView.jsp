@@ -135,8 +135,9 @@
 				<jsp:include page="/WEB-INF/comment/commentWriteForm.jsp"></jsp:include>
 			</div>
 			<!-- 댓글 div -->
-	
-		</div><!-- <div id="article" class="content" role="main"> -->
+			
+
+			</div><!-- <div id="article" class="content" role="main"> -->
 		<jsp:include page="/WEB-INF/global/footer.jsp"/>
     </div><!-- <div class="main "> -->
     <!--footer 시작 -->     
