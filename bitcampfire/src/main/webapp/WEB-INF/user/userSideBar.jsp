@@ -51,12 +51,12 @@
 				</div>
 			</ul>
 			<ul class="nav nav-sidebar">
-                <li ><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
+                <li ><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-pencil-square-o"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
                 <c:if test="${sessionScope.memAccessToken == null}">
-                <li ><a class="link" id="logoutBtn1" ><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+                <li ><a class="link" id="logoutBtn1" ><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
 				</c:if>
 				<c:if test="${sessionScope.memAccessToken != null}">
-				<li ><a class="link" id="logoutBtn2" href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+				<li ><a class="link" id="logoutBtn2" href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout"><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
             	</c:if>          
             </ul>            
             </c:if>
@@ -71,7 +71,7 @@
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
     		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715) / 관리자 조건 추가 필요  @@@@@@@@@@@@@@-->
-    		<li  ><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+    		<li  ><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
 			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715)  @@@@@@@@@@@@@@-->
     </ul>
 

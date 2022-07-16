@@ -83,6 +83,12 @@ public class UserDAOMyBatis implements UserDAO {
 			sqlSession.update("userSQL.updateBykakao", userInfo);				
 		}
 
+		//@@@ 연수 : useradmincontroller 어드민 페이지를 위한 유저 리스트 가져오기(220715)
+		@Override
+		public List<UserAllDTO> getUserAllList() {
+			return sqlSession.selectList("userSQL.getUserAllList");
+		}
+
 	//연수 : 끝(220706)====================================
 
 	

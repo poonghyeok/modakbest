@@ -51,14 +51,14 @@
     <div class="nav-user nav-sidebar">
     	<c:if test="${sessionScope.memEmail != null }">
         <ul class="nav nav-sidebar">
-            <li data-toggle="tooltip" data-container="body" title="정보수정" data-original-title="정보수정"><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="정보수정" data-original-title="정보수정"><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-pencil-square-o"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
             <!-- 카카오 로그인 X-->
             <c:if test="${sessionScope.memAccessToken == null}">
-            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃"><a class="link" id="logoutBtn1"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃"><a class="link" id="logoutBtn1"><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
         	</c:if>
         	<!-- 카카오 로그인 O-->
         	<c:if test="${sessionScope.memAccessToken != null}">
-            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃" ><a href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout" class="link" id="logoutBtn2"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃" ><a href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout" class="link" id="logoutBtn2"><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
         	</c:if>
         </ul>
         </c:if>
@@ -74,7 +74,7 @@
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤</span></a></li>
         
         <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자 조건 추가 필요(220715)  @@@@@@@@@@@@@@-->
-        <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/userAllList" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+        <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
     	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715)  @@@@@@@@@@@@@@-->
     </ul>
 

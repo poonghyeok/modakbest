@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Component
@@ -18,6 +20,8 @@ public class UserAllDTO {
    private String user_name;   
    private int user_classid;    //반 외래키?
    private String user_img;     //프로필사진 파일명   
+   //@@@@@ 연수 : 회원가입 및 업데이트 시간 노출 형식 변경(220716)
+   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd")
    private Date user_logtime;   //가입일자 
    private String user_auth;    //이메일 인증여부    
    private String user_grade;   //권한

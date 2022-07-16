@@ -41,6 +41,8 @@ public interface UserDAO {
 		
 		public void updateBykakao(HashMap<String, Object> userInfo);
 		
+		//@@@ 연수 : useradmincontroller 어드민 페이지를 위한 유저 리스트 가져오기(220715)
+		public List<UserAllDTO> getUserAllList();
 	//연수 : 끝시작(220706) ====================================
 	
 	//유진 : 시작 0706 ====================================
