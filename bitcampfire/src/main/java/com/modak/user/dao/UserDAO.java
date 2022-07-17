@@ -41,8 +41,13 @@ public interface UserDAO {
 		
 		public void updateBykakao(HashMap<String, Object> userInfo);
 		
-		//@@@ 연수 : useradmincontroller 어드민 페이지를 위한 유저 리스트 가져오기(220715)
-		public List<UserAllDTO> getUserAllList();
+		//@@@ 연수 : UserAdminController에서 요청한 서비스 
+		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)	
+		public List<UserAllDTO> getUserAllList(Map<String, Integer> map);		
+		//@@@ 회원 선택 삭제 기능(220715)	
+		public void adminUserDelete_select(Map<String, String[]> map);
+		//@@@ 총 유저 수 구하기: 어드민 userlist for 페이징 처리(220717)	
+		public int getUserTotalA();
 	//연수 : 끝시작(220706) ====================================
 	
 	//유진 : 시작 0706 ====================================
@@ -77,6 +82,9 @@ public interface UserDAO {
 
 		public String getUserImgByUserid(int user_id);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
+
 
 
 

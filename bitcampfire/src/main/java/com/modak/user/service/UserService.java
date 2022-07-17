@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.modak.user.bean.ClassDTO;
+import com.modak.user.bean.UserAdminPaging;
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 
@@ -48,8 +49,15 @@ public interface UserService {
 		
 		public void kakaoUnlink(String access_Token);
 		
-		//@@@ 연수 : useradmincontroller 어드민 페이지를 위한 유저 리스트 가져오기(220715)
-		public List<UserAllDTO> getUserAllList();
+		//@@@ 연수 : UserAdminController에서 요청한 서비스 
+		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)
+		public Map<String, Object> getUserAllList(String pg);
+		//@@@ 페이징 처리(220717)
+		public UserAdminPaging getUserAdminPaging(String pg);
+		//@@@ 카카오 회원 어드민 삭제 처리 기능(220716)
+		public void kakaoUnlink_admin(Long user_kakaoId);
+		//@@@ 회원 선택삭제 기능(220716)
+		public void adminUserDelete_select(String[] check);
 	//연수 : 끝(220706) ====================================
 
 	
@@ -90,6 +98,10 @@ public interface UserService {
     	
     	//풍혁0714 : board_uid로 user_img를 받아가려고 만들었습니다. 
     	public String getUserImgByUserid(int user_id);
+
+
+
+
 
     
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&

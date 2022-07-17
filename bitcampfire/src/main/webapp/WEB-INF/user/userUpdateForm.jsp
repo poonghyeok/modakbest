@@ -193,14 +193,8 @@ $(function(){
 			$('#user_name').val(data.user_name);
 			$('#user_nickname').val(data.user_nickname);
 			$('input[name="user_nickname_check"]').val(data.user_nickname);
-			if(data.user_classid == '0'){
-				$('#user_classid').val();
-			}else{
-				$('#user_classid').val(data.user_classid).select2();
-			}; 
-			//$('#user_classid').val(data.user_classid).select2();
+			$('#user_classid').val(data.user_classid).select2();
 			$('#user_email').val(data.user_email); 
-			//$('select[name="user_classid"]').val(data.user_classid);
 			//$('#class_academy').val(data.class_academy);
 			//$('#class_class').val(data.class_class);
 			

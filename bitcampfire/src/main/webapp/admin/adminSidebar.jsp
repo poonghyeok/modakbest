@@ -73,9 +73,11 @@
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판3"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판3</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤</span></a></li>
         
-        <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자 조건 추가 필요(220715)  @@@@@@@@@@@@@@-->
+        <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+        <%-- <c:if test="${sessionScope.memId == 0 }"> --%>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
-    	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715)  @@@@@@@@@@@@@@-->
+    	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+    	<%-- </c:if> --%>
     </ul>
 
     <ul class="nav nav-sidebar nav-bottom">

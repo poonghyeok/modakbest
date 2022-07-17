@@ -78,10 +78,31 @@
 						, user_social = 'K'
 						, user_logtime = sysdate where user_email = #{email}
 	</update>
-     <!-- //@@@ 연수 : useradmincontroller 어드민 페이지를 위한 유저 리스트 가져오기(220715) -->
-     <select id="getUserAllList" resultType="userAllDTO">
- 		select * from user2
+	<!-- @@@ 연수 : UserAdminController에서 요청한 서비스  -->
+	<!-- @@@ 어드민 페이지를 위한 유저 리스트 가져오기(220717) 페이징 처리 포함 수정 -->
+     <select id="getUserAllList" parameterType="java.util.Map" resultType="userAllDTO">
+ 		<!-- select * from user2 -->
+		<![CDATA[
+		select * from
+		(select rownum rn, kk.* from
+		(select * from user2 order by user_id desc)kk)
+		where rn >= #{startNum} and rn <= #{endNum}
+		]]>	
  	</select>
+ 	
+ 	<!-- @@@ 회원 선택 삭제 기능(220715) -->
+ 	<delete id="adminUserDelete_select" parameterType="java.util.Map">
+		delete user2 where user_email in 
+		
+		<foreach collection="check" item="user_email" open="(" close=")" separator=",">
+			#{user_email}
+		</foreach>
+  	</delete> 
+  	<!-- @@@ 총 유저 수 구하기: 어드민 userlist for 페이징 처리(220717)	 -->
+  	<select id="getUserTotalA" resultType="int">
+  		select count(*) from user2  		
+  	</select>
+  	
 	<!-- ======================== 연수 : 끝(220706) ============================= -->
 
 	
@@ -158,7 +179,7 @@
 	
 	<!-- 정보 저장 -->
 	<insert id="kakaoInsert" parameterType="java.util.HashMap">
-		insert into user2(user_id
+		<!-- insert into user2(user_id
 						, user_name
 						, user_email
 						, user_img
@@ -173,7 +194,26 @@
 			, 'Y'
 			, 0
 			, 'K'
-			, sysdate)
+			, sysdate) -->
+		<!-- 연수 : 관리자 회원 삭제를 위한 카카오 인증토큰 저장 추가(220716)	 -->	
+		insert into user2(user_id
+						, user_name
+						, user_email
+						, user_img
+						, user_auth
+						, user_classid
+						, user_social
+						, user_logtime
+						, user_kakaoId)
+		values(user2_SEQ.nextval
+			, #{nickname}
+			, #{email}
+			, 'campfire.jpg'
+			, 'Y'
+			, 0
+			, 'K'
+			, sysdate
+			, #{kakaoId})			
 			
 	</insert>
 

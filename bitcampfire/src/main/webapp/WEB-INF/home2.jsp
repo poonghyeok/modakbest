@@ -18,6 +18,7 @@
 		<input type="hidden" value="${sessionScope.memEmail }"/>
 		<input type="hidden" value="${sessionScope.memAccessToken }"/>
 		<input type="hidden" value="${sessionScope.memSocial }"/>
+		<input type="text" value="${sessionScope.memKakaoId }"/>
 		
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />

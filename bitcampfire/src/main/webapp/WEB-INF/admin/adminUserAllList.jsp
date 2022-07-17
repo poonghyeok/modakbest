@@ -29,17 +29,18 @@
 						       <option value="user_email" id="user_email">이메일</option>
 						       <option value="user_nickname" id="user_nickname">닉네임</option>         
 					   		</select>
-		                    <input type="search" name="query" id="search-field" class="form-control" placeholder="검색어" value="" style="border-color: #DBDCE1;">
+		                    <input type="search" id="keyword" name="query" id="search-field" class="form-control" placeholder="검색어" value="" style="border-color: #DBDCE1;">
 		                    <span class="input-group-btn">
-		                        <input type="button" class="btn btn-default" style="border-color: #DBDCE1; font-size: 10pt; color: #656667;" value="검색">
+		                        <input type="button" id="userSearchBtn" class="btn btn-default" style="border-color: #DBDCE1; font-size: 10pt; color: #656667;" value="검색">
 		                    </span>
 		                </div>
 	            </div>
 				<br>
 				<!-- @@@@@@@@@@ 연수 : 검색 기능 추가 하기(220716)  @@@@@@@@@@ -->
-				
+				<input type="text" id="pg" value="${pg }">
 				<!-- @@@@@@@@@@ 연수 : 선택삭제 기능 추가 하기 : 소셜 로그인 사용자 토큰을 저장해야되남??(220716)  @@@@@@@@@@ -->
-				<form id="adminUserAllListForm" method="get" action="/semiproject/user/delete">		
+				<!-- 선택 삭제  폼 / 개별 삭제 버튼 폼을 폼 안에 넣으면 작동 안함 -->
+				<form id="adminUserAllListForm" method="get" action="/semiproject/admin/adminUserDelete_select">		
 							
 				<div class="panel panel-default questions-panel">
 					<ul class="list-group">
@@ -87,12 +88,13 @@
 						<!-- 동적 처리   -->										
 					</ul>
 				</div>
-				<input type="button" id="adminUserDeleteBtn_selected" class="btn btn-danger btn-sm" value="선택삭제" style="float: left;">
+				<input type="button" id="adminUserDeleteBtn_select" class="btn btn-danger btn-sm" value="선택삭제" style="float: left;">
 					
 				<!-- @@@@@@@@@@ 연수 : 페이징 처리 기능 추가 하기(220716) @@@@@@@@@@ -->
 				<div class="text-center"> 
-					<ul class="pagination pagination-sm">
-						
+					<ul class="pagination pagination-sm" id="userAdminPagingDiv">
+					 <%-- ${userAdminPaging.pagingHTML } --%>
+					 <!-- <div id="userAdminPagingDiv"></div> -->
 					</ul>
 				</div>
 				<!-- @@@@@@@@@@ 연수 : 페이징 처리 기능 추가 하기(220716) @@@@@@@@@@ -->
@@ -106,175 +108,241 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$.ajax({
-		type: 'post',
-		url: '/semiproject/admin/getUserAllList',
-		dataType: 'json',
-		success: function(data){
-			//alert(JSON.stringify(data));
-			 
- 			$.each(data, function(index, items){
- 				
- 				$('<li/>',{
-					class: 'list-group-item list-group-item-question list-group-has-note clearfix' //추후 hasnote를 social 여부로 변경해볼지?
-				})
-				.append(
-					$('<div/>',{
-						class: 'list-title-wrapper clearfix1',
-						align: 'center',
-						text: items.user_id,
-						style:'width:70px; height:35px; text-align:center; line-height:35px;'						
-					})
-						.prepend($('<input/>',{
-						type: 'checkbox',
-						name: 'check',
-						style: 'float: left; margin-top: 10px;',
-						value: items.user_id
-					}))
-				)//list-title-wrapper clearfix1
-				.append(
-					$('<div/>',{
-						class: 'list-title-wrapper clearfix2',
-						style: 'width:200px; height:35px; text-align:center;'
-					})
-					.append(
-						$('<div/>',{
-							class: 'avatar clearfix avatar-list'
-						})
-						.append(
-							$('<a/>',{
-								class : 'avatar-photo',
-								href : '/semiproject/user/userpage?user_id='+items.user_id//접속 안됨, 확인 후 수정하기(220716)
-							})
-							.append(
-								$('<img/>',{
-									src : '/semiproject/storage/userprofile/'+items.user_img
-								})		
-							)//img
-						)//avartar-photo
-						.append(
-							$('<div/>',{
-								class : 'avatar-info'
-							})
-							.append(
-								$('<a/>',{
-									class : 'nickname',
-									title : items.user_nickname,
-									text : items.user_nickname
-								})
-							)						
-							.append(
-								$('<div/>',{
-									class : 'date-created',
-								})
-								.append(
-									$('<span/>',{
-										class : 'timeago',
-										title : items.user_logtime,
-										text : items.user_logtime
-									})
-									)//timeago
-								)//date-created						
-							)//avatar-info
-						)//avatar clearfix avatar-list
-					)//list-title-wrapper clearfix2
-					.append(
-							$('<div/>',{
-								class: 'list-title-wrapper clearfix3',
-								align: 'center',
-								text: items.user_name,
-								style: 'width:150px; height:35px; text-align:center; line-height:35px;'
-							})
-					)//list-title-wrapper clearfix3	
-					.append(
-							$('<div/>',{
-								class: 'list-title-wrapper clearfix4',
-								align: 'center',
-								text: items.user_email, 
-								style: 'width:200px; height:35px; text-align:center; line-height:35px;'
-							})
-					)//list-title-wrapper clearfix4
-					
-					.append(
-							$('<div/>',{
-								class: 'list-title-wrapper clearfix5',
-								align: 'center',
-								text: items.user_classid,					
-								style: 'width:100px; height:35px; text-align:center; line-height:35px;'
-							})
-					)//list-title-wrapper clearfix5
-					
-					.append(
-							$('<div/>',{
-								class: 'list-title-wrapper clearfix6',
-								align: 'center',
-								text: items.user_social,
-								style: 'width:100px; height:35px; text-align:center; line-height:35px;'
-							})
-					)//list-title-wrapper clearfix6
-					
-					.append(
-							$('<div/>',{
-								class: 'list-title-wrapper clearfix7',
-								style: 'width:82px; height:35px; text-align:center; line-height:35px;'
-							})
-							.append(
-							$('<a/>',{
-								class: 'btn btn-danger btn-sm',
-								id: 'adminUserDeleteBtn_personal'
-								title: '삭제',
-								text: '삭제',
-								href: '/semiproject/user/delete'								
-							})	
-						)//btn btn-danger
-					)//list-title-wrapper clearfix7
-					
-					
-	 	 		.appendTo($('.list-group')); //마지막단    
-			
- 	 			});//each
-			 
-		 },
-		 error: function(err){
-			 console.log(err);
-		 }
-	});
-});
+    $.ajax({
+        type: 'post',
+        url: '/semiproject/admin/getUserAllList',
+        data: 'pg=' + $('#pg').val(),
+        dataType: 'json',
+        success: function (data) {
+            //alert(JSON.stringify(data));
+
+            $.each(data.list, function (index, items) {
+
+                $('<li/>', {
+                    class: 'list-group-item list-group-item-question list-group-has-note clearfix' //추후 hasnote를 social 여부로 변경해볼지?
+                })	
+
+               	.append(
+                     $('<div/>', {
+                         class: 'list-title-wrapper clearfix1',
+                         align: 'center',
+                         text: items.user_id,
+                         style: 'width:70px; height:35px; text-align:center; line-height:35px;'
+                     })
+                     .prepend($('<input/>', {
+                         type: 'checkbox',
+                         name: 'check',
+                         id: 'checkDelete',
+                         style: 'float: left; margin-top: 10px;',
+                         disabled: false,
+                         value: items.user_email //일관성을 위해 id값 대신 email 값을 넣음
+                     }))                                    
+                    )//list-title-wrapper clearfix1
+                 
+                 .append(
+                     $('<div/>', {
+                         class: 'list-title-wrapper clearfix2',
+                         style: 'width:200px; height:35px; text-align:center;'
+                     })
+                     .append(
+                         $('<div/>', {
+                             class: 'avatar clearfix avatar-list'
+                         })
+                         .append(
+                             $('<a/>', {
+                                 class: 'avatar-photo',
+                                 href: '/semiproject/user/userpage?user_id=' + items.user_id//접속 안됨, 확인 후 수정하기(220716)
+                             })
+                             .append(
+                                 $('<img/>', {
+                                     src: '/semiproject/storage/userprofile/' + items.user_img
+                                 })
+                             )//img
+                         )//avartar-photo
+                         .append(
+                             $('<div/>', {
+                                 class: 'avatar-info'
+                             })
+                            .append(
+                                $('<a/>', {
+                                    class: 'nickname',
+                                    title: items.user_nickname,
+                                    text: items.user_nickname
+                                })
+                            )
+                            .append(
+                                $('<div/>', {
+                                    class: 'date-created',
+                                })
+                                .append(
+                                    $('<span/>', {
+                                        class: 'timeago',
+                                        title: items.user_logtime,
+                                        text: items.user_logtime
+                                    })
+                                )//timeago
+                            )//date-created						
+                         )//avatar-info
+                     )//avatar clearfix avatar-list
+                 )//list-title-wrapper clearfix2
+                 
+                 .append(
+                     $('<div/>', {
+                         class: 'list-title-wrapper clearfix3',
+                         align: 'center',
+                         text: items.user_name,
+                         style: 'width:150px; height:35px; text-align:center; line-height:35px;'
+                     })
+                 )//list-title-wrapper clearfix3	
+                 
+                 .append(
+                     $('<div/>', {
+                         class: 'list-title-wrapper clearfix4',
+                         id: 'user_email',
+                         align: 'center',
+                         text: items.user_email,
+                         style: 'width:200px; height:35px; text-align:center; line-height:35px;'
+                     })
+                 )//list-title-wrapper clearfix4
+
+                 .append(
+                     $('<div/>', {
+                         class: 'list-title-wrapper clearfix5',
+                         align: 'center',
+                         text: items.user_classid,
+                         style: 'width:100px; height:35px; text-align:center; line-height:35px;'
+                     })
+                 )//list-title-wrapper clearfix5
+
+                 .append(
+                     $('<div/>', {
+                         class: 'list-title-wrapper clearfix6',
+                         align: 'center',
+                         text: items.user_social,
+                         style: 'width:100px; height:35px; text-align:center; line-height:35px;'
+                     })
+                     .append(
+                         $('<input/>', {
+                             type: 'hidden',
+                             name: 'user_kakaoId',
+                             value: items.user_kakaoId,
+                             style: 'width:100px; height:20px; text-align:center;'
+                         })
+                     )//user_accesstoken_kakao 숨김값	
+                 )//list-title-wrapper clearfix6
+
+                 .append(
+                     $('<div/>', {
+                         class: 'list-title-wrapper clearfix7',
+                         style: 'width:82px; height:35px; text-align:center; line-height:35px;'
+                     })
+                     .append(
+                         $('<input/>',{
+                             class: 'btn btn-danger btn-sm',
+                             id: 'adminUserDeleteBtn_personal',
+                             type: 'button',								
+                             disabled: false,
+                             value: items.user_email
+                         })
+                         /*  $('<a/>', {
+                         class: 'btn btn-danger btn-sm',
+                         id: 'adminUserDeleteBtn_personal',
+                         title: '삭제',
+                         text: '삭제',
+                         disabled: false,
+                         value: items.user_email
+                     }) */
+                     )//btn btn-danger
+                 )//list-title-wrapper clearfix7
+
+               .appendTo($('.list-group')); //마지막단   
+
+            });//each
+         	 //페이징 처리 챙기기!
+         	 $('#userAdminPagingDiv').html(data.userAdminPaging.pagingHTML);
+        }, //success
+        error: function (err) {
+            console.log(err);
+        }
+    });//ajax
+});//function
+
+//관리자는 삭제 안되게 불가하게 만들기(버튼 숨기기?)
+/* $('.btn btn-danger btn-sm').attr('disabled', true);
+$('.btn btn-danger btn-sm').prop('disabled', true);
+
+$('#adminUserDeleteBtn_personal').attr('disabled', true);
+$('#adminUserDeleteBtn_personal').prop('disabled', true); */
+
+//카카오 회원(인증토큰이 매번 갱신되어서 관리자 권한으로 삭제 불가)은 체크박스 비활성화 하기(실패함/ 다른방법 찾아보기) 220716
+/* $(document).on(function(){
+	if($('.list-title-wrapper clearfix6').text()!='X') {
+		$('#checkDelete').hide();
+		} 
+
+	$('input[type=checkbox]').prop('disabled', true);//제목만 없어짐
+	$('input[type=checkbox]').attr('disabled', true);
+	
+	$("input:checkbox[id='checkDelete']").prop("disabled", false);
+	$("input:checkbox[name='check']").prop("disabled", false);
+	
+	$("input:checkbox[id='checkDelete']").attr("disabled", false);
+	$("input:checkbox[name='check']").attr("disabled", false);
+	
+	$('input[name="check"]').prop('disabled', true);
+	$('input[name="check"]').attr('disabled', true);
+
+	$('#checkDelete').attr('disabled', true);
+	$('#checkDelete').prop('disabled', true);
+	
+	$('#checkDelete').prop('readonly', true);
+	$('#checkDelete').attr('readonly', true);
+}); */
 
 //전체선택 또는 전체해제
 $('#all').click(function(){
-	//alert($('#all').attr('checked')) //checked라는 속성이 없어서 undefine으로 나온다
-	//alert($('#all').prop('checked')) //true 또는 false로 가져옴
-	
 	if($('#all').prop('checked'))
 		$('input[name="check"]').prop('checked', true);
 	else
 		$('input[name="check"]').prop('checked', false);
 });
 
-//선택삭제
-/* $('#adminUserDeleteBtn_selected').click(function(){
+//선택삭제 : 이메일 로그인 회원만 가능함
+$('#adminUserDeleteBtn_select').click(function(){
 	var count = $('input[name="check"]:checked').length;
 	
-	if(count == 0)
+	if(count == 0) {
 		alert('삭제할 항목을 선택하세요!');
-	else 
-		if(confirm('정말로 삭제하시겠습니까?')) $('#imagebaordListForm').submit();
-}); */
+	}else if(confirm('정말로 삭제하시겠습니까?')){
+		$('#adminUserAllListForm').submit();
+		alert('선택하신 회원의 정보를 삭제하였습니다.');
+	}
+});
 
-$('#adminUserDeleteBtn_personal').click(function(){
+//개별삭제 : 이메일 로그인 회원만 가능함
+$(document).on("click", "#adminUserDeleteBtn_personal", function(){
+	
+	if(confirm('정말로 삭제하시겠습니까?')){
 	$.ajax({
 		type: 'post',
-		url: '/semiproject/user/delete',
-		//data: {user_email: + $('#user_email').val()},
+		url: '/semiproject/admin/adminUserDelete',
+		/* data: {'user_accesstoken_kakao' : $('input[name="user_accesstoken_kakao"]').val(),			
+			   'user_email': $('#user_email').val()}, */
+		//data: $('#adminUserAllListForm_personal').serialize(),
+		data: {'user_email': $('#adminUserDeleteBtn_personal').val()},
 		success: function(){
+			alert('선택하신 회원의 정보를 삭제하였습니다.');
 			location.href = '/semiproject/admin/adminUserAllList';
+	
 		},
 		error: function(err){
 			console.log(err);
 		}
 	});
+	}
 });
+
+
 </script>
 </body>
 </html>
