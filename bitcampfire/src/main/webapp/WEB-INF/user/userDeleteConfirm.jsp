@@ -39,23 +39,6 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-$('#userDeleteBtn').click(function(){
-	$.ajax({
-		type: 'post',
-		url: '/semiproject/user/delete',
-		//data: {user_email: + $('#user_email').val()},
-		success: function(){
-			location.href = '/semiproject/user/userDeleteComplete';
-		},
-		error: function(err){
-			console.log(err);
-		}
-	});
-});
-</script>
+<script type="text/javascript" src="/semiproject/js/user/userDeleteConfirm.js"></script>
 </body>
 </html>
-
-
-

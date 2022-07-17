@@ -40,7 +40,7 @@ public class UserAdminController {
 		return userService.getUserAllList(pg);
 	}	
 	
-	//회원선택 삭제(일반 이메일 가입자만 선택삭제 가능 함/ 추후 소셜로그인 체크박스 disabled 처리하기)
+	//회원선택 삭제(일반 이메일 가입자만 선택삭제 가능 함/ @@@@@추후 소셜로그인 체크박스 disabled 처리하기@@@@@)
 	@GetMapping(value="adminUserDelete_select")	
 	public ModelAndView adminUserDelete_select(@RequestParam String[] check) {
 		userService.adminUserDelete_select(check);
@@ -48,21 +48,27 @@ public class UserAdminController {
 		return new ModelAndView("redirect:/admin/adminUserAllList");
 	}
 	
-	//선택삭제가 아닌 1명씩 삭제 할때 (삭제 버튼 클릭 시 리스트에서 1명의 데이터분만 선택하여 보내는 방법을 못찾음)
-	@RequestMapping(value="adminUserDelete")	
-	public String adminUserDelete(@RequestParam String user_email, HttpSession session) {
-		
-		UserAllDTO userAllDTO = userService.getUser(user_email);
-		Long user_kakaoId = userAllDTO.getUser_kakaoId();
-		
-		if(user_kakaoId==null) {
-			userService.delete(user_email);
-		}else {	
-			userService.kakaoUnlink_admin(user_kakaoId);
-			userService.delete(user_email);
-		}	
-		session.invalidate();
-		return "/admin/adminUserAllList";
-	}	
-
+//	//선택삭제가 아닌 1명씩 삭제 할때/@@@@@button type으로 가는데 카카오 회원 삭제 처리가 안되고, 선택삭제용 check 박스 값을 요구하는 오류가 생김?@@@@@
+//	@PostMapping(value="adminUserDelete")
+//	@ResponseBody
+//	public String adminUserDelete(@RequestParam String user_email, HttpSession session) {
+//		
+//		UserAllDTO userAllDTO = userService.getUser(user_email);
+//		Long user_kakaoId = userAllDTO.getUser_kakaoId();
+//		
+//		if(user_kakaoId==null) {
+//			userService.delete(user_email);
+//		}else {	
+//			userService.kakaoUnlink_admin(user_kakaoId);
+//			userService.delete(user_email);
+//		}	
+//		session.invalidate();
+//		return "/admin/adminUserAllList";
+//	}
+	
+	@PostMapping(value="adminUserSearch")
+	@ResponseBody
+	public Map<String, Object> adminUserSearch(@RequestParam Map<String, String> map){ //pg, searchOption, keyword
+		return userService.adminUserSearch(map);
+	}
 }

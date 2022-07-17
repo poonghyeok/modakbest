@@ -83,20 +83,5 @@
     </ul>
 </div> <!-- sidebar  -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-/* 이메일 로그인 회원 로그아웃 */
-$('#logoutBtn1').click(function(){
-	$.ajax({
-		type: 'post',
-		url: '/semiproject/user/logout',
-		success: function(data){
-			alert("로그아웃 되었습니다.")
-			location.href = "/semiproject/";
-			},
-			error: function(err){
-				console.log(err);
-			},
-		});
-	});
-</script>
+<script type="text/javascript" src="/semiproject/js/user/userSideBar.js"></script>
 
