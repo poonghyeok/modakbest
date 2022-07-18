@@ -65,6 +65,8 @@ public interface UserDAO {
 		public UserAllDTO login(String user_email);
 
 		public UserDTO getUserInfo(String user_id);
+
+		public String getUserEmailByUserId(String user_id);
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 	// 풍혁 : 시작 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,6 +77,7 @@ public interface UserDAO {
 
 		public String getUserImgByUserid(int user_id);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
 
 
 

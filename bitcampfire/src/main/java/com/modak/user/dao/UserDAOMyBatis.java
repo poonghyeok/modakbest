@@ -140,6 +140,12 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserInfo", user_id);
 		}
 
+		@Override
+		public String getUserEmailByUserId(String user_id) {
+			String artical_id = sqlSession.selectOne("userSQL.getUserInfo", user_id);
+			return artical_id;
+		}
+
 		// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 	
 	//풍혁 : 시작 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -164,6 +170,7 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserImgByUserid", user_id);
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
 
 
 }

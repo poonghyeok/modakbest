@@ -29,7 +29,7 @@
 								#{cmt_cateid},
 								#{cmt_bid},
 								#{cmt_content},
-								SYSDATE
+								sysdate
 								)
 	</insert>
 	

@@ -54,15 +54,15 @@ public interface BoardService {
 
 		public void boardDelete(int board_id);
 
-		public List<BoardAllDTO> getBoardAllList();
-
-		
 		
 	// 정수 : 끝  ###################### 
 
 		
-		
-					
+		// 기진 " 시작 ##########################			
+		 
+    public List<BoardAllDTO> getBoardAllList(); 
+		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
 
+		// 기진 " 끝 ##########################			
 
 }

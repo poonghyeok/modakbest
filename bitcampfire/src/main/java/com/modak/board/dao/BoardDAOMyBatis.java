@@ -150,12 +150,19 @@ public class BoardDAOMyBatis implements BoardDAO {
 				
 			}
 
+			// 기진 : 시작  ###################### 
+      @Override
+        public List<BoardAllDTO> getBoardAllList() {
+          return sqlSession.selectList("boardSQL.getBoardAllList");
+			}
+      
 			@Override
-			public List<BoardAllDTO> getBoardAllList() {
-				return sqlSession.selectList("boardSQL.getBoardAllList");
+			public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+				
+				
+				
+				return sqlSession.selectList("boardSQL.getUserPageArticle", map);
 			}
 
-	// 정수 : 끝  ###################### 
-
-
+			// 기진 : 끝  ###################### 
 }
