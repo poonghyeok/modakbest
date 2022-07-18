@@ -39,7 +39,7 @@ public class BoardClassController {
 		private HttpSession session;
 
 		@GetMapping("boardClassList")
-		public ModelAndView boardClassList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption, @RequestParam(value = "class_id", required = false) int class_id) {
+		public ModelAndView boardClassList(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption, @RequestParam(value = "class_id", required = false) int class_id) {
 			UserAllDTO userAllDTO = userService.getUserClass_Class(class_id);
 			session.setAttribute("memClassid", userAllDTO.getClass_id());
 			session.setAttribute("memClass_academy", userAllDTO.getClass_academy());
@@ -53,6 +53,7 @@ public class BoardClassController {
 			System.out.println("\n @LOG@ session_classid check : " + session.getAttribute("memClassid"));
 			int session_classid = (int)session.getAttribute("memClassid");
 			
+			//풍혁0718 : getUserClassWriteTablelist 도 category 들어갈텐데, 일단 boardWrite 부터하고 다음에 list 해결하도록 해보겠습니다...
 			String userClassWriteTableList = boardService.getUserClassWriteTablelist(pg, sortOption,class_id);
 			String boardClassPagingList = boardService.getBoardClassPagingList(pg, sortOption, class_id); 
 			

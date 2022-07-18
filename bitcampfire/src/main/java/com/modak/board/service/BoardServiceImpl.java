@@ -37,13 +37,30 @@ public class BoardServiceImpl implements BoardService {
 
 	// 글번호로 (글번호, DTO) 가져오기
 	//public BoardDTO getBoardContent(int board_id);
-		//풍혁(0706 2143) : interface에 넣어야할 것을 여기다가 넣으신거 같아요. 착각하신게 맞다면 지우고 commit 부탁드립니다. 
-
+	
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	//풍혁 : 시작 ===========================================
+		private int stringCateToInt(String category) {
+			int result = -1;
+			switch(category){
+				case "info" : result = 1; break;
+				case "review" : result = 2; break;
+				case "qna" : result = 3; break;
+				case "free" : result = 4; break;
+			}
+			
+			System.out.println("\n @POOONG LOG@ : 진행되고있는 category : " + category + " a.k.a : " + result);
+			
+			return result;
+		}
+		
 		@Override
-		public String getUserWriteTablelist(int pg, String sortOption) {
+		public String getUserWriteTablelist(String category, int pg, String sortOption) {
+			//풍혁0718 : category에 따라 mapper에서 참조하는 table이 달리지므로 category에 맞게 번호를 만들어주겠습니다. 
+			int cateid = stringCateToInt(category);
+			
+			
 			StringBuffer sb = new StringBuffer();
 			//페이징 처리하려면 다 받아오면 안되잖아. 몇개씩 표시할지 start랑 end정해줘야 되잖아. 
 			
@@ -59,9 +76,11 @@ public class BoardServiceImpl implements BoardService {
 			
 			
 			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("cateid", cateid);
 			map.put("startNum", startNum);
 			map.put("endNum", endNum);
 			
+			//풍혁0718 : cateid까지 넣어줬으니 DAOMyBatis 에서 이를 반영해 잘꺼내와보자. query에서 조건문을 사용할 것이다. 
 			List<BoardDTO> list = boardDAO.getBoardRangeOrder(map, sortOption);
  
 			sb.append("<ul class=\"list-group \">");
@@ -73,7 +92,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 		 	
 		@Override
-		public String getUserSearchWriteTablelist(int pg, String keyword, String sortOption) {
+		public String getUserSearchWriteTablelist(String category, int pg, String keyword, String sortOption) {
+			int cateid = stringCateToInt(category);
+			
 			StringBuffer sb = new StringBuffer();
 			
 			int boardPerPage = 10;
@@ -81,11 +102,15 @@ public class BoardServiceImpl implements BoardService {
 			int endNum = boardPerPage + boardPerPage*(pg-1); 
 			
 			
+			//풍혁0718 : startnum 이랑 endnum은 integer라서 mam의 generic을 String, Integer로 해야하는 줄 알았는데, startNum을 String으로 만들어서 담아도 상관이 없습니다. 
+			//마지막에 mapper에서 query 에서 #{}이 아니라 ${}로 꺼내면 되기 때문이죠. 
 			Map<String, String> map = new HashMap<String, String>();
+			map.put("cateid",Integer.toString(cateid));
 			map.put("startNum", Integer.toString(startNum));
 			map.put("endNum", Integer.toString(endNum));
 			map.put("keyword", keyword);
 			
+			//풍혁0718 : sortOption은 왜 map에 안넣어줬는지는 모르겠지만 담았다가 에러뜨면 복잡해질거같아서 일다 하던대로 따로 담아서 보내보겠습니다. 
 			List<BoardDTO> list = boardDAO.getBoardSearchRangeOrder(map, sortOption); 
 			sb.append("<ul class='list-group '>");
 			for(BoardDTO dto : list) {
@@ -223,25 +248,26 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 풍혁(220703) : list 하단에 pageList 입니다. container에 bean으로 올려서 받아쓰는 방법도 있으나 일단 객체생성 방식으로 사용해보겠습니다. 
 		@Override
-		public String getBoardPagingList(int pg, String sortOption) {
+		public String getBoardPagingList(String category, int pg, String sortOption) {
 			BoardPaging boardPaging = new BoardPaging();
+			int cateid = stringCateToInt(category);
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
-			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
-			boardPaging.makePagingHTML(sortOption);
+			boardPaging.setTotalA(boardDAO.getTotalBoardNum(cateid));
+			boardPaging.makePagingHTML(category, sortOption);
 			
 			return boardPaging.getPagingHTML().toString();
 		}
 		
 		@Override
-		public String getBoardSearchPagingList(int pg, String keyword, String sortOption) {
+		public String getBoardSearchPagingList(String category, int pg, String keyword, String sortOption) {
 			BoardPaging boardPaging = new BoardPaging();
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
 			boardPaging.setTotalA(boardDAO.getTotalBoardSearchNum(keyword));
-			boardPaging.makeSearchPagingHTML(keyword, sortOption);
+			boardPaging.makeSearchPagingHTML(category, keyword, sortOption);
 			
 			return boardPaging.getPagingHTML().toString();
 		}
@@ -495,13 +521,16 @@ public class BoardServiceImpl implements BoardService {
 		
 			return tr.toString();
 		}
-
+		
+		 
 		@Override
 		public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
 			BoardPaging boardPaging = new BoardPaging();
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
+			
+			//풍혁0719 : getTotalBoardNum String category parameter필요, 필요없는 메소드 오버로딩으로 생성해서 사용하면 될듯합니다. 
 			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
 			boardPaging.makePagingHTML(sortOption);
 			

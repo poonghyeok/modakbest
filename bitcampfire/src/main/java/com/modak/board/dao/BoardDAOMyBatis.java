@@ -25,27 +25,27 @@ public class BoardDAOMyBatis implements BoardDAO {
 	//풍혁 : 시작 ====================================
 		@Override
 		public List<BoardDTO> getUserWriteTableList() {
-			System.out.println("\nBoardDaoImpl.. getUserWriteTableList().. ");
+//			System.out.println("\nBoardDaoImpl.. getUserWriteTableList().. ");
 			
 			return sqlSession.selectList("boardSQL.getBoardUserWriteList");
 		}
-	
-		@Override
-		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map) {
-			System.out.println("\nBoardDaoImpl.. getBoardRangeOrderByTime().. ");
-	
-			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
-		}
+		
+//		@Override
+//		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map) {
+//			System.out.println("\nBoardDaoImpl.. getBoardRangeOrderByTime().. ");
+//	
+//			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
+//		}
 		
 		@Override
-		public int getTotalBoardNum() {
+		public int getTotalBoardNum(int cateid) {
 			
-			return sqlSession.selectOne("boardSQL.getTotalBoardNum");
+			return sqlSession.selectOne("boardSQL.getTotalBoardNum", cateid);
 		}
 		
 		@Override
 		public void boardWrite(BoardDTO boardDTO) {
-			System.out.print("Mybatis insert");
+//			System.out.print("Mybatis insert");
 			sqlSession.insert("boardSQL.boardWrite",boardDTO);
 		}
 		
@@ -59,7 +59,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 		
 		@Override
 		public int getTotalBoardSearchNum(String keyword) {
-			System.out.print("@LOG@ : Mybatis getTotalBoardSearchNum.. ");
+//			System.out.print("@LOG@ : Mybatis getTotalBoardSearchNum.. ");
 			return sqlSession.selectOne("boardSQL.getTotalBoardSearchNum",keyword);
 		}
 		
@@ -71,7 +71,13 @@ public class BoardDAOMyBatis implements BoardDAO {
 		
 		@Override
 		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption) {
+			//풍혁0718 : 굳이 여기서 다시 String, String으로 담을 필요없이 이전 단계부터 map을 String, String으로 만들어서 넘겨주면 된다. 이부분 수정할것
+			
 			Map<String, String> newMap = new HashMap<>();
+			newMap.put("cateid", map.get("cateid").toString());
+			
+			System.out.println("\n @POONG LOG@ cateid : " + map.get("cateid").toString());
+			
 			newMap.put("startNum", map.get("startNum").toString());
 			newMap.put("endNum", map.get("endNum").toString());
 			newMap.put("sortOption", sortOption);
@@ -195,5 +201,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);		
       
 			}
+			
+		
 			//유진 : 끝
 }

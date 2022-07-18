@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,17 +46,16 @@ public class BoardController {
 	
 	//풍혁 : 시작 ==================================
 		//boardList 띄우기.. 게시판 별 boardList
-		@GetMapping(value = "/list")
-		public ModelAndView boardList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption) {
-			
+		@GetMapping(value = "/list") 
+		public ModelAndView boardList(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption) {
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
-			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg);
+//			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg);
 			HttpSession session = req.getSession();
-			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("memEmail"));
+//			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("memEmail"));
 			String session_email = (String)session.getAttribute("memEmail");
 			
-			String userWriteTableList = boardService.getUserWriteTablelist(pg, sortOption);
-			String boardPagingList = boardService.getBoardPagingList(pg, sortOption);
+			String userWriteTableList = boardService.getUserWriteTablelist(category, pg, sortOption);
+			String boardPagingList = boardService.getBoardPagingList(category, pg, sortOption);
 			
 			ModelAndView mav = new ModelAndView();
 			if(session_email != null) {
@@ -83,13 +83,13 @@ public class BoardController {
 		}
 		
 		@GetMapping("/search")
-		public ModelAndView boardSearchList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword, @RequestParam String sortOption) {
+		public ModelAndView boardSearchList(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword, @RequestParam String sortOption) {
 			
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
 			System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
 			
-			String userWriteTableList = boardService.getUserSearchWriteTablelist(pg, keyword, sortOption);
-			String boardPagingList = boardService.getBoardSearchPagingList(pg, keyword, sortOption);
+			String userWriteTableList = boardService.getUserSearchWriteTablelist(category, pg, keyword, sortOption);
+			String boardPagingList = boardService.getBoardSearchPagingList(category, pg, keyword, sortOption);
 			
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("userWriteTableList", userWriteTableList);
@@ -101,7 +101,7 @@ public class BoardController {
 			return mav;
 		} 
 		
-		//풍혁220708 : BoardDTO list로 받아보기 
+		//풍혁220708 : BoardDTO list로 받아보기..++0718 : jsonTest 추후에 이름 변경 예정..
 		@PostMapping("/jsonTest")
 		@ResponseBody
 		public Map<String, Object> jsonTest(@RequestParam Map<String,Integer> map){

@@ -14,9 +14,9 @@ public interface BoardDAO {
 	//풍혁 : 시작 ====================================
 		public List<BoardDTO> getUserWriteTableList();
 	
-		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map);
+//		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map);
 	
-		public int getTotalBoardNum();
+		public int getTotalBoardNum(int cateid);
 		
 		public void boardWrite(BoardDTO boardDTO);
 
@@ -75,7 +75,9 @@ public interface BoardDAO {
     // 유진 시작
       public void boardClassWrite(BoardClassDTO boardClassDTO);
 
-		public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
+      public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
+      
+      
     // 유진 끝
 		
 }

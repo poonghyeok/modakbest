@@ -13,15 +13,15 @@ public interface BoardService {
 	//공통 영역: 끝 =================================
 
 	//풍혁 : 시작 =================================
-		public String getUserWriteTablelist(int pg, String sortOption);
+		public String getUserWriteTablelist(String category,int pg, String sortOption);
 		
-		public String getUserSearchWriteTablelist(int pg, String keyword, String sortOption);
+		public String getUserSearchWriteTablelist(String category, int pg, String keyword, String sortOption);
 		
-		public String getBoardPagingList(int pg, String sortOption);
+		public String getBoardPagingList(String category ,int pg, String sortOption);
+		
+		public String getBoardSearchPagingList(String category, int pg, String keyword, String sortOption);
 		
 		public void boardWrite(BoardDTO boardDTO);
-		
-		public String getBoardSearchPagingList(int pg, String keyword, String sortOption);
 		
 //		public String getHomeBoardList(int boardNum);
 		
