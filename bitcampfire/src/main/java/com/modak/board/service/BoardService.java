@@ -3,6 +3,7 @@ package com.modak.board.service;
 import java.util.List;
 import java.util.Map;
 
+import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 
 public interface BoardService {
@@ -53,10 +54,18 @@ public interface BoardService {
 
 		public void boardDelete(int board_id);
 
+
 		
 		
 	// 정수 : 끝  ###################### 
 
+		
+	// 유진 : 시작 ##############################################
+		public void boardClassWrite(BoardClassDTO boardClassDTO);
+
+		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
+
+		public String getBoardClassPagingList(int pg, String sortOption, int class_id);
 		
 		
 					

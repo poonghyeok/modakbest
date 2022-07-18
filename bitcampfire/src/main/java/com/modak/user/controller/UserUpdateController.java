@@ -131,11 +131,11 @@ public class UserUpdateController {
 		//가상폴더
 		//각자 설정한 workspace 주소에 맞게 filepath 변경해야함
 
-		String filePath = "C:\\Users\\이풍혁\\Documents\\bitcamp2\\세미프로젝트\\github\\github_backup\\220706_ver2\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수비트캠프
+		//String filePath = "C:\\Users\\이풍혁\\Documents\\bitcamp2\\세미프로젝트\\github\\github_backup\\220706_ver2\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수비트캠프
 		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수집
 		//String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";
 		//풍혁 노트북 : "C:\\Users\\이풍혁\\Documents\\bitcamp2\\세미프로젝트\\github\\github_backup\\220706_ver2\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"
-    //String filePath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";//우진놑북
+		String filePath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";//우진놑북
 
 
 		String fileName = user_image.getOriginalFilename();
@@ -167,7 +167,7 @@ public class UserUpdateController {
 
 		session.setAttribute("memName", userAllDTO.getUser_name());
 		session.setAttribute("memNickname", userAllDTO.getUser_nickname());		
-		session.setAttribute("memClassId", userAllDTO.getUser_classid());		
+		session.setAttribute("memClassId", userAllDTO.getUser_classid());
 	}
 	
 	//이메일 주소 변경(아이디값 기준으로 수정)

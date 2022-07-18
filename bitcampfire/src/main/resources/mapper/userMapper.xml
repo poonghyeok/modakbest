@@ -173,6 +173,10 @@
 			, sysdate)
 			
 	</insert>
+	
+	<select id="getUserClass_Class" parameterType="integer" resultType="UserAllDTO">
+		select * from class where class_id=#{class_id}
+	</select>
 
 	<!-- ####################### 유진 : 끝  0706###################### -->
 
@@ -205,6 +209,18 @@
 	</select>
 	
 	<!-- %%%%%%%%%%%%%%%%%% 풍혁 : 끝  %%%%%%%%%%%%%%%%%% -->
+	
+	<select id="getUserIdByEmailClass" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select user_id from user2 where user_email=#{session_email}
+	</select>
+	
+	<select id="getUserNameByUserIdClass" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select user_nickname from user2 where user_id=${board_uid}
+	</select>
+	
+	<select id="getUserClassImgByUserid" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select user_img from user2 where user_id = ${user_id}
+	</select>
 	
 	
 	

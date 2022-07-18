@@ -6,7 +6,9 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 </head>
-<!-- 1. 좌측  메뉴바  -->            
+<!-- 1. 좌측  메뉴바  -->     
+<input type="hidden" id="memEmail" value="${sessionScope.memEmail}">
+<input type="text" id="memUser_classid" value="${sessionScope.memClassId}"> 
 <div class="sidebar">
     <a href="javascript://" class="sidebar-header">
         <i class="fa fa-bars sidebar-header-icon"></i>
@@ -70,6 +72,7 @@
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
+    		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
 
     </ul>
 
@@ -94,5 +97,21 @@ $('#logoutBtn1').click(function(){
 			},
 		});
 	});
+	
+////////////////////////유진추가0715//////////////////////////////
+
+$('#class_boardBtn').click(function(){
+	if($('#memEmail').val() == ''){
+		alert("로그인이 필요한 게시판입니다.");
+		location.href = "/semiproject/user/userLoginForm";
+	}
+	else if($('#memUser_classid').val()=='' || $('#memUser_classid').val()=='0'){
+		alert("학원 전용 게시판입니다.\n이용을 원하시면 학원을 등록하세요.");
+		location.href = "/semiproject/user/userUpdateForm";
+	}
+	else {
+		location.href = "/semiproject/board/boardClassList?class_id="+$('#memUser_classid').val();
+	}
+});
 </script>
 

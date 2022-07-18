@@ -336,7 +336,14 @@ public class UserServiceImpl implements UserService {
 				return result;				
 			}
 			
-		}		
+		}
+		
+		
+		
+		@Override
+		public UserAllDTO getUserClass_Class(int class_id) {
+			return userDAO.getUserClass_Class(class_id);
+		}
 		
 	//유진 : 끝 ====================================
 
@@ -354,6 +361,7 @@ public class UserServiceImpl implements UserService {
 				session.setAttribute("memName", userAllDTO.getUser_name()); //연수추가(220713)
 				session.setAttribute("memImg", userAllDTO.getUser_img());				
 				session.setAttribute("memSocial", userAllDTO.getUser_social()); //연수추가(220713)
+				session.setAttribute("memClassId", userAllDTO.getUser_classid());
 				
 				return "ok";
 				
@@ -400,5 +408,6 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserImgByUserid(user_id);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
 
 }

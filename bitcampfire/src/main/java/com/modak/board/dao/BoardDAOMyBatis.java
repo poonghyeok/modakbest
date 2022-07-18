@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 
 @Transactional
@@ -149,9 +150,28 @@ public class BoardDAOMyBatis implements BoardDAO {
 				
 			}
 
+
 		
 			
 	// 정수 : 끝  ###################### 
 
+			@Override
+			public void boardClassWrite(BoardClassDTO boardClassDTO) {
+				System.out.print("Mybatis insert");
+				sqlSession.insert("boardSQL.boardClassWrite",boardClassDTO);
+				
+			}
+
+			@Override
+			public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,
+					int class_id) {
+				Map<String, Object> newMap = new HashMap<>();
+				newMap.put("startNum", map.get("startNum").toString());
+				newMap.put("endNum", map.get("endNum").toString());
+				newMap.put("sortOption", sortOption);
+				newMap.put("class_id", class_id);
+				
+				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);				
+			}
 
 }
