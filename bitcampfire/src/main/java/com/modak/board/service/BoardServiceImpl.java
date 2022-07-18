@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
+import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
 import com.modak.user.dao.UserDAO;
 
@@ -62,8 +63,6 @@ public class BoardServiceImpl implements BoardService {
 			
 			List<BoardDTO> list = boardDAO.getBoardRangeOrder(map, sortOption);
  
-			System.out.println("\n @ boardTalbeList size : " + list.size());
-			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");
 			for(BoardDTO dto : list) {
 				sb.append(boardDtoToTrTag(dto, sortOption));
@@ -87,8 +86,6 @@ public class BoardServiceImpl implements BoardService {
 			map.put("keyword", keyword);
 			
 			List<BoardDTO> list = boardDAO.getBoardSearchRangeOrder(map, sortOption); 
-			System.out.println("\n @ boardTalbeList size : " + list.size());
-			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class='list-group '>");
 			for(BoardDTO dto : list) {
 				sb.append(boardDtoToTrTag(dto, sortOption));
@@ -104,7 +101,6 @@ public class BoardServiceImpl implements BoardService {
 		public void boardWrite(BoardDTO boardDTO) {
 			String session_email = (String)session.getAttribute("memEmail");
 			int board_uid = userDAO.getUserIdByEmail(session_email);
-			System.out.println("\n@ session_eamil = " + session_email);
 			//풍혁220708 : userDAO에 user_id 받아오는 method와 query 생성해서 boardDTO에 집어넣고 글 생성할 때 반영
 			boardDTO.setBoard_uid(board_uid);
 			boardDAO.boardWrite(boardDTO);
@@ -122,7 +118,6 @@ public class BoardServiceImpl implements BoardService {
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 시작 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = boardDTO.getBoard_date_created();
-			System.out.println("\n date : " + date);
 			String dateToStr = dateFormat.format(date);
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 마무리
 			 
@@ -209,7 +204,7 @@ public class BoardServiceImpl implements BoardService {
 						String userProfileImg = userDAO.getUserImgByUserid(boardDTO.getBoard_uid());
 						tr.append("<a href='/semiproject/user/userPage?user_id="+boardDTO.getBoard_uid()+"' class='avatar-photo'><img src='/semiproject/storage/userprofile/"+userProfileImg+"'></a>");
 						tr.append("<div class='avatar-info'>");
-							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
+							tr.append("<a class='nickname' href='/semiproject/user/userPage?user_id="+boardDTO.getBoard_uid()+"' title='"+ author +"'>"+ author +"</a>");
 							tr.append("<div class='activity'>");
 								tr.append("<span class='fa fa-flash'></span>" + "lev");
 							tr.append("</div>");
@@ -352,12 +347,19 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.boardDelete(board_id);
 		}
 
+
 		
 		//정수 : 끝 ############################################
 
 		
 		//기진 : 시작 ############################################
 		
+    @Override
+      public List<BoardAllDTO> getBoardAllList() {
+
+			return boardDAO.getBoardAllList();
+		}
+	
 		@Override
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
 			

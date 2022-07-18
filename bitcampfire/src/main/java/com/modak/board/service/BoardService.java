@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.modak.board.bean.BoardDTO;
+import com.modak.board.bean.BoardAllDTO;
 
 public interface BoardService {
 	
@@ -53,14 +54,13 @@ public interface BoardService {
 
 		public void boardDelete(int board_id);
 
-
-		
 		
 	// 정수 : 끝  ###################### 
 
 		
 		// 기진 " 시작 ##########################			
-					
+		 
+    public List<BoardAllDTO> getBoardAllList(); 
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
 
 		// 기진 " 끝 ##########################			

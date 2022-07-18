@@ -156,6 +156,11 @@
 			delete from board_review where board_id = ${board_id}
 		</delete>
 		
+		<!-- 게시글 전체 데이터 불러오기 -->
+		<select id="getBoardAllList" resultType = "BoardAllDTO">
+			select * from board_review
+		</select>
+		
 	<!-- ####################### 정수 : 끝  ###################### -->
 	
 	
