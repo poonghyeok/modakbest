@@ -78,7 +78,7 @@ public class BoardServiceImpl implements BoardService {
 			
 			int boardPerPage = 10;
 			int startNum = 1 + boardPerPage*(pg-1);
-			int endNum = boardPerPage + boardPerPage*(pg-1);
+			int endNum = boardPerPage + boardPerPage*(pg-1); 
 			
 			
 			Map<String, String> map = new HashMap<String, String>();
@@ -351,9 +351,20 @@ public class BoardServiceImpl implements BoardService {
 		public void boardDelete(int board_id) {
 			boardDAO.boardDelete(board_id);
 		}
-	
+
 		
 		//정수 : 끝 ############################################
 
+		
+		//기진 : 시작 ############################################
+		
+		@Override
+		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+			
+			
+			return boardDAO.getUserPageArticle(map);
+		}
+		
+		//기진 : 끝 ############################################
 	
 }

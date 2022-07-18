@@ -54,12 +54,16 @@ public interface BoardDAO {
 
 
 
+
 		
-
-	// 정수 : 끝  ###################### 
-
+		// 정수 : 끝  ###################### 
 
 
+		// 기진 : 시작  ###################### 
+
+		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
+
+		// 기진 : 끝  ###################### 
 
 
 		

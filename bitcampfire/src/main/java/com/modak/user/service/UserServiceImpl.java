@@ -374,10 +374,20 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public UserDTO getUserInfo2(String user_id) {
 			UserDTO userDTO = userDAO.getUserInfo(user_id);
-			System.out.println("userService getUserInfo DTO : " + userDTO);
+			System.out.println();
+			System.out.println("userServiceImpl getUserInfo2");
+			System.out.println("userService getUserInfo DTO : " + userDTO); 
 			return userDTO;
 		}
 
+//		@Override
+//		public String getUserEmailByUserId(String user_id) {
+//			UserDTO userDTO = userDAO.getUserInfo(user_id);
+//			
+//			String artical_id = userDTO.getUser_email();
+//			
+//			return artical_id;
+//		}
 
 	// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
@@ -400,5 +410,7 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserImgByUserid(user_id);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
 
 }

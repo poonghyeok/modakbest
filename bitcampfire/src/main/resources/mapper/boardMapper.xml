@@ -157,4 +157,15 @@
 		</delete>
 		
 	<!-- ####################### 정수 : 끝  ###################### -->
+	
+	
+	<!--  기진 : 시작  ###################### --> 
+	
+		<select id="getUserPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
+	   		select * from board_review where board_uid = ${user_id}
+	   	</select>
+	
+	
+	
+	<!--  기진 : 끝  ###################### --> 
 </mapper>
