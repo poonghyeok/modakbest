@@ -16,10 +16,6 @@
 <!-- 풍혁(220707) :  div layout container, div main 추가 -->
 <div class="layout-container">
 	<div class="main">
-	
-		<input type="text" value="${param.searchOption}" id="searchOption2"> 
-		<input type="text" value="${param.keyword}" id="keyword2"> 
-		
 			<%@ include file="/admin/adminSidebar.jsp" %>
 				<!-- <div id="index" class="content scaffold-list clearfix" role="main"> footer가 위로 올라오지 않게하는 폼/리스트 크기가 작아짐 -->		
 				
@@ -27,8 +23,8 @@
 				<h4>회원관리</h4>
 				<!-- @@@@@@@@@@ 연수 : 검색 기능 추가 하기(220716)  @@@@@@@@@@ -->
 				<form id="userSearchForm">
-				<div class="nav" role="navigation" style="float:right;">
-					<input type="text" name="pg" id="searchPg" value="1">					
+				<input type="hidden" name="pg" id="searchPg" value="1" >
+				<div class="nav" role="navigation" style="margin-left:600px;">										
 						<div class="job-filter-container" style="width:300px; text-align:center; margin: auto;">
 							<select class="job-filter-btn" name="searchOption" id="searchOption" style="border-color: #DBDCE1; font-size: 10pt; color: #656667;">
 						       <option value="user_name" id="user_name">이름</option>
@@ -44,7 +40,7 @@
 	            </form>
 				<br>
 				<!-- @@@@@@@@@@ 연수 : 검색 기능 추가 하기(220716)  @@@@@@@@@@ -->
-				<input type="text" id="pg" value="${pg }">
+				<input type="hidden" id="pg" value="${pg }">
 				<!-- @@@@@@@@@@ 연수 : 선택삭제 기능 추가 하기 : 소셜 로그인 사용자 토큰을 저장해야되남??(220716)  @@@@@@@@@@ -->
 				<!-- 선택 삭제  폼 / 개별 삭제 버튼 폼을 폼 안에 넣으면 작동 안함 -->
 				<form id="adminUserAllListForm" method="get" action="/semiproject/admin/adminUserDelete_select">		
@@ -133,7 +129,7 @@ $(function(){
             $.each(data.list, function (index, items) {
 
                 $('<li/>', {
-                    class: 'list-group-item list-group-item-question list-group-has-note clearfix' //추후 hasnote를 social 여부로 변경해볼지?
+                    class: 'list-group-item list-group-item-question clearfix', //추후 hasnote를 social 여부로 변경해볼지?
                 })	
 
                	.append(
@@ -213,7 +209,7 @@ $(function(){
                  .append(
                      $('<div/>', {
                          class: 'list-title-wrapper clearfix4',
-                         id: 'user_email',
+                         id: 'user_email'+items.user_id,
                          align: 'center',
                          text: items.user_email,
                          style: 'width:200px; height:35px; text-align:center; line-height:35px;'
@@ -255,11 +251,12 @@ $(function(){
                      })
                      .append(
                     		/* 카카오 삭제 시 오류 */
-                   		 $('<button/>',{
+                   		 $('<input/>',{
                                 class: 'btn btn-danger btn-sm',
                                 id: 'adminUserDeleteBtn_personal'+items.user_id,
-                                text: '삭제',
-                                value: items.user_email
+                                //name: 'adminUserDeleteBtn_personal',
+                                //text: '삭제',
+                                value: '삭제'
                             })
                          /* $('<input/>',{
                              class: 'btn btn-danger btn-sm',
@@ -285,12 +282,33 @@ $(function(){
                if($('#user_social'+items.user_id).text()!='X') {
                 	$('#check'+items.user_id).attr('disabled', true);
                	}
+               
+               /* if($('#user_social'+items.user_id).text()=='X') {
+               	$('.list-group-item list-group-item-question clearfix'+items.user_id).attr('list-group-has-note', true);
+              	}    */            
+   			
                //관리자 권한을 가진 사람은 선택삭제/개별삭제 사용 못하게
                if($('#user_id'+items.user_id).text()==0) {
                	$('#check'+items.user_id).attr('disabled', true);
                	$('#adminUserDeleteBtn_personal'+items.user_id).attr('disabled', true);
               	}
-               
+               //delete
+               $('#adminUserDeleteBtn_personal'+items.user_id).click(function(){	 
+            		if(confirm('정말로 삭제하시겠습니까?')){
+            		$.ajax({
+            			type: 'post',
+            			url: '/semiproject/admin/adminUserDelete',
+            			data: {'user_email': $('#user_email'+items.user_id).text()},
+            			success: function(){
+            				alert('선택하신 회원의 정보를 삭제하였습니다.22');
+            				location.href = '/semiproject/admin/adminUserAllList';	
+            			},
+            			error: function(err){
+            				console.log(err);
+            			}
+            		});
+            		}
+            	});
             });//each
          	 //페이징 처리 챙기기!
          	 $('#userAdminPagingDiv').html(data.userAdminPaging.pagingHTML);
@@ -300,38 +318,6 @@ $(function(){
         }
     });//ajax
 });//function
-
-//관리자는 삭제 안되게 불가하게 만들기(버튼 숨기기?)
-/* $('.btn btn-danger btn-sm').attr('disabled', true);
-$('.btn btn-danger btn-sm').prop('disabled', true);
-
-$('#adminUserDeleteBtn_personal').attr('disabled', true);
-$('#adminUserDeleteBtn_personal').prop('disabled', true); */
-
-//카카오 회원(인증토큰이 매번 갱신되어서 관리자 권한으로 삭제 불가)은 체크박스 비활성화 하기(실패함/ 다른방법 찾아보기) 220716
-/* $(document).on(function(){
-	if($('.list-title-wrapper clearfix6').text()!='X') {
-		$('#checkDelete').hide();
-		} 
-
-	$('input[type=checkbox]').prop('disabled', true);//제목만 없어짐
-	$('input[type=checkbox]').attr('disabled', true);
-	
-	$("input:checkbox[id='checkDelete']").prop("disabled", false);
-	$("input:checkbox[name='check']").prop("disabled", false);
-	
-	$("input:checkbox[id='checkDelete']").attr("disabled", false);
-	$("input:checkbox[name='check']").attr("disabled", false);
-	
-	$('input[name="check"]').prop('disabled', true);
-	$('input[name="check"]').attr('disabled', true);
-
-	$('#checkDelete').attr('disabled', true);
-	$('#checkDelete').prop('disabled', true);
-	
-	$('#checkDelete').prop('readonly', true);
-	$('#checkDelete').attr('readonly', true);
-}); */
 
 //전체선택 또는 전체해제
 $('#all').click(function(){
@@ -354,14 +340,14 @@ $('#adminUserDeleteBtn_select').click(function(){
 });
 
 //개별삭제 : 이메일 로그인 회원만 가능함
-/* $(document).on("click", "#adminUserDeleteBtn_personal", function(){	 
+/* $(document).on("click", "input[name='adminUserDeleteBtn_personal']", function(){	 
 	if(confirm('정말로 삭제하시겠습니까?')){
 	$.ajax({
 		type: 'post',
 		url: '/semiproject/admin/adminUserDelete',
-		data: {'user_email': $('#adminUserDeleteBtn_personal').val()},
+		data: {'user_email': $("input[name='adminUserDeleteBtn_personal']").val()},
 		success: function(){
-			alert('선택하신 회원의 정보를 삭제하였습니다.');
+			alert('선택하신 회원의 정보를 삭제하였습니다.22');
 			location.href = '/semiproject/admin/adminUserAllList';	
 		},
 		error: function(err){
@@ -390,7 +376,8 @@ function userAdminPaging(pg2){
 //서치 list
 $('#userSearchBtn').click(function(){
 	if($('#keyword').val()==''){
-		alert('검색어를 입력하세요!')	
+		alert('검색어를 입력하세요!')
+		location.href = "/semiproject/admin/adminUserAllList?pg=1";
 	}else{
 	    $.ajax({
 	        type: 'post',
@@ -398,8 +385,8 @@ $('#userSearchBtn').click(function(){
 	        data: $('#userSearchForm').serialize(),
 	        dataType: 'json',
 	        success: function (data) {
-	            alert(JSON.stringify(data));
-	            //테이블에서 기존의 목록 제거
+	            //alert(JSON.stringify(data));
+	            //리스트에서 기존의 목록 제거
 			 	$('.list-group li:gt(0)').remove();
 
 	            $.each(data.list, function (index, items) {

@@ -71,19 +71,12 @@
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판1"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판1</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판2"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판2</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판3"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판3</span></a></li>
-
-       
-        
+        <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤니티</span></a></li>
         <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
         <%-- <c:if test="${sessionScope.memId == 0 }"> --%>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
     	<%-- </c:if> --%>
     	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
-
-
-        <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤니티</span></a></li>
-
-
     </ul>
 
     <ul class="nav nav-sidebar nav-bottom">

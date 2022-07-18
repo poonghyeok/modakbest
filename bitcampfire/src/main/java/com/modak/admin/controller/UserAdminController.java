@@ -48,23 +48,24 @@ public class UserAdminController {
 		return new ModelAndView("redirect:/admin/adminUserAllList");
 	}
 	
-//	//선택삭제가 아닌 1명씩 삭제 할때/@@@@@button type으로 가는데 카카오 회원 삭제 처리가 안되고, 선택삭제용 check 박스 값을 요구하는 오류가 생김?@@@@@
-//	@PostMapping(value="adminUserDelete")
-//	@ResponseBody
-//	public String adminUserDelete(@RequestParam String user_email, HttpSession session) {
-//		
-//		UserAllDTO userAllDTO = userService.getUser(user_email);
-//		Long user_kakaoId = userAllDTO.getUser_kakaoId();
-//		
-//		if(user_kakaoId==null) {
-//			userService.delete(user_email);
-//		}else {	
-//			userService.kakaoUnlink_admin(user_kakaoId);
-//			userService.delete(user_email);
-//		}	
-//		session.invalidate();
-//		return "/admin/adminUserAllList";
-//	}
+	//선택삭제가 아닌 1명씩 삭제 할때/@@@@@button type으로 가는데 카카오 회원 삭제 처리가 안되고, 선택삭제용 check 박스 값을 요구하는 오류가 생김?@@@@@
+	@PostMapping(value="adminUserDelete")
+	@ResponseBody
+	public String adminUserDelete(@RequestParam String user_email, HttpSession session) {
+		
+		UserAllDTO userAllDTO = userService.getUser(user_email);
+		Long user_kakaoId = userAllDTO.getUser_kakaoId();
+		
+		System.out.println(user_email);
+		if(user_kakaoId==null) {
+			userService.delete(user_email);
+		}else {	
+			userService.kakaoUnlink_admin(user_kakaoId);
+			userService.delete(user_email);
+		}	
+		session.invalidate();
+		return "/admin/adminUserAllList";
+	}
 	
 	@PostMapping(value="adminUserSearch")
 	@ResponseBody
