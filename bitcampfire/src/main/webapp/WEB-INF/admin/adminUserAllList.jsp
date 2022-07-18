@@ -16,6 +16,10 @@
 <!-- 풍혁(220707) :  div layout container, div main 추가 -->
 <div class="layout-container">
 	<div class="main">
+	
+		<input type="text" value="${param.searchOption}" id="searchOption2"> 
+		<input type="text" value="${param.keyword}" id="keyword2"> 
+		
 			<%@ include file="/admin/adminSidebar.jsp" %>
 				<!-- <div id="index" class="content scaffold-list clearfix" role="main"> footer가 위로 올라오지 않게하는 폼/리스트 크기가 작아짐 -->		
 				
@@ -137,14 +141,15 @@ $(function(){
                          class: 'list-title-wrapper clearfix1',
                          align: 'center',
                          text: items.user_id,
+                         id: 'user_id'+items.user_id,
                          style: 'width:70px; height:35px; text-align:center; line-height:35px;'
                      })
                      .prepend($('<input/>', {
                          type: 'checkbox',
                          name: 'check',
-                         id: 'checkDelete',
+                         id: 'check'+items.user_id,
                          style: 'float: left; margin-top: 10px;',
-                         disabled: false,
+                         //disabled: false,
                          value: items.user_email //일관성을 위해 id값 대신 email 값을 넣음
                      }))                                    
                     )//list-title-wrapper clearfix1
@@ -229,6 +234,8 @@ $(function(){
                          class: 'list-title-wrapper clearfix6',
                          align: 'center',
                          text: items.user_social,
+                         id: 'user_social'+items.user_id,
+                         //value: items.user_social,
                          style: 'width:100px; height:35px; text-align:center; line-height:35px;'
                      })
                      .append(
@@ -250,7 +257,7 @@ $(function(){
                     		/* 카카오 삭제 시 오류 */
                    		 $('<button/>',{
                                 class: 'btn btn-danger btn-sm',
-                                id: 'adminUserDeleteBtn_personal',
+                                id: 'adminUserDeleteBtn_personal'+items.user_id,
                                 text: '삭제',
                                 value: items.user_email
                             })
@@ -273,7 +280,17 @@ $(function(){
                  )//list-title-wrapper clearfix7
 
                .appendTo($('.list-group')); //마지막단   
-
+               
+			   //소셜 로그인 가입자는 선택삭제를 불가하게 한다            
+               if($('#user_social'+items.user_id).text()!='X') {
+                	$('#check'+items.user_id).attr('disabled', true);
+               	}
+               //관리자 권한을 가진 사람은 선택삭제/개별삭제 사용 못하게
+               if($('#user_id'+items.user_id).text()==0) {
+               	$('#check'+items.user_id).attr('disabled', true);
+               	$('#adminUserDeleteBtn_personal'+items.user_id).attr('disabled', true);
+              	}
+               
             });//each
          	 //페이징 처리 챙기기!
          	 $('#userAdminPagingDiv').html(data.userAdminPaging.pagingHTML);

@@ -61,7 +61,7 @@ public class UserAdminPaging {
 		}
 	}
 	
-	public void makeSearchPagingHTML(String keyword, String searchOption) {
+	public void makeSearchPagingHTML(String searchOption, String keyword) {
 		this.pagingHTML = new StringBuffer();
 		
 		//int totalP = (totalA-1) / pageSize + 1; //총페이지수
@@ -92,7 +92,7 @@ public class UserAdminPaging {
 			}				
 			else {
 				pagingHTML.append("<li>");
-					pagingHTML.append("<a href='/semiproject/admin/adminUserAllList?pg="+i+"&searchOption="+searchOption+"&keword="+keyword+"'>");
+					pagingHTML.append("<a href='/semiproject/admin/adminUserAllList?pg="+i+"&searchOption="+searchOption+"&keyword="+keyword+"'>");
 						pagingHTML.append(i);
 					pagingHTML.append("</a>");
 				pagingHTML.append("</li>");
@@ -102,7 +102,7 @@ public class UserAdminPaging {
 		if(currentPage < endPage) {                                                            
 			int nextPage = currentPage+1;
 			pagingHTML.append("<li class='next'>");
-				pagingHTML.append("<a href='/semiproject/admin/adminUserAllList?pg="+nextPage+"&searchOption="+searchOption+"&keword="+keyword+"'>");
+				pagingHTML.append("<a href='/semiproject/admin/adminUserAllList?pg="+nextPage+"&searchOption="+searchOption+"&keyword="+keyword+"'>");
 					pagingHTML.append("»");
 				pagingHTML.append("</a>"); 
 			pagingHTML.append("</li>");

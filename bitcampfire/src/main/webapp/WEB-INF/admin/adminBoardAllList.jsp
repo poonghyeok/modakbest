@@ -15,7 +15,7 @@
 <body>
 	<div class="layout-container">
 		<div class="main">
-		<%@ include file = "./adminSidebar.jsp" %>
+		<%@ include file = "/admin/adminSidebar.jsp" %>
 		
 			<div class="nav" role="navigation">
 				<span class="list-group-item-text article-id">${boardAllDTO.board_id}</span>

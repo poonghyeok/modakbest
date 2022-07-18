@@ -184,8 +184,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,
-					int class_id) {
+			public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,	int class_id) {
 				Map<String, Object> newMap = new HashMap<>();
 				newMap.put("startNum", map.get("startNum").toString());
 				newMap.put("endNum", map.get("endNum").toString());
@@ -195,4 +194,5 @@ public class BoardDAOMyBatis implements BoardDAO {
 				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);		
       
       //유진 : 끝 
+}
 }

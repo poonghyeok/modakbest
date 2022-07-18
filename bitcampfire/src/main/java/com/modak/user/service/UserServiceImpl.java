@@ -208,17 +208,21 @@ public class UserServiceImpl implements UserService {
 		public Map<String, Object> adminUserSearch(Map<String, String> map) {
 			int endNum = Integer.parseInt(map.get("pg")) * 5;
 			int startNum = endNum - 4;
+			
 			String searchOption = map.get("searchOption");
 			String keyword = map.get("keyword");
 			
 			//DB - 1페이지 당 10걔씩
 			map.put("startNum", startNum+"");
 			map.put("endNum", endNum+"");
+			map.put("searchOption", searchOption);//
+			map.put("keyword", keyword);//
+			
 			
 			List<UserAllDTO> list = userDAO.getUserSearchList(map);
 			
 			int totalA = userDAO.getUserTotalSearchA(map); //검색된 총 유저 수 
-			
+			System.out.println("adminUserSearch");
 			userAdminPaging.setCurrentPage(Integer.parseInt(map.get("pg")));
 			userAdminPaging.setPageBlock(3);
 			userAdminPaging.setPageSize(5);
@@ -228,6 +232,8 @@ public class UserServiceImpl implements UserService {
 			Map<String, Object> sendMap = new HashMap<String, Object>();
 			sendMap.put("list", list);
 			sendMap.put("userAdminPaging", userAdminPaging);
+			sendMap.put("searchOption", searchOption);//
+			sendMap.put("keyword", keyword);//
 			
 			return sendMap;
 		}
