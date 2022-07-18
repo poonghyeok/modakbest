@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
+import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
 import com.modak.user.dao.UserDAO;
 
@@ -350,6 +351,12 @@ public class BoardServiceImpl implements BoardService {
 		@Override
 		public void boardDelete(int board_id) {
 			boardDAO.boardDelete(board_id);
+		}
+
+		@Override
+		public List<BoardAllDTO> getBoardAllList() {
+			
+			return boardDAO.getBoardAllList();
 		}
 	
 		

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.modak.board.bean.BoardDTO;
+import com.modak.board.bean.BoardAllDTO;
 
 public interface BoardDAO {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,6 +52,8 @@ public interface BoardDAO {
 		public void boardEdit(BoardDTO boardDTO);
 
 		public void boardDelete(int board_id);
+
+		public List<BoardAllDTO> getBoardAllList();
 
 
 

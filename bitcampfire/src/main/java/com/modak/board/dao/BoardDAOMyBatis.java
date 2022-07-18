@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.modak.board.bean.BoardDTO;
+import com.modak.board.bean.BoardAllDTO;
 
 @Transactional
 @Repository
@@ -149,8 +150,11 @@ public class BoardDAOMyBatis implements BoardDAO {
 				
 			}
 
-		
-			
+			@Override
+			public List<BoardAllDTO> getBoardAllList() {
+				return sqlSession.selectList("boardSQL.getBoardAllList");
+			}
+
 	// 정수 : 끝  ###################### 
 
 

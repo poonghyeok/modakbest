@@ -61,7 +61,7 @@
                             <div class="date-created"><span class="timeago" title="2022-07-07T11:47:55">${dateToStr}</span>작성
                                 <span class="date-saperate">∙</span> 
                                 <a href="/changes/2853281">
-                                	<span class="timeago" title="2022-07-07 11:52:28">**글 수정한 날짜는 발표이후 구현**</span>
+   <!-- 글 수정 날짜 -->         	<span class="timeago" title="2022-07-07 11:52:28"></span>
                                	</a>
                             </div>
 	                  	</div>
