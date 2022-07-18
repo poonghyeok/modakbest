@@ -3,7 +3,9 @@ package com.modak.board.service;
 import java.util.List;
 import java.util.Map;
 
+import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
+import com.modak.board.bean.BoardAllDTO;
 
 public interface BoardService {
 	
@@ -53,13 +55,25 @@ public interface BoardService {
 
 		public void boardDelete(int board_id);
 
-		
+
 		
 	// 정수 : 끝  ###################### 
 
-		
-		
-					
 
+		// 기진 " 시작 ##########################			
+		 
+    public List<BoardAllDTO> getBoardAllList(); 
+		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
+
+		// 기진 " 끝 ##########################			
 
 }
+
+	// 유진 : 시작 ##############################################
+		public void boardClassWrite(BoardClassDTO boardClassDTO);
+
+		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
+
+		public String getBoardClassPagingList(int pg, String sortOption, int class_id);
+		
+		

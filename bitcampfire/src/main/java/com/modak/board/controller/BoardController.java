@@ -257,5 +257,6 @@ public class BoardController {
 		  
 		  
 		  
+		  
 	// 정수 : 끝  ###################### 
 }

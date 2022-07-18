@@ -47,9 +47,10 @@
 	
 	<!-- comment 컨트롤러 -->
 	<context:component-scan base-package="com.modak.comment.controller" />
-	
+
 	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715)  @@@@@@@@@@@@@@-->
-	<!-- admin 컨트롤러 -->
+
+	<!-- admin 컨트롤러 -->	
 	<context:component-scan base-package="com.modak.admin.controller" />
-	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715)  @@@@@@@@@@@@@@-->
+
 </beans:beans>

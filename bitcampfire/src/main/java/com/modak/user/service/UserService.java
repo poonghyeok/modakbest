@@ -83,6 +83,7 @@ public interface UserService {
     	public UserAllDTO getUserInfo(String access_Token);
     	
     	
+    	public UserAllDTO getUserClass_Class(int class_id);
   	//유진 : 끝 0706====================================
 	
 
@@ -93,6 +94,9 @@ public interface UserService {
     	public void userLogout();
 
     	public UserDTO getUserInfo2(String user_id);
+    	
+//    	public String getUserEmailByUserId(String user_id);
+    	
     // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -103,13 +107,6 @@ public interface UserService {
     	
     	//풍혁0714 : board_uid로 user_img를 받아가려고 만들었습니다. 
     	public String getUserImgByUserid(int user_id);
-
-
-
-
-
-
-
 
     
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&

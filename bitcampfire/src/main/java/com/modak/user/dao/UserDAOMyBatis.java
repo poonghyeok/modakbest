@@ -155,6 +155,11 @@ public class UserDAOMyBatis implements UserDAO {
 			sqlSession.insert("userSQL.kakaoInsert",userInfo);
 		}
 		
+		@Override
+		public UserAllDTO getUserClass_Class(int class_id) {
+			return sqlSession.selectOne("userSQL.getUserClass_Class",class_id);
+		}
+		
 	//유진 : 끝 0706====================================
 	
 
@@ -168,6 +173,12 @@ public class UserDAOMyBatis implements UserDAO {
 		public UserDTO getUserInfo(String user_id) {
 			
 			return sqlSession.selectOne("userSQL.getUserInfo", user_id);
+		}
+
+		@Override
+		public String getUserEmailByUserId(String user_id) {
+			String artical_id = sqlSession.selectOne("userSQL.getUserInfo", user_id);
+			return artical_id;
 		}
 
 		// 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
@@ -194,6 +205,26 @@ public class UserDAOMyBatis implements UserDAO {
 			return sqlSession.selectOne("userSQL.getUserImgByUserid", user_id);
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+		@Override
+		public String getUserNameByUserIdClass(int board_uid) {
+			System.out.println("\n @LOG@ myBatis.. getUserNameByUserId... user_id : " + board_uid);
+			String user_nickname = sqlSession.selectOne("userSQL.getUserNameByUserIdClass", board_uid);
+			System.out.println("user_nickname : " + user_nickname);
+			return user_nickname;
+		}
+
+		@Override
+		public String getUserClassImgByUserid(int user_id) {
+			return sqlSession.selectOne("userSQL.getUserClassImgByUserid", user_id);
+		}
+
+		@Override
+		public int getUserIdByEmailClass(String session_email) {
+			return sqlSession.selectOne("userSQL.getUserIdByEmailClass", session_email);
+		}
+
+
 
 
 

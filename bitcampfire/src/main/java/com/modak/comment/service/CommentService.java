@@ -16,8 +16,13 @@ public interface CommentService {
 	public void write(CommentDTO commentDTO);
 	public List<CommentDTO> getCommentListByBoardId(int cmt_bid);
 	public void increaseCommentCount(int cmt_bid);
+	public void decreaseCommentCount(int cmt_bid);
+	public String getCommentContentById(int cmt_id);
+	public void update(int cmt_id, String cmt_content);
+	public void delete(int cmt_id);
 //풍혁 끝: =================================
 
-	
+
+
 	
 }

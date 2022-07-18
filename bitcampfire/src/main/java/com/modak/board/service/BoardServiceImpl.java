@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
+import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
 import com.modak.user.dao.UserDAO;
 
@@ -62,8 +64,6 @@ public class BoardServiceImpl implements BoardService {
 			
 			List<BoardDTO> list = boardDAO.getBoardRangeOrder(map, sortOption);
  
-			System.out.println("\n @ boardTalbeList size : " + list.size());
-			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");
 			for(BoardDTO dto : list) {
 				sb.append(boardDtoToTrTag(dto, sortOption));
@@ -78,7 +78,7 @@ public class BoardServiceImpl implements BoardService {
 			
 			int boardPerPage = 10;
 			int startNum = 1 + boardPerPage*(pg-1);
-			int endNum = boardPerPage + boardPerPage*(pg-1);
+			int endNum = boardPerPage + boardPerPage*(pg-1); 
 			
 			
 			Map<String, String> map = new HashMap<String, String>();
@@ -87,8 +87,6 @@ public class BoardServiceImpl implements BoardService {
 			map.put("keyword", keyword);
 			
 			List<BoardDTO> list = boardDAO.getBoardSearchRangeOrder(map, sortOption); 
-			System.out.println("\n @ boardTalbeList size : " + list.size());
-			System.out.println("\n @ getBoardRange parameter : " + pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class='list-group '>");
 			for(BoardDTO dto : list) {
 				sb.append(boardDtoToTrTag(dto, sortOption));
@@ -104,7 +102,6 @@ public class BoardServiceImpl implements BoardService {
 		public void boardWrite(BoardDTO boardDTO) {
 			String session_email = (String)session.getAttribute("memEmail");
 			int board_uid = userDAO.getUserIdByEmail(session_email);
-			System.out.println("\n@ session_eamil = " + session_email);
 			//풍혁220708 : userDAO에 user_id 받아오는 method와 query 생성해서 boardDTO에 집어넣고 글 생성할 때 반영
 			boardDTO.setBoard_uid(board_uid);
 			boardDAO.boardWrite(boardDTO);
@@ -122,7 +119,6 @@ public class BoardServiceImpl implements BoardService {
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 시작 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = boardDTO.getBoard_date_created();
-			System.out.println("\n date : " + date);
 			String dateToStr = dateFormat.format(date);
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 마무리
 			 
@@ -209,7 +205,7 @@ public class BoardServiceImpl implements BoardService {
 						String userProfileImg = userDAO.getUserImgByUserid(boardDTO.getBoard_uid());
 						tr.append("<a href='/semiproject/user/userPage?user_id="+boardDTO.getBoard_uid()+"' class='avatar-photo'><img src='/semiproject/storage/userprofile/"+userProfileImg+"'></a>");
 						tr.append("<div class='avatar-info'>");
-							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
+							tr.append("<a class='nickname' href='/semiproject/user/userPage?user_id="+boardDTO.getBoard_uid()+"' title='"+ author +"'>"+ author +"</a>");
 							tr.append("<div class='activity'>");
 								tr.append("<span class='fa fa-flash'></span>" + "lev");
 							tr.append("</div>");
@@ -351,9 +347,164 @@ public class BoardServiceImpl implements BoardService {
 		public void boardDelete(int board_id) {
 			boardDAO.boardDelete(board_id);
 		}
-	
 		
 		//정수 : 끝 ############################################
 
+		
+		//기진 : 시작 ############################################
+		
+    @Override
+      public List<BoardAllDTO> getBoardAllList() {
+
+			return boardDAO.getBoardAllList();
+		}
 	
+		@Override
+		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+			
+			
+			return boardDAO.getUserPageArticle(map);
+		}
+		
+		//기진 : 끝 ############################################
+
+  
+  	//유진 : 시작 ############################################
+		@Override
+		public void boardClassWrite(BoardClassDTO boardClassDTO) {
+			String session_email = (String)session.getAttribute("memEmail");
+			int board_uid = userDAO.getUserIdByEmailClass(session_email);
+			System.out.println("\n@ session_eamil = " + session_email);
+			//풍혁220708 : userDAO에 user_id 받아오는 method와 query 생성해서 boardDTO에 집어넣고 글 생성할 때 반영
+			boardClassDTO.setBoard_uid(board_uid);
+			boardDAO.boardClassWrite(boardClassDTO);
+			
+		}
+
+		@Override
+		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id) {
+			StringBuffer sb = new StringBuffer();
+			//페이징 처리하려면 다 받아오면 안되잖아. 몇개씩 표시할지 start랑 end정해줘야 되잖아. 
+			
+			//최신순으로 정렬할 때, startNum이랑 endNum map에 담아서 보내주기 
+			int boardPerPage = 10;
+			int startNum = 1 + boardPerPage*(pg-1);
+			int endNum = boardPerPage + boardPerPage*(pg-1);
+			
+			
+			  // 세션값이 있다면 = 로그인을 했다면!
+			session.setAttribute("board_view_cnt", "0"); // 조회수에 0을 넣어라! (= 값이 존재하게 만들어주자!)
+			
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("startNum", startNum);
+			map.put("endNum", endNum);
+			
+			List<BoardClassDTO> list = boardDAO.getBoardClassRangeOrder(map, sortOption,class_id);
+ 
+			System.out.println("\n @ boardClassTalbeList size : " + list.size());
+			System.out.println("\n @ getBoardClassRange parameter : " + class_id+ pg + map.get("startNum") + map.get("endNum"));
+			sb.append("<ul class=\"list-group \">");
+			for(BoardClassDTO dto : list) {
+				sb.append(boardClassDtoToTrTag(class_id, dto, sortOption));
+			}
+			sb.append("</ul>");
+			return sb.toString(); 
+		}
+
+		private Object boardClassDtoToTrTag(int class_id, BoardClassDTO boardClassDTO, String sortOption) {
+			int board_uid = boardClassDTO.getBoard_uid();
+			String author = userDAO.getUserNameByUserIdClass(board_uid);
+			
+			StringBuffer tr = new StringBuffer();
+			
+			//풍혁(220703) : DTO의 Date field를 String으로 변경 시작 
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date = boardClassDTO.getBoard_date_created();
+			System.out.println("\n date : " + date);
+			String dateToStr = dateFormat.format(date);
+			//풍혁(220703) : DTO의 Date field를 String으로 변경 마무리
+			 
+			//풍혁(220705) : comment의 개수에 따라 li의 클래스가 달라지는 것을 구분하기 위해서..
+			int noteNum = boardClassDTO.getBoard_cmt_cnt();
+			String hasNoteClass = null;
+			if(noteNum > 0 ) {
+				hasNoteClass = "list-group-has-note";
+			}else {
+				hasNoteClass = "list-group-no-note";
+			}
+			//풍혁(220705) : comment의 개수에 따라 li의 클래스가 달라지는 것을 구분하기 위해서..
+			
+			tr.append("<li class='list-group-item list-group-item-question clearfix " + hasNoteClass + "'>");
+				tr.append("<div class='list-title-wrapper clearfix'>");
+					tr.append("<div class='list-tag clearfix'>");
+						//풍혁220709 : 게시판 아이콘 반영 안되고있음
+						tr.append("<span class='list-group-item-text article-id'>"+ boardClassDTO.getBoard_id()+"</span>");
+						tr.append("<a='/semiproject/board/boardClassList?pg=1&class_id=${sessionScope.memClassid }' class='list-group-item-text item-tag label label-info'>"+ boardClassDTO.getBoard_classid()+"</a>"); 
+					tr.append("</div>");
+				
+					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
+						//풍혁 (220707) : pg는 그냥 1로만 넣어놓았으니 나중에 pg 넘길방법 생각해야됨 input hidden만들어서 넘기자 
+ 						tr.append("<a href='/semiproject/board/getBoardView?board_id="+boardClassDTO.getBoard_id()+"&pg=1&class_id=${sessionScope.memClassid }'>");
+							tr.append(boardClassDTO.getBoard_title());
+						tr.append("</a>");
+					tr.append("</h5>");
+				tr.append("</div>");
+			
+				tr.append("<div class='list-summary-wrapper clearfix'>");
+					tr.append("<div class='list-group-item-summary clearfix'>");
+						tr.append("<ul>");
+							tr.append("<li class=''>");
+								tr.append("<i class='item-icon fa fa-comment '></i>");
+								tr.append(boardClassDTO.getBoard_cmt_cnt());
+							tr.append("</li'>");
+							
+							tr.append("<li class=''>");
+								tr.append("<i class='item-icon fa fa-thumbs-up '></i>");
+								tr.append(boardClassDTO.getBoard_vote_cnt());
+							tr.append("</li'>");
+							
+							tr.append("<li class=''>");
+								tr.append("<i class='item-icon fa fa-eye '></i>");
+								tr.append(boardClassDTO.getBoard_view_cnt());
+							tr.append("</li'>");
+							
+						tr.append("</ul>");
+					tr.append("</div>");
+				tr.append("</div>");
+				
+				
+				tr.append("<div class=\"list-group-item-author clearfix\">");
+					tr.append("<div class='avatar clearfix avatar-list '>");
+						//풍혁(220707) : user click 했을 경우 user의 최근활동을 볼 수 있는 페이지로 이동 : 옵션으로
+						String userProfileImg = userDAO.getUserClassImgByUserid(boardClassDTO.getBoard_uid());
+						tr.append("<a href='/semiproject/user/userPage?user_id="+boardClassDTO.getBoard_uid()+"' class='avatar-photo'><img src='/semiproject/storage/userprofile/"+userProfileImg+"'></a>");
+						tr.append("<div class='avatar-info'>");
+							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
+							tr.append("<div class='activity'>");
+								tr.append("<span class='fa fa-flash'></span>" + "lev");
+							tr.append("</div>");
+							tr.append("<div class='date-created'>");
+								tr.append("<span class='timeago' title='"+dateToStr+"'>"+ dateToStr +"</span>");
+							tr.append("</div>");
+						tr.append("</div>");
+					tr.append("</div>");
+				tr.append("</div>");
+				
+			tr.append("</li>");
+		
+			return tr.toString();
+		}
+
+		@Override
+		public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
+			BoardPaging boardPaging = new BoardPaging();
+			boardPaging.setCurrentPage(pg);
+			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardPaging.setPageSize(10); //page 당 10개의 글 존재
+			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
+			boardPaging.makePagingHTML(sortOption);
+			
+			return boardPaging.getPagingHTML().toString();
+		}
 }
