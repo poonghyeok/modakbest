@@ -78,6 +78,9 @@ public interface UserService {
     	public void userLogout();
 
     	public UserDTO getUserInfo2(String user_id);
+    	
+//    	public String getUserEmailByUserId(String user_id);
+    	
     // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
 

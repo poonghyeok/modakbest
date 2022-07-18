@@ -7,6 +7,7 @@
         <typeAlias alias="UserDTO" type="com.modak.user.bean.UserDTO"/>
         <typeAlias alias="UserAllDTO" type="com.modak.user.bean.UserAllDTO"/>
         <typeAlias alias="BoardDTO" type="com.modak.board.bean.BoardDTO"/>
+        <typeAlias alias="BoardAllDTO" type="com.modak.board.bean.BoardAllDTO"/>
    		<typeAlias alias="CommentDTO" type="com.modak.comment.bean.CommentDTO"/>
     	<typeAlias alias="BoardClassDTO" type="com.modak.board.bean.BoardClassDTO"/>
     </typeAliases>

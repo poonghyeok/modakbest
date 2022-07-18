@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
+import com.modak.board.bean.BoardAllDTO;
 
 @Transactional
 @Repository
@@ -149,13 +150,33 @@ public class BoardDAOMyBatis implements BoardDAO {
 				sqlSession.update("boardSQL.boardDelete", board_id);
 				
 			}
-
-
 		
 			
 	// 정수 : 끝  ###################### 
 
+				
+
+			// 기진 : 시작  ###################### 
+      @Override
+        public List<BoardAllDTO> getBoardAllList() {
+          return sqlSession.selectList("boardSQL.getBoardAllList");
+			}
+      
 			@Override
+			public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+				
+				
+				
+				return sqlSession.selectList("boardSQL.getUserPageArticle", map);
+
+			}
+
+			// 기진 : 끝  ###################### 
+      
+      
+      
+      //유진 : 시작
+      	@Override
 			public void boardClassWrite(BoardClassDTO boardClassDTO) {
 				System.out.print("Mybatis insert");
 				sqlSession.insert("boardSQL.boardClassWrite",boardClassDTO);
@@ -171,7 +192,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 				newMap.put("sortOption", sortOption);
 				newMap.put("class_id", class_id);
 				
-				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);				
-			}
-
+				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);		
+      
+      //유진 : 끝 
 }

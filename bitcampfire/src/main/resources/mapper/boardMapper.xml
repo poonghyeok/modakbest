@@ -156,9 +156,27 @@
 			delete from board_review where board_id = ${board_id}
 		</delete>
 		
+		<!-- 게시글 전체 데이터 불러오기 -->
+		<select id="getBoardAllList" resultType = "BoardAllDTO">
+			select * from board_review
+		</select>
+		
 	<!-- ####################### 정수 : 끝  ###################### -->
 	
-		<insert id="boardClassWrite" parameterType="BoardClassDTO">
+
+	
+	<!--  기진 : 시작  ###################### --> 
+	
+		<select id="getUserPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
+	   		select * from board_review where board_uid = ${user_id}
+	   	</select>
+	
+	
+	
+	<!--  기진 : 끝  ###################### -->
+  
+  <!--  유진 : 시작   -->
+  <insert id="boardClassWrite" parameterType="BoardClassDTO">
 	      INSERT INTO BOARD_CLASS
 	            (board_id, board_uid, board_classid, board_title, board_content, board_date_created)
 	        VALUES
@@ -183,4 +201,6 @@
  				)TT
 			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
     	</select>
+  
+
 </mapper>

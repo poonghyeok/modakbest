@@ -11,7 +11,6 @@
         <div class="logo">
             <a href="/semiproject/">
                 <img src="/semiproject/img/bit_small_logo.png" alt="OKKY" title="OKKY" style="width: 40px; height: 40px;">
-
             </a>
         </div>
     </h1>
@@ -38,7 +37,7 @@
     </form>
 
    	<!-- @@@@@@ 연수 : 사이드바 링크 연결(로그인 여부  X: 로그인/회원가입 / 로그인 여부  O: 정보수정/로그아웃)  -->
-	<!-- 로그인 X -->    
+	<!-- 로그인 X -->
     <div class="nav-user nav-sidebar">
     	<c:if test="${sessionScope.memEmail == null }">
         <ul class="nav nav-sidebar">
@@ -51,14 +50,14 @@
     <div class="nav-user nav-sidebar">
     	<c:if test="${sessionScope.memEmail != null }">
         <ul class="nav nav-sidebar">
-            <li data-toggle="tooltip" data-container="body" title="정보수정" data-original-title="정보수정"><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="정보수정" data-original-title="정보수정"><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-pencil-square-o"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
             <!-- 카카오 로그인 X-->
             <c:if test="${sessionScope.memAccessToken == null}">
-            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃"><a class="link" id="logoutBtn1"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃"><a class="link" id="logoutBtn1"><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
         	</c:if>
         	<!-- 카카오 로그인 O-->
         	<c:if test="${sessionScope.memAccessToken != null}">
-            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃" ><a href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout" class="link" id="logoutBtn2"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+            <li data-toggle="tooltip" data-container="body" title="로그아웃" data-original-title="로그아웃" ><a href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout" class="link" id="logoutBtn2"><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
         	</c:if>
         </ul>
         </c:if>
@@ -66,14 +65,17 @@
     <!-- @@@@@@ 연수  수정 끝(220714) -->
 
     <ul class="nav nav-sidebar nav-main">
-    	<!-- jquery 로 요소 선택했을 때 active class 추가되도록 해야된다. 	 -->
+    	<!-- jquery 로 요소 선택했을 때 active class 추가되도록 해야된다. -->
     	<li class="active" data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="Q&amp;A"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&amp;A</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판1"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판1</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판2"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판2</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판3"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판3</span></a></li>
-
-        <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤니티</span></a></li>
-
+        <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤</span></a></li>
+        
+        <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자 조건 추가 필요(220715)  @@@@@@@@@@@@@@ -->
+        <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+        <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminBoardAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+    	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중(220715)  @@@@@@@@@@@@@@ -->
     </ul>
 
     <ul class="nav nav-sidebar nav-bottom">
@@ -83,13 +85,14 @@
 
 <!-- sdiebar2 -->
 <div class="sidebar-category-nav">
-    <h3 class="sub-title">Q&amp;A</h3>
-    <ul class="nav">
-            <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">All</span> <span class="nav-indicator nav-selected"><span class="nav-selected-dot"></span></span></a></li>
-                    <!-- 풍혁 (220707 0847) : 여기 list는 게시판마다 달라지게 해야됨. 1. ajax 2. controller 에서 addobject ... -->
-                    <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Tech Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-                    <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Career Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-    </ul>
+    <h3 class="sub-title">관리자페이지</h3>
+	    <ul class="nav">
+	           <!--  <li><a href="/semiproject/board/list?pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">All</span> <span class="nav-indicator nav-selected"><span class="nav-selected-dot"></span></span></a></li> -->
+	                    <!-- 풍혁 (220707 0847) : 여기 list는 게시판마다 달라지게 해야됨. 1. ajax 2. controller 에서 addobject ... -->
+	                    <li><a href="/semiproject/admin/adminUserAllList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">회원관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+	                    <li><a href="/semiproject/admin/adminBoardAllList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">게시판관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+	                    <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">공지사항</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+	    </ul>
     <div class="special-nav">
     </div>
 </div>
@@ -105,7 +108,7 @@
 		$(this).addClass("active");
 		target.not($(this)).addClass("");
 		
-	})	
+	})
  */
 /* @@@@@@@ 연수 : 일반 로그인 회원 로그아웃 기능(220714) @@@@@@@*/
 $('#logoutBtn1').click(function(){
