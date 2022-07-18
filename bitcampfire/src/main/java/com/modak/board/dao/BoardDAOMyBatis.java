@@ -194,5 +194,6 @@ public class BoardDAOMyBatis implements BoardDAO {
 				
 				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);		
       
-      //유진 : 끝 
+			}
+			//유진 : 끝
 }

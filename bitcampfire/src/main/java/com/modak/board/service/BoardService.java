@@ -67,7 +67,7 @@ public interface BoardService {
 
 		// 기진 " 끝 ##########################			
 
-}
+
 
 	// 유진 : 시작 ##############################################
 		public void boardClassWrite(BoardClassDTO boardClassDTO);
@@ -75,5 +75,5 @@ public interface BoardService {
 		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
 
 		public String getBoardClassPagingList(int pg, String sortOption, int class_id);
-		
+}		
 		
