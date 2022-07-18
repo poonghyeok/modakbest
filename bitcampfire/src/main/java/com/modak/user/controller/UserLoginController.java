@@ -178,16 +178,22 @@ public class UserLoginController {
 			session.setAttribute("memImg", userInfo.getUser_img()); //연수추가(220713)
 			session.setAttribute("memAccessToken", access_Token); //연수추가(220713)
 			session.setAttribute("memSocial", userInfo.getUser_social()); //연수추가(220714)
+
+//			session.setAttribute("memKakaoId", userInfo.getUser_kakaoId()); //연수추가(220717) - 관리자 카카오 회원 삭제 기능 구현용
+
 			session.setAttribute("memClassId", userInfo.getUser_classid());
+
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
 			
 			if(userInfo.getUser_nickname() == null) {
 				session.setAttribute("memSocial", userInfo.getUser_social());
-				return "/user/userUpdateForm";
+				//@@@@@ 연수 kakologinform redirect url을 그대로 가지고 페이지를 이동(일부 데이터를 끌어오지 못함)하는 문제를 해결하기 위해  redirect 추가(220717)
+				return "redirect:/user/userUpdateForm";
 			}
 			else {
-				return "home2";
+				//@@@@@ 연수 kakologinform redirect url을 그대로 가지고 페이지를 이동하는 문제(kakaologinfomr을 두번 반복하는 현상)를 해결하기 위해  redirect 추가 및 홈주소 /로 변경(220717)
+				return "redirect:/";
 			}
 			
 		}

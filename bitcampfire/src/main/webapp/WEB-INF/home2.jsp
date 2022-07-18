@@ -4,7 +4,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>bitcampfire</title>
+  <title>bitcampfire</title>
+
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
 </head>			
@@ -18,6 +19,7 @@
 		<input type="hidden" value="${sessionScope.memEmail }"/>
 		<input type="hidden" value="${sessionScope.memAccessToken }"/>
 		<input type="hidden" value="${sessionScope.memSocial }"/>
+		<input type="text" value="${sessionScope.memKakaoId }"/>
 		
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />

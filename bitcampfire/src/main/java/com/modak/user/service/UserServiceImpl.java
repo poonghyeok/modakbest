@@ -27,7 +27,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.modak.user.bean.ClassDTO;
-
+import com.modak.user.bean.UserAdminPaging;
 import com.modak.user.bean.UserAllDTO;
 import javax.servlet.http.HttpSession;
 
@@ -55,8 +55,11 @@ public class UserServiceImpl implements UserService {
 
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	//연수 : 시작(220706) ====================================
-
+	//연수 : 시작(220706) ====================================		
+		//연수 : userAdminController에서 사용할 페이징처리 임포트
+		@Autowired
+		private UserAdminPaging userAdminPaging;
+		
 		@Override
 		public UserAllDTO getUser(String user_email) {
 			return userDAO.getUser(user_email);
@@ -163,7 +166,140 @@ public class UserServiceImpl implements UserService {
 			}
 			
 		}
-				
+		
+		//@@@ 연수 : UserAdminController에서 요청한 서비스 
+		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)	
+		@Override
+		public Map<String, Object> getUserAllList(String pg) {		
+			int endNum = Integer.parseInt(pg) * 5;
+			int startNum = endNum - 4;
+			
+			//DB - 1페이지 당 10걔씩
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("startNum", startNum);
+			map.put("endNum", endNum);
+			
+			List<UserAllDTO> list = userDAO.getUserAllList(map);
+			
+			//페이징 처리
+			userAdminPaging = this.getUserAdminPaging(pg);		
+			
+			Map<String, Object> sendMap = new HashMap<String, Object>();
+			sendMap.put("list", list);
+			sendMap.put("userAdminPaging", userAdminPaging);
+			
+			return sendMap;		
+		}
+		//@@@ 어드민 페이지 > 유저 리스트 페이징 처리 (220717)
+		@Override
+		public UserAdminPaging getUserAdminPaging(String pg) {			
+			int totalA = userDAO.getUserTotalA(); //총 유저 수 
+			
+			userAdminPaging.setCurrentPage(Integer.parseInt(pg));
+			userAdminPaging.setPageBlock(3);
+			userAdminPaging.setPageSize(5);
+			userAdminPaging.setTotalA(totalA);
+			userAdminPaging.makePagingHTML(); //실제 페이지를 만드는 역할
+			
+			return userAdminPaging;
+		}
+		//유저 검색기능 추가(220717)	
+		@Override
+		public Map<String, Object> adminUserSearch(Map<String, String> map) {
+			int endNum = Integer.parseInt(map.get("pg")) * 5;
+			int startNum = endNum - 4;
+			String searchOption = map.get("searchOption");
+			String keyword = map.get("keyword");
+			
+			//DB - 1페이지 당 10걔씩
+			map.put("startNum", startNum+"");
+			map.put("endNum", endNum+"");
+			
+			List<UserAllDTO> list = userDAO.getUserSearchList(map);
+			
+			int totalA = userDAO.getUserTotalSearchA(map); //검색된 총 유저 수 
+			
+			userAdminPaging.setCurrentPage(Integer.parseInt(map.get("pg")));
+			userAdminPaging.setPageBlock(3);
+			userAdminPaging.setPageSize(5);
+			userAdminPaging.setTotalA(totalA);
+			userAdminPaging.makeSearchPagingHTML(searchOption, keyword); //실제 페이지를 만드는 역할
+		
+			Map<String, Object> sendMap = new HashMap<String, Object>();
+			sendMap.put("list", list);
+			sendMap.put("userAdminPaging", userAdminPaging);
+			
+			return sendMap;
+		}
+		
+		//@@@ 어드민 페이지 > 유저 리스트 페이징 처리 (220717)
+//		@Override
+//		public UserAdminPaging getUserSearchPaging(String pg, String keyword) {			
+//			//페이징 처리
+//			int totalA = userDAO.getUserTotalSearchA(); //검색된 총 유저 수 
+//			
+//			userAdminPaging.setCurrentPage(Integer.parseInt("pg"));
+//			userAdminPaging.setPageBlock(3);
+//			userAdminPaging.setPageSize(5);
+//			userAdminPaging.setTotalA(totalA);
+//			userAdminPaging.makeSearchPagingHTML(keyword); //실제 페이지를 만드는 역할
+//			
+//			return userAdminPaging;
+//		}
+
+
+//		//@@@ 카카오 회원 어드민 삭제 처리 기능 - 연결끊기가 안됨..(220716)
+//		//연결끊기 앱어드민키로 다시 도전 / 현재 DB 삭제까지는 되지만 재로그인 시 카카오와 연결이 해제되지 않아 자연스럽게 데이터가 또생긴다!
+//		@Override
+//		public void kakaoUnlink_admin(Long user_kakaoId) {
+//			String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+//			String APP_ADMIN_KEY = "7cc4062b8aa41a706b440dbef3746925";
+//			try {
+//				URL url = new URL(reqURL);
+//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//				conn.setRequestMethod("POST");
+//				conn.setRequestProperty("Authorization", "Bearer" + APP_ADMIN_KEY);
+//				conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
+////				conn.setRequestProperty("Accept","application/json");
+////				conn.setRequestProperty("charset", "utf-8");
+////				conn.addRequestProperty("target_id_type","user_id");
+////				conn.addRequestProperty("target_id", user_kakaoId.toString());
+////				conn.setDoInput(true); // 서버에 전달할 값이 있다면 true
+//				conn.setDoOutput(true); // 서버에서 받을 값이 있다면 true		
+//				
+//				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+//				StringBuilder sb = new StringBuilder();
+//				sb.append("&target_id_type=user_id");				
+//				sb.append("&target_id=" + user_kakaoId);
+//				bw.write(sb.toString());
+//				bw.flush();
+//				
+//				int responseCode = conn.getResponseCode();
+//				System.out.println("responseCode : " + responseCode);
+//				
+//				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//				
+//				String result = "";
+//				String line = "";
+//				
+//				while ((line = br.readLine()) != null) {
+//					result += line;
+//				}
+//				//System.out.println(result);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}			
+//		}
+		
+		//@@@ 회원 선택삭제 기능(220716)
+		@Override
+		public void adminUserDelete_select(String[] check) {
+			Map<String, String[]> map = new HashMap<String, String[]>();
+			map.put("check", check);			
+			userDAO.adminUserDelete_select(map);
+			
+			session.invalidate();
+		}
 	//연수 : 끝(220706) ====================================
 
 	
@@ -302,10 +438,15 @@ public class UserServiceImpl implements UserService {
 				
 				//########## 연수 : name은 개인정보 기본 제공항목에 해당하지 않아 닉네임이 네임으로 대체됨(220713)
 				String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-				String email = kakao_account.getAsJsonObject().get("email").getAsString();				
+				String email = kakao_account.getAsJsonObject().get("email").getAsString();		
+				
+				//########## 연수 : 카카오 회원에 대한 어드민 삭제 기능 구현을 위해 카카오 아이디 저장 추가(220716)
+				//String id = element.getAsJsonObject().get("id").getAsString();			
 				
 				userInfo.put("nickname", nickname);
 				userInfo.put("email", email);
+				//########## 연수 : 카카오 회원에 대한 어드민 삭제 기능 구현을 위해 카카오 아이디 저장 추가(220716)
+				//userInfo.put("kakaoId", id);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -418,6 +559,7 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserImgByUserid(user_id);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
 
 
 

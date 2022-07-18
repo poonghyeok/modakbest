@@ -78,7 +78,47 @@
 						, user_social = 'K'
 						, user_logtime = sysdate where user_email = #{email}
 	</update>
-     
+	<!-- @@@ 연수 : UserAdminController에서 요청한 서비스  -->
+	<!-- @@@ 어드민 페이지를 위한 유저 리스트 가져오기(220717) 페이징 처리 포함 수정 -->
+     <select id="getUserAllList" parameterType="java.util.Map" resultType="userAllDTO">
+ 		<!-- select * from user2 -->
+		<![CDATA[
+		select * from
+		(select rownum rn, kk.* from
+		(select * from user2 order by user_id desc)kk)
+		where rn >= #{startNum} and rn <= #{endNum}
+		]]>	
+ 	</select>
+
+  	<!-- @@@ 총 유저 수 구하기: 어드민 userlist for 페이징 처리(220717)	 -->
+  	<select id="getUserTotalA" resultType="int">
+  		select count(*) from user2  		
+  	</select>
+  	<!-- //@@@ 서치된 유저 정보 가져오기: 어드민 userlist by 서치(220717) -->
+    <select id="getUserSearchList" parameterType="java.util.Map" resultType="userAllDTO">
+		<![CDATA[
+		select * from
+		(select rownum rn, kk.* from
+		(select*from user2 where ${searchOption} like '%'||#{keyword}||'%' 
+						   order by user_id desc) kk)
+		where rn >= #{startNum} and rn <= #{endNum}
+		]]>
+ 	</select>
+
+  	<!-- //@@@ 서치된 총 유저 수 구하기: 어드민 userlist for 서치용 페이징 처리(220717) -->
+  	<select id="getUserTotalSearchA" parameterType="java.util.Map" resultType="int">
+  		select count(*) from user2 where ${searchOption} like '%'||#{keyword}||'%'		
+  	</select>
+ 	
+ 	<!-- @@@ 회원 선택 삭제 기능(220715) -->
+ 	<delete id="adminUserDelete_select" parameterType="java.util.Map">
+		delete user2 where user_email in 
+		
+		<foreach collection="check" item="user_email" open="(" close=")" separator=",">
+			#{user_email}
+		</foreach>
+  	</delete> 
+  	
 	<!-- ======================== 연수 : 끝(220706) ============================= -->
 
 	
@@ -171,6 +211,25 @@
 			, 0
 			, 'K'
 			, sysdate)
+		<!-- 연수 : 관리자 회원 삭제를 위한 카카오 카카오 아이디 저장 추가(220716)	 -->	
+		<!-- insert into user2(user_id
+						, user_name
+						, user_email
+						, user_img
+						, user_auth
+						, user_classid
+						, user_social
+						, user_logtime
+						, user_kakaoId)
+		values(user2_SEQ.nextval
+			, #{nickname}
+			, #{email}
+			, 'campfire.jpg'
+			, 'Y'
+			, 0
+			, 'K'
+			, sysdate
+			, #{kakaoId}) -->		
 			
 	</insert>
 	

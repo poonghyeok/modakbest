@@ -53,12 +53,12 @@
 				</div>
 			</ul>
 			<ul class="nav nav-sidebar">
-                <li ><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
+                <li ><a href="/semiproject/user/userUpdateForm" class="link"><i class="fa fa-pencil-square-o"></i> <span class="nav-sidebar-label">정보수정</span></a></li>
                 <c:if test="${sessionScope.memAccessToken == null}">
-                <li ><a class="link" id="logoutBtn1" ><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+                <li ><a class="link" id="logoutBtn1" ><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
 				</c:if>
 				<c:if test="${sessionScope.memAccessToken != null}">
-				<li ><a class="link" id="logoutBtn2" href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout"><i class="fa fa-user"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
+				<li ><a class="link" id="logoutBtn2" href="https://kauth.kakao.com/oauth/logout?client_id=a8101df81b25dcd4c9803f7ffd553284&logout_redirect_uri=http://localhost:8080/semiproject/user/logout"><i class="fa fa-sign-out"></i> <span class="nav-sidebar-label">로그아웃</span></a></li>
             	</c:if>          
             </ul>            
             </c:if>
@@ -73,6 +73,13 @@
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
 
+    		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+    		<%-- <c:if test="${sessionScope.memId == 0 }"> --%>
+    		<li  ><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+			<%-- </c:if> --%>
+			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+
+
     		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
     		
     		<li  ><a href="/semiproject/admin/adminBoardAllList" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
@@ -85,21 +92,9 @@
     </ul>
 </div> <!-- sidebar  -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-/* 이메일 로그인 회원 로그아웃 */
-$('#logoutBtn1').click(function(){
-	$.ajax({
-		type: 'post',
-		url: '/semiproject/user/logout',
-		success: function(data){
-			alert("로그아웃 되었습니다.")
-			location.href = "/semiproject/";
-			},
-			error: function(err){
-				console.log(err);
-			},
-		});
-	});
+
+<script type="text/javascript" src="/semiproject/js/user/userSideBar.js"></script>
+
 	
 ////////////////////////유진추가0715//////////////////////////////
 
@@ -117,4 +112,5 @@ $('#class_boardBtn').click(function(){
 	}
 });
 </script>
+
 

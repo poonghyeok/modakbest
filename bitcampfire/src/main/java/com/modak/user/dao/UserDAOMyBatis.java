@@ -83,6 +83,36 @@ public class UserDAOMyBatis implements UserDAO {
 			sqlSession.update("userSQL.updateBykakao", userInfo);				
 		}
 
+		//@@@@@@@@@ 연수 : UserAdminController에서 요청한 서비스 @@@@@@@@@ 
+		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)
+		@Override
+		public List<UserAllDTO> getUserAllList(Map<String, Integer> map) {
+			return sqlSession.selectList("userSQL.getUserAllList", map);
+		}
+		//@@@ 회원 선택 삭제 기능(220715)
+		@Override
+		public void adminUserDelete_select(Map<String, String[]> map) {
+			sqlSession.delete("userSQL.adminUserDelete_select", map);	
+			
+		}
+		//@@@ 총 유저 수 구하기: 어드민 userlist for 페이징 처리(220717)	
+		@Override
+		public int getUserTotalA() {		
+			return sqlSession.selectOne("userSQL.getUserTotalA");
+		}
+		
+		//@@@ 서치된 총 유저 수 구하기: 어드민 userlist for 서치용 페이징 처리(220717)	
+		@Override
+		public int getUserTotalSearchA(Map<String, String> map) {
+			return sqlSession.selectOne("userSQL.getUserTotalSearchA", map);
+		}
+		//@@@ 서치된 유저 정보 가져오기: 어드민 userlist by 서치(220717)
+		@Override
+		public List<UserAllDTO> getUserSearchList(Map<String, String> map) {
+			return sqlSession.selectList("userSQL.getUserSearchList", map);
+		}
+
+
 	//연수 : 끝(220706)====================================
 
 	
@@ -193,6 +223,10 @@ public class UserDAOMyBatis implements UserDAO {
 		public int getUserIdByEmailClass(String session_email) {
 			return sqlSession.selectOne("userSQL.getUserIdByEmailClass", session_email);
 		}
+
+
+
+
 
 
 

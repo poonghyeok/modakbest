@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.modak.user.bean.ClassDTO;
+import com.modak.user.bean.UserAdminPaging;
 import com.modak.user.bean.UserAllDTO;
 import com.modak.user.bean.UserDTO;
 
@@ -47,6 +48,21 @@ public interface UserService {
 		public void kakaoLogout(String access_Token);
 		
 		public void kakaoUnlink(String access_Token);
+		
+		//@@@ 연수 : UserAdminController에서 요청한 서비스 
+		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)
+		public Map<String, Object> getUserAllList(String pg);
+		//@@@ 페이징 처리(220717)
+		public UserAdminPaging getUserAdminPaging(String pg);
+		//@@@ 페이징 처리-검색용(220717)
+		//public UserAdminPaging getUserSearchPaging(String pg, String keyword);
+//		//@@@ 카카오 회원 어드민 삭제 처리 기능(220716)
+//		public void kakaoUnlink_admin(Long user_kakaoId);
+		//@@@ 회원 선택삭제 기능(220716)
+		public void adminUserDelete_select(String[] check);		
+		//@@@ 회원 검색 기능(220717)
+		public Map<String, Object> adminUserSearch(Map<String, String> map);
+		
 	//연수 : 끝(220706) ====================================
 
 	
