@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardAllDTO;
 
@@ -149,6 +150,11 @@ public class BoardDAOMyBatis implements BoardDAO {
 				sqlSession.update("boardSQL.boardDelete", board_id);
 				
 			}
+		
+			
+	// 정수 : 끝  ###################### 
+
+				
 
 			// 기진 : 시작  ###################### 
       @Override
@@ -162,7 +168,31 @@ public class BoardDAOMyBatis implements BoardDAO {
 				
 				
 				return sqlSession.selectList("boardSQL.getUserPageArticle", map);
+
 			}
 
 			// 기진 : 끝  ###################### 
+      
+      
+      
+      //유진 : 시작
+      	@Override
+			public void boardClassWrite(BoardClassDTO boardClassDTO) {
+				System.out.print("Mybatis insert");
+				sqlSession.insert("boardSQL.boardClassWrite",boardClassDTO);
+				
+			}
+
+			@Override
+			public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,
+					int class_id) {
+				Map<String, Object> newMap = new HashMap<>();
+				newMap.put("startNum", map.get("startNum").toString());
+				newMap.put("endNum", map.get("endNum").toString());
+				newMap.put("sortOption", sortOption);
+				newMap.put("class_id", class_id);
+				
+				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);		
+      
+      //유진 : 끝 
 }

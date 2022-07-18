@@ -67,6 +67,7 @@ public interface UserService {
     	public UserAllDTO getUserInfo(String access_Token);
     	
     	
+    	public UserAllDTO getUserClass_Class(int class_id);
   	//유진 : 끝 0706====================================
 	
 

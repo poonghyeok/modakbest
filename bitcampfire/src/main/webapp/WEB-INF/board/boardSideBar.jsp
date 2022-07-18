@@ -71,8 +71,9 @@
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판1"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판1</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판2"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판2</span></a></li>
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="게시판3"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판3</span></a></li>
-        <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤</span></a></li>
-    	
+
+        <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="학원&반"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤니티</span></a></li>
+
     </ul>
 
     <ul class="nav nav-sidebar nav-bottom">

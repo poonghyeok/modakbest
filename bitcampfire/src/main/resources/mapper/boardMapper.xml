@@ -163,6 +163,7 @@
 		
 	<!-- ####################### 정수 : 끝  ###################### -->
 	
+
 	
 	<!--  기진 : 시작  ###################### --> 
 	
@@ -172,5 +173,34 @@
 	
 	
 	
-	<!--  기진 : 끝  ###################### --> 
+	<!--  기진 : 끝  ###################### -->
+  
+  <!--  유진 : 시작   -->
+  <insert id="boardClassWrite" parameterType="BoardClassDTO">
+	      INSERT INTO BOARD_CLASS
+	            (board_id, board_uid, board_classid, board_title, board_content, board_date_created)
+	        VALUES
+	            (BOARD_CLASS_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content},sysdate)
+    	</insert>
+    	
+    	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardClassDTO">
+	    	SELECT * FROM (
+	   			SELECT ROWNUM AS RN, TT.* FROM (
+	 				SELECT * FROM BOARD_CLASS 
+	 				<if test="sortOption == 'date'">
+	 				ORDER BY BOARD_DATE_CREATED DESC
+ 					</if>
+	 				
+	 				<if test="sortOption == 'vote'">
+	 				ORDER BY BOARD_VOTE_CNT DESC
+ 					</if>
+ 					
+	 				<if test="sortOption == 'view'">
+	 				ORDER BY BOARD_VIEW_CNT DESC
+ 					</if>
+ 				)TT
+			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
+    	</select>
+  
+
 </mapper>

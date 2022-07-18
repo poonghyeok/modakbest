@@ -3,6 +3,7 @@ package com.modak.board.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardAllDTO;
 
@@ -58,16 +59,23 @@ public interface BoardDAO {
 
 
 
+
 		
 		// 정수 : 끝  ###################### 
 
 
 		// 기진 : 시작  ###################### 
 
+
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
+
 
 		// 기진 : 끝  ###################### 
 
+    // 유진 시작
+      public void boardClassWrite(BoardClassDTO boardClassDTO);
 
+		public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
+    // 유진 끝
 		
 }

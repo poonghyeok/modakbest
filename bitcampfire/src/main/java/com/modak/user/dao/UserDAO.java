@@ -57,6 +57,8 @@ public interface UserDAO {
 		public UserAllDTO findkakao(HashMap<String, Object> userInfo);
 
 		public void kakaoinsert(HashMap<String, Object> userInfo);
+
+		public UserAllDTO getUserClass_Class(int class_id);
 	//유진 : 끝 0706====================================
 	
 
@@ -77,6 +79,13 @@ public interface UserDAO {
 
 		public String getUserImgByUserid(int user_id);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+		public String getUserNameByUserIdClass(int board_uid);
+
+		public String getUserClassImgByUserid(int user_id);
+
+		public int getUserIdByEmailClass(String session_email);
+
 
 
 
