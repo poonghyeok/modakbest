@@ -24,7 +24,7 @@ public interface BoardDAO {
 
 		public int getTotalBoardSearchNum(String keyword);
 		
-		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map);
+		public List<BoardDTO> getBoardList(Map<String, Integer> map, String category);
 
 		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption);
 

@@ -106,28 +106,29 @@
 	   	</select>
 	   	
 	   	<!-- 풍혁(220703) :  -->
-<!-- 	   	<select id="getBoardRangeOrderByTime" parameterType="java.util.Map" resultType="BoardDTO">
+	   	<!-- 풍혁(0719) : index page는 최신의 몇개의 글만 표시되기 때문에, 이 쿼리는 index page전용으로 사용하겠습니다. 필요하면 써도 상관없음.  -->
+ 	   	<select id="getBoardRangeOrderByTime" parameterType="java.util.Map" resultType="BoardDTO">
 	   		SELECT * FROM (
 	   			SELECT ROWNUM AS RN, TT.* FROM (
 	 				SELECT * FROM 
-	 				<if test="cateid == '1'">
+	 				<if test="category == 'info'">
 					board_inform
 					</if>
 					
-					<if test="cateid == '2'">
+					<if test="category == 'review'">
 					board_review
 					</if>
 					
-					<if test="cateid == '3'">
+					<if test="category == 'qna'">
 					board_qna
 					</if>
 						 
-					<if test="cateid == '4'">
+					<if test="category == 'free'">
 					board_free
 					</if> 
 	 				ORDER BY BOARD_DATE_CREATED DESC)TT
 			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
-	   	</select> -->
+	   	</select> 
 	   	
 	   	<!-- 풍혁(220707) : 일단 title이나 내용으로 검색하는 SQL입니다. 최신순정렬 -->
     	<select id="getBoardSearchRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">

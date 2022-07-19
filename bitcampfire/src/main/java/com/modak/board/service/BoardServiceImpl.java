@@ -292,9 +292,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		@Override
-		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map) {
+		public List<BoardDTO> getBoardList(Map<String, Integer> map, String category) {
 			
-			return boardDAO.getBoardReviewList(map);
+			return boardDAO.getBoardList(map, category);
 		}
 		
 		//풍혁220714 : board 수정기능입니다~

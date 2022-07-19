@@ -104,12 +104,12 @@ public class BoardController {
 		//풍혁220708 : BoardDTO list로 받아보기..++0718 : jsonTest 추후에 이름 변경 예정..
 		@PostMapping("/jsonTest")
 		@ResponseBody
-		public Map<String, Object> jsonTest(@RequestParam Map<String,Integer> map){
+		public Map<String, Object> jsonTest(@RequestParam Map<String,Integer> map, @RequestParam("category") String category){
 			Map<String, Object> result = new HashMap<>();
 			
 			List<BoardDTO> list =  new ArrayList<>();
 			System.out.println("\n @ log @ json test .. startNum : " + map.get("startNum") );
-			list = boardService.getBoardReviewList(map);
+			list = boardService.getBoardList(map, category);
 			
 			result.put("boardList", list);
 			result.put("authorArray", getUserNicknameArray(list));

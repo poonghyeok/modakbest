@@ -64,9 +64,16 @@ public class BoardDAOMyBatis implements BoardDAO {
 		}
 		
 		@Override
-		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map) {
+		public List<BoardDTO> getBoardList(Map<String, Integer> map, String category) {
 			
-			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
+			//풍혁0719 : category에 맞게 index page에 list를 띄워야해서 String category가 들어왔고, 급하게 여기다가 새로운 map 생성
+			Map<String, String> newMap = new HashMap<>();
+			
+			newMap.put("startNum", String.valueOf(map.get("startNum")));
+			newMap.put("endNum", String.valueOf(map.get("endNum")));
+			newMap.put("category", category);
+			 
+			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", newMap);
 		}
 		
 		@Override
@@ -78,8 +85,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			
 			System.out.println("\n @POONG LOG@ cateid : " + map.get("cateid").toString());
 			
-			newMap.put("startNum", map.get("startNum").toString());
-			newMap.put("endNum", map.get("endNum").toString());
+			newMap.put("startNum",Integer.toString(map.get("startNum")));
+			newMap.put("endNum", Integer.toString(map.get("endNum")));
 			newMap.put("sortOption", sortOption);
 			
 			return sqlSession.selectList("boardSQL.getBoardRangeOrder", newMap);

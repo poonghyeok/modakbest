@@ -30,14 +30,14 @@ public interface BoardService {
 //		public String getBoardSortList(String sortOption);
 	
 		public void update(Map<String, String> map);
+		
+		public List<BoardDTO> getBoardList(Map<String,Integer> map, String category);
 	//풍혁 : 끝 =================================
 
 	
 	// 정수 : 시작  ###################### 
 		// 글번호로 (글번호, DTO) 가져오기
 		public BoardDTO getBoardContent(int board_id);
-		
-		public List<BoardDTO> getBoardReviewList(Map<String,Integer> map);
 
 		public int recommendCheck(Map<String, Object> map);
 
