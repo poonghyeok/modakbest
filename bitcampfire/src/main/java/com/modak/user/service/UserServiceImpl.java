@@ -168,7 +168,7 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		//@@@ 연수 : UserAdminController에서 요청한 서비스 
-		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)	
+		//@@@ 어드민 페이지 > 전체유저 리스트 가져오기(220715)	
 		@Override
 		public Map<String, Object> getUserAllList(String pg) {		
 			int endNum = Integer.parseInt(pg) * 5;
@@ -205,7 +205,7 @@ public class UserServiceImpl implements UserService {
 			return userAdminPaging;
 		}
 		
-		//유저 검색기능 추가(220717)	
+		///@@@ 어드민 페이지 > 유저 검색 리스트 (220717)	
 		@Override
 		public Map<String, Object> adminUserSearch(Map<String, String> map) {
 			int endNum = Integer.parseInt(map.get("pg")) * 5;
@@ -232,24 +232,17 @@ public class UserServiceImpl implements UserService {
 			return sendMap;
 		}
 		
-		//@@@ 카카오 회원 어드민 삭제 처리 기능 - 연결끊기가 안됨..(220716)
-		//연결끊기 앱어드민키로 다시 도전 / 현재 DB 삭제까지는 되지만 재로그인 시 카카오와 연결이 해제되지 않아 자연스럽게 데이터가 또생긴다!
+		//@@@ 어드민 페이지 > 카카오 회원 어드민 삭제 처리 기능 - 카카오 로그인 시 사용되는 유진님 앱 어드민키 사용 중 (220717)		
 		@Override
 		public void kakaoUnlink_admin(Long user_kakaoId) {
 			String reqURL = "https://kapi.kakao.com/v1/user/unlink";
-			String APP_ADMIN_KEY = "c1b3c590dbaa96911319ca662cb22096";
+			String APP_ADMIN_KEY = "c1b3c590dbaa96911319ca662cb22096"; // 공동 장소에 올릴 때 잘 관리하기
 			try {
 				URL url = new URL(reqURL);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("POST");
 				conn.setRequestProperty("Authorization", "KakaoAK " + APP_ADMIN_KEY);
 				conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
-//				conn.setRequestProperty("Content-type", "application/json");
-//				conn.setRequestProperty("Accept","application/json");
-//				conn.setRequestProperty("charset", "utf-8");
-//				conn.setRequestProperty("target_id_type","user_id");
-//				conn.setRequestProperty("target_id", user_kakaoId.toString());
-//				conn.setDoInput(true); // 서버에 전달할 값이 있다면 true
 				conn.setDoOutput(true); // 서버에서 받을 값이 있다면 true		
 				
 				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
@@ -279,7 +272,7 @@ public class UserServiceImpl implements UserService {
 			}			
 		}
 		
-		//@@@ 회원 선택삭제 기능(220716)
+		//@@@ 어드민 페이지 > 회원 선택삭제 기능(220716)
 		@Override
 		public void adminUserDelete_select(String[] check) {
 			Map<String, String[]> map = new HashMap<String, String[]>();
