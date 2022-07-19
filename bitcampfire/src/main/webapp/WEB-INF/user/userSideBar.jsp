@@ -8,7 +8,7 @@
 </head>
 <!-- 1. 좌측  메뉴바  -->     
 <input type="hidden" id="memEmail" value="${sessionScope.memEmail}">
-<input type="text" id="memUser_classid" value="${sessionScope.memClassId}"> 
+<input type="hidden" id="memUser_classid" value="${sessionScope.memClassId}"> 
 <div class="sidebar">
     <a href="javascript://" class="sidebar-header">
         <i class="fa fa-bars sidebar-header-icon"></i>

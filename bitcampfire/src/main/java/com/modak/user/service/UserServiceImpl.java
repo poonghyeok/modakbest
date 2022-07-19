@@ -237,12 +237,12 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public void kakaoUnlink_admin(Long user_kakaoId) {
 			String reqURL = "https://kapi.kakao.com/v1/user/unlink";
-			String APP_ADMIN_KEY = "7cc4062b8aa41a706b440dbef3746925";
+			String APP_ADMIN_KEY = "c1b3c590dbaa96911319ca662cb22096";
 			try {
 				URL url = new URL(reqURL);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("POST");
-				conn.setRequestProperty("Authorization", "Bearer" + APP_ADMIN_KEY);
+				conn.setRequestProperty("Authorization", "KakaoAK " + APP_ADMIN_KEY);
 				conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
 //				conn.setRequestProperty("Content-type", "application/json");
 //				conn.setRequestProperty("Accept","application/json");
