@@ -415,7 +415,7 @@
 			select * from board_review
 
 		<!-- 게시글 전체 데이터 불러오기 -->
-		<select id="getBoardAllList" resultType = "BoardAllDTO">
+		<!-- <select id="getBoardAllList" resultType = "BoardAllDTO">
 			select * from 
 				<if test="cateid == '1'">
 				board_inform
@@ -431,7 +431,7 @@
 					 
 				<if test="cateid == '4'">
 				board_free
-				</if>
+				</if> -->
 
 		</select>
 		
