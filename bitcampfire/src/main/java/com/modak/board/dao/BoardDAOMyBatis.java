@@ -195,4 +195,12 @@ public class BoardDAOMyBatis implements BoardDAO {
       
       //유진 : 끝 
 }
+
+	 // @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 		
+			@Override
+			public void adminBoardNoticeWrite(BoardDTO boardDTO) {
+				sqlSession.insert("boardSQL.adminBoardNoticeWrite", boardDTO);
+				
+			}
+	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 }

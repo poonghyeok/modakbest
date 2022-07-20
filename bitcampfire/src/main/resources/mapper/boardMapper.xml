@@ -201,6 +201,14 @@
  				)TT
 			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
     	</select>
-  
+    	
+	<!-- @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  (**추천수/조회수 다시 챙기기 )@@@@@@@@@  -->
+	<insert id="adminBoardNoticeWrite" parameterType="BoardDTO">
+	      INSERT INTO BOARD_AdminNotice
+	            (board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
+          VALUES
+	            (BOARD_SEQ.nextval, #{board_uid}, #{board_cateid}, #{board_title}, #{board_content}, sysdate)   
+	</insert>
+	<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
 
 </mapper>

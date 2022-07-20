@@ -55,10 +55,12 @@
 								<td>
 									  <select class="eunhye" id="board_cateid" required>
 									    <option value="" selected value="0" >게시판을 선택해 주세요</option>
+									    <option name="board_cateid" value="0">전체</option>
 									    <option name="board_cateid" value="1">취업정보</option>
 									    <option name="board_cateid" value="2">후기</option>
 									    <option name="board_cateid" value="3">Q &amp; A</option>
 									    <option name="board_cateid" value="4">자유게시판</option>
+									    <option name="board_cateid" value="5">학원전용게시판</option>
 									  </select>        
 								</td>
 							</tr>
@@ -129,7 +131,7 @@ $(function(){
 			alert('제목을 입력해주세요.');
 			$('#board_title').addClass('empty');			
 
-		}if(editor.getData()==''){
+		}else if(editor.getData()==''){
 			alert("내용을 입력하세요");
 		}
 		else if( $('#board_cateid option:selected').val()==''){
@@ -144,16 +146,17 @@ $(function(){
 	        else{				
 	        	$.ajax({
 					type: 'post',
-					url: '/semiproject/board/write',
+					url: '/semiproject/admin/adminBoardNoticeWrite',
 					data: {'board_title': $('#board_title').val(),
 					       //'board_content': $('#board_content').val()
 							'board_content': editorData,
 							'board_cateid' : $('#board_cateid option:selected').val()
-					},
+						  },
 			       	success: function(){
 						alert('게시글을 등록하였습니다.');
-			            //풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
-						location.href='/semiproject/board/list?pg=1&sortOption=date';
+						location.href='/semiproject/admin/adminBoardNoticeList?pg=1';
+						//풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
+						//location.href='/semiproject/board/list?pg=1&sortOption=date';
 					},
 					error: function(e){
 						console.log(e);
