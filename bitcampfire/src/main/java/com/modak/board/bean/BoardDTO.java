@@ -42,9 +42,9 @@ public class BoardDTO {
 			case 4: categoryString = "자유게시판";
 					break;
 			}
-
+			// 풍혁 : info가 1번, review가 2번, qna가 3번, free가 4번 
 			return categoryString;
-		}
+		} 
 		//풍혁 : 끝 ==============================================
 
 		// 정수 : 시작  ###################### 

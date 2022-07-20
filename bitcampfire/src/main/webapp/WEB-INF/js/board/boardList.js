@@ -22,7 +22,7 @@ $('#boardWriteBtnAtList').click(function(){
 		alert('로그인 먼저해주세요');
 		location.href="/semiproject/user/userLoginForm";
 	}else{
-		location.href="/semiproject/board/write";
+		location.href="/semiproject/board/write?category="+$('#category').val();
 	}
 })
 	

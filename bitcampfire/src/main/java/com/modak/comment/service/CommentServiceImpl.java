@@ -1,6 +1,7 @@
 package com.modak.comment.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,13 +46,13 @@ public class CommentServiceImpl implements CommentService {
 	
 	//풍혁0715 : increase decrease 가 여기가 아니라 board쪽에 있어야하는데... 일단..
 	@Override
-	public void increaseCommentCount(int cmt_bid) {
-		commentDAO.increaseCommentCount(cmt_bid);
+	public void increaseCommentCount(Map<String, Integer> map) {
+		commentDAO.increaseCommentCount(map);
 	}
 	
 	@Override
-	public void decreaseCommentCount(int cmt_bid) {
-		commentDAO.decreaseCommentCount(cmt_bid);
+	public void decreaseCommentCount(Map<String, Integer> map) {
+		commentDAO.decreaseCommentCount(map);
 	}
 	//
 	
@@ -77,5 +78,30 @@ public class CommentServiceImpl implements CommentService {
 		return;
 	}
 //풍혁 끝: =================================
+
+//유진시작#################################################
+	@Override
+	public void commentClassWrite(CommentDTO commentDTO) {
+		commentDAO.commentClassWrite(commentDTO);
+	}
+	@Override
+	public List<CommentDTO> getClassCommentListByBoardId(int cmt_bid) {
+		return commentDAO.getClassCommentListByBoardId(cmt_bid);
+	}
+	@Override
+	public String getClassCommentContentById(int cmt_id) {
+		return commentDAO.getClassCommentContentById(cmt_id);
+	}
+	@Override
+	public void commentClassUpdate(int cmt_id, String cmt_content) {
+		commentDAO.commentClassUpdate(cmt_id,cmt_content);
+		
+	}
+	@Override
+	public void commentClassDelete(int cmt_id) {
+		commentDAO.commentClassDelete(cmt_id);
+		
+	}
+//유진끝#################################################
 
 }

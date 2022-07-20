@@ -91,34 +91,7 @@ public interface UserDAO {
 
 		public String getUserImgByUserid(int user_id);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-
-		public String getUserNameByUserIdClass(int board_uid);
-
-		public String getUserClassImgByUserid(int user_id);
-
-		public int getUserIdByEmailClass(String session_email);
-
-
-
-
-
-
-
-
-
-
-
-
 		
-
-
-
-
-
-		
-
-
-
 
 
 

@@ -1,22 +1,3 @@
-/* $('#btn btn-success btn-wide').click(function(){ // 등록 버튼을 눌렀을때  
-	$.ajax({
-		  type:'post',
-		  url:'/semiproject/comment/writeCommentContent',
-		  data: JSON.stringify(queryString), //{서버로 전송할 데이터}
-		  dataType: 'json', //'서버에서 전송받을 데이터 형식'
-		  success: { //정상 요청, 응답 시 처리 작업
-		     
-		  },
-		  error : function(xhr,status,error) {
-		      //오류 발생 시 처리
-		 },
-	});
-}); */
-/*
-<li id="note-title" class="list-group-item note-title">
-   <h3 class="panel-title">댓글 <span id="note-count">${boardDTO.board_cmt_cnt}</span></h3> 
-</li>
-*/             
 function getCommentBanner(){
 	let commentBanner;
 	commentBanner = 
@@ -50,7 +31,7 @@ $(function(){
 	
 	$.ajax({
 		type : 'post',
-		url : '/semiproject/comment/getCommentListByBoardId',
+		url : '/semiproject/comment/getClassCommentListByBoardId',
 		data : {'cmt_bid' : $('#board_id').val()},
 		dataType : 'json',
 		async : false,
@@ -431,7 +412,7 @@ function getCommentContentByCommendId(comment_id){
 	
 	$.ajax({
 		type : 'post',
-		url : '/semiproject/comment/getCommentContentById',
+		url : '/semiproject/comment/getClassCommentContentById',
 		data : {cmt_id : comment_id},
 		async : false,
 		success : function(data){
@@ -486,7 +467,7 @@ $(document).on('click','#commentUpdateBtn', function(){
 	if(confirm('댓글을 수정하시겠습니까?')){
 		$.ajax({
 			type : 'post',
-			url : '/semiproject/comment/update',
+			url : '/semiproject/comment/commentClassUpdate',
 			data : {'cmt_id' : comment_id, 'cmt_content' : comment_content_update},
 			async : false,
 			success : function(){
@@ -506,15 +487,12 @@ $(document).on('click','#commentUpdateBtn', function(){
 $(document).on('click','#commentDeleteBtn', function(){
 	let comment_id = $(this).attr('data-id');
 	let comment_bid = $(this).attr('data-bid');
-	let cmt_cateid = $('#board_cateid').val();
 	
 	if(confirm('댓글을 정말 삭제하시겠습니까?')){
 		$.ajax({
 			type : 'post',
-			url : '/semiproject/comment/delete',
-			data : {'cmt_id' : comment_id, 
-				'cmt_bid' : comment_bid,
-				'cmt_cateid' : cmt_cateid},
+			url : '/semiproject/comment/commentClassDelete',
+			data : {'cmt_id' : comment_id, 'cmt_bid' : comment_bid},
 			async : false,
 			success : function(){
 				alert('댓글을 삭제 하였습니다.');
@@ -580,7 +558,7 @@ $('#btn-create-btn').click(function(){
 	 	*/
 		$.ajax({
 			type : 'post',
-			url : '/semiproject/comment/write',
+			url : '/semiproject/comment/commentClassWrite',
 			data : {
 				'cmt_uid' : $('#board_watcher').val(),
 				'cmt_cateid' : $('#board_cateid').val(),
@@ -588,8 +566,7 @@ $('#btn-create-btn').click(function(){
 				'cmt_content' : content_with_tag,
 			},
 			success : function(){
-				alert('댓글작성을 완료했습니다.');
-				location.reload(); /*= "/semiproject/board/getBoardView?board_id="+$('#board_id').val();*/
+				location.href = "//board/getBoardView?board_id="+$('#board_id').val();
 			},
 			error : function(err){
 				console.log(err);
@@ -597,35 +574,3 @@ $('#btn-create-btn').click(function(){
 		}) 
 	}
 })
-function cateidToString(cateid){
-	let result;
-	if(cateid == 1){
-		result = 'info';
-	}else if(cateid == 2){
-		result = 'review';
-	}else if(cateid == 3){
-		result = 'qna';
-	}else if(cateid == 4){
-		result = 'free';
-	}
-	
-	return result;
-}
-
-function categoryToInt(category){
-	let result;
-
-	if(cateid == 'info'){
-		result = 1;
-	}else if(cateid == 'review'){
-		result = 2;
-	}else if(cateid == 'qna'){
-		result = 3;
-	}else if(cateid == 'free'){
-		result = 4;
-	}
-	
-	return result;
-}
-
-

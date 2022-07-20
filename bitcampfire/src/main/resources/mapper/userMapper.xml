@@ -269,17 +269,6 @@
 	
 	<!-- %%%%%%%%%%%%%%%%%% 풍혁 : 끝  %%%%%%%%%%%%%%%%%% -->
 	
-	<select id="getUserIdByEmailClass" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select user_id from user2 where user_email=#{session_email}
-	</select>
-	
-	<select id="getUserNameByUserIdClass" parameterType="java.lang.Integer" resultType="java.lang.String">
-		select user_nickname from user2 where user_id=${board_uid}
-	</select>
-	
-	<select id="getUserClassImgByUserid" parameterType="java.lang.Integer" resultType="java.lang.String">
-		select user_img from user2 where user_id = ${user_id}
-	</select>
 	
 	
 	

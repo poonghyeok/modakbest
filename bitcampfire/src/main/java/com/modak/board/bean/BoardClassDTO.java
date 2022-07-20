@@ -23,4 +23,9 @@ public class BoardClassDTO {
 	private int board_cmt_cnt;
 	private Date board_date_created;
 
+	
+	// class 테이블
+	private int class_id;         //게시글고유키
+	private String class_academy; //학원이름
+	private String class_class;   //반이름
 }
