@@ -48,7 +48,7 @@
 			                <div class="input-group input-group-sm">
 			                    <input type="text" name="query" id="search-field" class="form-control" placeholder="검색어" value="">
 			                    <span class="input-group-btn">
-			                        <input type="button" class="btn btn-default" value = "검색"><!-- <i class="fa fa-search"></i> -->
+			                        <input type="button" class="btn btn-default" value = "검색" id="boardSearchBtn"><!-- <i class="fa fa-search"></i> -->
 			                    </span>
 			                </div>
 			            </div>

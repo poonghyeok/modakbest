@@ -79,6 +79,17 @@ public interface BoardService {
 		public String getBoardClassPagingList(int pg, String sortOption, int class_id);
 
 
+
+	// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		public void adminBoardNoticeWrite(BoardDTO boardDTO);
+		
+		public String getAdminNoticeTableList(String pg);
+		
+		public String getAminNoticePagingList(String pg);
+	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		
+}
+
 //		public String getUserClassSearchWriteTablelist(int pg, String keyword, String sortOption, int class_id);
 	
 		public String getUserClassSearchWriteTablelist(int pg, String keyword, String sortOption, int class_id, String class_academy);

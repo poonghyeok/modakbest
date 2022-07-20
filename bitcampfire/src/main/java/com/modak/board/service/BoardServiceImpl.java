@@ -638,6 +638,35 @@ public class BoardServiceImpl implements BoardService {
 			
 		}
 
+
+		
+	// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		@Override
+		public void adminBoardNoticeWrite(BoardDTO boardDTO) {
+			String session_email = (String)session.getAttribute("memEmail");
+			int board_uid = userDAO.getUserIdByEmail(session_email);
+			
+			boardDTO.setBoard_uid(board_uid);
+			System.out.println(boardDTO);
+			
+			boardDAO.adminBoardNoticeWrite(boardDTO);
+			
+		}
+
+		@Override
+		public String getAdminNoticeTableList(String pg) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public String getAminNoticePagingList(String pg) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+
+
 		@Override
 		public void boardClassDelete(int board_id) {
 			boardDAO.boardClassDelete(board_id);
@@ -655,12 +684,5 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		//유진 끝#######################################################
-		
 
-
-		
-
-		
-	
-}
 

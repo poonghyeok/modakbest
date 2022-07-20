@@ -8,7 +8,7 @@
 	<title>bitcampfire - 회원정보 수정</title>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/semiproject/css/user/application.css">
-	<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
+	<!-- @@@ 연수 : 학원 검색 기능(selectbox 검색기능) 추가   -->
 	<link rel="stylesheet" href="/semiproject/css/user/select2.css">
 </head>			
 <body>
@@ -72,9 +72,8 @@
 										</div>	
 									</div>
 									</div>
-									<div class="row" style="visibility:hidden;">줄맞춤을 위한 공간</div>                 
-				                    
-				                    <!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->		                    
+									<div class="row" style="visibility:hidden;">줄맞춤을 위한 공간</div>   			                    
+				                 		                    
 				                    <div class="form-group">				                    					                    				                    
 				                        <label class="control-label" for="class_academy">학원명</label>		
 					                    <c:if test ="${!empty classList }">
@@ -86,14 +85,7 @@
 										</select> 
 										</c:if>
 									</div>
-									<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) @@@ -->
-			                        
-			                        <!-- @@@ 연수 : 과정명 삭제(0711) @@@ -->
-				                    <!-- <div class="form-group">
-				                        <label class="control-label" for="class_class">과정명</label>
-				                        <input type="text" name="class_class" class="form-control input-sm" placeholder="과정명" required="" value="" id="class_class">	
-			                        </div> -->				                        
-			                        		                                  
+	                                  
 				                <input type="button" class="btn btn-primary btn-block" id="update_userInfoBtn" value="정보 수정">
 				            	</form>
 	                		</fieldset>
@@ -154,8 +146,8 @@
 </div> <!-- layout-container -->
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- @@@ 연수 : 학원 검색 기능 수정중(0711) - selectbox 검색기능 @@@   -->
 <script type="text/javascript" src="/semiproject/js/user/select2.js"></script>
+<!-- @@@ 연수 : 학원 검색 기능(selectbox 검색기능) 추가   -->
 <script type="text/javascript" src="/semiproject/js/user/userUpdateForm.js"></script>
 </body>
 </html>
