@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Data
 @Component
-public class BoardDTO {
+public class BoardDTO implements Comparable<BoardDTO>{
 	// 공통영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			private int board_id;           
 			private int board_uid;           
@@ -28,6 +28,11 @@ public class BoardDTO {
 			private Date board_date_created; 
 		// 공통영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+			
+			
+			
+			
+			
 		//풍혁 : 시작 =============================================
 		//풍혁(220703) : category id가 번호이니깐 dto에서 꺼낼 때 String으로 꺼낼 수 있게 method를 하나 만들었습니다.
 		public String cateidToString() {
@@ -42,12 +47,27 @@ public class BoardDTO {
 			case 4: categoryString = "자유게시판";
 					break;
 			}
+
+			return categoryString;
+		}
+	
+
 			// 풍혁 : info가 1번, review가 2번, qna가 3번, free가 4번 
 			return categoryString;
 		} 
+
 		//풍혁 : 끝 ==============================================
 
 		// 정수 : 시작  ###################### 
-
+	@Override // 최신순으로 정렬
+		public int compareTo(BoardDTO dto) { // dto는 기준날짜가 아닌 비교되는 대상 , 기준날짜랑 dto(비교날짜)랑  비교
+			if (dto.getBoard_date_created().before(this.board_date_created)) {
+				return -1; // -1은 앞으로 가라는거 list로 세웠을때 맨 위로 온다.(=최신순으로 된다.)
+			}  else if(dto.getBoard_date_created().after(this.board_date_created)) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
 		// 정수 : 끝  ######################  
 }

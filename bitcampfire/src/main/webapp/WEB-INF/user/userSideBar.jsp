@@ -68,11 +68,13 @@
 
     		<!-- link 누르면 호버기능?  -->
     		<!-- 풍혁220714 : list로 url에는 pg와  sortOption이 있어야 한다. sortOption은 기본이 date다. -->
+
     		<!-- 풍혁220718 : url에 category를 추가했습니다. 게시판이 4개로 늘어났기 때문에 어떤 게시판에서 data를 받아올 것인지 결정해야합니다.  -->
     		<li  ><a href="/semiproject/board/list?category=info&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
     		<li  ><a href="/semiproject/board/list?category=review&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
     		<li  ><a href="/semiproject/board/list?category=qna&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
     		<li  ><a href="/semiproject/board/list?category=free&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
+
 
     		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
     		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
@@ -80,6 +82,7 @@
     		<li  ><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
 			<%-- </c:if> --%>
 			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+
 
     </ul>
 
@@ -92,21 +95,4 @@
 <script type="text/javascript" src="/semiproject/js/user/userSideBar.js"></script>
 
 
-<script type="text/javascript">
-////////////////////////유진추가0715//////////////////////////////
-
-$('#class_boardBtn').click(function(){
-	if($('#memEmail').val() == ''){
-		alert("로그인이 필요한 게시판입니다.");
-		location.href = "/semiproject/user/userLoginForm";
-	}
-	else if($('#memUser_classid').val()=='' || $('#memUser_classid').val()=='0'){
-		alert("학원 전용 게시판입니다.\n이용을 원하시면 학원을 등록하세요.");
-		location.href = "/semiproject/user/userUpdateForm";
-	}
-	else {
-		location.href = "/semiproject/board/boardClassList?class_id="+$('#memUser_classid').val();
-	}
-});
-</script>
 

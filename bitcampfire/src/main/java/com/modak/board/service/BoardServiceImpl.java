@@ -18,7 +18,7 @@ import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardClassPaging;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
-import com.modak.board.bean.BoardAllDTO;
+//import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
 import com.modak.user.dao.UserDAO;
 
@@ -385,24 +385,50 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.boardDelete(map);
 		}
 		
+		
+		// admin 
+		@Override
+		public List<BoardDTO> reviewList() {
+			return boardDAO.reviewList();
+		}
+		
+		@Override
+		public List<BoardDTO> informList() {
+			
+			return boardDAO.informList();
+		}
+		
+		@Override
+		public List<BoardDTO> qnaList() {
+			
+			return boardDAO.qnaList();
+		}
+
+		@Override
+		public List<BoardDTO> freeList() {
+			
+			return boardDAO.freeList();
+		}
+
+		
 		//정수 : 끝 ############################################
 
 		
 		//기진 : 시작 ############################################
 		
-    @Override
-      public List<BoardAllDTO> getBoardAllList() {
-
-			return boardDAO.getBoardAllList();
-		}
-	
-		@Override
-		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
-			
-			
-			return boardDAO.getUserPageArticle(map);
-		}
-		
+//    @Override
+//      public List<BoardAllDTO> getBoardAllList() {
+//
+//			return boardDAO.getBoardAllList();
+//		}
+//	
+//		@Override
+//		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+//			
+//			
+//			return boardDAO.getUserPageArticle(map);
+//		}
+//		
 		//기진 : 끝 ############################################
 
   
@@ -652,6 +678,8 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.adminBoardNoticeWrite(boardDTO);
 			
 		}
+		
+}
 
 		@Override
 		public String getAdminNoticeTableList(String pg) {

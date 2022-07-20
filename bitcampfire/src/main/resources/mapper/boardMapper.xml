@@ -405,6 +405,15 @@
 			where board_id = ${board_id}
 		</delete>
 		
+
+		<!-- admin : board_review 테이블 전체 데이터 불러오기 -->
+		<select id="informList" resultType = "BoardDTO">
+			select * from board_inform
+		</select>
+		
+		<select id="reviewList" resultType = "BoardDTO">
+			select * from board_review
+
 		<!-- 게시글 전체 데이터 불러오기 -->
 		<select id="getBoardAllList" resultType = "BoardAllDTO">
 			select * from 
@@ -423,6 +432,15 @@
 				<if test="cateid == '4'">
 				board_free
 				</if>
+
+		</select>
+		
+		<select id="qnaList" resultType = "BoardDTO">
+			select * from board_qna
+		</select>
+		
+		<select id="freeList" resultType = "BoardDTO">
+			select * from board_free 
 		</select>
 		
 	<!-- ####################### 정수 : 끝  ###################### -->

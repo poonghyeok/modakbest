@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
-import com.modak.board.bean.BoardAllDTO;
+//import com.modak.board.bean.BoardAllDTO;
 
 public interface BoardService {
 	
@@ -55,15 +55,23 @@ public interface BoardService {
 
 		public void boardDelete(Map<String,Integer> map);
 
-
+		// admin 
+		
+		public List<BoardDTO> reviewList();
+		
+		public List<BoardDTO> informList();
+		
+		public List<BoardDTO> qnaList();
+		
+		public List<BoardDTO> freeList();
 		
 	// 정수 : 끝  ###################### 
 
 
 		// 기진 " 시작 ##########################			
 		 
-    public List<BoardAllDTO> getBoardAllList(); 
-		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
+//    public List<BoardAllDTO> getBoardAllList(); 
+//		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
 
 		// 기진 " 끝 ##########################			
 
@@ -84,8 +92,6 @@ public interface BoardService {
 		public void adminBoardNoticeWrite(BoardDTO boardDTO);
 		
 		public String getAdminNoticeTableList(String pg);
-		
-		public String getAminNoticePagingList(String pg);
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 		
 }
@@ -116,5 +122,4 @@ public interface BoardService {
 //유진 끝###################################################################33
 
 		
-}
 

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
-import com.modak.board.bean.BoardAllDTO;
+//import com.modak.board.bean.BoardAllDTO;
 
 @Transactional
 @Repository
@@ -164,26 +164,45 @@ public class BoardDAOMyBatis implements BoardDAO {
 				sqlSession.update("boardSQL.boardDelete", map);
 				
 			}
-		
 			
+			//admin
+			@Override
+			public List<BoardDTO> informList() {
+				return sqlSession.selectList("boardSQL.informList");
+			}
+
+			@Override
+			public List<BoardDTO> reviewList() {
+				return sqlSession.selectList("boardSQL.reviewList");
+			}
+			
+			@Override
+			public List<BoardDTO> qnaList() {
+				return sqlSession.selectList("boardSQL.qnaList");
+			}
+
+			@Override
+			public List<BoardDTO> freeList() {
+				return sqlSession.selectList("boardSQL.freeList");
+			}
+
 	// 정수 : 끝  ###################### 
 
 				
 
 			// 기진 : 시작  ###################### 
-      @Override
-        public List<BoardAllDTO> getBoardAllList() {
-          return sqlSession.selectList("boardSQL.getBoardAllList");
-			}
-      
-			@Override
-			public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
-				
-				
-				
-				return sqlSession.selectList("boardSQL.getUserPageArticle", map);
-
-			}
+			/*
+			 * @Override public List<BoardAllDTO> getBoardAllList() { return
+			 * sqlSession.selectList("boardSQL.getBoardAllList"); }
+			 * 
+			 * @Override public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+			 * 
+			 * 
+			 * 
+			 * return sqlSession.selectList("boardSQL.getUserPageArticle", map);
+			 * 
+			 * }
+			 */
 
 			// 기진 : 끝  ###################### 
       
@@ -284,14 +303,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 				sqlSession.update("boardSQL.boardClassUpdate", map);
 				
 			}
-
-
-      
-			}
-			
-		
+	
 			//유진 : 끝
-}
 
 	 // @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 		
 			@Override
@@ -301,3 +314,4 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 }
+

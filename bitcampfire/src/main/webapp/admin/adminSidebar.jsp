@@ -93,7 +93,9 @@
                     <!-- 풍혁 (220707 0847) : 여기 list는 게시판마다 달라지게 해야됨. 1. ajax 2. controller 에서 addobject ... -->
                     <li><a href="/semiproject/admin/adminUserAllList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">회원관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
                     <li><a href="/semiproject/admin/adminBoardAllList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">게시판관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+
                     <li><a href="/semiproject/admin/adminBoardNoticeList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">공지사항</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+
     </ul>
     <div class="special-nav">
     </div>
