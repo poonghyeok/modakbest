@@ -475,17 +475,6 @@ public class BoardServiceImpl implements BoardService {
 			return sb.toString(); 
 		}
 
-		@Override
-		public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
-			BoardClassPaging boardClassPaging = new BoardClassPaging();
-			boardClassPaging.setCurrentPage(pg);
-			boardClassPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
-			boardClassPaging.setPageSize(10); //page 당 10개의 글 존재
-			boardClassPaging.setTotalA(boardDAO.getTotalBoardClassNum(class_id));
-			boardClassPaging.makePagingHTML(sortOption, class_id);
-			
-			return boardClassPaging.getPagingHTML().toString();
-		}
 
 		@Override
 		public String getUserClassSearchWriteTablelist(int pg, String keyword, String sortOption, int class_id, String class_academy) {
@@ -650,7 +639,8 @@ public class BoardServiceImpl implements BoardService {
 		@Override
 		public void boardClassRecommendCancel(Map<String, Object> map) {
 			boardDAO.boardClassRecommendCancel(map);
-
+		}
+		
 		public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
 			BoardPaging boardPaging = new BoardPaging();
 			boardPaging.setCurrentPage(pg);
@@ -658,7 +648,7 @@ public class BoardServiceImpl implements BoardService {
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
 			
 			//풍혁0719 : getTotalBoardNum String category parameter필요, 필요없는 메소드 오버로딩으로 생성해서 사용하면 될듯합니다. 
-			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
+			boardPaging.setTotalA(boardDAO.getTotalBoardNum(1));
 			boardPaging.makePagingHTML(sortOption);
 
 			
@@ -679,7 +669,7 @@ public class BoardServiceImpl implements BoardService {
 			
 		}
 		
-}
+
 
 		@Override
 		public String getAdminNoticeTableList(String pg) {
@@ -687,11 +677,6 @@ public class BoardServiceImpl implements BoardService {
 			return null;
 		}
 		
-		@Override
-		public String getAminNoticePagingList(String pg) {
-			// TODO Auto-generated method stub
-			return null;
-		}
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 
 
@@ -712,5 +697,5 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		//유진 끝#######################################################
-
+}
 

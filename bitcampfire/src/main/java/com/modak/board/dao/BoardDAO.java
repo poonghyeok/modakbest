@@ -111,10 +111,6 @@ public interface BoardDAO {
 
 	// 유진 끝
 
-
-      public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
-      
-      
     // 유진 끝
 
 	// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	

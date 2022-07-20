@@ -25,14 +25,12 @@ public class BoardNoticeAdminController {
 	@GetMapping(value="adminBoardNoticeList")
 	public ModelAndView adminBoardNoticeList(@RequestParam(required = false, defaultValue ="1") String pg) {
 		String user_id = (String)session.getAttribute("memId"); //관리자 판별을 위한 유저 아이디 가져오기
-		
 		String adminNoticeTableList = boardService.getAdminNoticeTableList(pg);
-		String adminNoticePagingList = boardService.getAminNoticePagingList(pg);
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pg", pg);
 		mav.addObject("adminNoticeTableList", adminNoticeTableList);
-		mav.addObject("adminNoticePagingList", adminNoticePagingList);
 		mav.setViewName("/admin/adminBoardNoticeList");
 		
 		return mav;

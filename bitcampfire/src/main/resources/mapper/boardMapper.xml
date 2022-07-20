@@ -413,8 +413,9 @@
 		
 		<select id="reviewList" resultType = "BoardDTO">
 			select * from board_review
+		</select>
 
-		<!-- 게시글 전체 데이터 불러오기 -->
+	<!-- 		
 		<select id="getBoardAllList" resultType = "BoardAllDTO">
 			select * from 
 				<if test="cateid == '1'">
@@ -433,7 +434,7 @@
 				board_free
 				</if>
 
-		</select>
+		</select> -->
 		
 		<select id="qnaList" resultType = "BoardDTO">
 			select * from board_qna
@@ -577,6 +578,5 @@
 					board_classid = ${board_classid}
 				WHERE board_id = ${board_id}	 
 		</update>
-
 
 </mapper>
