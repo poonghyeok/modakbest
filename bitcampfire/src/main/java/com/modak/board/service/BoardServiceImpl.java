@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardClassDTO;
+import com.modak.board.bean.BoardClassPaging;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
 import com.modak.board.bean.BoardAllDTO;
@@ -373,7 +374,7 @@ public class BoardServiceImpl implements BoardService {
 		@Override
 		public void boardClassWrite(BoardClassDTO boardClassDTO) {
 			String session_email = (String)session.getAttribute("memEmail");
-			int board_uid = userDAO.getUserIdByEmailClass(session_email);
+			int board_uid = userDAO.getUserIdByEmail(session_email);
 			System.out.println("\n@ session_eamil = " + session_email);
 			//풍혁220708 : userDAO에 user_id 받아오는 method와 query 생성해서 boardDTO에 집어넣고 글 생성할 때 반영
 			boardClassDTO.setBoard_uid(board_uid);
@@ -382,7 +383,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		@Override
-		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id) {
+		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id, String class_academy) {
 			StringBuffer sb = new StringBuffer();
 			//페이징 처리하려면 다 받아오면 안되잖아. 몇개씩 표시할지 start랑 end정해줘야 되잖아. 
 			
@@ -406,15 +407,67 @@ public class BoardServiceImpl implements BoardService {
 			System.out.println("\n @ getBoardClassRange parameter : " + class_id+ pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");
 			for(BoardClassDTO dto : list) {
-				sb.append(boardClassDtoToTrTag(class_id, dto, sortOption));
+				sb.append(boardClassDtoToTrTag(class_id, dto, sortOption, class_academy));
 			}
 			sb.append("</ul>");
 			return sb.toString(); 
 		}
 
-		private Object boardClassDtoToTrTag(int class_id, BoardClassDTO boardClassDTO, String sortOption) {
+		@Override
+		public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
+			BoardClassPaging boardClassPaging = new BoardClassPaging();
+			boardClassPaging.setCurrentPage(pg);
+			boardClassPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardClassPaging.setPageSize(10); //page 당 10개의 글 존재
+			boardClassPaging.setTotalA(boardDAO.getTotalBoardClassNum(class_id));
+			boardClassPaging.makePagingHTML(sortOption, class_id);
+			
+			return boardClassPaging.getPagingHTML().toString();
+		}
+
+		@Override
+		public String getUserClassSearchWriteTablelist(int pg, String keyword, String sortOption, int class_id, String class_academy) {
+			StringBuffer sb = new StringBuffer();
+			
+			int boardPerPage = 10;
+			int startNum = 1 + boardPerPage*(pg-1);
+			int endNum = boardPerPage + boardPerPage*(pg-1); 
+			
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("startNum", Integer.toString(startNum));
+			map.put("endNum", Integer.toString(endNum));
+			map.put("keyword", keyword);
+			map.put("class_id", class_id);
+			
+			List<BoardClassDTO> list = boardDAO.getBoardClassSearchRangeOrder(map, sortOption); 
+			sb.append("<ul class='list-group '>");
+			for(BoardClassDTO dto : list) {
+				sb.append(boardClassDtoToTrTag(class_id, dto, sortOption, class_academy));
+			}
+				
+			sb.append("</ul>");
+			
+			
+			return sb.toString();
+		}
+
+		@Override
+		public String getBoardClassSearchPagingList(int pg, String keyword, String sortOption, int class_id) {
+			BoardClassPaging boardClassPaging = new BoardClassPaging();
+			boardClassPaging.setCurrentPage(pg);
+			boardClassPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardClassPaging.setPageSize(10); //page 당 10개의 글 존재
+			boardClassPaging.setTotalA(boardDAO.getTotalBoardClassSearchNum(keyword, class_id));
+			boardClassPaging.makeSearchPagingHTML(keyword, sortOption, class_id);
+			
+			return boardClassPaging.getPagingHTML().toString();
+		}
+		
+		private Object boardClassDtoToTrTag(int class_id, BoardClassDTO boardClassDTO, String sortOption, String class_academy) {
 			int board_uid = boardClassDTO.getBoard_uid();
-			String author = userDAO.getUserNameByUserIdClass(board_uid);
+			String author = userDAO.getUserNameByUserId(board_uid);
+			
 			
 			StringBuffer tr = new StringBuffer();
 			
@@ -440,12 +493,12 @@ public class BoardServiceImpl implements BoardService {
 					tr.append("<div class='list-tag clearfix'>");
 						//풍혁220709 : 게시판 아이콘 반영 안되고있음
 						tr.append("<span class='list-group-item-text article-id'>"+ boardClassDTO.getBoard_id()+"</span>");
-						tr.append("<a='/semiproject/board/boardClassList?pg=1&class_id=${sessionScope.memClassid }' class='list-group-item-text item-tag label label-info'>"+ boardClassDTO.getBoard_classid()+"</a>"); 
+						tr.append("<a='/semiproject/board/boardClassList?pg=1&class_id=${sessionScope.memClassid }' class='list-group-item-text item-tag label label-info'>"+ class_academy+"</a>"); 
 					tr.append("</div>");
 				
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
 						//풍혁 (220707) : pg는 그냥 1로만 넣어놓았으니 나중에 pg 넘길방법 생각해야됨 input hidden만들어서 넘기자 
- 						tr.append("<a href='/semiproject/board/getBoardView?board_id="+boardClassDTO.getBoard_id()+"&pg=1&class_id=${sessionScope.memClassid }'>");
+ 						tr.append("<a href='/semiproject/board/getBoardClassView?board_id="+boardClassDTO.getBoard_id()+"&pg=1&class_id="+boardClassDTO.getBoard_classid()+"'>");
 							tr.append(boardClassDTO.getBoard_title());
 						tr.append("</a>");
 					tr.append("</h5>");
@@ -477,7 +530,7 @@ public class BoardServiceImpl implements BoardService {
 				tr.append("<div class=\"list-group-item-author clearfix\">");
 					tr.append("<div class='avatar clearfix avatar-list '>");
 						//풍혁(220707) : user click 했을 경우 user의 최근활동을 볼 수 있는 페이지로 이동 : 옵션으로
-						String userProfileImg = userDAO.getUserClassImgByUserid(boardClassDTO.getBoard_uid());
+						String userProfileImg = userDAO.getUserImgByUserid(boardClassDTO.getBoard_uid());
 						tr.append("<a href='/semiproject/user/userPage?user_id="+boardClassDTO.getBoard_uid()+"' class='avatar-photo'><img src='/semiproject/storage/userprofile/"+userProfileImg+"'></a>");
 						tr.append("<div class='avatar-info'>");
 							tr.append("<a class='nickname' href='#' title='"+ author +"'>"+ author +"</a>");
@@ -497,14 +550,68 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		@Override
-		public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
-			BoardPaging boardPaging = new BoardPaging();
-			boardPaging.setCurrentPage(pg);
-			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
-			boardPaging.setPageSize(10); //page 당 10개의 글 존재
-			boardPaging.setTotalA(boardDAO.getTotalBoardNum());
-			boardPaging.makePagingHTML(sortOption);
+		public BoardClassDTO getBoardClassContent(int board_id, int class_id) {
+			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
+				boardDAO.setClassHit(board_id); // 글번호에 조회수 증가하게 해
+				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
+			}
 			
-			return boardPaging.getPagingHTML().toString();
+			BoardClassDTO boardClassDTO = boardDAO.getBoardClassContent(board_id, class_id); //글번호 가지고 dto 가지고와
+			
+			return boardClassDTO;
 		}
+
+		@Override
+		public int boardClassRecommendCheck(Map<String, Object> map) {
+			return boardDAO.boardClassRecommendCheck(map);
+		}
+
+		@Override
+		public void boardClassincreaseRecommend(Map<String, Object> map) {
+			boardDAO.boardClassincreaseRecommend(map);
+			
+		}
+
+		@Override
+		public void boardClassaddVote(Map<String, Object> map) {
+			boardDAO.boardClassaddVote(map);
+		}
+
+		@Override
+		public void boardClassdeleteVote(Map<String, Object> map) {
+			boardDAO.boardClassdeleteVote(map);
+			
+		}
+
+		@Override
+		public void boardClassRecommendCancel(Map<String, Object> map) {
+			boardDAO.boardClassRecommendCancel(map);
+			
+		}
+
+		@Override
+		public void boardClassDelete(int board_id) {
+			boardDAO.boardClassDelete(board_id);
+		}
+
+		@Override
+		public BoardClassDTO boardClassEditForm(int board_id) {
+			return boardDAO.boardClassEditForm(board_id);
+		}
+
+		@Override
+		public void boardClassUpdate(Map<String, String> map) {
+			boardDAO.boardClassUpdate(map);
+			return;
+		}
+		
+		//유진 끝#######################################################
+		
+
+
+		
+
+		
+	
 }
+

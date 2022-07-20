@@ -176,7 +176,7 @@
 	<!--  기진 : 끝  ###################### -->
   
   <!--  유진 : 시작   -->
-  <insert id="boardClassWrite" parameterType="BoardClassDTO">
+ 		<insert id="boardClassWrite" parameterType="BoardClassDTO">
 	      INSERT INTO BOARD_CLASS
 	            (board_id, board_uid, board_classid, board_title, board_content, board_date_created)
 	        VALUES
@@ -199,8 +199,96 @@
 	 				ORDER BY BOARD_VIEW_CNT DESC
  					</if>
  				)TT
-			) WHERE RN &gt;=${startNum} AND RN &lt;=${endNum}
+			) WHERE board_classid = #{class_id} and (RN &gt;=${startNum} AND RN &lt;=${endNum})
     	</select>
+    	
+    	<select id="getTotalBoardClassNum" resultType="java.lang.Integer">
+	   		SELECT count(*) FROM BOARD_CLASS where board_classid = #{class_id}
+	   	</select>
+	   	
+	   	<select id="getBoardClassSearchRangeOrder" parameterType="java.util.Map" resultType="BoardClassDTO">
+	    	SELECT * FROM (	
+	    		SELECT ROWNUM AS RN, TT.* FROM 
+	    			(SELECT * FROM BOARD_CLASS 
+	    				WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	    				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+	    					<if test="sortOption == 'date'">
+			 				ORDER BY BOARD_DATE_CREATED DESC
+		 					</if>
+			 				
+			 				<if test="sortOption == 'vote'">
+			 				ORDER BY BOARD_VOTE_CNT DESC
+		 					</if>
+		 					
+			 				<if test="sortOption == 'view'">
+			 				ORDER BY BOARD_VIEW_CNT DESC
+		 					</if>
+	 				)TT
+ 			) WHERE board_classid = #{class_id} and (RN &gt;=${startNum} AND RN &lt;=${endNum})
+    	</select>
+    	
+    	<select id="getTotalBoardClassSearchNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+	   		SELECT COUNT(*) FROM BOARD_CLASS 
+    			WHERE board_classid = #{class_id} and
+    			(BOARD_TITLE LIKE '%'||#{keyword}||'%'
+   				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%')
+	   	</select>
+	   	
+	   	<select id = "getBoardClassContent" parameterType = "java.util.Map" resultType = "BoardClassDTO"> 
+			select * from BOARD_CLASS where board_id = ${board_id} and board_classid = #{class_id}
+		</select>
+		
+		<update id = "setClassHit" parameterType = "int">
+			update BOARD_CLASS set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
+		</update>
+	   	
+	   	<select id = "boardClassRecommendCheck" parameterType = "java.util.Map" resultType= "int">
+			select count(*) from VOTE_BOARD_CLASS where vote_bid = ${vote_bid} and vote_uid = ${vote_uid} 
+		</select>
+		
+		<!-- 추천수 증가 (board_review 에 증가시켜 view에서 보여줌)-->
+		<!-- #: String(" ") / $:not String(" "없음) -->
+		<update id = "boardClassincreaseRecommend" parameterType = "java.util.Map">
+			update BOARD_CLASS set board_vote_cnt=board_vote_cnt+1 where board_id = ${vote_bid} 
+		</update>
+		
+		<!-- 추천 정보 추가 (vote테이블에 추가) -->
+		<insert id="boardClassaddVote" parameterType="java.util.Map">
+			insert into VOTE_BOARD_CLASS values(VOTE_BOARD_CLASS_seq.nextval, ${vote_uid}, 1, ${vote_bid})
+		</insert>
+	   	
+	   	<!-- 추천수 취소 (board_review에서 삭제)-->
+		<update id = "boardClassRecommendCancel" parameterType = "int">
+			update BOARD_CLASS set board_vote_cnt = board_vote_cnt-1 where board_id = ${vote_bid}
+		</update>
+		
+		<!-- 추천 정보 삭제 (vote 에서 삭제)-->
+		<update id="boardClassdeleteVote" parameterType="java.util.Map">
+			delete from VOTE_BOARD_CLASS where vote_uid = ${vote_uid} and vote_bid = ${vote_bid}
+		</update>
+	   	
+	   	<!-- 글 삭제 -->
+		<delete id="boardClassDelete" parameterType="int">
+			delete from BOARD_CLASS where board_id = ${board_id}
+		</delete>
+		
+		<!-- 글 수정 폼 (원래 글 dto 가져오기)  -->
+		<select id="boardClassEditForm" parameterType = "int" resultType = "BoardClassDTO">
+			select * from BOARD_CLASS where board_id = ${board_id}
+		</select>
+		
+		<update id="boardClassUpdate" parameterType="java.util.Map">
+    		UPDATE BOARD_CLASS
+				SET 
+					board_title = #{board_title},
+					board_content = #{board_content},
+					board_classid = ${board_classid}
+				WHERE board_id = ${board_id}	 
+		</update>
+    	
+	   	
+	   	
+
   
 
 </mapper>

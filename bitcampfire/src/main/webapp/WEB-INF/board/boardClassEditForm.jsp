@@ -29,6 +29,8 @@
 			<div class="content-header">
 	    		<h3>글 수정하기</h3>
 			</div>
+		<input type="text" id="memClassid" value="${sessionScope.memClassid }">
+		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">
 		<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
 			<div class="content-header">
 				<div class="user-profile">
@@ -54,12 +56,9 @@
 						<table name="boardWriteTable" id="boardWriteTable" >
 							<tr>
 								<td>
-									  <select class="eunhye" id="board_cateid" required>
+									  <select class="eunhye" id="board_classid" required>
 									    <option value="" selected value="0" >게시판을 선택해 주세요</option>
-									    <option name="board_cateid" value="1">취업정보</option>
-									    <option name="board_cateid" value="2">후기</option>
-									    <option name="board_cateid" value="3">Q &amp; A</option>
-									    <option name="board_cateid" value="4">자유게시판</option>
+									     <option name="board_classid" value="${sessionScope.memClassid }">${sessionScope.memClass_academy }</option>
 									  </select>
 								</td>
 							</tr>
@@ -105,7 +104,7 @@
 						<!-- 풍혁(220707) : 이렇게 요소에 style로 들어오면 안될거 같깉한데.. 일단 display 해야하니깐 ... -->	
 						<fieldset class="buttons" style="width: 630px; margin-top: 10px;">
 	                       <!-- 풍혁 (220707) : 취소했을 경우 보던 게시판으로 나가자  -->
-	                       <a href="/semiproject/board/list?pg=1&sortOption=date" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
+	                       <a href="/semiproject/board/boardClassList?pg=1&sortOption=date&class_id=${sessionScope.memClassid }&class_academy=${sessionScope.memClass_academy }" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
 	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="수정" id="boardUpdateBtn">
 	                    </fieldset>
 							
@@ -128,13 +127,13 @@ $(function(){
 	
 	$.ajax({
 		type : 'get',
-		url : '/semiproject/board/getBoard',
+		url : '/semiproject/board/getBoardClass',
 		data : {"board_id":$('#board_id').val()},
 		success :function(data){
 			console.log(JSON.stringify(data));
 			$('#board_title').val(data.board_title);
 			editor.setData(data.board_content);
-			$('#board_cateid option:eq('+(data.board_cateid)+')').prop('selected', true);
+			$('#board_classid option:eq('+(data.board_classid)+')').prop('selected', true);
 		}
 	})
 
@@ -168,7 +167,7 @@ $(function(){
 		else if(!editor.getData()){
 			alert("내용을 입력하세요");
 		}
-		else if( $('#board_cateid option:selected').val()==''){
+		else if( $('#board_classid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
 		else{
@@ -179,20 +178,20 @@ $(function(){
 	        else{
 				$.ajax({
 					type: 'post',
-					url: '/semiproject/board/update',
+					url: '/semiproject/board/boardClassUpdate',
 					data: {'board_title' : $('#board_title').val(),
 					       'board_content' : $('div.ck-blurred').html(),
-							'board_cateid' : $('#board_cateid option:selected').val(),
+							'board_classid' : $('#board_classid option:selected').val(),
 							'board_id' : $('#board_id').val()
 					},
 			       	success: function(){
 						alert('게시글을 수정하였습니다.');
-			            location.href='/semiproject/board/getBoardView?board_id='+$('#board_id').val();
+			            location.href='/semiproject/board/getBoardClassView?board_id='+$('#board_id').val()+"&class_id="+$('#memClassid').val()+"&class_academy="+$('#memClass_academy').val();
 					},
 					error: function(e){
 						console.log(e);
 						/* 풍혁 0714 success 에서 location.href까지 먹히지 않아서 임시로 error 에도 location href를 써두었습니다~ */
-						location.href='/semiproject/board/getBoardView?board_id='+$('#board_id').val();
+						location.href='/semiproject/board/getBoardClassView?board_id='+$('#board_id').val()+"&class_id="+$('#memClassid').val()+"&class_academy="+$('#memClass_academy').val();
 					}
 				});//ajax
 			
@@ -225,7 +224,7 @@ $(function(){
 </script>
 
 <script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/semiproject/js/board/boardEditForm.js"></script>
+<script type="text/javascript" src="/semiproject/js/board/boardClassEditForm.js"></script>
 
 </body>
 </html>

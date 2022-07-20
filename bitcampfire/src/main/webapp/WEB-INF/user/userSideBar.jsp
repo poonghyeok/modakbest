@@ -95,7 +95,7 @@
 
 <script type="text/javascript" src="/semiproject/js/user/userSideBar.js"></script>
 
-	
+<script type="text/javascript">
 ////////////////////////유진추가0715//////////////////////////////
 
 $('#class_boardBtn').click(function(){

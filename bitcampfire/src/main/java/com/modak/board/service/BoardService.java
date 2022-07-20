@@ -67,13 +67,41 @@ public interface BoardService {
 
 		// 기진 " 끝 ##########################			
 
-}
 
 	// 유진 : 시작 ##############################################
 		public void boardClassWrite(BoardClassDTO boardClassDTO);
 
-		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
+		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id, String class_academy);
+
+		//		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
 
 		public String getBoardClassPagingList(int pg, String sortOption, int class_id);
+
+//		public String getUserClassSearchWriteTablelist(int pg, String keyword, String sortOption, int class_id);
+	
+		public String getUserClassSearchWriteTablelist(int pg, String keyword, String sortOption, int class_id, String class_academy);
+
+		public String getBoardClassSearchPagingList(int pg, String keyword, String sortOption, int class_id);
+
+		public BoardClassDTO getBoardClassContent(int board_id, int class_id);
+
+		public int boardClassRecommendCheck(Map<String, Object> map);
+
+		public void boardClassincreaseRecommend(Map<String, Object> map);
+
+		public void boardClassaddVote(Map<String, Object> map);
+
+		public void boardClassdeleteVote(Map<String, Object> map);
+
+		public void boardClassRecommendCancel(Map<String, Object> map);
+
+		public void boardClassDelete(int board_id);
+
+		public BoardClassDTO boardClassEditForm(int board_id);
+
+		public void boardClassUpdate(Map<String, String> map);
+//유진 끝###################################################################33
+
 		
+}
 		

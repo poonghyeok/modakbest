@@ -103,7 +103,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			@Override
 			public void setHit(int board_id) {
 				sqlSession.update("boardSQL.setHit", board_id);
-		}
+			}
 
 			@Override
 			public int recommendCheck(Map<String, Object> map) {
@@ -193,6 +193,86 @@ public class BoardDAOMyBatis implements BoardDAO {
 				newMap.put("class_id", class_id);
 				
 				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);		
+			}
+
+			@Override
+			public int getTotalBoardClassNum(int class_id) {
+				return sqlSession.selectOne("boardSQL.getTotalBoardClassNum", class_id);
+			}
+
+			@Override
+			public List<BoardClassDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption) {
+				List<BoardClassDTO> list = new ArrayList<>();
+				map.put("sortOption", sortOption);
+				list = sqlSession.selectList("boardSQL.getBoardClassSearchRangeOrder", map);
+				return list;
+			}
+
+			@Override
+			public int getTotalBoardClassSearchNum(String keyword, int class_id) {
+				Map<String, Object> map = new HashMap<String,Object>();
+				map.put("keyword", keyword);
+				map.put("class_id", class_id);
+				return sqlSession.selectOne("boardSQL.getTotalBoardClassSearchNum",map);
+			}
+
+			@Override
+			public BoardClassDTO getBoardClassContent(int board_id, int class_id) {
+				Map<String, Object> map = new HashMap<String,Object>();
+				map.put("board_id", board_id);
+				map.put("class_id", class_id);
+				return sqlSession.selectOne("boardSQL.getBoardClassContent", map);
+			}
+			
+			@Override
+			public void setClassHit(int board_id) {
+				sqlSession.update("boardSQL.setClassHit", board_id);
+			}
+
+			@Override
+			public int boardClassRecommendCheck(Map<String, Object> map) {
+				return (int)sqlSession.selectOne("boardSQL.boardClassRecommendCheck", map);
+			}
+
+			@Override
+			public void boardClassincreaseRecommend(Map<String, Object> map) {
+				sqlSession.update("boardSQL.boardClassincreaseRecommend", map);
+				
+			}
+
+			@Override
+			public void boardClassaddVote(Map<String, Object> map) {
+				sqlSession.insert("boardSQL.boardClassaddVote", map);				
+			}
+
+			@Override
+			public void boardClassdeleteVote(Map<String, Object> map) {
+				sqlSession.update("boardSQL.boardClassdeleteVote", map);				
+			}
+
+			@Override
+			public void boardClassRecommendCancel(Map<String, Object> map) {
+				sqlSession.update("boardSQL.boardClassRecommendCancel", map);
+				
+			}
+
+			@Override
+			public void boardClassDelete(int board_id) {
+				sqlSession.update("boardSQL.boardClassDelete", board_id);
+			}
+
+			@Override
+			public BoardClassDTO boardClassEditForm(int board_id) {
+				return sqlSession.selectOne("boardSQL.boardClassEditForm", board_id);
+			}
+
+			@Override
+			public void boardClassUpdate(Map<String, String> map) {
+				sqlSession.update("boardSQL.boardClassUpdate", map);
+				
+			}
+
+
       
       //유진 : 끝 
 }

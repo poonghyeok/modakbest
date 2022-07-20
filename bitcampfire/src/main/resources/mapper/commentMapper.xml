@@ -67,4 +67,41 @@
 		delete from comment2 where cmt_id = ${cmt_id} 
 	</delete>
 <!-- ======================== 풍혁 끝 ======================== -->	
+
+<insert id="commentClassWrite">
+		INSERT INTO COMMENT2 (cmt_id
+							  ,cmt_uid
+							  ,cmt_cateid		
+							  ,cmt_bid
+							  ,cmt_content
+							  ,cmt_date_created)
+		VALUES(COMMENT2_SEQ.nextval,
+				#{cmt_uid},
+				5,
+				#{cmt_bid},
+				#{cmt_content},
+				sysdate)
+	</insert>
+	
+	<select id="getClassCommentListByBoardId" parameterType="java.lang.String" resultType="CommentDTO">
+		SELECT * FROM COMMENT2 WHERE cmt_bid = ${cmt_bid}
+	</select>
+	
+	
+	<select id="getClassCommentContentById" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT cmt_content FROM comment2
+		WHERE cmt_id = ${cmt_id}
+	</select>
+	
+	<update id="commentClassUpdate" parameterType="java.util.Map">
+		UPDATE comment2
+		SET
+		cmt_content = #{cmt_content}
+		WHERE
+		cmt_id = ${cmt_id}
+	</update>
+	
+	<delete id="commentClassDelete" parameterType="java.lang.Integer">
+		delete from comment2 where cmt_id = ${cmt_id} 
+	</delete>
 </mapper>

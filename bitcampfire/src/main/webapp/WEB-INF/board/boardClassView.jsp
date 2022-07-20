@@ -17,6 +17,8 @@
    		<!--사이드바1,2-->
    		
     	<div id="article" class="content" role="main">	
+    	<input type="text" id="memClassid" value="${sessionScope.memClassid }">
+		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">
 	       
 	        <!-- main-banner -->
 	   		<div class="main-banner-wrapper">
@@ -30,17 +32,17 @@
         	<!-- 글 카테고리, 새글쓰기  -->
 	        <div class="nav" role="navigation">
 	            <input type="button" value="새 글  쓰기 " class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn"><i class="fa fa-pencil"></i>
-	            <h4>${cateidToString}</h4>
+	            <h4>${class_academy}</h4>
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
 			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
 			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">
-	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
-	        <input type = "hidden" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardDTO.board_cmt_cnt}">
+	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardClassDTO.board_uid}">
+	        <input type = "hidden" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardClassDTO.board_cmt_cnt}">
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
-	        <input type = "hidden" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
+	        <input type = "hidden" id = "board_classid" name = "board_classid" value="${boardClassDTO.board_classid}">
 	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
@@ -50,10 +52,10 @@
 	            <div class="panel-heading clearfix">
 	                <div class="avatar clearfix avatar-medium pull-left"> 
 	            	    <!-- 07/11기진: user page를 위해 href를 user 수정하였습니다 -->
-	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${user_img}"></a>
+	                    <a href="/semiproject/user/userPage?user_id=${boardClassDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${user_img}"></a>
 	                    <div class="avatar-info">
 	                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
-                            <a class="nickname" href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" title="author">${author}</a>
+                            <a class="nickname" href="/semiproject/user/userPage?user_id=${boardClassDTO.board_uid}" title="author">${author}</a>
                             <div class="activity">
                             	<span class="fa fa-flash"></span> 
                             	lev
@@ -67,8 +69,8 @@
 	                  	</div>
                   	</div>
 					<div class="content-identity pull-right">
-						<div class="content-identity-count"><i class="fa fa-comment"></i> ${boardDTO.board_cmt_cnt}</div>
-						<div class="content-identity-count"><i class="fa fa-eye"></i> ${boardDTO.board_view_cnt}</div>
+						<div class="content-identity-count"><i class="fa fa-comment"></i> ${boardClassDTO.board_cmt_cnt}</div>
+						<div class="content-identity-count"><i class="fa fa-eye"></i> ${boardClassDTO.board_view_cnt}</div>
 	                </div>
             	</div><!--  <div class="panel-heading clearfix"> -->
 	            <!-- 글 작성자 , 댓글수, 조회수 -->
@@ -80,7 +82,7 @@
 							<span class="list-group-item-text -id">${board_id}</span> 
 							<a href="/s/life" class="list-group-item-text item-tag label label-info"> 
 							<i class="fa fa-comments"></i>
-							${cateidToString}
+							${board_classid}
 							</a> 
 							<a href="/s/tagged/javascript" class="list-group-item-text item-tag label label-gray ">
 								javascript
@@ -89,7 +91,7 @@
 						<h2 class="panel-title">${boardDTO.board_title}</h2>
 						<hr>
 						<article class="content-text" itemprop="articleBody">
-							${boardDTO.board_content}
+							${boardClassDTO.board_content}
 						</article>
 					</div>
 
@@ -100,7 +102,7 @@
 								<a href="javascript://" class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281"> 
 									<i id="note-evaluate-assent-2853281" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
 								</a>
-								<div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
+								<div id="content-vote-count-2853281" class="content-eval-count">${boardClassDTO.board_vote_cnt}</div>
 								<a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
 								 <i id="note-evaluate-dissent-2853281" class="fa fa-angle-down note-evaluate-dissent-dissent" data-placement="left" data-toggle="tooltip" title="" data-original-title="반대"></i>
 								</a>
@@ -132,7 +134,7 @@
 
 			<!-- 댓글 div --> 
 			<div class="panel panel-default clearfix">
-				<jsp:include page="/WEB-INF/comment/commentWriteForm.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/comment/commentClassWriteForm.jsp"></jsp:include>
 			</div>
 			<!-- 댓글 div -->
 	
@@ -144,8 +146,8 @@
 </div><!-- <div class="layout-container"> -->
 
 
-<script type="text/javascript" src="/semiproject/js/board/boardView.js"></script>
-<script type="text/javascript" src="/semiproject/js/board/boardView2.js"></script>
+<script type="text/javascript" src="/semiproject/js/board/boardClassView.js"></script>
+<script type="text/javascript" src="/semiproject/js/board/boardClassView2.js"></script>
 <script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-ko-KR.js"></script>

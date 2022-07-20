@@ -73,9 +73,38 @@ public interface BoardDAO {
 		// 기진 : 끝  ###################### 
 
     // 유진 시작
-      public void boardClassWrite(BoardClassDTO boardClassDTO);
+		public void boardClassWrite(BoardClassDTO boardClassDTO);
+    
+      	public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
+      
+      	public int getTotalBoardClassNum(int class_id);
 
-		public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
-    // 유진 끝
+      	public List<BoardClassDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption);	
+      
+      	public int getTotalBoardClassSearchNum(String keyword, int class_id);
+
+		public void setClassHit(int board_id);
+
+		public BoardClassDTO getBoardClassContent(int board_id, int class_id);
+
+		public int boardClassRecommendCheck(Map<String, Object> map);
+
+		public void boardClassincreaseRecommend(Map<String, Object> map);
+
+		public void boardClassaddVote(Map<String, Object> map);
+
+		public void boardClassdeleteVote(Map<String, Object> map);
+
+		public void boardClassRecommendCancel(Map<String, Object> map);
+
+		public void boardClassDelete(int board_id);
+
+		public BoardClassDTO boardClassEditForm(int board_id);
+
+		public void boardClassUpdate(Map<String, String> map);
+	
+
+	// 유진 끝
+
 		
 }

@@ -29,7 +29,7 @@
 		<div class="nav" role="navigation">
 			    <a class="create btn btn-success btn-wide pull-right" id = "boardClassWriteBtnAtList"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
 			    
-			    <h4>학원전용 게시판</h4>
+			    <h4>${sessionScope.memClass_academy } 전용 게시판</h4>
 			    <form id="category-filter-form" name="category-filter-form" method="get" action="/board/questions"> <!-- 풍혁(220704) : 검색 url 태워야합니다.   -->
 				    <div class="category-filter-wrapper">
 			            <div class="category-filter-query pull-right">
@@ -147,7 +147,7 @@
 				<!-- 풍혁(220704) : table tag에서 okky 따라서 ul tag로 수정해보겠습니다.  -->
 		<div class="panel panel-default questions-panel">
 			<ul class="list-group">
-				${userWriteTableList}
+				${userClassWriteTableList}
 			</ul>
 		</div>
 		<!-- 풍혁(220705) : 유저작성 list-->
@@ -155,7 +155,7 @@
 		<!-- 풍혁(220706) : page list -->
 		<div class="text-center"> 
 			<ul class="pagination pagination-sm">
-				${boardPagingList}
+				${boardClassPagingList}
 			</ul>
 		</div>
 		<!-- 풍혁(220706) : page list -->
