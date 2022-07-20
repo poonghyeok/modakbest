@@ -33,7 +33,7 @@ public class BoardPaging {
 		System.out.println("@@@ caled totalP = " + totalP + "@@@ caled startPage  = " + startPage +"@@@ caled endPage = " + endPage );
 		
 		if(currentPage != 1) { //if(startPage > pageBlock)                         
-			int previousPage = currentPage-1;                                      
+			int previousPage = currentPage-1;                                       
 			pagingHTML.append("<li class='prev'>");
 				pagingHTML.append("<a href='/semiproject/board/list?category="+category+"&pg="+previousPage+"&sortOption="+sortOption+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
 					pagingHTML.append("«");

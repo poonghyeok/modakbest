@@ -79,4 +79,29 @@ public class CommentServiceImpl implements CommentService {
 	}
 //풍혁 끝: =================================
 
+//유진시작#################################################
+	@Override
+	public void commentClassWrite(CommentDTO commentDTO) {
+		commentDAO.commentClassWrite(commentDTO);
+	}
+	@Override
+	public List<CommentDTO> getClassCommentListByBoardId(int cmt_bid) {
+		return commentDAO.getClassCommentListByBoardId(cmt_bid);
+	}
+	@Override
+	public String getClassCommentContentById(int cmt_id) {
+		return commentDAO.getClassCommentContentById(cmt_id);
+	}
+	@Override
+	public void commentClassUpdate(int cmt_id, String cmt_content) {
+		commentDAO.commentClassUpdate(cmt_id,cmt_content);
+		
+	}
+	@Override
+	public void commentClassDelete(int cmt_id) {
+		commentDAO.commentClassDelete(cmt_id);
+		
+	}
+//유진끝#################################################
+
 }

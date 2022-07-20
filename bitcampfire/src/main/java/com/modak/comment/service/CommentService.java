@@ -23,6 +23,17 @@ public interface CommentService {
 	public void delete(int cmt_id);
 //풍혁 끝: =================================
 
+//유진시작#################################################
+	public void commentClassWrite(CommentDTO commentDTO);
+
+	public List<CommentDTO> getClassCommentListByBoardId(int cmt_bid);
+
+	public String getClassCommentContentById(int cmt_id);
+
+	public void commentClassUpdate(int cmt_id, String cmt_content);
+
+	public void commentClassDelete(int cmt_id);
+//유진끝#################################################
 
 
 	
