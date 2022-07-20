@@ -12,9 +12,8 @@
 <body>
 <div class="layout-container">
     <div class="main ">
-       	<!--사이드바1,2-->        
-       	<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
-   		<!--사이드바1,2-->
+		<!-- 사이드바 완성되면 바꿔넣기  -->
+		<%@ include file="/admin/adminSidebar.jsp" %> 
    		
     	<div id="article" class="content" role="main">	
 	       

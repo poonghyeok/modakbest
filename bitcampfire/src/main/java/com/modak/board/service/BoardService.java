@@ -117,9 +117,11 @@ public interface BoardService {
 		// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 		public void adminBoardNoticeWrite(BoardDTO boardDTO);
 		
-		public String getAdminNoticeTableList(String pg);
+		//public Map<String, Object> getBoardNoticeAllList(String pg);
 
-		public String getAminNoticePagingList(String pg);
+		public String getAdminNoticeTableList(int pg);
+
+		//public String getAminNoticePagingList(String pg);
 		
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 
