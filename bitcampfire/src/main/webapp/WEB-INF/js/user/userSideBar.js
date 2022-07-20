@@ -14,6 +14,7 @@ $('#logoutBtn1').click(function(){
 	});
 
 
+
 ////////////////////////유진추가0715//////////////////////////////
 
 $('#class_boardBtn').click(function(){

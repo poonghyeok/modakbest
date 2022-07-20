@@ -102,7 +102,7 @@
 		(select*from user2 where ${searchOption} like '%'||#{keyword}||'%' 
 						   order by user_id desc) kk)
 		where rn >= #{startNum} and rn <= #{endNum}
-		]]>
+		]]> 
  	</select>
 
   	<!-- //@@@ 서치된 총 유저 수 구하기: 어드민 userlist for 서치용 페이징 처리(220717) -->
@@ -195,7 +195,7 @@
 	
 	<!-- 정보 저장 -->
 	<insert id="kakaoInsert" parameterType="java.util.HashMap">
-		insert into user2(user_id
+		<!-- insert into user2(user_id
 						, user_name
 						, user_email
 						, user_img
@@ -210,9 +210,9 @@
 			, 'Y'
 			, 0
 			, 'K'
-			, sysdate)
+			, sysdate) -->
 		<!-- 연수 : 관리자 회원 삭제를 위한 카카오 카카오 아이디 저장 추가(220716)	 -->	
-		<!-- insert into user2(user_id
+		insert into user2(user_id
 						, user_name
 						, user_email
 						, user_img
@@ -229,7 +229,7 @@
 			, 0
 			, 'K'
 			, sysdate
-			, #{kakaoId}) -->		
+			, #{kakaoId})	
 			
 	</insert>
 	
@@ -269,17 +269,6 @@
 	
 	<!-- %%%%%%%%%%%%%%%%%% 풍혁 : 끝  %%%%%%%%%%%%%%%%%% -->
 	
-	<select id="getUserIdByEmailClass" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select user_id from user2 where user_email=#{session_email}
-	</select>
-	
-	<select id="getUserNameByUserIdClass" parameterType="java.lang.Integer" resultType="java.lang.String">
-		select user_nickname from user2 where user_id=${board_uid}
-	</select>
-	
-	<select id="getUserClassImgByUserid" parameterType="java.lang.Integer" resultType="java.lang.String">
-		select user_img from user2 where user_id = ${user_id}
-	</select>
 	
 	
 	

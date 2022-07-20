@@ -14,9 +14,9 @@ public interface BoardDAO {
 	//풍혁 : 시작 ====================================
 		public List<BoardDTO> getUserWriteTableList();
 	
-		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map);
+//		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map);
 	
-		public int getTotalBoardNum();
+		public int getTotalBoardNum(int cateid);
 		
 		public void boardWrite(BoardDTO boardDTO);
 
@@ -24,7 +24,7 @@ public interface BoardDAO {
 
 		public int getTotalBoardSearchNum(String keyword);
 		
-		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map);
+		public List<BoardDTO> getBoardList(Map<String, Integer> map, String category);
 
 		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption);
 
@@ -34,9 +34,11 @@ public interface BoardDAO {
 	
 	// 정수 : 시작  ###################### 
 		// 목록에서 글 가져오기
-		public BoardDTO getBoardContent(int board_id);
+		//풍혁0719 : category 반영해야해서 int board_id 에서 map으로 변경
 		
-		public void setHit(int board_id);
+		public BoardDTO getBoardContent(Map<String, Integer>map);
+		
+		public void setHit(Map<String, Integer>map);
 
 		public int recommendCheck(Map<String, Object> map);
 
@@ -48,11 +50,11 @@ public interface BoardDAO {
 
 		public void deleteVote(Map<String, Object> map);
 
-		public BoardDTO boardEditForm(int board_id);
+		public BoardDTO boardEditForm(Map<String,Integer> map);
 
 		public void boardEdit(BoardDTO boardDTO);
 
-		public void boardDelete(int board_id);
+		public void boardDelete(Map<String,Integer> map);
 
 		// admin 
 		
@@ -76,21 +78,48 @@ public interface BoardDAO {
 		// 기진 : 끝  ###################### 
 
     // 유진 시작
-      public void boardClassWrite(BoardClassDTO boardClassDTO);
+		public void boardClassWrite(BoardClassDTO boardClassDTO);
+    
+      	public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
+      
+      	public int getTotalBoardClassNum(int class_id);
 
-		public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
-    // 유진 끝
+      	public List<BoardClassDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption);	
+      
+      	public int getTotalBoardClassSearchNum(String keyword, int class_id);
 
+		public void setClassHit(int board_id);
+
+		public BoardClassDTO getBoardClassContent(int board_id, int class_id);
+
+		public int boardClassRecommendCheck(Map<String, Object> map);
+
+		public void boardClassincreaseRecommend(Map<String, Object> map);
+
+		public void boardClassaddVote(Map<String, Object> map);
+
+		public void boardClassdeleteVote(Map<String, Object> map);
+
+		public void boardClassRecommendCancel(Map<String, Object> map);
+
+		public void boardClassDelete(int board_id);
+
+		public BoardClassDTO boardClassEditForm(int board_id);
+
+		public void boardClassUpdate(Map<String, String> map);
 	
 
-		
+	// 유진 끝
 
-		
 
-		
+      public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
+      
+      
+    // 유진 끝
 
-		
+	// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		public void adminBoardNoticeWrite(BoardDTO boardDTO);
+	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 
-		
 		
 }

@@ -22,7 +22,7 @@ $('#boardWriteBtnAtList').click(function(){
 		alert('로그인 먼저해주세요');
 		location.href="/semiproject/user/userLoginForm";
 	}else{
-		location.href="/semiproject/board/write";
+		location.href="/semiproject/board/write?category="+$('#category').val();
 	}
 })
 	
@@ -40,6 +40,23 @@ $('.category-sort-link').click(function(){
 	}
 	
 })
+
+//@@@@@ 연수 검색 엔터키 이벤트 추가(220719) 
+$(function(){		
+	//Block Enter key events. 엔터키 이벤트 막기.		
+	$(document).keypress(function (e) {			
+		if (e.keyCode == 13) {
+			e.preventDefault();		
+			}	
+	});		
+	//검색 박스에서 에서 Enter키를 누를 때 검색 버튼을 클릭.		
+	$('#search-field').keypress(function (e) {		 
+		if(e.keyCode == 13) { 				
+			$('#boardSearchBtn').click();			
+				return false;  		  
+			}		
+	});   	
+});
 	
 
 

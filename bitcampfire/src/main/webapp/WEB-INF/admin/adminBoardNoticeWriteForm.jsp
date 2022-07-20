@@ -19,22 +19,20 @@
 
 <div class="layout-container">
 	<div class="main">
-		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
-			 <jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
-		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
+		<!-- 사이드바 완성되면 바꿔넣기  -->
+		<%@ include file="/admin/adminSidebar.jsp" %> 
 		
 		<!-- 풍혁(220707) : 보드 작성 폼 -->
 		<div id="article-create" class="content" role="main">
 			<!-- 풍혁(220707) : css 분리 적용을 위해, class eunhye를 추가하겠습니다. -->
 			<div class="content-header">
-	    		<h3>글 수정하기</h3>
-				<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
-				<input type = "text" id = "category" class = "category" value = "${param.category}">
+	    		<h3>공지사항</h3>
 			</div>
+			
 			<div class="content-header">
 				<div class="user-profile">
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-						<img src="#" id="profile-photo" alt="profile-img">
+						<img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
 					</a>
 				
 					<div class="profile-info">
@@ -49,25 +47,27 @@
 			</div>
 			
 			<div class="content-body">
-				<form name="boardWriteForm" id="boardWriteForm">
+				<form name="adminBoardNoticeWriteForm" id="adminBoardNoticeWriteForm">
 		
 					<div class="content-body-article">
-						<table name="boardWriteTable" id="boardWriteTable" >
+						<table name="adminBoardNoticeWriteTable" id="adminBoardNoticedWriteTable" >
 							<tr>
 								<td>
 									  <select class="eunhye" id="board_cateid" required>
 									    <option value="" selected value="0" >게시판을 선택해 주세요</option>
+									    <option name="board_cateid" value="0">전체</option>
 									    <option name="board_cateid" value="1">취업정보</option>
 									    <option name="board_cateid" value="2">후기</option>
 									    <option name="board_cateid" value="3">Q &amp; A</option>
 									    <option name="board_cateid" value="4">자유게시판</option>
-									  </select>
+									    <option name="board_cateid" value="5">학원전용게시판</option>
+									  </select>        
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<label for="title" class="eunhye">제목</label>
-									<div><input type="text" name="board_title" class="board_title" id="board_title" ></div>
+									<div><input type="text" name="board_title" class="eunhye" id="board_title" placeholder="제목을 입력해 주세요."></div>
 									<div class="alertMsg" id="board_titleDiv"></div> 
 								</td>
 							</tr>
@@ -80,25 +80,21 @@
 							<tr>
 								<td>
 									<div id="editor">
-										 <!-- <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> --> 
+										<!-- <textarea name="board_content" id="board_content" cols="60" rows="20"></textarea> -->
 									</div>
 									
 										<script>
-											 let editor;							    
-											
-											 ClassicEditor
-											  .create(document.querySelector( '#editor' ), {
-											    language: 'ko'
-											  })
-											  .then( newEditor => {
-											    editor = newEditor;
-											  } )
-											  .catch( error => {
-											    console.error( error );
-											  } );
-											  
-											
-									</script>
+											let editor;							    
+											ClassicEditor
+										        .create( document.querySelector( '#editor' ) )
+										        .then(newEditor => {							        	
+										        	editor = newEditor
+										        })
+										        .catch( error => {
+										            cnsole.error( error );
+										        });
+										</script>
+									
 								</td>
 							</tr>		
 						</table>
@@ -106,8 +102,8 @@
 						<!-- 풍혁(220707) : 이렇게 요소에 style로 들어오면 안될거 같깉한데.. 일단 display 해야하니깐 ... -->	
 						<fieldset class="buttons" style="width: 630px; margin-top: 10px;">
 	                       <!-- 풍혁 (220707) : 취소했을 경우 보던 게시판으로 나가자  -->
-	                       <a href="/semiproject/board/list?pg=1&sortOption=date" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
-	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="수정" id="boardUpdateBtn">
+	                       <a href="/semiproject/admin/adminBoardNoticeList?pg=1" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
+	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="등록" id="adminBoardNoticeWriteBtn">
 	                    </fieldset>
 							
 					</div>
@@ -125,130 +121,59 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-function cateidToString(cateid){
-	let result;
-	if(cateid == 1){
-		result = 'info';
-	}else if(cateid == 2){
-		result = 'review';
-	}else if(cateid == 3){
-		result = 'qna';
-	}else if(cateid == 4){
-		result = 'free';
-	}
-	
-	return result;
-}
-function categoryToInt(category){
-	let result;
-
-	if(category == 'info'){
-		result = 1;
-	}else if(category == 'review'){
-		result = 2;
-	}else if(category == 'qna'){
-		result = 3;
-	}else if(category == 'free'){
-		result = 4;
-	}
-	
-	return result;
-}
-
 $(function(){
-	
-	$.ajax({
-		type : 'get',
-		url : '/semiproject/board/getBoard',
-		data : {"board_id":$('#board_id').val(), "cateid" : categoryToInt($('#category').val())},
-		success :function(data){
-			console.log(JSON.stringify(data));
-			$('#board_title').val(data.board_title);
-			editor.setData(data.board_content);
-			$('#board_cateid option:eq('+(data.board_cateid)+')').prop('selected', true);
-		},
-		error : function(err){
-			console.log(err);
-		}
-	})
-
-	//에디터
-	
-	/*  if($('#board_title').focusout()){
-		 $(this).removeClass('empty');
-	 }
-	 if($('#board_content').focusout()){
-		 $('#board_content').removeClass('empty');
-	 } */
-	
-	$('#boardUpdateBtn').click(function(){
+	$('#adminBoardNoticeWriteBtn').click(function(){
 		const editorData = editor.getData();
 		
 		//비엇을때 진해지고 포커스아웃시 풀리고
 		
 		if($('#board_title').val()==''){
-		//	$('#board_title').css('border','2px solid #1fb6ff');
 			alert('제목을 입력해주세요.');
-			$('#board_title').addClass('empty');
-			
+			$('#board_title').addClass('empty');			
 
-		}/* else if($('#board_content').val()==''){
-			alert("컨텐트공백");
-	    	//$('#board_title').css('border','2px solid #1fb6ff');
-	    	$('#board_title').removeClass('empty');
-	    	$('#board_content').addClass('empty');
-	    	
-		} */
-		else if(!editor.getData()){
+		}else if(editor.getData()==''){
 			alert("내용을 입력하세요");
 		}
 		else if( $('#board_cateid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
 		else{
+
 			//글 등록 전 확인
-			let changedCategory;
 	        if(!confirm('정말 등록하시겠습니까?')){
 	            return false;
 	        }	
-	        else{
-				$.ajax({
+	        else{				
+	        	$.ajax({
 					type: 'post',
-					url: '/semiproject/board/update',
-					data: {'board_title' : $('#board_title').val(),
-					       'board_content' : $('div.ck-blurred').html(),
-							'board_cateid' : $('#board_cateid option:selected').val(),
-							'board_id' : $('#board_id').val()
-					},
+					url: '/semiproject/admin/adminBoardNoticeWrite',
+					data: {'board_title': $('#board_title').val(),
+					       //'board_content': $('#board_content').val()
+							'board_content': editorData,
+							'board_cateid' : $('#board_cateid option:selected').val()
+						  },
 			       	success: function(){
-			       		changedCategory = cateidToString($('#board_cateid option:selected').val());
-			       			
-			       		alert('게시글을 수정하였습니다.');
-			            location.href='/semiproject/board/getBoardView?category='+changedCategory+'&board_id='+$('#board_id').val();
+						alert('게시글을 등록하였습니다.');
+						location.href='/semiproject/admin/adminBoardNoticeList?pg=1';
+						//풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
+						//location.href='/semiproject/board/list?pg=1&sortOption=date';
 					},
 					error: function(e){
 						console.log(e);
-						/* 풍혁 0714 success 에서 location.href까지 먹히지 않아서 임시로 error 에도 location href를 써두었습니다~ */
-						location.href='/semiproject/board/getBoardView?category='+changedCategory+'&board_id='+$('#board_id').val();
 					}
 				});//ajax
 			
 	        }
 		}
-	});//$('#boardWriteBtn').click
-	
-	
+	});//$('#boardWriteBtn').click	
 	
 	//취소 버튼 눌렀을 때
 	$('#resetBtn').click(function(){
 	        if(confirm('정말 입력을 취소하시겠습니까 ?')){
-	        	//$('#boardWriteForm').reset();
-	        
+	        	//$('#boardWriteForm').reset();	        
 	            return true;
 	        }
-	 });
-	
-	
+	 });	
 	
 	$('#board_title').focusout(function(){
 		$('#board_title').removeClass('empty');
@@ -261,8 +186,6 @@ $(function(){
 });
 </script>
 
-<script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/semiproject/js/board/boardEditForm.js"></script>
 
 </body>
 </html>

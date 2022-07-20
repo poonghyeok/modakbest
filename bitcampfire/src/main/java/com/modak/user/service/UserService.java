@@ -54,10 +54,8 @@ public interface UserService {
 		public Map<String, Object> getUserAllList(String pg);
 		//@@@ 페이징 처리(220717)
 		public UserAdminPaging getUserAdminPaging(String pg);
-		//@@@ 페이징 처리-검색용(220717)
-		//public UserAdminPaging getUserSearchPaging(String pg, String keyword);
-//		//@@@ 카카오 회원 어드민 삭제 처리 기능(220716)
-//		public void kakaoUnlink_admin(Long user_kakaoId);
+		//@@@ 카카오 회원 어드민 삭제 처리 기능(220716)
+		public void kakaoUnlink_admin(Long user_kakaoId);
 		//@@@ 회원 선택삭제 기능(220716)
 		public void adminUserDelete_select(String[] check);		
 		//@@@ 회원 검색 기능(220717)
@@ -107,17 +105,8 @@ public interface UserService {
     	
     	//풍혁0714 : board_uid로 user_img를 받아가려고 만들었습니다. 
     	public String getUserImgByUserid(int user_id);
-
     
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-
-
-		
-
-
-		
-
 
 		
 }

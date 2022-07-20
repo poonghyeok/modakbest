@@ -28,8 +28,8 @@ public class UserAllDTO {
    private String user_ip;      //아이피 
    private String user_salt;    //비밀번호 암호화키    
    private String user_social;  // 소셜로그인여부
-//   //########## 연수 : 카카오 회원에 대한 어드민 삭제 기능 구현을 위해 카카오 아이디 저장 추가(220716)
-//   private Long user_kakaoId;  // 카카오 연동 가입회원 카카오 아이디
+   //########## 연수 : 카카오 회원에 대한 어드민 삭제 기능 구현을 위해 카카오 아이디 저장 추가(220716)
+   private Long user_kakaoId;  // 카카오 연동 가입회원 카카오 아이디
    
    private String pwd1;
    private String pwd2;

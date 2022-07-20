@@ -42,8 +42,6 @@
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
 	        <input type = "hidden" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
 	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
-	        <input type="text" value="${param.category}" id="category">
-	        <!-- 풍혁0718 : view에도 category를 찍어보는 이유는 보고있는 글과 같은 카테고리에 바로 글을 쓸 수 있게 하기 위하여 -->
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
 			<!-- 본격 글 내용 ( 작성자 ~ 페이스북 ) -->

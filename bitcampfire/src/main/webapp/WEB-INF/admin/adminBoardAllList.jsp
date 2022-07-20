@@ -18,6 +18,7 @@ height : 100px;
 <link rel="stylesheet" href="/semiproject/css/board/boardList2.css">
 </head>
 <body>
+
 <div class="layout-container">
 	<div class="main">
 	<%@ include file = "/admin/adminSidebar.jsp" %>
@@ -61,6 +62,7 @@ height : 100px;
 					<!-- board_title  -->
 					<div class="list-title-wrapper clearfix3" style="width:90px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;">									
 						제목									
+
 					</div>
 					
 					<!-- board_cmt_cnt  -->

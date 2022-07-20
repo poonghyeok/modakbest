@@ -47,15 +47,15 @@ public class CommentDAOMyBatis implements CommentDAO {
 	}
 	
 	@Override
-	public void increaseCommentCount(int cmt_bid) {
-		
-		sqlSession.update("commentSQL.increaseCommentCount",cmt_bid);
+	public void increaseCommentCount(Map<String, Integer> map) {
+		//map : board_id, cateid
+		sqlSession.update("commentSQL.increaseCommentCount",map);
 	}
 	
 	@Override
-	public void decreaseCommentCount(int cmt_bid) {
-		// 
-		sqlSession.update("commentSQL.decreaseCommentCount",cmt_bid);
+	public void decreaseCommentCount(Map<String, Integer> map) {
+		//map : board_id, cateid
+		sqlSession.update("commentSQL.decreaseCommentCount",map);
 	}
 	
 	@Override
@@ -84,5 +84,46 @@ public class CommentDAOMyBatis implements CommentDAO {
 		return;
 	}
 //풍혁 끝: =================================
+
+//유진시작##############################################################
+	@Override
+	public void commentClassWrite(CommentDTO commentDTO) {
+		sqlSession.insert("commentSQL.commentClassWrite", commentDTO);
+	}
+
+	@Override
+	public List<CommentDTO> getClassCommentListByBoardId(int cmt_bid) {
+		return sqlSession.selectList("commentSQL.getClassCommentListByBoardId", cmt_bid);
+	}
+
+	@Override
+	public String getClassCommentContentById(int cmt_id) {
+		return sqlSession.selectOne("commentSQL.getClassCommentContentById", cmt_id);
+	}
+
+	@Override
+	public void commentClassUpdate(int cmt_id, String cmt_content) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("cmt_id",cmt_id);
+		map.put("cmt_content",cmt_content);
+		
+		sqlSession.update("commentSQL.commentClassUpdate", map);
+		
+		return;
+		
+	}
+
+	@Override
+	public void commentClassDelete(int cmt_id) {
+		sqlSession.delete("commentSQL.commentClassDelete", cmt_id);
+		
+	}
+	//유진끝##############################################################
+	
+	
+	
+	
+	
 
 }

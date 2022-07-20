@@ -8,7 +8,7 @@
 </head>
 <!-- 1. 좌측  메뉴바  -->     
 <input type="hidden" id="memEmail" value="${sessionScope.memEmail}">
-<input type="text" id="memUser_classid" value="${sessionScope.memClassId}"> 
+<input type="hidden" id="memUser_classid" value="${sessionScope.memClassId}"> 
 <div class="sidebar">
     <a href="javascript://" class="sidebar-header">
         <i class="fa fa-bars sidebar-header-icon"></i>
@@ -68,18 +68,21 @@
 
     		<!-- link 누르면 호버기능?  -->
     		<!-- 풍혁220714 : list로 url에는 pg와  sortOption이 있어야 한다. sortOption은 기본이 date다. -->
-    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
-    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
-    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
-    		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
+
+    		<!-- 풍혁220718 : url에 category를 추가했습니다. 게시판이 4개로 늘어났기 때문에 어떤 게시판에서 data를 받아올 것인지 결정해야합니다.  -->
+    		<li  ><a href="/semiproject/board/list?category=info&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">취업정보</span></a></li>
+    		<li  ><a href="/semiproject/board/list?category=review&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
+    		<li  ><a href="/semiproject/board/list?category=qna&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
+    		<li  ><a href="/semiproject/board/list?category=free&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
+
+
     		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
     		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
     		<%-- <c:if test="${sessionScope.memId == 0 }"> --%>
     		<li  ><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
 			<%-- </c:if> --%>
 			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
-    		
-    		
+
 
     </ul>
 
@@ -89,7 +92,6 @@
     </ul>
 </div> <!-- sidebar  -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script type="text/javascript" src="/semiproject/js/user/userSideBar.js"></script>
 
 
