@@ -695,3 +695,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		//유진 끝#######################################################
+		@Override
+		public String getAminNoticePagingList(String pg) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+}
