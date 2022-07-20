@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
-import com.modak.board.bean.BoardAllDTO;
+//import com.modak.board.bean.BoardAllDTO;
 
 public interface BoardDAO {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,20 +54,23 @@ public interface BoardDAO {
 
 		public void boardDelete(int board_id);
 
-		public List<BoardAllDTO> getBoardAllList();
-
-
-
-
-
+		// admin 
 		
+		public List<BoardDTO> reviewList();
+		
+		public List<BoardDTO> informList();
+		
+		public List<BoardDTO> qnaList();
+
+		public List<BoardDTO> freeList();
+
 		// 정수 : 끝  ###################### 
 
 
 		// 기진 : 시작  ###################### 
-
-
-		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
+//		public List<BoardAllDTO> getBoardAllList();
+//
+//		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
 
 
 		// 기진 : 끝  ###################### 
@@ -77,5 +80,17 @@ public interface BoardDAO {
 
 		public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
     // 유진 끝
+
+	
+
+		
+
+		
+
+		
+
+		
+
+		
 		
 }

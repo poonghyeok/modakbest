@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
-import com.modak.board.bean.BoardAllDTO;
+//import com.modak.board.bean.BoardAllDTO;
 
 @Transactional
 @Repository
@@ -150,26 +150,45 @@ public class BoardDAOMyBatis implements BoardDAO {
 				sqlSession.update("boardSQL.boardDelete", board_id);
 				
 			}
-		
 			
+			//admin
+			@Override
+			public List<BoardDTO> informList() {
+				return sqlSession.selectList("boardSQL.informList");
+			}
+
+			@Override
+			public List<BoardDTO> reviewList() {
+				return sqlSession.selectList("boardSQL.reviewList");
+			}
+			
+			@Override
+			public List<BoardDTO> qnaList() {
+				return sqlSession.selectList("boardSQL.qnaList");
+			}
+
+			@Override
+			public List<BoardDTO> freeList() {
+				return sqlSession.selectList("boardSQL.freeList");
+			}
+
 	// 정수 : 끝  ###################### 
 
 				
 
 			// 기진 : 시작  ###################### 
-      @Override
-        public List<BoardAllDTO> getBoardAllList() {
-          return sqlSession.selectList("boardSQL.getBoardAllList");
-			}
-      
-			@Override
-			public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
-				
-				
-				
-				return sqlSession.selectList("boardSQL.getUserPageArticle", map);
-
-			}
+			/*
+			 * @Override public List<BoardAllDTO> getBoardAllList() { return
+			 * sqlSession.selectList("boardSQL.getBoardAllList"); }
+			 * 
+			 * @Override public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+			 * 
+			 * 
+			 * 
+			 * return sqlSession.selectList("boardSQL.getUserPageArticle", map);
+			 * 
+			 * }
+			 */
 
 			// 기진 : 끝  ###################### 
       
@@ -195,4 +214,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 				return sqlSession.selectList("boardSQL.getBoardClassRangeOrder", newMap);		
       
       //유진 : 끝 
+			}
+	
+			
 }

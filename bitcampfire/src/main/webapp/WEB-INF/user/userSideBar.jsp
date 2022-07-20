@@ -72,17 +72,14 @@
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">후기</span></a></li>
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&A</span></a></li>
     		<li  ><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">자유게시판</span></a></li>
-
+    		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
     		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
     		<%-- <c:if test="${sessionScope.memId == 0 }"> --%>
     		<li  ><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
 			<%-- </c:if> --%>
 			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
-
-
-    		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
     		
-    		<li  ><a href="/semiproject/admin/adminBoardAllList" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+    		
 
     </ul>
 
@@ -95,22 +92,5 @@
 
 <script type="text/javascript" src="/semiproject/js/user/userSideBar.js"></script>
 
-	
-////////////////////////유진추가0715//////////////////////////////
-
-$('#class_boardBtn').click(function(){
-	if($('#memEmail').val() == ''){
-		alert("로그인이 필요한 게시판입니다.");
-		location.href = "/semiproject/user/userLoginForm";
-	}
-	else if($('#memUser_classid').val()=='' || $('#memUser_classid').val()=='0'){
-		alert("학원 전용 게시판입니다.\n이용을 원하시면 학원을 등록하세요.");
-		location.href = "/semiproject/user/userUpdateForm";
-	}
-	else {
-		location.href = "/semiproject/board/boardClassList?class_id="+$('#memUser_classid').val();
-	}
-});
-</script>
 
 
