@@ -50,7 +50,6 @@ public class BoardDTO implements Comparable<BoardDTO>{
 
 			return categoryString;
 		}
-	
 
 			// 풍혁 : info가 1번, review가 2번, qna가 3번, free가 4번 
 	
