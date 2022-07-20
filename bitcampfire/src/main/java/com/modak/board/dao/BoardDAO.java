@@ -34,9 +34,11 @@ public interface BoardDAO {
 	
 	// 정수 : 시작  ###################### 
 		// 목록에서 글 가져오기
-		public BoardDTO getBoardContent(int board_id);
+		//풍혁0719 : category 반영해야해서 int board_id 에서 map으로 변경
 		
-		public void setHit(int board_id);
+		public BoardDTO getBoardContent(Map<String, Integer>map);
+		
+		public void setHit(Map<String, Integer>map);
 
 		public int recommendCheck(Map<String, Object> map);
 
@@ -48,11 +50,11 @@ public interface BoardDAO {
 
 		public void deleteVote(Map<String, Object> map);
 
-		public BoardDTO boardEditForm(int board_id);
+		public BoardDTO boardEditForm(Map<String,Integer> map);
 
 		public void boardEdit(BoardDTO boardDTO);
 
-		public void boardDelete(int board_id);
+		public void boardDelete(Map<String,Integer> map);
 
 		public List<BoardAllDTO> getBoardAllList();
 

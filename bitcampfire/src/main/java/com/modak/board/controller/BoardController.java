@@ -155,13 +155,33 @@ public class BoardController {
 	// 정수 : 시작  ###################### 
 		//목록에서 글 가져와서 jsp 띄우기
 		@GetMapping(value = "getBoardView") // 데이터값 담아서 jsp로 이동
-		public ModelAndView getBoardView(@RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) { // 글번호, 페이지값 
+		public ModelAndView getBoardView(@RequestParam String category, @RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) 	{ // 글번호, 페이지값 
 			System.out.println("getBoardView 컨트롤러 실행....");
-		
+			int cateid = -1;
+			switch(category) {
+			case "info" :
+				cateid = 1;
+				break;
+			case "review" :
+				cateid = 2;
+				break;
+			case "qna" :
+				cateid = 3;
+				break;
+			case "free" :
+				cateid = 4;
+				break;
+			}
+			
+			//풍혁0719 : category 반영해야해서 parameter는  map으로 변경
+			Map<String,Integer> map = new HashMap<>();
+			map.put("cateid",cateid);
+			map.put("board_id",board_id);
+			
 			ModelAndView mav = new ModelAndView(); // boardView.jsp 에 데이터 넣어 보내기
 			mav.addObject("board_id", board_id); // 글번호값이랑 
 			mav.addObject("pg", pg); // 페이지값 실어서
-			BoardDTO boardDTO = (BoardDTO) boardService.getBoardContent(board_id);
+			BoardDTO boardDTO = (BoardDTO) boardService.getBoardContent(map);
 			mav.addObject("boardDTO", boardDTO);
 			
 			System.out.println("TEST BoardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
@@ -235,9 +255,12 @@ public class BoardController {
 			
 		  @GetMapping(value = "/getBoard")
 		  @ResponseBody
-		  public BoardDTO getBoard(@RequestParam int board_id) { 
+		  public BoardDTO getBoard(@RequestParam int board_id, int cateid) { 
+			  Map<String,Integer> map = new HashMap<>();
+			  map.put("board_id", board_id);
+			  map.put("cateid", cateid);
 			  
-			  BoardDTO boardDTO= boardService.boardEditForm(board_id); 
+			  BoardDTO boardDTO= boardService.boardEditForm(map); 
 			  //System.out.println("***boardEdit*** TEST boardDTO = " + boardDTO); 
 			  return boardDTO; 
 			 }
@@ -250,8 +273,11 @@ public class BoardController {
 		  // 글 삭제
 		  @GetMapping(value = "/boardDelete")
 		  @ResponseBody
-		  public void boardDelete(@RequestParam int board_id) {
-			  boardService.boardDelete(board_id);
+		  public void boardDelete(@RequestParam int board_id, int cateid) {
+			  Map<String,Integer> map = new HashMap<>();
+			  map.put("board_id", board_id);
+			  map.put("cateid", cateid);
+			  boardService.boardDelete(map);
 		  }
 		  
 		  

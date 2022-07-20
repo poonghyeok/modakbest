@@ -37,7 +37,7 @@ public interface BoardService {
 	
 	// 정수 : 시작  ###################### 
 		// 글번호로 (글번호, DTO) 가져오기
-		public BoardDTO getBoardContent(int board_id);
+		public BoardDTO getBoardContent(Map<String, Integer>map);
 
 		public int recommendCheck(Map<String, Object> map);
 
@@ -49,11 +49,11 @@ public interface BoardService {
 
 		public void deleteVote(Map<String, Object> map);
 
-		public BoardDTO boardEditForm(int board_id);
+		public BoardDTO boardEditForm(Map<String,Integer> map);
 
 		public void boardEdit(BoardDTO boardDTO);
 
-		public void boardDelete(int board_id);
+		public void boardDelete(Map<String,Integer> map);
 
 
 		

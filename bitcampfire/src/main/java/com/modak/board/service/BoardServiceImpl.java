@@ -50,7 +50,16 @@ public class BoardServiceImpl implements BoardService {
 				case "free" : result = 4; break;
 			}
 			
-			System.out.println("\n @POOONG LOG@ : 진행되고있는 category : " + category + " a.k.a : " + result);
+			return result;
+		}
+		private String cateidToString(int cateid) {
+			String result = null;
+			switch(cateid){
+			case 1 : result = "info"; break;
+			case 2 : result = "review"; break;
+			case 3 : result = "qna"; break;
+			case 4 : result = "free"; break;
+			}
 			
 			return result;
 		}
@@ -167,7 +176,7 @@ public class BoardServiceImpl implements BoardService {
 				
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
 						//풍혁 (220707) : pg는 그냥 1로만 넣어놓았으니 나중에 pg 넘길방법 생각해야됨 input hidden만들어서 넘기자 
- 						tr.append("<a href='/semiproject/board/getBoardView?board_id="+boardDTO.getBoard_id()+"&pg=1'>");
+ 						tr.append("<a href='/semiproject/board/getBoardView?category="+cateidToString(boardDTO.getBoard_cateid())+"&board_id="+boardDTO.getBoard_id()+"&pg=1'>");
 							tr.append(boardDTO.getBoard_title());
 						tr.append("</a>");
 					tr.append("</h5>");
@@ -311,14 +320,15 @@ public class BoardServiceImpl implements BoardService {
 	//정수 : 시작 ############################################
 
 		@Override
-		public BoardDTO getBoardContent(int board_id) { 
-		
-		if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
-			boardDAO.setHit(board_id); // 글번호에 조회수 증가하게 해
-			session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
-		}
-		
-		BoardDTO boardDTO = boardDAO.getBoardContent(board_id); //글번호 가지고 dto 가지고와
+		public BoardDTO getBoardContent(Map<String, Integer>map) { 
+			
+			BoardDTO boardDTO = boardDAO.getBoardContent(map); //글번호 가지고 dto 가지고와
+			
+			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
+				boardDAO.setHit(map); // 글번호에 조회수 증가하게 해
+				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
+			}
+			
 		
 		return boardDTO;
 		}
@@ -358,8 +368,8 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		@Override
-		public BoardDTO boardEditForm(int board_id) {
-			return boardDAO.boardEditForm(board_id);
+		public BoardDTO boardEditForm(Map<String,Integer> map) {
+			return boardDAO.boardEditForm(map);
 			
 		}
 
@@ -370,8 +380,8 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		@Override
-		public void boardDelete(int board_id) {
-			boardDAO.boardDelete(board_id);
+		public void boardDelete(Map<String,Integer> map) {
+			boardDAO.boardDelete(map);
 		}
 		
 		//정수 : 끝 ############################################

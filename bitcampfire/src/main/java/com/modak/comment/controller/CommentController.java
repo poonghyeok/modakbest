@@ -1,6 +1,8 @@
 package com.modak.comment.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.modak.comment.bean.CommentDTO;
 import com.modak.comment.service.CommentService;
 import com.modak.user.service.UserService;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping(value = "/comment")
@@ -52,7 +52,12 @@ public class CommentController {
 		public void write(@ModelAttribute CommentDTO commentDTO) {
 			
 			commentService.write(commentDTO);
-			commentService.increaseCommentCount(commentDTO.getCmt_bid());
+			
+			Map<String, Integer> map = new HashMap<>();
+			map.put("board_id",commentDTO.getCmt_bid());
+			map.put("cateid",commentDTO.getCmt_cateid());
+			
+			commentService.increaseCommentCount(map);
 			
 			return ;
 		}
@@ -93,14 +98,27 @@ public class CommentController {
 			return ;
 		}
 		
+//		@PostMapping(value = "/delete")
+//		@ResponseBody
+//		public void delete(@RequestParam int cmt_id, @RequestParam int cmt_bid) {
+//			
+//			System.out.println("\n @LOG@ comment...delete : " + cmt_id + cmt_bid);
+//			
+//			commentService.delete(cmt_id);
+//			commentService.decreaseCommentCount(cmt_bid);
+//			
+//			return ;
+//		}
+//		
 		@PostMapping(value = "/delete")
 		@ResponseBody
-		public void delete(@RequestParam int cmt_id, @RequestParam int cmt_bid) {
+		public void delete(@ModelAttribute CommentDTO commentDTO) {
+			Map<String, Integer> map = new HashMap<>();
+			map.put("board_id",commentDTO.getCmt_bid());
+			map.put("cateid",commentDTO.getCmt_cateid());
 			
-			System.out.println("\n @LOG@ comment...delete : " + cmt_id + cmt_bid);
-			
-			commentService.delete(cmt_id);
-			commentService.decreaseCommentCount(cmt_bid);
+			commentService.delete(commentDTO.getCmt_bid());
+			commentService.decreaseCommentCount(map);
 			
 			return ;
 		}

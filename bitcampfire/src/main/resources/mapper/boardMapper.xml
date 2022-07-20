@@ -236,21 +236,21 @@
 	
 	<!--  ###################### 정수 : 시작  ###################### -->
 	<!-- 글 보기 -->
-		<select id = "getBoardContent" parameterType = "java.lang.Integer" resultType = "BoardDTO"> 
+		<select id = "getBoardContent" parameterType = "java.util.Map" resultType = "BoardDTO"> 
 			select * from 
-			<if test="cateid == '1'">
+			<if test="cateid == 1">
 			board_inform
 			</if>
 			
-			<if test="cateid == '2'">
+			<if test="cateid == 2">
 			board_review
 			</if>
 			
-			<if test="cateid == '3'">
+			<if test="cateid == 3">
 			board_qna
 			</if>
 				 
-			<if test="cateid == '4'">
+			<if test="cateid == 4">
 			board_free
 			</if>
 			 where board_id = ${board_id}
@@ -263,21 +263,22 @@
 		<!-- 조회수 증가처리 -->
 		<update id = "setHit" parameterType = "int">
 			update 
-				<if test="cateid == '1'">
+				<if test="cateid == 1">
 				board_inform
 				</if>
 				
-				<if test="cateid == '2'">
+				<if test="cateid == 2">
 				board_review
 				</if>
 				
-				<if test="cateid == '3'">
+				<if test="cateid == 3">
 				board_qna
 				</if>
 					 
-				<if test="cateid == '4'">
+				<if test="cateid == 4">
 				board_free
 				</if> 
+				
 			set board_view_cnt = board_view_cnt +1 where board_id = #{board_id} 
 		</update>
 		
@@ -290,19 +291,19 @@
 		<!-- #: String(" ") / $:not String(" "없음) -->
 		<update id = "increaseRecommend" parameterType = "java.util.Map">
 			update
-				<if test="cateid == '1'">
+				<if test="vote_cateid == 1">
 				board_inform
 				</if>
 				
-				<if test="cateid == '2'">
+				<if test="vote_cateid == 2">
 				board_review
 				</if>
 				
-				<if test="cateid == '3'">
+				<if test="vote_cateid == 3">
 				board_qna
 				</if>
 					 
-				<if test="cateid == '4'">
+				<if test="vote_cateid == 4">
 				board_free
 				</if>
 			 set board_vote_cnt=board_vote_cnt+1 where board_id = ${vote_bid} 
@@ -310,25 +311,25 @@
 		
 		<!-- 추천 정보 추가 (vote테이블에 추가) -->
 		<insert id="addVote" parameterType="java.util.Map">
-			insert into vote values(vote_seq.nextval, ${vote_uid}, 1, ${vote_bid})
+			insert into vote values(vote_seq.nextval, ${vote_uid}, ${vote_cateid}, ${vote_bid})
 		</insert>
 			
 		<!-- 추천수 취소 (board_review에서 삭제)-->
-		<update id = "recommendCancel" parameterType = "int">
+		<update id = "recommendCancel" parameterType = "java.util.Map">
 			update 
-				<if test="cateid == '1'">
+				<if test="vote_cateid == 1">
 				board_inform
 				</if>
 				
-				<if test="cateid == '2'">
+				<if test="vote_cateid == 2">
 				board_review
 				</if>
 				
-				<if test="cateid == '3'">
+				<if test="vote_cateid == 3">
 				board_qna
 				</if>
 					 
-				<if test="cateid == '4'">
+				<if test="vote_cateid == 4">
 				board_free
 				</if>
 			 set board_vote_cnt = board_vote_cnt-1 where board_id = ${vote_bid}
@@ -340,21 +341,21 @@
 		</update>
 		
 		<!-- 글 수정 폼 (원래 글 dto 가져오기)  -->
-		<select id="boardEditForm" parameterType = "int" resultType = "BoardDTO">
+		<select id="boardEditForm" parameterType = "java.util.Map" resultType = "BoardDTO">
 			select * from 
-				<if test="cateid == '1'">
+				<if test="cateid == 1">
 				board_inform
 				</if>
 				
-				<if test="cateid == '2'">
+				<if test="cateid == 2">
 				board_review
 				</if>
 				
-				<if test="cateid == '3'">
+				<if test="cateid == 3">
 				board_qna
 				</if>
 					 
-				<if test="cateid == '4'">
+				<if test="cateid == 4">
 				board_free
 				</if>
 			where board_id = ${board_id}
@@ -363,19 +364,19 @@
 		<!-- 글 수정한 dto(수정한 dto넣기) -->
 		<insert id="boardEdit" parameterType="BoardDTO">
 			INSERT INTO 
-				<if test="cateid == '1'">
+				<if test="cateid == 1">
 				board_inform
 				</if>
 				
-				<if test="cateid == '2'">
+				<if test="cateid == 2">
 				board_review
 				</if>
 				
-				<if test="cateid == '3'">
+				<if test="cateid == 3">
 				board_qna
 				</if>
 					 
-				<if test="cateid == '4'">
+				<if test="cateid == 4">
 				board_free
 				</if>
 	            (board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
@@ -384,21 +385,21 @@
 		</insert>
 		
 		<!-- 글 삭제 -->
-		<delete id="boardDelete" parameterType="int">
+		<delete id="boardDelete" parameterType="java.util.Map">
 			delete from 
-				<if test="cateid == '1'">
+				<if test="cateid == 1">
 				board_inform
 				</if>
 				
-				<if test="cateid == '2'">
+				<if test="cateid == 2">
 				board_review
 				</if>
 				
-				<if test="cateid == '3'">
+				<if test="cateid == 3">
 				board_qna
 				</if>
 					 
-				<if test="cateid == '4'">
+				<if test="cateid == 4">
 				board_free
 				</if>
 			where board_id = ${board_id}

@@ -37,16 +37,46 @@
 		SELECT * FROM COMMENT2 WHERE cmt_bid = ${cmt_bid}
 	</select>
 	
-	<update id="increaseCommentCount" parameterType="java.lang.Integer">
-		UPDATE board_review
+	<update id="increaseCommentCount" parameterType="java.util.Map">
+		UPDATE 
+		<if test="cateid == 1">
+		board_inform
+		</if>
+		
+		<if test="cateid == 2">
+		board_review
+		</if>
+		
+		<if test="cateid == 3">
+		board_qna
+		</if>
+			 
+		<if test="cateid == 4">
+		board_free
+		</if>
 		SET board_cmt_cnt = board_cmt_cnt + 1
-		WHERE board_id = ${cmt_bid} 
+		WHERE board_id = ${board_id} 
 	</update>
 	
-	<update id="decreaseCommentCount" parameterType="java.lang.Integer">
-		UPDATE board_review
+	<update id="decreaseCommentCount" parameterType="java.util.Map">
+		UPDATE 
+		<if test="cateid == 1">
+		board_inform
+		</if>
+		
+		<if test="cateid == 2">
+		board_review
+		</if>
+		
+		<if test="cateid == 3">
+		board_qna
+		</if>
+			 
+		<if test="cateid == 4">
+		board_free
+		</if>
 		SET board_cmt_cnt = board_cmt_cnt - 1
-		WHERE board_id = ${cmt_bid} 
+		WHERE board_id = ${board_id} 
 	</update>
 	
 	

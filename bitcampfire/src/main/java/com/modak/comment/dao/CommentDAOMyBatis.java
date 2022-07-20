@@ -47,15 +47,15 @@ public class CommentDAOMyBatis implements CommentDAO {
 	}
 	
 	@Override
-	public void increaseCommentCount(int cmt_bid) {
-		
-		sqlSession.update("commentSQL.increaseCommentCount",cmt_bid);
+	public void increaseCommentCount(Map<String, Integer> map) {
+		//map : board_id, cateid
+		sqlSession.update("commentSQL.increaseCommentCount",map);
 	}
 	
 	@Override
-	public void decreaseCommentCount(int cmt_bid) {
-		// 
-		sqlSession.update("commentSQL.decreaseCommentCount",cmt_bid);
+	public void decreaseCommentCount(Map<String, Integer> map) {
+		//map : board_id, cateid
+		sqlSession.update("commentSQL.decreaseCommentCount",map);
 	}
 	
 	@Override

@@ -103,9 +103,9 @@ public class BoardDAOMyBatis implements BoardDAO {
 	// 정수 : 시작  ###################### 
 		// 글번호로 내용 가져오기
 		@Override
-		public BoardDTO getBoardContent(int board_id) {
+		public BoardDTO getBoardContent(Map<String, Integer>map) {
 			//System.out.println("getBoardContent 마이바티스 실행");
-			return sqlSession.selectOne("boardSQL.getBoardContent", board_id);
+			return sqlSession.selectOne("boardSQL.getBoardContent", map);
 //			
 			//System.out.println("글 개수 카운트 : " + sqlSession.selectOne("boardSQL.getBoardCount"));
 //			System.out.println("board_id 테스트 = " + board_id);
@@ -114,8 +114,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			
 		}
 			@Override
-			public void setHit(int board_id) {
-				sqlSession.update("boardSQL.setHit", board_id);
+			public void setHit(Map<String, Integer>map) {
+				sqlSession.update("boardSQL.setHit", map);
 		}
 
 			@Override
@@ -147,8 +147,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public BoardDTO boardEditForm(int board_id) {
-				return sqlSession.selectOne("boardSQL.boardEditForm", board_id);
+			public BoardDTO boardEditForm(Map<String,Integer> map) {
+				return sqlSession.selectOne("boardSQL.boardEditForm", map);
 				// selectList 는 객체 여러개 받아올때
 			}
 
@@ -159,8 +159,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public void boardDelete(int board_id) {
-				sqlSession.update("boardSQL.boardDelete", board_id);
+			public void boardDelete(Map<String,Integer> map) {
+				sqlSession.update("boardSQL.boardDelete", map);
 				
 			}
 		

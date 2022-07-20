@@ -28,7 +28,7 @@ function makeIndexDiv(startNum, endNum, location, category){
 			endNum : endNum,
 			category : category
 			},
-		async : false,
+		async 	: false,
 		success : function(data){
 			/*console.log(JSON.stringify(data));*/
 			$('#index').append(categoryOuter(category,location)	.append(getMainBlock(data, category)))
@@ -192,7 +192,7 @@ function listJsonToTag(data){ /*여기서 data는 json배열 */
 						})
 						.append(
 							$('<a/>',{
-								href : '/semiproject/board/getBoardView?board_id='+data.boardList[i].board_id,
+								href : '/semiproject/board/getBoardView?category='+cateidToString(data.boardList[i].board_cateid)+'&board_id='+data.boardList[i].board_id,
 								text : board_title
 							})	
 						)
@@ -306,5 +306,35 @@ function getBoardBeforedayString(board_date){
 	
 }
 
+function cateidToString(cateid){
+	let result;
+	if(cateid == 1){
+		result = 'info';
+	}else if(cateid == 2){
+		result = 'review';
+	}else if(cateid == 3){
+		result = 'qna';
+	}else if(cateid == 4){
+		result = 'free';
+	}
+	
+	return result;
+}
+
+function categoryToInt(category){
+	let result;
+
+	if(cateid == 'info'){
+		result = 1;
+	}else if(cateid == 'review'){
+		result = 2;
+	}else if(cateid == 'qna'){
+		result = 3;
+	}else if(cateid == 'free'){
+		result = 4;
+	}
+	
+	return result;
+}
 
 

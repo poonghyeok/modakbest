@@ -28,8 +28,9 @@
 			<!-- 풍혁(220707) : css 분리 적용을 위해, class eunhye를 추가하겠습니다. -->
 			<div class="content-header">
 	    		<h3>글 수정하기</h3>
+				<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
+				<input type = "text" id = "category" class = "category" value = "${param.category}">
 			</div>
-		<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
 			<div class="content-header">
 				<div class="user-profile">
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
@@ -124,17 +125,50 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+function cateidToString(cateid){
+	let result;
+	if(cateid == 1){
+		result = 'info';
+	}else if(cateid == 2){
+		result = 'review';
+	}else if(cateid == 3){
+		result = 'qna';
+	}else if(cateid == 4){
+		result = 'free';
+	}
+	
+	return result;
+}
+function categoryToInt(category){
+	let result;
+
+	if(category == 'info'){
+		result = 1;
+	}else if(category == 'review'){
+		result = 2;
+	}else if(category == 'qna'){
+		result = 3;
+	}else if(category == 'free'){
+		result = 4;
+	}
+	
+	return result;
+}
+
 $(function(){
 	
 	$.ajax({
 		type : 'get',
 		url : '/semiproject/board/getBoard',
-		data : {"board_id":$('#board_id').val()},
+		data : {"board_id":$('#board_id').val(), "cateid" : categoryToInt($('#category').val())},
 		success :function(data){
 			console.log(JSON.stringify(data));
 			$('#board_title').val(data.board_title);
 			editor.setData(data.board_content);
 			$('#board_cateid option:eq('+(data.board_cateid)+')').prop('selected', true);
+		},
+		error : function(err){
+			console.log(err);
 		}
 	})
 
@@ -173,6 +207,7 @@ $(function(){
 		}
 		else{
 			//글 등록 전 확인
+			let changedCategory;
 	        if(!confirm('정말 등록하시겠습니까?')){
 	            return false;
 	        }	
@@ -186,13 +221,15 @@ $(function(){
 							'board_id' : $('#board_id').val()
 					},
 			       	success: function(){
-						alert('게시글을 수정하였습니다.');
-			            location.href='/semiproject/board/getBoardView?board_id='+$('#board_id').val();
+			       		changedCategory = cateidToString($('#board_cateid option:selected').val());
+			       			
+			       		alert('게시글을 수정하였습니다.');
+			            location.href='/semiproject/board/getBoardView?category='+changedCategory+'&board_id='+$('#board_id').val();
 					},
 					error: function(e){
 						console.log(e);
 						/* 풍혁 0714 success 에서 location.href까지 먹히지 않아서 임시로 error 에도 location href를 써두었습니다~ */
-						location.href='/semiproject/board/getBoardView?board_id='+$('#board_id').val();
+						location.href='/semiproject/board/getBoardView?category='+changedCategory+'&board_id='+$('#board_id').val();
 					}
 				});//ajax
 			
