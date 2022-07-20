@@ -13,15 +13,15 @@ public interface BoardService {
 	//공통 영역: 끝 =================================
 
 	//풍혁 : 시작 =================================
-		public String getUserWriteTablelist(int pg, String sortOption);
+		public String getUserWriteTablelist(String category,int pg, String sortOption);
 		
-		public String getUserSearchWriteTablelist(int pg, String keyword, String sortOption);
+		public String getUserSearchWriteTablelist(String category, int pg, String keyword, String sortOption);
 		
-		public String getBoardPagingList(int pg, String sortOption);
+		public String getBoardPagingList(String category ,int pg, String sortOption);
+		
+		public String getBoardSearchPagingList(String category, int pg, String keyword, String sortOption);
 		
 		public void boardWrite(BoardDTO boardDTO);
-		
-		public String getBoardSearchPagingList(int pg, String keyword, String sortOption);
 		
 //		public String getHomeBoardList(int boardNum);
 		
@@ -30,14 +30,14 @@ public interface BoardService {
 //		public String getBoardSortList(String sortOption);
 	
 		public void update(Map<String, String> map);
+		
+		public List<BoardDTO> getBoardList(Map<String,Integer> map, String category);
 	//풍혁 : 끝 =================================
 
 	
 	// 정수 : 시작  ###################### 
 		// 글번호로 (글번호, DTO) 가져오기
-		public BoardDTO getBoardContent(int board_id);
-		
-		public List<BoardDTO> getBoardReviewList(Map<String,Integer> map);
+		public BoardDTO getBoardContent(Map<String, Integer>map);
 
 		public int recommendCheck(Map<String, Object> map);
 
@@ -49,11 +49,11 @@ public interface BoardService {
 
 		public void deleteVote(Map<String, Object> map);
 
-		public BoardDTO boardEditForm(int board_id);
+		public BoardDTO boardEditForm(Map<String,Integer> map);
 
 		public void boardEdit(BoardDTO boardDTO);
 
-		public void boardDelete(int board_id);
+		public void boardDelete(Map<String,Integer> map);
 
 
 		
@@ -68,6 +68,7 @@ public interface BoardService {
 		// 기진 " 끝 ##########################			
 
 
+
 	// 유진 : 시작 ##############################################
 		public void boardClassWrite(BoardClassDTO boardClassDTO);
 
@@ -76,6 +77,7 @@ public interface BoardService {
 		//		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
 
 		public String getBoardClassPagingList(int pg, String sortOption, int class_id);
+
 
 //		public String getUserClassSearchWriteTablelist(int pg, String keyword, String sortOption, int class_id);
 	
@@ -104,4 +106,4 @@ public interface BoardService {
 
 		
 }
-		
+

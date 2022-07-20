@@ -39,7 +39,7 @@ public class BoardClassController {
 		private HttpSession session;
 
 		@GetMapping("boardClassList")
-		public ModelAndView boardClassList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption, @RequestParam(value = "class_id", required = false) int class_id) {
+		public ModelAndView boardClassList(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption, @RequestParam(value = "class_id", required = false) int class_id) {
 			UserAllDTO userAllDTO = userService.getUserClass_Class(class_id);
 			session.setAttribute("memClassid", userAllDTO.getClass_id());
 			session.setAttribute("memClass_academy", userAllDTO.getClass_academy());
@@ -53,6 +53,7 @@ public class BoardClassController {
 			int session_classid = (int)session.getAttribute("memClassid");
 			
 			String userClassWriteTableList = boardService.getUserClassWriteTablelist(pg, sortOption,class_id, userAllDTO.getClass_academy());
+
 			String boardClassPagingList = boardService.getBoardClassPagingList(pg, sortOption, class_id); 
 			
 			ModelAndView mav = new ModelAndView();

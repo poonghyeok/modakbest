@@ -1,6 +1,7 @@
 package com.modak.comment.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,13 +46,13 @@ public class CommentServiceImpl implements CommentService {
 	
 	//풍혁0715 : increase decrease 가 여기가 아니라 board쪽에 있어야하는데... 일단..
 	@Override
-	public void increaseCommentCount(int cmt_bid) {
-		commentDAO.increaseCommentCount(cmt_bid);
+	public void increaseCommentCount(Map<String, Integer> map) {
+		commentDAO.increaseCommentCount(map);
 	}
 	
 	@Override
-	public void decreaseCommentCount(int cmt_bid) {
-		commentDAO.decreaseCommentCount(cmt_bid);
+	public void decreaseCommentCount(Map<String, Integer> map) {
+		commentDAO.decreaseCommentCount(map);
 	}
 	//
 	

@@ -506,12 +506,15 @@ $(document).on('click','#commentUpdateBtn', function(){
 $(document).on('click','#commentDeleteBtn', function(){
 	let comment_id = $(this).attr('data-id');
 	let comment_bid = $(this).attr('data-bid');
+	let cmt_cateid = $('#board_cateid').val();
 	
 	if(confirm('댓글을 정말 삭제하시겠습니까?')){
 		$.ajax({
 			type : 'post',
 			url : '/semiproject/comment/delete',
-			data : {'cmt_id' : comment_id, 'cmt_bid' : comment_bid},
+			data : {'cmt_id' : comment_id, 
+				'cmt_bid' : comment_bid,
+				'cmt_cateid' : cmt_cateid},
 			async : false,
 			success : function(){
 				alert('댓글을 삭제 하였습니다.');
@@ -585,7 +588,8 @@ $('#btn-create-btn').click(function(){
 				'cmt_content' : content_with_tag,
 			},
 			success : function(){
-				location.href = "/semiproject/board/getBoardView?board_id="+$('#board_id').val();
+				alert('댓글작성을 완료했습니다.');
+				location.reload(); /*= "/semiproject/board/getBoardView?board_id="+$('#board_id').val();*/
 			},
 			error : function(err){
 				console.log(err);
@@ -593,3 +597,35 @@ $('#btn-create-btn').click(function(){
 		}) 
 	}
 })
+function cateidToString(cateid){
+	let result;
+	if(cateid == 1){
+		result = 'info';
+	}else if(cateid == 2){
+		result = 'review';
+	}else if(cateid == 3){
+		result = 'qna';
+	}else if(cateid == 4){
+		result = 'free';
+	}
+	
+	return result;
+}
+
+function categoryToInt(category){
+	let result;
+
+	if(cateid == 'info'){
+		result = 1;
+	}else if(cateid == 'review'){
+		result = 2;
+	}else if(cateid == 'qna'){
+		result = 3;
+	}else if(cateid == 'free'){
+		result = 4;
+	}
+	
+	return result;
+}
+
+

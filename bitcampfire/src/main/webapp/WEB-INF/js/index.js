@@ -8,27 +8,27 @@
 /*풍혁220709 : 성공 ..!*/
 
 $(function(){
-	makeIndexDiv(1,5,'left', 'Editor choice');
-	makeIndexDiv(1,5,'right', 'Weekly Best');
-	makeIndexDiv(1,8,'left', 'Q&A');
-	makeIndexDiv(1,10,'left', '커뮤니티');
+	makeIndexDiv(1,5,'left', 'info');
+	makeIndexDiv(1,5,'right', 'review');
+	makeIndexDiv(1,8,'left', 'qna');
+	makeIndexDiv(1,10,'left', 'free');
 })
 
 /* 풍혁220709 function 분리하기 */
 function makeIndexDiv(startNum, endNum, location, category){
-	
 	//var categoryDiv = categoryOuter(category, location);
-	
-	var mainBlock = ''; 
+	//풍혁 0719 : category에 따라 controller를 다르게 태워야하나 
+	var mainBlock = '';
 	
 	$.ajax({
 		type : 'post',
 		url : '/semiproject/board/jsonTest',
 		data : {
 			startNum : startNum,
-			endNum : endNum
+			endNum : endNum,
+			category : category
 			},
-		async : false,
+		async 	: false,
 		success : function(data){
 			/*console.log(JSON.stringify(data));*/
 			$('#index').append(categoryOuter(category,location)	.append(getMainBlock(data, category)))
@@ -49,13 +49,13 @@ function categoryOuter(category, location){
 	
 	var colNum = 0;
 	
-	if(category.indexOf('choice') >= 0){
+	if(category.indexOf('info') >= 0){
 		colNum = 6;
-	}else if(category.indexOf('Best') >= 0){
+	}else if(category.indexOf('review') >= 0){
 		colNum = 6;
-	}else if(category.indexOf('Q&A') >= 0){
+	}else if(category.indexOf('qna') >= 0){
 		colNum = 8;
-	}else if(category.indexOf('커뮤니티') >= 0){
+	}else if(category.indexOf('free') >= 0){
 		colNum = 8;
 	}else if(category.indexOf('ad') >= 0){
 		colNum = 4;
@@ -75,16 +75,26 @@ function getMainBlock(data, category){
 	
 	var icon = '';
 	
-	if(category.indexOf('choice') >= 0){
+	if(category.indexOf('info') >= 0){
 		icon = 'flag';
-	}else if(category.indexOf('Best') >= 0){
+	}else if(category.indexOf('review') >= 0){
 		icon = 'star';
-	}else if(category.indexOf('Q&A') >= 0){
+	}else if(category.indexOf('qna') >= 0){
 		icon = 'database';
-	}else if(category.indexOf('커뮤니티') >= 0){
+	}else if(category.indexOf('free') >= 0){
 		icon = 'comment';
 	}
-
+	let boardCategory;
+	if(category == 'info'){
+		boardCategory = '취업정보';
+	}else if(category == 'review'){
+		boardCategory = '후기';
+	}else if(category == 'qna'){
+		boardCategory = 'Q&A';
+	}else if(category == 'free'){
+		boardCategory = '자유게시판';
+	}
+	
 	var mainBlock =
 		$('<div/>',{
 			class : "main-block"
@@ -92,7 +102,7 @@ function getMainBlock(data, category){
 		.append(
 			$('<h4/>',{
 				class : "main-header",
-				text : category
+				text : boardCategory
 			})
 			.prepend(
 				$('<i/>',{
@@ -118,7 +128,8 @@ function getMainBlock(data, category){
 /*풍혁0709 : category가 qna이거나 커뮤니티인 경우만 append*/
 function getBoardListlink(category){
 	var linkTag = $('<a/>',{
-		href : "/semiproject/board/list?pg=1&sortOption=date",
+//		풍혁0719 : category는 url에 맞게 추후에 고칠 예정, 일단 indexList를 띄우자
+		href : "/semiproject/board/list?pg=1&sortOption=date&category="+category,
 		class : "main-more-btn pull-right"
 	});
 	
@@ -127,7 +138,7 @@ function getBoardListlink(category){
 		})
 	);
 	
-	if( (category.indexOf('Q&A') >= 0) || (category.indexOf('커뮤니티') >=0) ){
+	if( (category.indexOf('qna') >= 0) || (category.indexOf('free') >=0) ){
 		return linkTag;
 	}else{
 		return null;
@@ -181,7 +192,7 @@ function listJsonToTag(data){ /*여기서 data는 json배열 */
 						})
 						.append(
 							$('<a/>',{
-								href : '/semiproject/board/getBoardView?board_id='+data.boardList[i].board_id,
+								href : '/semiproject/board/getBoardView?category='+cateidToString(data.boardList[i].board_cateid)+'&board_id='+data.boardList[i].board_id,
 								text : board_title
 							})	
 						)
@@ -295,5 +306,35 @@ function getBoardBeforedayString(board_date){
 	
 }
 
+function cateidToString(cateid){
+	let result;
+	if(cateid == 1){
+		result = 'info';
+	}else if(cateid == 2){
+		result = 'review';
+	}else if(cateid == 3){
+		result = 'qna';
+	}else if(cateid == 4){
+		result = 'free';
+	}
+	
+	return result;
+}
+
+function categoryToInt(category){
+	let result;
+
+	if(cateid == 'info'){
+		result = 1;
+	}else if(cateid == 'review'){
+		result = 2;
+	}else if(cateid == 'qna'){
+		result = 3;
+	}else if(cateid == 'free'){
+		result = 4;
+	}
+	
+	return result;
+}
 
 

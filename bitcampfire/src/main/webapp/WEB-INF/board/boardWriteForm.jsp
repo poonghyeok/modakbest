@@ -28,6 +28,7 @@
 			<!-- 풍혁(220707) : css 분리 적용을 위해, class eunhye를 추가하겠습니다. -->
 			<div class="content-header">
 	    		<h3>새 글 쓰기</h3>
+	    		<input type = "text" value="${param.category}" id="category">
 			</div>
 			
 			<div class="content-header">
@@ -120,7 +121,56 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+//풍혁0718 : 일단 글쓰기 했을때 카테고리는 반영돼서 들어오는데 유저가 카테고리를 변경할 수도 있으니 변경함에 따라 카테고리 반영하기위해서..
+function categoryToInt(category){
+	let cateid;
+	
+	if(category ===  'info'){
+		cateid = 1;
+	}else if(category === 'review'){
+		cateid = 2;
+	}else if(category === 'qna'){
+		cateid = 3;
+	}else if(category === 'free'){
+		cateid = 4;
+	}
+	
+	return cateid
+};
+
+function cateidToString(cateid){
+	let category;
+	
+	if(cateid ==  1){
+		category = 'info';
+	}else if(cateid == 2){
+		category = 'review';
+	}else if(cateid == 3){
+		category = 'qna';
+	}else if(cateid == 4){
+		category = 'free';
+	}
+	return category;
+}
+
 $(function(){
+	/* 풍혁 0718 */
+	let category = $('#category').val();
+	let cateid = categoryToInt(category);
+	
+	/* $('#board_cateid option:eq(0)').prop('selected',false); */
+	$('#board_cateid option:eq('+cateid+')').prop('selected',true);
+});
+
+$(document).on('change','#board_cateid', function(){
+	alert('select change..!');
+	let cateid = $('#board_cateid option:selected').val();
+	let category = cateidToString(cateid);
+	console.log('changed category : ' + category);
+	
+	$('#category').val(category);
+})
+//풍혁0718 : 일단 글쓰기 했을때 카테고리는 반영돼서 들어오는데 유저가 카테고리를 변경할 수도 있으니 변경함에 따라 카테고리 반영하기위해서..
 	
 	//에디터
 	
@@ -174,7 +224,7 @@ $(function(){
 			       	success: function(){
 						alert('게시글을 등록하였습니다.');
 			            //풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
-						location.href='/semiproject/board/list?pg=1&sortOption=date';
+						location.href='/semiproject/board/list?category='+$('#category').val()+'&pg=1&sortOption=date';
 					},
 					error: function(e){
 						console.log(e);
@@ -206,7 +256,7 @@ $(function(){
 		$('#board_content').removeClass('empty');
 	}); */
 	
-});
+
 </script>
 
 

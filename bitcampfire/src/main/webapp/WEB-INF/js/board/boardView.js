@@ -15,8 +15,9 @@ $('.note-vote-btn').click(function(){
 	var vote_uid = $('#board_watcher').val(); //세션 유저아이디
 	var vote_bid = $('#board_id').val(); // 게시글 번호
 	var vote_cateid = $('#board_cateid').val(); //카테 번호
+	var board_cateid = $('#board_cateid').val(); //풍혁0719 : 같은 값이지만 헷갈려서 그냥 하나 더 추가했습니다. 
 	
-	console.log("추천수 유저 : " + vote_uid  + "게시물번호 : " + vote_bid + "글 카테 번호 : " + vote_cateid);
+	//console.log("추천수 유저 : " + vote_uid  + "게시물번호 : " + vote_bid + "글 카테 번호 : " + vote_cateid);
 	
 	let sendData  = {"vote_uid" : vote_uid,
 					"vote_bid" : vote_bid,
@@ -74,7 +75,7 @@ $('.note-vote-btn').click(function(){
 			alert("본인의 글만 수정할 수 있습니다.")
 		} else if($('#board_watcher').val() == $('#board_uid').val()){ // 세션의 아이디가 맞으면 (자신의 아이디면) 글 수정 폼 띄우기
 			//location.href = "/semiproject/board/boardEditForm?board_id=" + ${board_id};
-			location.href = "/semiproject/board/boardEditForm?board_id="+$('#board_id').val();
+			location.href = "/semiproject/board/boardEditForm?category="+$('#category').val()+"&board_id="+$('#board_id').val();
 		}
 		/*} else {
 			location.reload();
@@ -86,7 +87,9 @@ $('.note-vote-btn').click(function(){
 	$('#boardDelete').click(function(){
 		
 		var board_id = $('#board_id').val();
-
+		//풍혁 0719 : 카테고리에 맞게 테이블 반영해야하므로, cateid 추가 
+		var cateid = $('#board_cateid').val();
+		
 		// alert("글 삭제?")
 		if(!$('#board_watcher').val()){
 			alert("먼저 로그인하세요 .")
@@ -102,7 +105,7 @@ $('.note-vote-btn').click(function(){
 				$.ajax({
 					type : 'get',
 					url : "/semiproject/board/boardDelete",
-					data : {board_id : board_id},
+					data : {board_id : board_id, cateid : cateid},
 					success: function() {
 						alert("글이 삭제되었습니다.")
 						location.href="/semiproject/";

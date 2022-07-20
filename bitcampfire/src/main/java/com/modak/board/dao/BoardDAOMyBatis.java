@@ -25,27 +25,27 @@ public class BoardDAOMyBatis implements BoardDAO {
 	//풍혁 : 시작 ====================================
 		@Override
 		public List<BoardDTO> getUserWriteTableList() {
-			System.out.println("\nBoardDaoImpl.. getUserWriteTableList().. ");
+//			System.out.println("\nBoardDaoImpl.. getUserWriteTableList().. ");
 			
 			return sqlSession.selectList("boardSQL.getBoardUserWriteList");
 		}
-	
-		@Override
-		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map) {
-			System.out.println("\nBoardDaoImpl.. getBoardRangeOrderByTime().. ");
-	
-			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
-		}
+		
+//		@Override
+//		public List<BoardDTO> getBoardRangeOrderByTime(Map<String, Integer> map) {
+//			System.out.println("\nBoardDaoImpl.. getBoardRangeOrderByTime().. ");
+//	
+//			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
+//		}
 		
 		@Override
-		public int getTotalBoardNum() {
+		public int getTotalBoardNum(int cateid) {
 			
-			return sqlSession.selectOne("boardSQL.getTotalBoardNum");
+			return sqlSession.selectOne("boardSQL.getTotalBoardNum", cateid);
 		}
 		
 		@Override
 		public void boardWrite(BoardDTO boardDTO) {
-			System.out.print("Mybatis insert");
+//			System.out.print("Mybatis insert");
 			sqlSession.insert("boardSQL.boardWrite",boardDTO);
 		}
 		
@@ -59,21 +59,34 @@ public class BoardDAOMyBatis implements BoardDAO {
 		
 		@Override
 		public int getTotalBoardSearchNum(String keyword) {
-			System.out.print("@LOG@ : Mybatis getTotalBoardSearchNum.. ");
+//			System.out.print("@LOG@ : Mybatis getTotalBoardSearchNum.. ");
 			return sqlSession.selectOne("boardSQL.getTotalBoardSearchNum",keyword);
 		}
 		
 		@Override
-		public List<BoardDTO> getBoardReviewList(Map<String, Integer> map) {
+		public List<BoardDTO> getBoardList(Map<String, Integer> map, String category) {
 			
-			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", map);
+			//풍혁0719 : category에 맞게 index page에 list를 띄워야해서 String category가 들어왔고, 급하게 여기다가 새로운 map 생성
+			Map<String, String> newMap = new HashMap<>();
+			
+			newMap.put("startNum", String.valueOf(map.get("startNum")));
+			newMap.put("endNum", String.valueOf(map.get("endNum")));
+			newMap.put("category", category);
+			 
+			return sqlSession.selectList("boardSQL.getBoardRangeOrderByTime", newMap);
 		}
 		
 		@Override
 		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption) {
+			//풍혁0718 : 굳이 여기서 다시 String, String으로 담을 필요없이 이전 단계부터 map을 String, String으로 만들어서 넘겨주면 된다. 이부분 수정할것
+			
 			Map<String, String> newMap = new HashMap<>();
-			newMap.put("startNum", map.get("startNum").toString());
-			newMap.put("endNum", map.get("endNum").toString());
+			newMap.put("cateid", map.get("cateid").toString());
+			
+			System.out.println("\n @POONG LOG@ cateid : " + map.get("cateid").toString());
+			
+			newMap.put("startNum",Integer.toString(map.get("startNum")));
+			newMap.put("endNum", Integer.toString(map.get("endNum")));
 			newMap.put("sortOption", sortOption);
 			
 			return sqlSession.selectList("boardSQL.getBoardRangeOrder", newMap);
@@ -90,9 +103,9 @@ public class BoardDAOMyBatis implements BoardDAO {
 	// 정수 : 시작  ###################### 
 		// 글번호로 내용 가져오기
 		@Override
-		public BoardDTO getBoardContent(int board_id) {
+		public BoardDTO getBoardContent(Map<String, Integer>map) {
 			//System.out.println("getBoardContent 마이바티스 실행");
-			return sqlSession.selectOne("boardSQL.getBoardContent", board_id);
+			return sqlSession.selectOne("boardSQL.getBoardContent", map);
 //			
 			//System.out.println("글 개수 카운트 : " + sqlSession.selectOne("boardSQL.getBoardCount"));
 //			System.out.println("board_id 테스트 = " + board_id);
@@ -101,9 +114,10 @@ public class BoardDAOMyBatis implements BoardDAO {
 			
 		}
 			@Override
-			public void setHit(int board_id) {
-				sqlSession.update("boardSQL.setHit", board_id);
-			}
+			public void setHit(Map<String, Integer>map) {
+				sqlSession.update("boardSQL.setHit", map);
+		}
+
 
 			@Override
 			public int recommendCheck(Map<String, Object> map) {
@@ -134,8 +148,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public BoardDTO boardEditForm(int board_id) {
-				return sqlSession.selectOne("boardSQL.boardEditForm", board_id);
+			public BoardDTO boardEditForm(Map<String,Integer> map) {
+				return sqlSession.selectOne("boardSQL.boardEditForm", map);
 				// selectList 는 객체 여러개 받아올때
 			}
 
@@ -146,8 +160,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public void boardDelete(int board_id) {
-				sqlSession.update("boardSQL.boardDelete", board_id);
+			public void boardDelete(Map<String,Integer> map) {
+				sqlSession.update("boardSQL.boardDelete", map);
 				
 			}
 		
@@ -274,5 +288,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 
 
       
-      //유진 : 끝 
+			}
+			
+		
+			//유진 : 끝
 }

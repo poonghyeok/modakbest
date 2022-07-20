@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +21,8 @@
 		<input type="hidden" value="${sessionScope.memEmail}" id="session_email"> 
 		<input type="hidden" value="${param.sortOption}" id="sortOption"> 
 		<input type="hidden" value="${keyword}" id="searchKeyword"> 
+		<input type="text" value="${param.category}" id="category"> 
+		
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
@@ -27,7 +31,17 @@
 		<div class="nav" role="navigation">
 			    <a class="create btn btn-success btn-wide pull-right" id = "boardWriteBtnAtList"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
 			    
-			    <h4>Q&amp;A</h4>
+			    <h4>
+			    <c:if test="${param.category eq 'info'}"> 취업정보 </c:if>
+			    <c:if test="${param.category eq 'review'}"> 후기 </c:if>
+			    <c:if test="${param.category eq 'qna'}"> Q&amp;A </c:if>
+			    <c:if test="${param.category eq 'free'}"> 자유게시판 </c:if>
+			    	<%-- <c:if test="${param.category eq 'info'}"> 취업정보 </c:if>
+			    	<c:if test="${param.category eq 'review'}"> 후기 </c:if>
+			    	<c:if test="${param.category eq 'qna'}"> Q&amp;A </c:if>
+			    	<c:if test="${param.category eq 'free'}"> 자유게시판 </c:if> --%>
+				
+			    </h4>
 			    <form id="category-filter-form" name="category-filter-form" method="get" action="/board/questions"> <!-- 풍혁(220704) : 검색 url 태워야합니다.   -->
 				    <div class="category-filter-wrapper">
 			            <div class="category-filter-query pull-right">
