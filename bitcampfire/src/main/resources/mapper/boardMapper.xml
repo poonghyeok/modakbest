@@ -415,8 +415,10 @@
 			select * from board_review
 		</select>
 
+
 	<!-- 		
 		<select id="getBoardAllList" resultType = "BoardAllDTO">
+
 			select * from 
 				<if test="cateid == '1'">
 				board_inform
@@ -432,7 +434,7 @@
 					 
 				<if test="cateid == '4'">
 				board_free
-				</if>
+				</if> 
 
 		</select> -->
 		
