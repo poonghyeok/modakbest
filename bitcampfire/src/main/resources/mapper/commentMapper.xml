@@ -98,6 +98,7 @@
 	</delete>
 <!-- ======================== 풍혁 끝 ======================== -->	
 
+<!-- **************************유진 시작************************** -->
 <insert id="commentClassWrite">
 		INSERT INTO COMMENT2 (cmt_id
 							  ,cmt_uid
@@ -134,4 +135,25 @@
 	<delete id="commentClassDelete" parameterType="java.lang.Integer">
 		delete from comment2 where cmt_id = ${cmt_id} 
 	</delete>
+	
+	<update id="increaseClassCommentCount" parameterType="java.util.Map">
+		<!-- UPDATE BOARD_CLASS
+		SET board_cmtcnt = board_cmt_cnt + 1
+		WHERE board_id = ${board_id} and cmt_cateid = 5 --> 
+		UPDATE BOARD_CLASS
+		SET board_cmt_cnt = board_cmt_cnt + 1
+		WHERE board_id = ${board_id} 
+
+	</update>
+	
+	<update id="decreaseClassCommentCount" parameterType="java.util.Map">
+		<!-- UPDATE BOARD_CLASS
+		SET board_cmt_cnt = board_cmt_cnt - 1
+		WHERE board_id = ${board_id} and cmt_cateid = 5 --> 
+		UPDATE BOARD_CLASS
+		SET board_cmt_cnt = board_cmt_cnt - 1
+		WHERE board_id = ${board_id} 
+	</update>
+<!-- **************************유진 끝************************** -->
+
 </mapper>

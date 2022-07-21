@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 //import com.modak.board.bean.BoardAllDTO;
+import com.modak.user.bean.UserAllDTO;
 
 @Transactional
 @Repository
@@ -210,14 +211,14 @@ public class BoardDAOMyBatis implements BoardDAO {
       
       //유진 : 시작
       	@Override
-			public void boardClassWrite(BoardClassDTO boardClassDTO) {
+			public void boardClassWrite(BoardDTO boardDTO) {
 				System.out.print("Mybatis insert");
-				sqlSession.insert("boardSQL.boardClassWrite",boardClassDTO);
+				sqlSession.insert("boardSQL.boardClassWrite",boardDTO);
 				
 			}
 
 			@Override
-			public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,	int class_id) {
+			public List<BoardDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,	int class_id) {
 				Map<String, Object> newMap = new HashMap<>();
 				newMap.put("startNum", map.get("startNum").toString());
 				newMap.put("endNum", map.get("endNum").toString());
@@ -233,8 +234,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public List<BoardClassDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption) {
-				List<BoardClassDTO> list = new ArrayList<>();
+			public List<BoardDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption) {
+				List<BoardDTO> list = new ArrayList<>();
 				map.put("sortOption", sortOption);
 				list = sqlSession.selectList("boardSQL.getBoardClassSearchRangeOrder", map);
 				return list;
@@ -249,7 +250,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public BoardClassDTO getBoardClassContent(int board_id, int class_id) {
+			public BoardDTO getBoardClassContent(int board_id, int class_id) {
 				Map<String, Object> map = new HashMap<String,Object>();
 				map.put("board_id", board_id);
 				map.put("class_id", class_id);
@@ -294,7 +295,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public BoardClassDTO boardClassEditForm(int board_id) {
+			public BoardDTO boardClassEditForm(int board_id) {
 				return sqlSession.selectOne("boardSQL.boardClassEditForm", board_id);
 			}
 
@@ -305,13 +306,31 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 	
 			//유진 : 끝
-
+	  //<!--@@@@ 연수 살려주세요!(220721)  -->
 	 // @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 		
+			//@@@ 어드민 페이지 > notice 글작성
 			@Override
 			public void adminBoardNoticeWrite(BoardDTO boardDTO) {
 				sqlSession.insert("boardSQL.adminBoardNoticeWrite", boardDTO);
 				
 			}
+			//@@@ 어드민 페이지 > notice 리스트 가져오기
+			@Override
+			public List<BoardDTO> getBoardNoticeAllList(Map<String, Integer> map) {
+				return sqlSession.selectList("boardSQL.getBoardNoticeAllList", map);
+			}	
+
+//			@Override
+//			public BoardDTO getAdminBoardNoticeContent(int board_id) {
+//				return sqlSession.selectOne("boardSQL.getAdminBoardNoticeContent", board_id);
+//			}
+//
+//			@Override
+//			public void setAdminBoardNoticeHit(int board_id) {
+//				sqlSession.update("boardSQL.setAdminBoardNoticeHit", board_id);				
+//			}
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+	//<!--@@@@ 연수 살려주세요!(220721)  -->
+
 }
 

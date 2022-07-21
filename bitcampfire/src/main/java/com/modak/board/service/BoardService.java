@@ -3,7 +3,6 @@ package com.modak.board.service;
 import java.util.List;
 import java.util.Map;
 
-import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 //import com.modak.board.bean.BoardAllDTO;
 
@@ -78,7 +77,7 @@ public interface BoardService {
 
 
 	// 유진 : 시작 ##############################################
-		public void boardClassWrite(BoardClassDTO boardClassDTO);
+		public void boardClassWrite(BoardDTO boardDTO);
 
 		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id, String class_academy);
 
@@ -94,7 +93,7 @@ public interface BoardService {
 
 		public String getBoardClassSearchPagingList(int pg, String keyword, String sortOption, int class_id);
 
-		public BoardClassDTO getBoardClassContent(int board_id, int class_id);
+		public BoardDTO getBoardClassContent(int board_id, int class_id);
 
 		public int boardClassRecommendCheck(Map<String, Object> map);
 
@@ -108,19 +107,25 @@ public interface BoardService {
 
 		public void boardClassDelete(int board_id);
 
-		public BoardClassDTO boardClassEditForm(int board_id);
+		public BoardDTO boardClassEditForm(int board_id);
 
 		public void boardClassUpdate(Map<String, String> map);
 
 //유진 끝###################################################################33
-
-		// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		//<!--@@@@ 연수 살려주세요!(220721)  -->
+		//@@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+		//@@@ 공지사항 작성
 		public void adminBoardNoticeWrite(BoardDTO boardDTO);
 		
-		public String getAdminNoticeTableList(String pg);
+		//public Map<String, Object> getBoardNoticeAllList(String pg);
+		//@@@ 공지사항 리스트 불러오기
+		public String getAdminNoticeTableList(int pg);
+		//@@@ 공지사항 내용  불러오기
+		//public BoardDTO getAdminBoardNoticeContent(int board_id);
 
-		public String getAminNoticePagingList(String pg);
+		//public String getAminNoticePagingList(String pg);
 		
-		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+		//<!--@@@@ 연수 살려주세요!(220721)  -->
 
 }

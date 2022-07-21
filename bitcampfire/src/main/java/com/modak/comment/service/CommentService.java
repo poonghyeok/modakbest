@@ -33,8 +33,13 @@ public interface CommentService {
 	public void commentClassUpdate(int cmt_id, String cmt_content);
 
 	public void commentClassDelete(int cmt_id);
-//유진끝#################################################
 
+	public void increaseClassCommentCount(Map<String, Integer> map);
+
+	public void decreaseClassCommentCount(Map<String, Integer> map);
+
+
+//유진끝#################################################
 
 	
 }

@@ -461,14 +461,14 @@
 	<!--  기진 : 끝  ###################### -->
   
   <!--  유진 : 시작   -->
- 		<insert id="boardClassWrite" parameterType="BoardClassDTO">
+ 		<insert id="boardClassWrite" parameterType="BoardDTO">
 	      INSERT INTO BOARD_CLASS
 	            (board_id, board_uid, board_classid, board_title, board_content, board_date_created)
 	        VALUES
 	            (BOARD_CLASS_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content},sysdate)
     	</insert>
     	
-    	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardClassDTO">
+    	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">
 	    	SELECT * FROM (
 	   			SELECT ROWNUM AS RN, TT.* FROM (
 	 				SELECT * FROM BOARD_CLASS 
@@ -486,22 +486,12 @@
  				)TT
 			) WHERE board_classid = #{class_id} and (RN &gt;=${startNum} AND RN &lt;=${endNum})
     	</select>
-    	
-
-	<!-- @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  (**추천수/조회수 다시 챙기기 )@@@@@@@@@  -->
-	<insert id="adminBoardNoticeWrite" parameterType="BoardDTO">
-	      INSERT INTO BOARD_AdminNotice
-	            (board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
-          VALUES
-	            (BOARD_SEQ.nextval, #{board_uid}, #{board_cateid}, #{board_title}, #{board_content}, sysdate)   
-	</insert>
-	<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
 
     	<select id="getTotalBoardClassNum" resultType="java.lang.Integer">
 	   		SELECT count(*) FROM BOARD_CLASS where board_classid = #{class_id}
 	   	</select>
 	   	
-	   	<select id="getBoardClassSearchRangeOrder" parameterType="java.util.Map" resultType="BoardClassDTO">
+	   	<select id="getBoardClassSearchRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">
 	    	SELECT * FROM (	
 	    		SELECT ROWNUM AS RN, TT.* FROM 
 	    			(SELECT * FROM BOARD_CLASS 
@@ -529,7 +519,7 @@
    				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%')
 	   	</select>
 	   	
-	   	<select id = "getBoardClassContent" parameterType = "java.util.Map" resultType = "BoardClassDTO"> 
+	   	<select id = "getBoardClassContent" parameterType = "java.util.Map" resultType = "BoardDTO"> 
 			select * from BOARD_CLASS where board_id = ${board_id} and board_classid = #{class_id}
 		</select>
 		
@@ -568,7 +558,7 @@
 		</delete>
 		
 		<!-- 글 수정 폼 (원래 글 dto 가져오기)  -->
-		<select id="boardClassEditForm" parameterType = "int" resultType = "BoardClassDTO">
+		<select id="boardClassEditForm" parameterType = "int" resultType = "BoardDTO">
 			select * from BOARD_CLASS where board_id = ${board_id}
 		</select>
 		
@@ -580,5 +570,33 @@
 					board_classid = ${board_classid}
 				WHERE board_id = ${board_id}	 
 		</update>
+		<!--@@@@ 연수 살려주세요!(220721)  -->
+		<!-- @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  (**추천수/조회수 다시 챙기기 )@@@@@@@@@  -->
+		<!-- 공지사항 글작성 -->
+		<insert id="adminBoardNoticeWrite" parameterType="BoardDTO">
+		      INSERT INTO BOARD_AdminNotice
+		            (board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
+	          VALUES
+		            (BOARD_SEQ.nextval, #{board_uid}, #{board_cateid}, #{board_title}, #{board_content}, sysdate)   
+		</insert>
+		<!-- 공지사항 리스트 가져오기 -->
+		<select id="getBoardNoticeAllList" resultType="BoardDTO">
+			<![CDATA[
+				select * from
+				(select rownum rn, kk.* from
+				(select * from BOARD_AdminNotice order by board_date_created desc)kk)
+				where rn >= #{startNum} and rn <= #{endNum}
+				]]>	
+	   	</select>	   	
+	   	<!-- 공지사항 글내용 가져오기 -->
+		<!-- <select id = "getAdminBoardNoticeContent" parameterType = "int" resultType = "BoardDTO"> 
+			select * from BOARD_AdminNotice where board_id = ${board_id}
+		</select> -->
+		<!-- 공지사항 조회수 -->
+		<!-- <update id = "setAdminBoardNoticeHit" parameterType = "int">
+			update BOARD_AdminNotice set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
+		</update> -->
+		<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
+		<!--@@@@ 연수 살려주세요!(220721)  -->
 
 </mapper>

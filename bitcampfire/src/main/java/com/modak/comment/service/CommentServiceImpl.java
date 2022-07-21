@@ -102,6 +102,15 @@ public class CommentServiceImpl implements CommentService {
 		commentDAO.commentClassDelete(cmt_id);
 		
 	}
+	@Override
+	public void increaseClassCommentCount(Map<String, Integer> map) {
+		commentDAO.increaseClassCommentCount(map);
+		
+	}
+	@Override
+	public void decreaseClassCommentCount(Map<String, Integer> map) {
+		commentDAO.decreaseClassCommentCount(map);		
+	}
 //유진끝#################################################
 
 }

@@ -36,7 +36,7 @@ public interface CommentDAO {
 
 //풍혁 끝: =================================
 	
-	
+//유진 시작*********************************************************
 	public void commentClassWrite(CommentDTO commentDTO);
 
 	public List<CommentDTO> getClassCommentListByBoardId(int cmt_bid);
@@ -46,6 +46,11 @@ public interface CommentDAO {
 	public void commentClassUpdate(int cmt_id, String cmt_content);
 
 	public void commentClassDelete(int cmt_id);
+
+	public void increaseClassCommentCount(Map<String, Integer> map);
+
+	public void decreaseClassCommentCount(Map<String, Integer> map);
 	
+//유진 끝*********************************************************
 	
 }
