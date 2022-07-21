@@ -67,7 +67,8 @@
                             </div>
 	                  	</div>
                   	</div>
-					<div class="content-identity pull-right">						
+					<div class="content-identity pull-right">
+						<!-- 이걸 세션으로 실어줘야될거 같다 다시! -->						
 						<div class="content-identity-count"><i class="fa fa-eye"></i> ${boardDTO.board_view_cnt}</div>
 	                </div>
             	</div><!--  <div class="panel-heading clearfix"> -->

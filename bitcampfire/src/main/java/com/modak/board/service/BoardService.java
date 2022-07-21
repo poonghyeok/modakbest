@@ -122,8 +122,12 @@ public interface BoardService {
 		public String getAdminNoticeTableList(int pg);
 		//@@@ 공지사항 내용  불러오기
 		public BoardDTO getAdminBoardNoticeContent(int board_id);
-
+		//@@리스트 - 선택삭제
 		public void adminNoticeDelete_select(String[] check);
+		//@@리스트 - 개별삭제
+		public void adminNoticeDelete_each(int board_id);
+
+		public BoardDTO getAdminBoardNotice_edit(int board_id);
 
 		//public String getAminNoticePagingList(String pg);
 		

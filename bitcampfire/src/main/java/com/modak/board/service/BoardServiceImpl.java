@@ -737,6 +737,7 @@ public class BoardServiceImpl implements BoardService {
 			map.put("startNum", startNum);
 			map.put("endNum", endNum);
 			
+			//연수 테이블 1개의 전체 공지사항을 끌어오기 때문에 cateid 구분없이 받아봄
 			//풍혁0718 : cateid까지 넣어줬으니 DAOMyBatis 에서 이를 반영해 잘꺼내와보자. query에서 조건문을 사용할 것이다. 			
 			List<BoardDTO> list = boardDAO.getBoardNoticeAllList(map);
  
@@ -792,7 +793,7 @@ public class BoardServiceImpl implements BoardService {
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
 						//풍혁 (220707) : pg는 그냥 1로만 넣어놓았으니 나중에 pg 넘길방법 생각해야됨 input hidden만들어서 넘기자
 						//연수: 나한테 맞게 href 수정하기
- 						tr.append("<a href='/semiproject/admin/adminBoardNoticeView?&board_id="+boardDTO.getBoard_id()+"&pg=1'>");
+ 						tr.append("<a href='/semiproject/admin/getAdminBoardNoticeView?&board_id="+boardDTO.getBoard_id()+"&pg=1'>");
  						/*("<a href='/semiproject/board/getBoardView?category="+noticeCateidToString(boardDTO.getBoard_cateid())+"&board_id="+boardDTO.getBoard_id()+"&pg=1'>");*/
 							tr.append(boardDTO.getBoard_title());
 						tr.append("</a>");
@@ -814,7 +815,7 @@ public class BoardServiceImpl implements BoardService {
 							tr.append("</div>");
 						tr.append("</div>");	
 							tr.append("<div class='list-group-item-author clearfix' style='text-align: right;'>");
-								tr.append("<input type='button' id='adminNoticeUpdateBtn' class='btn btn-default btn-sm' value='수정'>&emsp;&nbsp;");
+								tr.append("<input type='button' id='adminNoticeEditBtAtList' class='btn btn-default btn-sm' value='수정'>&emsp;&nbsp;");
 								tr.append("<input type='button' id='adminNoticeDeleteBtn_each' class='btn btn-danger btn-sm' value='삭제'>");
 							tr.append("</div>");	
 											
@@ -855,8 +856,18 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.adminNoticeDelete_select(map);
 			
 			session.invalidate();
-    }
-		
+		}
+		//@@@ 공지리스트 개별 삭제
+		@Override
+		public void adminNoticeDelete_each(int board_id) {
+			boardDAO.adminNoticeDelete_each(board_id);
+			
+		}
+		@Override
+		public BoardDTO getAdminBoardNotice_edit(int board_id) {
+			return boardDAO.getAdminBoardNotice_edit(board_id);
+		}
+}	
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
 

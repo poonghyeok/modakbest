@@ -104,27 +104,32 @@ $('#adminNoticeDeleteBtn_select').click(function(){
 //@@@@@ 체크박스 선택삭제 끝
 
 //개별삭제 
-/* $('#adminNoticeDeleteBtn_each').click(function(){
+$('#adminNoticeDeleteBtn_each').click(function(){
 	
-	var board_id = $('#board_id').val();
+	var board_id = $('#check').val();
 		
-		if (confirm("글을 삭제하시겠습니까?")){			
-			$.ajax({
-				type : 'get',
-				url : "/semiproject/admin/boardNoticeDelete_each",
-				data : {board_id : board_id, cateid : cateid},
-				success: function() {
-					alert("글이 삭제되었습니다.")
-					location.href="/semiproject/admin/adminBoardNoticeList";
-				},
-				error : function(err) {
-					console.log(err);
-				}
-			})
-		}	
-}); */
+	if (confirm("글을 삭제하시겠습니까?")){			
+		$.ajax({
+			type : 'post',
+			url : "/semiproject/admin/adminNoticeDelete_each",
+			data : {board_id : board_id},
+			success: function() {
+				alert("글이 삭제되었습니다.")
+				location.href="/semiproject/admin/adminBoardNoticeList";
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		})
+	}	
+});
 
-//글 수정 adminNoticeUpdateBtn
+//글 수정 : 관리자는 아이디가 0일때 접속 가능하기 때문에 로그인 관련 유효성 검사 하지 않음
+$('#adminNoticeEditBtAtList').click(function(){ // 수정버튼을 눌렀을떄
+	location.href = "/semiproject/admin/adminBoardNoticeEditForm?board_id="+$('#check').val();
+
+});
+	
 </script>
 </body>
 </html>
