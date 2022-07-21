@@ -451,10 +451,22 @@
 
 	
 	<!--  기진 : 시작  ###################### --> 
-	
-		<select id="getUserPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
-	   		select * from board_review where board_uid = ${user_id}
-	   	</select>
+		<select id="userInformList" parameterType="java.lang.String" resultType = "BoardDTO">
+			select * from board_inform where board_uid=${user_id}
+		</select>
+		
+		<select id="userReviewList" parameterType="java.lang.String" resultType = "BoardDTO">
+			select * from board_review where board_uid=${user_id}
+		</select>
+		
+		<select id="userQnaList" parameterType="java.lang.String" resultType = "BoardDTO">
+			select * from board_qna where board_uid=${user_id}
+		</select>
+		
+		<select id="userFreeList" parameterType="java.lang.String" resultType = "BoardDTO">
+			select * from board_free where board_uid=${user_id}
+		</select>
+		
 	
 	
 	

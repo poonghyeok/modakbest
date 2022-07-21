@@ -422,13 +422,13 @@ public class BoardServiceImpl implements BoardService {
 //			return boardDAO.getBoardAllList();
 //		}
 //	
-//		@Override
-//		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
-//			
-//			
-//			return boardDAO.getUserPageArticle(map);
-//		}
-//		
+		@Override
+		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+			
+			
+			return boardDAO.getUserPageArticle(map);
+		}
+		
 		//기진 : 끝 ############################################
 
   
@@ -658,7 +658,7 @@ public class BoardServiceImpl implements BoardService {
 		public void boardClassDelete(int board_id) {
 			boardDAO.boardClassDelete(board_id);
 		}
-		
+
 		@Override
 		public BoardDTO boardClassEditForm(int board_id) {
 			return boardDAO.boardClassEditForm(board_id);
@@ -835,7 +835,6 @@ public class BoardServiceImpl implements BoardService {
 		//@@@ 게시물 내용 가져오기
 
 
-
 		@Override
 		public BoardDTO getAdminBoardNoticeContent(int board_id) {
 			BoardDTO boardDTO = boardDAO.getAdminBoardNoticeContent(board_id); //글번호 가지고 dto 가지고와
@@ -860,5 +859,6 @@ public class BoardServiceImpl implements BoardService {
 		
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
+
 
 
