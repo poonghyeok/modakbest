@@ -693,5 +693,10 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.boardClassUpdate(map);
 			return;
 		}
-		
+		@Override
+		public String getAminNoticePagingList(String pg) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+}
 		//유진 끝#######################################################

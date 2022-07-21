@@ -24,9 +24,10 @@ $(function(){
         data: 'pg=' + $('#pg').val(),
         dataType: 'json',
         success: function (data) {
-            //alert(JSON.stringify(data));
+            alert(JSON.stringify(data));
+            console.log(data);
 
-            $.each(data.list, function (index, items) {
+            $.each(data.list, function (index, items) { // 배열or객체 , function(키, 값)
 
                 $('<li/>', {
                     class: 'list-group-item list-group-item-question clearfix',
