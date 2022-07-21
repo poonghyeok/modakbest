@@ -72,4 +72,25 @@ public class BoardDTO implements Comparable<BoardDTO>{
 			}
 		}
 		// 정수 : 끝  ######################  
+	
+	//@@@연수 시작(220720) : 어드민페이지 카테고리 사용을 위해 생성
+		public String noticeCateidToString() {
+			String categoryString = null;
+			switch(this.board_cateid) {
+			case 0: categoryString = "전체공지";
+					break;
+			case 1: categoryString = "취업정보";
+					break;
+			case 2: categoryString = "후기";
+					break;
+			case 3: categoryString = "Q&A";
+					break;
+			case 4: categoryString = "자유게시판";
+					break;
+			case 5: categoryString = "학원게시판";
+					break;		
+			}
+	
+			return categoryString;
+	}
 }

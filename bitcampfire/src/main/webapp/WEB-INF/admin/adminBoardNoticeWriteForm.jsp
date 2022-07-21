@@ -31,6 +31,7 @@
 			
 			<div class="content-header">
 				<div class="user-profile">
+					<!-- DTO로 값 넣어주기!  -->
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
 						<img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
 					</a>
@@ -121,6 +122,7 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+/* cateid 값 필요하면 넣기!*/
 $(function(){
 	$('#adminBoardNoticeWriteBtn').click(function(){
 		const editorData = editor.getData();

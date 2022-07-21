@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 //import com.modak.board.bean.BoardAllDTO;
+import com.modak.user.bean.UserAllDTO;
 
 @Transactional
 @Repository
@@ -305,13 +306,31 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 	
 			//유진 : 끝
-
+	  //<!--@@@@ 연수 살려주세요!(220721)  -->
 	 // @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 		
+			//@@@ 어드민 페이지 > notice 글작성
 			@Override
 			public void adminBoardNoticeWrite(BoardDTO boardDTO) {
 				sqlSession.insert("boardSQL.adminBoardNoticeWrite", boardDTO);
 				
 			}
+			//@@@ 어드민 페이지 > notice 리스트 가져오기
+			@Override
+			public List<BoardDTO> getBoardNoticeAllList(Map<String, Integer> map) {
+				return sqlSession.selectList("boardSQL.getBoardNoticeAllList", map);
+			}	
+
+//			@Override
+//			public BoardDTO getAdminBoardNoticeContent(int board_id) {
+//				return sqlSession.selectOne("boardSQL.getAdminBoardNoticeContent", board_id);
+//			}
+//
+//			@Override
+//			public void setAdminBoardNoticeHit(int board_id) {
+//				sqlSession.update("boardSQL.setAdminBoardNoticeHit", board_id);				
+//			}
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+	//<!--@@@@ 연수 살려주세요!(220721)  -->
+
 }
 

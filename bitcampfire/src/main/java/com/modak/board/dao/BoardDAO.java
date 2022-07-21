@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.modak.board.bean.BoardDTO;
 //import com.modak.board.bean.BoardAllDTO;
+import com.modak.user.bean.UserAllDTO;
 
 public interface BoardDAO {
 	//공통 영역 : 시작 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,10 +112,18 @@ public interface BoardDAO {
 	// 유진 끝
 
 
-
+	//<!--@@@@ 연수 살려주세요!(220721)  -->
 	// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		//@@@ 어드민 페이지 > notice 글작성
 		public void adminBoardNoticeWrite(BoardDTO boardDTO);
-	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+		//@@@ 어드민 페이지 > notice 리스트 가져오기
+		public List<BoardDTO> getBoardNoticeAllList(Map<String, Integer> map);
+		//@@@ 어드민 페이지 > notice 글내용 가져오기
+//		public BoardDTO getAdminBoardNoticeContent(int board_id);
+//		//@@@ 어드민 페이지 > notice 조회수 가져오기
+//		public void setAdminBoardNoticeHit(int board_id);
+//		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+	//<!--@@@@ 연수 살려주세요!(220721)  -->
 
 		
 }
