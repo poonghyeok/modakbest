@@ -40,7 +40,7 @@
 			<span class="btn btn-primary btn-sm"><input type="checkbox" id="all" style="float:left; font-size: 9pt;">&nbsp;전체선택</span>			  
             <a class="create btn btn-success btn-sm" id ="adminNoticeWriteBtnAtList"><i class="fa fa-pencil"></i>공지등록</a>					
 			
-			<form id="adminNoticeListForm" method="" action="" style="margin-top:10px;">           				        
+			<form id="adminNoticeListForm" method="get" action="/semiproject/admin/adminNoticeDelete_select" style="margin-top:10px;">           				        
 			<div class="okkys-choice">
 			    <div class="panel panel-default">
 			     	
@@ -68,6 +68,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+
+//@@@글쓰기 : 공지등록
 $('#adminNoticeWriteBtnAtList').click(function(){
 	location.href="/semiproject/admin/adminBoardNoticeWriteForm";
 });
@@ -84,9 +86,7 @@ $('#adminNoticeWriteBtnAtList').click(function(){
  
 });  
 
-
-
-//선택삭제 : 이메일 로그인 회원만 가능함
+//선택삭제 :선택한 글 삭제
 $('#adminNoticeDeleteBtn_select').click(function(){
 	var count = $('input[name="check"]:checked').length;
 	
@@ -96,8 +96,31 @@ $('#adminNoticeDeleteBtn_select').click(function(){
 		$('#adminNoticeListForm').submit();
 		alert('선택하신 글을 삭제하였습니다.');
 	}
-});          
+});    
+//@@@@@ 체크박스 선택삭제 끝
 
+//개별삭제 
+/* $('#adminNoticeDeleteBtn_each').click(function(){
+	
+	var board_id = $('#board_id').val();
+		
+		if (confirm("글을 삭제하시겠습니까?")){			
+			$.ajax({
+				type : 'get',
+				url : "/semiproject/admin/boardNoticeDelete_each",
+				data : {board_id : board_id, cateid : cateid},
+				success: function() {
+					alert("글이 삭제되었습니다.")
+					location.href="/semiproject/admin/adminBoardNoticeList";
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			})
+		}	
+}); */
+
+//글 수정 adminNoticeUpdateBtn
 </script>
 </body>
 </html>
