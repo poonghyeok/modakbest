@@ -113,14 +113,20 @@ public interface BoardService {
 		public void boardClassUpdate(Map<String, String> map);
 
 //유진 끝###################################################################33
-
-		// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		//<!--@@@@ 연수 살려주세요!(220721)  -->
+		//@@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+		//@@@ 공지사항 작성
 		public void adminBoardNoticeWrite(BoardDTO boardDTO);
 		
-		public String getAdminNoticeTableList(String pg);
+		//public Map<String, Object> getBoardNoticeAllList(String pg);
+		//@@@ 공지사항 리스트 불러오기
+		public String getAdminNoticeTableList(int pg);
+		//@@@ 공지사항 내용  불러오기
+		//public BoardDTO getAdminBoardNoticeContent(int board_id);
 
-		public String getAminNoticePagingList(String pg);
+		//public String getAminNoticePagingList(String pg);
 		
-		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+		//<!--@@@@ 연수 살려주세요!(220721)  -->
 
 }
