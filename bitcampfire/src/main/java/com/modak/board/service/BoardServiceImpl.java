@@ -820,6 +820,7 @@ public class BoardServiceImpl implements BoardService {
 		
 			return tr.toString();
 		}
+
 //		@@ 페이징 처리 나중에 다시		
 //		@Override
 //		public String getAminNoticePagingList(String pg) {
@@ -843,3 +844,5 @@ public class BoardServiceImpl implements BoardService {
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
 
 }
+
+
