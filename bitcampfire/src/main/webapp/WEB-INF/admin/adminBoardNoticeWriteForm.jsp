@@ -170,7 +170,7 @@ $(function(){
 			
 	        }
 		}
-	});//$('#boardWriteBtn').click	
+	});//$('#adminBoardNoticeWriteBtn').click	
 	
 	//취소 버튼 눌렀을 때
 	$('#resetBtn').click(function(){
@@ -183,11 +183,6 @@ $(function(){
 	$('#board_title').focusout(function(){
 		$('#board_title').removeClass('empty');
 	});
-	//텍스트에디터 사용하니 적용 안됌
-/* 	$('#board_content').focusout(function(){
-		$('#board_content').removeClass('empty');
-	}); */
-	
 });
 </script>
 

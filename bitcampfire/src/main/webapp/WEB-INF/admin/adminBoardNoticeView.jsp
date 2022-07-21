@@ -30,63 +30,59 @@
 	   		<!-- main-banner -->  
         
         	<!-- 글 카테고리, 새글쓰기  -->
-	        <div class="nav" role="navigation">
-	            <input type="button" value="새 글  쓰기 " class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn"><i class="fa fa-pencil"></i>
-	            <h4>${cateidToString}</h4>
+	        <div class="nav" role="navigation">	        
+	            <input type="button" value="공지등록 " class="create btn btn-success btn-wide pull-right" id = "adminNoticeWriteBtnAtView"><i class="fa fa-pencil"></i>
+	            <h4>${boardDTO.noticeCateidToString()}</h4>
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
 			
-	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
-	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
+	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->	    	
 			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">
-	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
-	        <input type = "hidden" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardDTO.board_cmt_cnt}">
+	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">	       
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
 	        <input type = "hidden" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
 	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
-			<!-- 본격 글 내용 ( 작성자 ~ 페이스북 ) -->
+			<!-- 본격 글 내용 (ㄴ작성자 ~ 페이스북 ) -->
 	        <div class="panel panel-default clearfix fa-">
 	        	<!-- 글 작성자 , 댓글수, 조회수 -->
 	            <div class="panel-heading clearfix">
 	                <div class="avatar clearfix avatar-medium pull-left"> 
-	            	    <!-- 07/11기진: user page를 위해 href를 user 수정하였습니다 -->
+	            	    <!-- 07/11기진: user page를 위해 href를 user 수정하였습니다  -> 현재 제대로 이동되지 않아 다시 확인 필요(연수_220721)-->
 	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${user_img}"></a>
 	                    <div class="avatar-info">
 	                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
                             <a class="nickname" href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" title="author">${author}</a>
                             <div class="activity">
+                            	<!-- lev 어쩌지? -->
                             	<span class="fa fa-flash"></span> 
                             	lev
                            	</div>
                             <div class="date-created"><span class="timeago" title="2022-07-07T11:47:55">${dateToStr}</span>작성
                                 <span class="date-saperate">∙</span> 
-                                <a href="/changes/2853281">
+                                <a href="#">
    <!-- 글 수정 날짜 -->         	<span class="timeago" title="2022-07-07 11:52:28"></span>
                                	</a>
                             </div>
 	                  	</div>
                   	</div>
-					<div class="content-identity pull-right">
-						<div class="content-identity-count"><i class="fa fa-comment"></i> ${boardDTO.board_cmt_cnt}</div>
+					<div class="content-identity pull-right">						
 						<div class="content-identity-count"><i class="fa fa-eye"></i> ${boardDTO.board_view_cnt}</div>
 	                </div>
             	</div><!--  <div class="panel-heading clearfix"> -->
 	            <!-- 글 작성자 , 댓글수, 조회수 -->
 	            
-	            <!-- 글번호, 글카테고리, 글내용, 글추천수, 글스크랩수 -->
+	            <!-- 글번호, 글카테고리, 글내용, 관리자 페이지 생략 -> (글추천수, 글스크랩수) -->
 				<div class="content-container clearfix">
 					<div id="content-body" class="panel-body content-body pull-left">
 						<div class="content-tags">
 							<span class="list-group-item-text -id">${board_id}</span> 
-							<a href="/s/life" class="list-group-item-text item-tag label label-info"> 
+							<a href="#" class="list-group-item-text item-tag label label-info"> 
 							<i class="fa fa-comments"></i>
-							${cateidToString}
-							</a> 
-							<a href="/s/tagged/javascript" class="list-group-item-text item-tag label label-gray ">
-								javascript
-							</a>
+							<!-- 관리자 페이지는 기본 게시판 카테고리랑 다르게 설정함  -->
+							${boardDTO.noticeCateidToString()}
+							</a>							
 						</div>
 						<h2 class="panel-title">${boardDTO.board_title}</h2>
 						<hr>
@@ -95,18 +91,10 @@
 						</article>
 					</div>
 
-					<!--추천수-->
+					<!--추천수 삭제 : 관리자 페이지는 생략 -->
 					<div id="content-function" class="content-function pull-right text-center">
 						<div class="content-function-group">
-							<div class="note-evaluate-wrapper">
-								<a href="javascript://" class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281"> 
-									<i id="note-evaluate-assent-2853281" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
-								</a>
-								<div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
-								<a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
-								 <i id="note-evaluate-dissent-2853281" class="fa fa-angle-down note-evaluate-dissent-dissent" data-placement="left" data-toggle="tooltip" title="" data-original-title="반대"></i>
-								</a>
-							</div>
+				
 						</div>
 					</div>
 					<!--페이스북, 글관리-->
@@ -132,12 +120,7 @@
             </div>	
 			<!-- 중간배너광고 -->
 
-			<!-- 댓글 div --> 
-			<div class="panel panel-default clearfix">
-				<jsp:include page="/WEB-INF/comment/commentWriteForm.jsp"></jsp:include>
-			</div>
-			<!-- 댓글 div -->
-			
+			<!-- 댓글 div : 관리자 페이지는 생략-->		
 
 			</div><!-- <div id="article" class="content" role="main"> -->
 		<jsp:include page="/WEB-INF/global/footer.jsp"/>
@@ -152,5 +135,52 @@
 <script type="text/javascript" src="http://code.jQuery.com/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/summernote3/summernote-ko-KR.js"></script>
+
+<script type="text/javascript">
+/* 뷰에서 공지등록하러 가기  */
+$('#adminNoticeWriteBtnAtView').click(function(){
+	location.href="/semiproject/admin/adminBoardNoticeWriteForm";
+});
+
+/* function noticeCateidToString(cateid){
+	let result;
+	if(cateid == 0){
+		result = 'notice';
+	}else if(cateid == 1){
+		result = 'info';
+	}else if(cateid == 2){
+		result = 'review';
+	}else if(cateid == 3){
+		result = 'qna';
+	}else if(cateid == 4){
+		result = 'free';
+	}else if(cateid == 5){
+		result = 'class';
+	}
+	
+	return result;
+}
+
+function stringNoticeCateToInt(category){
+	let result;
+	
+	if(cateid == 'notice'){
+		result = 0;
+	}else if(cateid == 'info'){
+		result = 1;
+	}else if(cateid == 'review'){
+		result = 2;
+	}else if(cateid == 'qna'){
+		result = 3;
+	}else if(cateid == 'free'){
+		result = 4;
+	}else if(cateid == 'class'){
+		result = 5;
+	}
+	
+	return result;
+} */
+</script>
+
 </body>
 </html> 

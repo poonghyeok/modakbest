@@ -652,26 +652,24 @@ public class BoardServiceImpl implements BoardService {
          
          return boardClassPaging.getPagingHTML().toString();
       }
-          
-
-  		@Override
-  		public BoardDTO boardClassEditForm(int board_id) {
-  			return boardDAO.boardClassEditForm(board_id);
-  		}
-
-  		@Override
-  		public void boardClassUpdate(Map<String, String> map) {
-  			boardDAO.boardClassUpdate(map);
-  			return;
-  		}
-  		@Override
-  		public void boardClassDelete(int board_id) {
-  			// TODO Auto-generated method stub
-  			
-  		}
 
 	
-		
+		@Override
+		public void boardClassDelete(int board_id) {
+			boardDAO.boardClassDelete(board_id);
+		}
+
+		@Override
+		public BoardDTO boardClassEditForm(int board_id) {
+			return boardDAO.boardClassEditForm(board_id);
+		}
+
+		@Override
+		public void boardClassUpdate(Map<String, String> map) {
+			boardDAO.boardClassUpdate(map);
+			return;
+		}
+
 		//유진 끝#######################################################
           
           
@@ -776,7 +774,7 @@ public class BoardServiceImpl implements BoardService {
 			tr.append("<li class='list-group-item list-group-item-question clearfix " + hasNoteClass + "'>");
 				tr.append("<div class='list-title-wrapper clearfix' style='width:20px;'>");
 					tr.append("<div class='list-tag clearfix' style='width:20px;'>");
-						tr.append("<input type='checkbox' id='check' name='check' style='float:left;'>");
+						tr.append("<input type='checkbox' id='check' name='check' style='float:left;' value="+boardDTO.getBoard_id()+">");
 					tr.append("</div>");
 				tr.append("</div>&emsp;");
 				tr.append("<div class='list-title-wrapper clearfix'>");
@@ -816,7 +814,7 @@ public class BoardServiceImpl implements BoardService {
 						tr.append("</div>");	
 							tr.append("<div class='list-group-item-author clearfix' style='text-align: right;'>");
 								tr.append("<input type='button' id='adminNoticeUpdateBtn' class='btn btn-default btn-sm' value='수정'>&emsp;&nbsp;");
-								tr.append("<input type='button' id='adminNoticeDeleteBtn' class='btn btn-danger btn-sm' value='삭제'>");
+								tr.append("<input type='button' id='adminNoticeDeleteBtn_each' class='btn btn-danger btn-sm' value='삭제'>");
 							tr.append("</div>");	
 											
 					tr.append("</div>");				
@@ -834,17 +832,30 @@ public class BoardServiceImpl implements BoardService {
 //			return null;
 //		}
 		//@@@ 게시물 내용 가져오기
-//		@Override
-//		public BoardDTO getAdminBoardNoticeContent(int board_id) {
-//			BoardDTO boardDTO = boardDAO.getAdminBoardNoticeContent(board_id); //글번호 가지고 dto 가지고와
-//			
-//			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
-//				boardDAO.setAdminBoardNoticeHit(board_id); // 글번호에 조회수 증가하게 해
-//				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
-//			}
-//					
-//		return boardDTO;
-//		}
+
+		@Override
+		public BoardDTO getAdminBoardNoticeContent(int board_id) {
+			BoardDTO boardDTO = boardDAO.getAdminBoardNoticeContent(board_id); //글번호 가지고 dto 가지고와
+			
+			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
+				boardDAO.setAdminBoardNoticeHit(board_id); // 글번호에 조회수 증가하게 해
+				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
+			}
+					
+		return boardDTO;
+		}
+		
+		//@@@ 공지리스트 선택 삭제
+		@Override
+		public void adminNoticeDelete_select(String[] check) {
+			Map<String, String[]> map = new HashMap<String, String[]>();
+			map.put("check", check);			
+			boardDAO.adminNoticeDelete_select(map);
+			
+			session.invalidate();
+			
+		}
+
 		
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
