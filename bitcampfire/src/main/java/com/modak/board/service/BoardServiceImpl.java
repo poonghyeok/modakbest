@@ -422,13 +422,13 @@ public class BoardServiceImpl implements BoardService {
 //			return boardDAO.getBoardAllList();
 //		}
 //	
-//		@Override
-//		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
-//			
-//			
-//			return boardDAO.getUserPageArticle(map);
-//		}
-//		
+		@Override
+		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+			
+			
+			return boardDAO.getUserPageArticle(map);
+		}
+		
 		//기진 : 끝 ############################################
 
   
@@ -658,8 +658,10 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.boardClassDelete(board_id);
 		}
 
+
+
 		@Override
-		public BoardClassDTO boardClassEditForm(int board_id) {
+		public BoardDTO boardClassEditForm(int board_id) {
 			return boardDAO.boardClassEditForm(board_id);
 		}
 
@@ -846,24 +848,9 @@ public class BoardServiceImpl implements BoardService {
 
 
 
-		@Override
-		public BoardDTO boardClassEditForm(int board_id) {
-			return boardDAO.boardClassEditForm(board_id);
-		}
-
-		@Override
-		public void boardClassUpdate(Map<String, String> map) {
-			boardDAO.boardClassUpdate(map);
-			return;
-		}
-
-		@Override
-		public String getAminNoticePagingList(String pg) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+		
 }
 
 		//유진 끝#######################################################
-}
+
 

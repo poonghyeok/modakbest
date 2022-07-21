@@ -1,6 +1,7 @@
 package com.modak.board.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,15 +196,30 @@ public class BoardDAOMyBatis implements BoardDAO {
 			/*
 			 * @Override public List<BoardAllDTO> getBoardAllList() { return
 			 * sqlSession.selectList("boardSQL.getBoardAllList"); }
-			 * 
-			 * @Override public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
-			 * 
-			 * 
-			 * 
-			 * return sqlSession.selectList("boardSQL.getUserPageArticle", map);
-			 * 
-			 * }
 			 */
+			  @Override 
+			  public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
+				  String user_id = String.valueOf(map.get("user_id"));
+				  System.out.println(user_id + " " + user_id + 10);
+				  
+				  List<BoardDTO> list = new ArrayList<BoardDTO>();		
+				  List<BoardDTO> list1 = sqlSession.selectList("boardSQL.userInformList", user_id);
+				  List<BoardDTO> list2 = sqlSession.selectList("boardSQL.userReviewList", user_id);
+				  List<BoardDTO> list3 = sqlSession.selectList("boardSQL.userQnaList", user_id);
+				  List<BoardDTO> list4 = sqlSession.selectList("boardSQL.userFreeList", user_id);	
+				  
+				  list.addAll(list1);
+				  list.addAll(list2);
+				  list.addAll(list3);
+				  list.addAll(list4);
+				  
+				  Collections.sort(list);
+				  
+	
+				  return list;
+				  
+				 }
+			 
 
 			// 기진 : 끝  ###################### 
       
