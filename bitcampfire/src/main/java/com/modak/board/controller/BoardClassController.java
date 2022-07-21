@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.service.BoardService;
 import com.modak.user.bean.UserAllDTO;
@@ -39,7 +38,7 @@ public class BoardClassController {
 		private HttpSession session;
 
 		@GetMapping("boardClassList")
-		public ModelAndView boardClassList(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption, @RequestParam(value = "class_id", required = false) int class_id) {
+		public ModelAndView boardClassList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg,HttpServletRequest req, @RequestParam(required = false, defaultValue = "date") String sortOption, @RequestParam(value = "class_id", required = false) int class_id) {
 			UserAllDTO userAllDTO = userService.getUserClass_Class(class_id);
 			session.setAttribute("memClassid", userAllDTO.getClass_id());
 			session.setAttribute("memClass_academy", userAllDTO.getClass_academy());
@@ -76,8 +75,8 @@ public class BoardClassController {
 		}
 		
 		@PostMapping("/boardClassWrite")
-		public String boardClassWrite(BoardClassDTO boardClassDTO) {
-			boardService.boardClassWrite(boardClassDTO);
+		public String boardClassWrite(BoardDTO boardDTO) {
+			boardService.boardClassWrite(boardDTO);
 			return "/board/boardClassView";
 		}
 		
@@ -112,28 +111,28 @@ public class BoardClassController {
 			mav.addObject("board_id", board_id); // 글번호값이랑 
 			mav.addObject("pg", pg); // 페이지값 실어서
 			mav.addObject("class_id", class_id);
-			BoardClassDTO boardClassDTO = (BoardClassDTO) boardService.getBoardClassContent(board_id, class_id);
-			mav.addObject("boardClassDTO", boardClassDTO);
+			BoardDTO boardDTO = (BoardDTO) boardService.getBoardClassContent(board_id, class_id);
+			mav.addObject("boardDTO", boardDTO);
 			
-			System.out.println("TEST BoardClassDTO getboardClassDTO_view_cnt =" +boardClassDTO.getBoard_view_cnt());
+			System.out.println("TEST boardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
 			
-			Date date = boardClassDTO.getBoard_date_created(); // 날짜 꺼내서
+			Date date = boardDTO.getBoard_date_created(); // 날짜 꺼내서
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
 			mav.addObject("dateToStr",dateToStr);
 
 			//풍혁220708 : boadr_uid로 유저nickname 받아서 작성자에 넣겠습니다.
-			String author = boardService.getUserNameByUserId(boardClassDTO.getBoard_uid());
+			String author = boardService.getUserNameByUserId(boardDTO.getBoard_uid());
 			mav.addObject("author", author);
 			
 			//풍혁220714 : board_uid로 user_img를 받아서 프로필 사진 반영하겠습니다. 
-			String userImg = userService.getUserImgByUserid(boardClassDTO.getBoard_uid());
+			String userImg = userService.getUserImgByUserid(boardDTO.getBoard_uid());
 			System.out.println("\n @log@ userimg : " + userImg);
 			mav.addObject("user_img", userImg);
 			
-			mav.addObject("getBoard_classid", boardClassDTO.getBoard_classid());
+			mav.addObject("getBoard_classid", boardDTO.getBoard_classid());
 			
-			System.out.println("DTO에서 댓글수 TEST = " + boardClassDTO.getBoard_cmt_cnt());
-			System.out.println("DTO 에서 시간 TEST = " + boardClassDTO.getBoard_date_created());
+			System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
+			System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
 			mav.setViewName("board/boardClassView"); // boardView.jsp로 보냄 
 			return mav; // 스프링한테 데이터랑 목적지 꺼내봐 하는거
 		}
@@ -198,10 +197,10 @@ public class BoardClassController {
 		  
 		  @GetMapping(value = "getBoardClass")
 		  @ResponseBody
-		  public BoardClassDTO getBoardClass(@RequestParam int board_id) { 
+		  public BoardDTO getBoardClass(@RequestParam int board_id) { 
 			  
-			  BoardClassDTO boardClassDTO= boardService.boardClassEditForm(board_id); 
-			  return boardClassDTO; 
+			  BoardDTO boardDTO= boardService.boardClassEditForm(board_id); 
+			  return boardDTO; 
 			 }
 		  
 		  

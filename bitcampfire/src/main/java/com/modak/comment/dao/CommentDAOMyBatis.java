@@ -119,8 +119,20 @@ public class CommentDAOMyBatis implements CommentDAO {
 		sqlSession.delete("commentSQL.commentClassDelete", cmt_id);
 		
 	}
-	//유진끝##############################################################
+
+	@Override
+	public void increaseClassCommentCount(Map<String, Integer> map) {
+		sqlSession.update("commentSQL.increaseClassCommentCount",map);
+		
+	}
+
+	@Override
+	public void decreaseClassCommentCount(Map<String, Integer> map) {
+		sqlSession.update("commentSQL.decreaseClassCommentCount",map);
+		
+	}
 	
+	//유진끝##############################################################
 	
 	
 	
