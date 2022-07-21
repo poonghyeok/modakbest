@@ -119,11 +119,13 @@ public interface BoardDAO {
 		//@@@ 어드민 페이지 > notice 리스트 가져오기
 		public List<BoardDTO> getBoardNoticeAllList(Map<String, Integer> map);
 		//@@@ 어드민 페이지 > notice 글내용 가져오기
-//		public BoardDTO getAdminBoardNoticeContent(int board_id);
-//		//@@@ 어드민 페이지 > notice 조회수 가져오기
-//		public void setAdminBoardNoticeHit(int board_id);
-//		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
+		public BoardDTO getAdminBoardNoticeContent(int board_id);
+		//@@@ 어드민 페이지 > notice 조회수 가져오기
+		public void setAdminBoardNoticeHit(int board_id);
+		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 	//<!--@@@@ 연수 살려주세요!(220721)  -->
+
+		public void adminNoticeDelete_select(Map<String, String[]> map);
 
 		
 }

@@ -336,17 +336,24 @@ public class BoardDAOMyBatis implements BoardDAO {
 				return sqlSession.selectList("boardSQL.getBoardNoticeAllList", map);
 			}	
 
-//			@Override
-//			public BoardDTO getAdminBoardNoticeContent(int board_id) {
-//				return sqlSession.selectOne("boardSQL.getAdminBoardNoticeContent", board_id);
-//			}
-//
-//			@Override
-//			public void setAdminBoardNoticeHit(int board_id) {
-//				sqlSession.update("boardSQL.setAdminBoardNoticeHit", board_id);				
-//			}
+			@Override
+			public BoardDTO getAdminBoardNoticeContent(int board_id) {
+				return sqlSession.selectOne("boardSQL.getAdminBoardNoticeContent", board_id);
+			}
+
+			@Override
+			public void setAdminBoardNoticeHit(int board_id) {
+				sqlSession.update("boardSQL.setAdminBoardNoticeHit", board_id);				
+			}
+			
+			@Override
+			public void adminNoticeDelete_select(Map<String, String[]> map) {
+				sqlSession.delete("boardSQL.adminNoticeDelete_select", map);	
+				
+			}
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 	//<!--@@@@ 연수 살려주세요!(220721)  -->
+
 
 }
 

@@ -15,6 +15,10 @@
        	<!--사이드바1,2-->        
        	<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
    		<!--사이드바1,2-->
+   		<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
+		<input id="category" type = 'text' value ='${param.category}'/>	    
+  		<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
+   		
    		
     	<div id="article" class="content" role="main">	
     	<input type="text" id="memClassid" value="${sessionScope.memClassid }">

@@ -76,6 +76,7 @@ public class UserMyPageController {
 		
 		
 		if(articalEmail.equals(login_user)) { 
+
 			System.out.println("나 자신입니다. ####");
 			System.out.println("나 =====" + login_user + "글쓴이 ======" + articalEmail);
 
@@ -106,6 +107,7 @@ public class UserMyPageController {
 			mav.addObject("list",list);
 			mav.addObject("userPageInfo", userPageInfo);
 //			mav.addObject("boardPagingList", boardPagingList);
+
 			
 			
 		}else{
