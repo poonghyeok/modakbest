@@ -22,6 +22,10 @@
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
 			 <jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
+		<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
+		<input id="category" type = 'text' value ='${param.category}'/>	    
+  		<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
+		
 		
 		<input type="text" id="memClassid" value="${sessionScope.memClassid }">
 		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">

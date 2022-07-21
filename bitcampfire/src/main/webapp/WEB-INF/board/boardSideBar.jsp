@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <!-- sidebar1 -->
 <div class="sidebar sidebar-category">
-    <a href="javascript://" class="sidebar-header">
+	<input type="hidden" id="memEmail" value="${sessionScope.memEmail}">
+	<input type="hidden" id="memUser_classid" value="${sessionScope.memClassId}"> 
+	<a href="javascript://" class="sidebar-header">
          <i class="fa fa-bars sidebar-header-icon"></i>
     </a>
     <h1>
@@ -73,13 +75,14 @@
         <li class="sideIcon " data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="qna"><a href="/semiproject/board/list?category=qna&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판2</span></a></li>
         <li class="sideIcon " data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="free"><a href="/semiproject/board/list?category=free&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판3</span></a></li>
 
+		<!-- 풍혁0721 : sideBar 통합, 반전용게시판, 관리자 게시판 위치 변경 ( 관리자 게시판을 가장 아래로 ) -->
         <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+        <li id="class_boardBtn" class="sideIcon " data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="class"><a class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용</span></a></li>
         <%-- <c:if test="${sessionScope.memId == 0 }"> --%>
-        <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="admin"><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+        <li class="sideIcon " data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="admin"><a href="/semiproject/admin/adminUserAllList?category=admin" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
     	<%-- </c:if> --%>
     	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
 
-        <li data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="class"><a href="/semiproject/board/list?pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원커뮤니티</span></a></li>
 
     </ul>
 
@@ -90,12 +93,21 @@
 
 <!-- sdiebar2 -->
 <div class="sidebar-category-nav">
-    <h3 class="sub-title">Q&amp;A</h3>
+    <h3 class="sub-title">
+   		<c:choose>
+   			<c:when test="${param.category eq 'info'}">취업정보</c:when>
+   			<c:when test="${param.category eq 'review'}">후기</c:when>
+   			<c:when test="${param.category eq 'qna'}">Q&amp;A</c:when>
+   			<c:when test="${param.category eq 'free'}">자유주제</c:when>
+   			<c:when test="${param.category eq 'admin'}">관리자용</c:when>
+   			<c:when test="${param.category eq 'class'}">학원전용</c:when>
+		</c:choose>
+	</h3>
     <ul class="nav">
-            <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">All</span> <span class="nav-indicator nav-selected"><span class="nav-selected-dot"></span></span></a></li>
+            <!-- <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">All</span> <span class="nav-indicator nav-selected"><span class="nav-selected-dot"></span></span></a></li> -->
             <!-- 풍혁 (220707 0847) : 여기 list는 게시판마다 달라지게 해야됨. 1. ajax 2. controller 에서 addobject ... -->
-            <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Tech Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-            <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Career Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+            <!-- <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Tech Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li> -->
+            <!-- <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Career Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li> -->
     </ul>
     <div class="special-nav">
     </div>
@@ -104,6 +116,7 @@
 
 <!-- 풍혁(220707) : sidebar에서 active 변경하기  -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/semiproject/js/user/userSideBar.js"></script>
 <script type="text/javascript">
 /* 	$('ul.nav,.nav-sidebar,.nav-main a.link').click(function(){
 		alert('접근성공!');

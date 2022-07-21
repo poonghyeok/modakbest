@@ -652,6 +652,7 @@ public class BoardServiceImpl implements BoardService {
          
          return boardClassPaging.getPagingHTML().toString();
       }
+
 	
 		@Override
 		public void boardClassDelete(int board_id) {
@@ -670,6 +671,8 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		//유진 끝#######################################################
+          
+          
 		//<!--@@@@ 연수 살려주세요!(220721)  -->
 		// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
         //@@@ 어드민 페이지 > notice 작성하기  
@@ -829,6 +832,7 @@ public class BoardServiceImpl implements BoardService {
 //			return null;
 //		}
 		//@@@ 게시물 내용 가져오기
+
 		@Override
 		public BoardDTO getAdminBoardNoticeContent(int board_id) {
 			BoardDTO boardDTO = boardDAO.getAdminBoardNoticeContent(board_id); //글번호 가지고 dto 가지고와
@@ -851,12 +855,11 @@ public class BoardServiceImpl implements BoardService {
 			session.invalidate();
 			
 		}
+
 		
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
 
 
-
-		//유진 끝#######################################################
 }
 
