@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.modak.board.bean.BoardDTO;
@@ -62,6 +63,18 @@ public class BoardAdminController {
 		return list;
 		
 	}
+	
+	
+	
+	@GetMapping(value = "getUserNickname", produces="application/text;charset=utf-8")
+	@ResponseBody // 에이작스로 간다.
+	public String getUserNickname(@RequestParam int board_uid) { 
+		System.out.println("@@@@board_uid@@@@@@"+board_uid);
+		String userNickname = boardService.getUserNameByUserId(board_uid);
+		System.out.println("userNickname = " + userNickname);
+		return boardService.getUserNameByUserId(board_uid);
+	}
+	
 }
 
 
