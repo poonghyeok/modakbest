@@ -589,13 +589,23 @@
 				]]>	
 	   	</select>	   	
 	   	<!-- 공지사항 글내용 가져오기 -->
-		<!-- <select id = "getAdminBoardNoticeContent" parameterType = "int" resultType = "BoardDTO"> 
+		<select id = "getAdminBoardNoticeContent" parameterType = "int" resultType = "BoardDTO"> 
 			select * from BOARD_AdminNotice where board_id = ${board_id}
-		</select> -->
+		</select>
 		<!-- 공지사항 조회수 -->
-		<!-- <update id = "setAdminBoardNoticeHit" parameterType = "int">
+		<update id = "setAdminBoardNoticeHit" parameterType = "int">
 			update BOARD_AdminNotice set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
-		</update> -->
+		</update>
+		
+		<!-- @@@ 게시글 선택 삭제 기능(220721) -->
+	 	<delete id="adminNoticeDelete_select" parameterType="java.util.Map">
+			delete BOARD_AdminNotice where board_id in 			
+			<foreach collection="check" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+	  	</delete>
+		
+		
 		<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
 		<!--@@@@ 연수 살려주세요!(220721)  -->
 

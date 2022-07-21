@@ -121,7 +121,9 @@ public interface BoardService {
 		//@@@ 공지사항 리스트 불러오기
 		public String getAdminNoticeTableList(int pg);
 		//@@@ 공지사항 내용  불러오기
-		//public BoardDTO getAdminBoardNoticeContent(int board_id);
+		public BoardDTO getAdminBoardNoticeContent(int board_id);
+
+		public void adminNoticeDelete_select(String[] check);
 
 		//public String getAminNoticePagingList(String pg);
 		
