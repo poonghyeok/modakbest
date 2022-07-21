@@ -46,96 +46,89 @@ height : 100px;
 	<form id="adminBoardAllListForm" method="get" action="/semiproject/admin/adminBoardDelete_select" >		
 		<div class="panel panel-default questions-panel">
 			<ul class="list-group">
-			
+				<li class="list-group-item list-group-item-question list-group-has-note clearfix" style="background-color: pink;" >
 				<!-- append 시작점 -->
-				<li class="list-group-item list-group-item-question list-group-has-note clearfix" style="background-color: blue;" >							
 					<!-- board_id  -->
-					<div class="list-title-wrapper clearfix1" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;">									
+					<div class="list-title-wrapper clearfix1" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
 						<input type="checkbox" id="all" style="float:left; margin-top: 10px;">번호 									
 					</div>
 													
 					<!-- board_cateid -->	
-					<div class="list-title-wrapper clearfix2" style="width:90px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;"> 
+					<div class="list-title-wrapper clearfix2" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;"> 
 						<p style="height:5px;">카테고리</p>
 					</div>
 																			
 					<!-- board_title  -->
-					<div class="list-title-wrapper clearfix3" style="width:90px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;">									
-						제목									
-
+					<div class="list-title-wrapper clearfix3" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
+						제목								
 					</div>
 					
 					<!-- board_cmt_cnt  -->
-					<div class="list-title-wrapper clearfix4" style="width:90px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;">									
+					<div class="list-title-wrapper clearfix4" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
 						댓글수								
 					</div>
 					
 					<!-- board_view_cnt  -->
-					<div class="list-title-wrapper clearfix5" style="width:90px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;">									
+					<div class="list-title-wrapper clearfix5" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
 						조회수								
 					</div>
 					
 					<!-- board_uid  -->								
-					<div class="list-title-wrapper clearfix6" style="width:90px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;">									
+					<div class="list-title-wrapper clearfix6" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
 						작성자						
 					</div>
 					
 					<!-- board_date_created  -->
-					<div class="list-title-wrapper clearfix7" style="width:90px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: yellow;">									
+					<div class="list-title-wrapper clearfix7" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
 						날짜								
-					</div>									
-				</li>
+					</div>
+					
+					<div class="list-title-wrapper clearfix8" style="width:40px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
+						삭제								
+					</div>	
+				
+				 </li>
 				<!-- append 종료시점 -->
-				<br>
-				<br>				
-				<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="선택삭제" style="float: left;">
 			</ul>
-		</div>	
+		</div> 
+							
+		<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="선택삭제" style="float: left;">
 	</form>
 </div>
 </div>
 	
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type = "text/javascript">
-$(function(){
+$(function(){	
 	$.ajax({
 		type : "post",
 		url : "/semiproject/admin/getBoardAllList", 
 		dataType : "json",
-		success : function(data) {  // map
-			
- 			$.each(freeList, function(index, items){// $(선택한 요소).append(새 요소)  
+		success : function(data) {  // list
+			console.log(JSON.stringify(data));
+			$.each(data, function(index, item){
 				
-				$('<li/>',{
-					class : 'list-group-item list-group-item-question list-group-has-note clearfix'
-				})
-				.append(
-	                $('<div/>', {
-	                    class: 'list-title-wrapper clearfix1',
-	                    align: 'center',
-	                    text: items.board_id
-	                   //style: 'width:70px; height:35px; text-align:center; line-height:35px;'
-	                })
-	                .prepend($('<input/>', {
-	                    type: 'checkbox',
-	                    name: 'check',
-	                    id: 'checkDelete',
-	                    style: 'float: left; margin-top: 10px;',
-	                    disabled: false,
-	                    value: items.board_cateid //일관성을 위해 id값 대신 email 값을 넣음
-	                }))                                    
-               )//list-title-wrapper clearfix1
-			 
-            .appendTo($('.list-group')); //마지막단   
-        });//each
-			 
-			
-		}, error : function(err) {
+				var del = "삭제";
+				
+				var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
+							'<input name="check" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;">'+
+							'<div style = "float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
+							'<div style = "float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
+							'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_title+'</div>'+
+							'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
+							'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
+							'<div style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_uid+'</div>'+
+							'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'+
+							'<div style ="float:left; width:49px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+del+'</div>'
+							'</li>';
+				$(test).appendTo('.list-group');
+			})
+		},
+		error : function(err) {
 			console.log(err);
-		}
+		} // error
 	})
 });
-
 </script>
 	
 	
