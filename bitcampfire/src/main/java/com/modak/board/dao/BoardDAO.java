@@ -22,7 +22,7 @@ public interface BoardDAO {
 
 		public List<BoardDTO> getBoardSearchRangeOrder(Map<String, String> map, String sortOption);
 
-		public int getTotalBoardSearchNum(String keyword);
+		public int getTotalBoardSearchNum(Map<String, String> map);
 		
 		public List<BoardDTO> getBoardList(Map<String, Integer> map, String category);
 

@@ -27,8 +27,8 @@
   		<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
 		
 		
-		<input type="text" id="memClassid" value="${sessionScope.memClassid }">
-		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">
+		<input type="hidden" id="memClassid" value="${sessionScope.memClassid }">
+		<input type="hidden" id="memClass_academy" value="${sessionScope.memClass_academy }">
 		
 		<!-- 풍혁(220707) : 보드 작성 폼 -->
 		<div id="article-create" class="content" role="main">

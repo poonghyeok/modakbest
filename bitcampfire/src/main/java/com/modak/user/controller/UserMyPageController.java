@@ -128,7 +128,7 @@ public class UserMyPageController {
 			userPageInfo.put("userPage_id", userDTO.getUser_id());
 			userPageInfo.put("pg", pg);
 			
-			System.out.println("userPageInfo = " + userPageInfo);
+			System.out.println("@@userPageInfo = " + userPageInfo);
 			
 //			String boardPagingList = boardService.getUserPagePaging(userPageInfo);
 

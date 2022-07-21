@@ -4,7 +4,7 @@ $('#boardWriteBtn').click(function(){ // 상세페이지에서 새글쓰기 버�
 		alert('글을 쓰려면 먼저 로그인을 해주세요.');
 		location.href = "/semiproject/user/userLoginForm";
 	}else{
-		location.href = "/semiproject/board/write";
+		location.href = "/semiproject/board/write?category="+$('#category').val();
 	}
 })
 

@@ -272,11 +272,16 @@ public class BoardServiceImpl implements BoardService {
 		
 		@Override
 		public String getBoardSearchPagingList(String category, int pg, String keyword, String sortOption) {
+			Map<String, String> map = new HashMap<>();
+			
+			map.put("category", category);
+			map.put("keyword", keyword);
+			
 			BoardPaging boardPaging = new BoardPaging();
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
-			boardPaging.setTotalA(boardDAO.getTotalBoardSearchNum(keyword));
+			boardPaging.setTotalA(boardDAO.getTotalBoardSearchNum(map));
 			boardPaging.makeSearchPagingHTML(category, keyword, sortOption);
 			
 			return boardPaging.getPagingHTML().toString();

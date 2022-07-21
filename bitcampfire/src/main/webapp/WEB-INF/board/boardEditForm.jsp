@@ -29,12 +29,12 @@
 			<div class="content-header">
 	    		<h3>글 수정하기</h3>
 				<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
-				<input type = "text" id = "category" class = "category" value = "${param.category}">
+				<input type = "hidden" id = "category" class = "category" value = "${param.category}">
 			</div>
 			<div class="content-header">
 				<div class="user-profile">
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-						<img src="#" id="profile-photo" alt="profile-img">
+						<img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
 					</a>
 				
 					<div class="profile-info">

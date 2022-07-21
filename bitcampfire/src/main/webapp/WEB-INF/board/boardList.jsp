@@ -21,7 +21,7 @@
 		<input type="hidden" value="${sessionScope.memEmail}" id="session_email"> 
 		<input type="hidden" value="${param.sortOption}" id="sortOption"> 
 		<input type="hidden" value="${keyword}" id="searchKeyword"> 
-		<input type="text" value="${param.category}" id="category"> 
+		<input type="hidden" value="${param.category}" id="category"> 
 		
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>

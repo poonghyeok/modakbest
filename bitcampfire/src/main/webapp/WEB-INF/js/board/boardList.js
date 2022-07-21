@@ -13,8 +13,13 @@ $('button.btn btn-default').click(function(){
 })
 
 /*title 이나, content 로 검색한 결과를 list로 표시하는 기능을 구현해보겠다.*/ 
-$('button.btn,.btn-default').click(function(){ 
-	location.href="/semiproject/board/search?sortOption=date&keyword="+$('#search-field').val();
+$('button.btn,.btn-default').click(function(){
+	if(!$('#search-field').val()){
+		alert('검색어를 입력해주세요!');
+		$('#search-field').focus();
+	}else{
+		location.href="/semiproject/board/search?category="+$('#category').val()+"&sortOption=date&keyword="+$('#search-field').val();
+	}
 })
 
 $('#boardWriteBtnAtList').click(function(){
@@ -34,9 +39,9 @@ $('.category-sort-link').click(function(){
 	
 	if(searchKeyword){
 		//풍혁0714 : searchKeword가 있을 경우
-		location.href="/semiproject/board/search?pg=1&sortOption="+sortOption+"&keyword="+searchKeyword;
+		location.href="/semiproject/board/search?category="+$('#category').val()+"&pg=1&sortOption="+sortOption+"&keyword="+searchKeyword;
 	}else{
-		location.href="/semiproject/board/list?pg=1&sortOption="+sortOption;
+		location.href="/semiproject/board/list?category="+$('#category').val()+"&pg=1&sortOption="+sortOption;
 	}
 	
 })
