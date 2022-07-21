@@ -549,7 +549,7 @@ public class BoardServiceImpl implements BoardService {
 				
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
 						//풍혁 (220707) : pg는 그냥 1로만 넣어놓았으니 나중에 pg 넘길방법 생각해야됨 input hidden만들어서 넘기자 
- 						tr.append("<a href='/semiproject/board/getBoardClassView?board_id="+boardDTO.getBoard_id()+"&pg=1&class_id="+boardDTO.getBoard_classid()+"'>");
+ 						tr.append("<a href='/semiproject/board/getBoardClassView?category=class&board_id="+boardDTO.getBoard_id()+"&pg=1&class_id="+boardDTO.getBoard_classid()+"'>");
 							tr.append(boardDTO.getBoard_title());
 						tr.append("</a>");
 					tr.append("</h5>");
@@ -658,7 +658,7 @@ public class BoardServiceImpl implements BoardService {
 		public void boardClassDelete(int board_id) {
 			boardDAO.boardClassDelete(board_id);
 		}
-
+		
 		@Override
 		public BoardDTO boardClassEditForm(int board_id) {
 			return boardDAO.boardClassEditForm(board_id);
@@ -669,6 +669,7 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.boardClassUpdate(map);
 			return;
 		}
+
 
 		//유진 끝#######################################################
           
@@ -832,6 +833,7 @@ public class BoardServiceImpl implements BoardService {
 //			return null;
 //		}
 		//@@@ 게시물 내용 가져오기
+
 
 		@Override
 		public BoardDTO getAdminBoardNoticeContent(int board_id) {
