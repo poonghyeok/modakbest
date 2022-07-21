@@ -3,7 +3,6 @@ package com.modak.board.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 //import com.modak.board.bean.BoardAllDTO;
 import com.modak.user.bean.UserAllDTO;
@@ -79,19 +78,19 @@ public interface BoardDAO {
 		// 기진 : 끝  ###################### 
 
     // 유진 시작
-		public void boardClassWrite(BoardClassDTO boardClassDTO);
+		public void boardClassWrite(BoardDTO boardDTO);
     
-      	public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
+      	public List<BoardDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption, int class_id);
       
       	public int getTotalBoardClassNum(int class_id);
 
-      	public List<BoardClassDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption);	
+      	public List<BoardDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption);	
       
       	public int getTotalBoardClassSearchNum(String keyword, int class_id);
 
 		public void setClassHit(int board_id);
 
-		public BoardClassDTO getBoardClassContent(int board_id, int class_id);
+		public BoardDTO getBoardClassContent(int board_id, int class_id);
 
 		public int boardClassRecommendCheck(Map<String, Object> map);
 
@@ -105,7 +104,7 @@ public interface BoardDAO {
 
 		public void boardClassDelete(int board_id);
 
-		public BoardClassDTO boardClassEditForm(int board_id);
+		public BoardDTO boardClassEditForm(int board_id);
 
 		public void boardClassUpdate(Map<String, String> map);
 	

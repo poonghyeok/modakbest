@@ -26,6 +26,10 @@ public class BoardDTO implements Comparable<BoardDTO>{
 			//풍혁0709 : jsonFormat 기능사용, java date 객체에서 json 객체로 변환될 때 format 지정
 			@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.S", timezone = "Asia/Seoul")
 			private Date board_date_created; 
+			
+			//유진추가===============================
+			private int board_classid;
+			//유진 끝===============================
 		// 공통영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 			

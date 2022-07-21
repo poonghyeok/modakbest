@@ -211,14 +211,14 @@ public class BoardDAOMyBatis implements BoardDAO {
       
       //유진 : 시작
       	@Override
-			public void boardClassWrite(BoardClassDTO boardClassDTO) {
+			public void boardClassWrite(BoardDTO boardDTO) {
 				System.out.print("Mybatis insert");
-				sqlSession.insert("boardSQL.boardClassWrite",boardClassDTO);
+				sqlSession.insert("boardSQL.boardClassWrite",boardDTO);
 				
 			}
 
 			@Override
-			public List<BoardClassDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,	int class_id) {
+			public List<BoardDTO> getBoardClassRangeOrder(Map<String, Integer> map, String sortOption,	int class_id) {
 				Map<String, Object> newMap = new HashMap<>();
 				newMap.put("startNum", map.get("startNum").toString());
 				newMap.put("endNum", map.get("endNum").toString());
@@ -234,8 +234,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public List<BoardClassDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption) {
-				List<BoardClassDTO> list = new ArrayList<>();
+			public List<BoardDTO> getBoardClassSearchRangeOrder(Map<String, Object> map, String sortOption) {
+				List<BoardDTO> list = new ArrayList<>();
 				map.put("sortOption", sortOption);
 				list = sqlSession.selectList("boardSQL.getBoardClassSearchRangeOrder", map);
 				return list;
@@ -250,7 +250,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public BoardClassDTO getBoardClassContent(int board_id, int class_id) {
+			public BoardDTO getBoardClassContent(int board_id, int class_id) {
 				Map<String, Object> map = new HashMap<String,Object>();
 				map.put("board_id", board_id);
 				map.put("class_id", class_id);
@@ -295,7 +295,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			}
 
 			@Override
-			public BoardClassDTO boardClassEditForm(int board_id) {
+			public BoardDTO boardClassEditForm(int board_id) {
 				return sqlSession.selectOne("boardSQL.boardClassEditForm", board_id);
 			}
 

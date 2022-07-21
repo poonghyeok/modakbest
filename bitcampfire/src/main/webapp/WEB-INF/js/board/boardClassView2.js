@@ -566,7 +566,7 @@ $('#btn-create-btn').click(function(){
 				'cmt_content' : content_with_tag,
 			},
 			success : function(){
-				location.href = "//board/getBoardView?board_id="+$('#board_id').val();
+				location.href = "/semiproject/board/getBoardClassView?board_id="+$('#board_id').val()+"&class_id="+$('#memClassid').val();
 			},
 			error : function(err){
 				console.log(err);

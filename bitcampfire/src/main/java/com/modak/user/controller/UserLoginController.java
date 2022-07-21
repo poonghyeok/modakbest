@@ -180,6 +180,7 @@ public class UserLoginController {
 			session.setAttribute("memSocial", userInfo.getUser_social()); //연수추가(220714)
 			session.setAttribute("memKakaoId", userInfo.getUser_kakaoId()); //연수추가(220717) - 관리자 카카오 회원 삭제 기능 구현용
 			session.setAttribute("memClassId", userInfo.getUser_classid());
+			session.setAttribute("memId", userInfo.getUser_id());
 
 			// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 			// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.

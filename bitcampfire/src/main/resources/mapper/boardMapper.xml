@@ -461,14 +461,14 @@
 	<!--  기진 : 끝  ###################### -->
   
   <!--  유진 : 시작   -->
- 		<insert id="boardClassWrite" parameterType="BoardClassDTO">
+ 		<insert id="boardClassWrite" parameterType="BoardDTO">
 	      INSERT INTO BOARD_CLASS
 	            (board_id, board_uid, board_classid, board_title, board_content, board_date_created)
 	        VALUES
 	            (BOARD_CLASS_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content},sysdate)
     	</insert>
     	
-    	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardClassDTO">
+    	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">
 	    	SELECT * FROM (
 	   			SELECT ROWNUM AS RN, TT.* FROM (
 	 				SELECT * FROM BOARD_CLASS 
@@ -491,7 +491,7 @@
 	   		SELECT count(*) FROM BOARD_CLASS where board_classid = #{class_id}
 	   	</select>
 	   	
-	   	<select id="getBoardClassSearchRangeOrder" parameterType="java.util.Map" resultType="BoardClassDTO">
+	   	<select id="getBoardClassSearchRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">
 	    	SELECT * FROM (	
 	    		SELECT ROWNUM AS RN, TT.* FROM 
 	    			(SELECT * FROM BOARD_CLASS 
@@ -519,7 +519,7 @@
    				OR BOARD_CONTENT LIKE '%'||#{keyword}||'%')
 	   	</select>
 	   	
-	   	<select id = "getBoardClassContent" parameterType = "java.util.Map" resultType = "BoardClassDTO"> 
+	   	<select id = "getBoardClassContent" parameterType = "java.util.Map" resultType = "BoardDTO"> 
 			select * from BOARD_CLASS where board_id = ${board_id} and board_classid = #{class_id}
 		</select>
 		
@@ -558,7 +558,7 @@
 		</delete>
 		
 		<!-- 글 수정 폼 (원래 글 dto 가져오기)  -->
-		<select id="boardClassEditForm" parameterType = "int" resultType = "BoardClassDTO">
+		<select id="boardClassEditForm" parameterType = "int" resultType = "BoardDTO">
 			select * from BOARD_CLASS where board_id = ${board_id}
 		</select>
 		

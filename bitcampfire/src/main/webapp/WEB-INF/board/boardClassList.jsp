@@ -18,7 +18,8 @@
 	<div class="main">
 		<input type="text" id="memClassid" value="${sessionScope.memClassid }">
 		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">
-		<input type="hidden" value="${sessionScope.memEmail}" id="session_email"> 
+		<input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+		<input type="text" value="${sessionScope.memEmail}" id="session_email"> 
 		<input type="hidden" value="${param.sortOption}" id="sortOption"> 
 		<input type="hidden" value="${keyword}" id="searchKeyword"> 
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->

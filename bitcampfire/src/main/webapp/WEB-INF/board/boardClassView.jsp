@@ -39,11 +39,11 @@
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
 			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">
-	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardClassDTO.board_uid}">
-	        <input type = "hidden" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardClassDTO.board_cmt_cnt}">
+	        <input type = "text" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
+	        <input type = "hidden" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardDTO.board_cmt_cnt}">
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
-	        <input type = "hidden" id = "board_classid" name = "board_classid" value="${boardClassDTO.board_classid}">
-	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+	        <input type = "hidden" id = "board_classid" name = "board_classid" value="${boardDTO.board_classid}">
+	        <input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
 			<!-- 본격 글 내용 ( 작성자 ~ 페이스북 ) -->
@@ -52,10 +52,10 @@
 	            <div class="panel-heading clearfix">
 	                <div class="avatar clearfix avatar-medium pull-left"> 
 	            	    <!-- 07/11기진: user page를 위해 href를 user 수정하였습니다 -->
-	                    <a href="/semiproject/user/userPage?user_id=${boardClassDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${user_img}"></a>
+	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${user_img}"></a>
 	                    <div class="avatar-info">
 	                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
-                            <a class="nickname" href="/semiproject/user/userPage?user_id=${boardClassDTO.board_uid}" title="author">${author}</a>
+                            <a class="nickname" href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" title="author">${author}</a>
                             <div class="activity">
                             	<span class="fa fa-flash"></span> 
                             	lev
@@ -69,8 +69,8 @@
 	                  	</div>
                   	</div>
 					<div class="content-identity pull-right">
-						<div class="content-identity-count"><i class="fa fa-comment"></i> ${boardClassDTO.board_cmt_cnt}</div>
-						<div class="content-identity-count"><i class="fa fa-eye"></i> ${boardClassDTO.board_view_cnt}</div>
+						<div class="content-identity-count"><i class="fa fa-comment"></i> ${boardDTO.board_cmt_cnt}</div>
+						<div class="content-identity-count"><i class="fa fa-eye"></i> ${boardDTO.board_view_cnt}</div>
 	                </div>
             	</div><!--  <div class="panel-heading clearfix"> -->
 	            <!-- 글 작성자 , 댓글수, 조회수 -->
@@ -91,7 +91,7 @@
 						<h2 class="panel-title">${boardDTO.board_title}</h2>
 						<hr>
 						<article class="content-text" itemprop="articleBody">
-							${boardClassDTO.board_content}
+							${boardDTO.board_content}
 						</article>
 					</div>
 
@@ -102,7 +102,7 @@
 								<a href="javascript://" class="note-vote-btn" role="button" data-type="assent" data-eval="true" data-id="2853281"> 
 									<i id="note-evaluate-assent-2853281" class="fa fa-angle-up note-evaluate-assent-assent" data-placement="left" data-toggle="tooltip" title="" data-original-title="추천"></i>
 								</a>
-								<div id="content-vote-count-2853281" class="content-eval-count">${boardClassDTO.board_vote_cnt}</div>
+								<div id="content-vote-count-2853281" class="content-eval-count">${boardDTO.board_vote_cnt}</div>
 								<a href="javascript://" class="note-vote-btn" role="button" data-type="dissent" data-eval="true" data-id="2853281">
 								 <i id="note-evaluate-dissent-2853281" class="fa fa-angle-down note-evaluate-dissent-dissent" data-placement="left" data-toggle="tooltip" title="" data-original-title="반대"></i>
 								</a>

@@ -1,6 +1,8 @@
 package com.modak.comment.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +35,12 @@ public class CommentClassController {
 		public void commentClassWrite(@ModelAttribute CommentDTO commentDTO) {
 			
 			commentService.commentClassWrite(commentDTO);
-			commentService.increaseCommentCount(commentDTO.getCmt_bid());
+			
+			Map<String, Integer> map = new HashMap<>();
+			map.put("board_id",commentDTO.getCmt_bid());
+			map.put("cateid",commentDTO.getCmt_cateid());
+			
+			commentService.increaseClassCommentCount(map);
 			
 			return ;
 		}
@@ -67,14 +74,17 @@ public class CommentClassController {
 		
 		@PostMapping(value = "commentClassDelete")
 		@ResponseBody
-		public void commentClassDelete(@RequestParam int cmt_id, @RequestParam int cmt_bid) {
+		public void commentClassDelete(@ModelAttribute CommentDTO commentDTO) {
 			
-			System.out.println("\n @LOG@ comment...delete : " + cmt_id + cmt_bid);
+			Map<String, Integer> map = new HashMap<>();
+			map.put("board_id",commentDTO.getCmt_bid());
+			map.put("cateid",commentDTO.getCmt_cateid());
 			
-			commentService.commentClassDelete(cmt_id);
-			commentService.decreaseCommentCount(cmt_bid);
+			commentService.delete(commentDTO.getCmt_bid());
+			commentService.decreaseClassCommentCount(map);
 			
 			return ;
+
 		}
 		
 	
