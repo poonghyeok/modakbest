@@ -84,26 +84,6 @@ public class UserMyPageController {
 		
 		if(articalEmail.equals(login_user)) { 
 			
-			System.out.println("나 =====" + login_user + "글쓴이 ======" + articalEmail);
-			map.put("user_id", user_id);
-			
- 			list = boardService.getUserPageArticle(map);
-			System.out.println();
-			System.out.println();
-			System.out.println("나 자신");
-			System.out.println();
-			System.out.println();
-			System.out.println("my boardDTO list = " + list);
-			System.out.println();
-			System.out.println();
-			System.out.println("session = " + session.getAttribute("memEmail"));
-			
-			
-			
-			System.out.println();
-			System.out.println();
-			mav.setViewName("/user/userPageForm");
-			mav.addObject("boardDTO",list);
 			
 			
 		}else{

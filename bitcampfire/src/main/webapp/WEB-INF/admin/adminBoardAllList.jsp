@@ -23,20 +23,21 @@ height : 100px;
 	<div class="main">
 	<%@ include file = "/admin/adminSidebar.jsp" %>
 	
-	<h4>게시글 관리</h4>
+	<h3>게시글 관리</h3>
 	<!-- 검색 기능-->
 	<form id="BoardSearchForm">
 	<div class="nav" role="navigation" style="margin-left:600px;">
 		<input type="hidden" name="pg" id="searchPg" value="1">					
 			<div class="job-filter-container" style="width:300px; text-align:center; margin: auto;">
 			<select class="job-filter-btn" name="searchOption" id="searchOption" style="border-color: #DBDCE1; font-size: 10pt; color: #656667;">
-		       <option value="user_name" id="user_name">이름</option>
-		       <option value="user_email" id="user_email">이메일</option>
-		       <option value="user_nickname" id="user_nickname">닉네임</option>         
+		       <option value="board_title" id="board_title">제목</option>
+		       <option value="board_uid" id="board_uid">작성자</option>
+		       <option value="board_cateid" id="board_cateid">카테고리</option>
+		            
 	   		</select>
              <input type="search" id="keyword" name="keyword" class="form-control" placeholder="검색어" value="" style="border-color: #DBDCE1;">
              <span class="input-group-btn"> 
-                 <input type="button" id="userSearchBtn" class="btn btn-default" style="border-color: #DBDCE1; font-size: 10pt; color: #656667;" value="검색">
+                 <input type="button" id="BoardSearchBtn" class="btn btn-default" style="border-color: #DBDCE1; font-size: 10pt; color: #656667;" value="검색">
              </span>
          </div>
     </div>
@@ -46,44 +47,45 @@ height : 100px;
 	<form id="adminBoardAllListForm" method="get" action="/semiproject/admin/adminBoardDelete_select" >		
 		<div class="panel panel-default questions-panel">
 			<ul class="list-group">
-				<li class="list-group-item list-group-item-question list-group-has-note clearfix" style="background-color: pink;" >
+				<li class="list-group-item list-group-item-question list-group-has-note clearfix" name = "checkList" style="background-color: lightGray;" >
 				<!-- append 시작점 -->
+					
 					<!-- board_id  -->
-					<div class="list-title-wrapper clearfix1" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
+					<div class="list-title-wrapper clearfix1" id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						<input type="checkbox" id="all" style="float:left; margin-top: 10px;">번호 									
 					</div>
 													
 					<!-- board_cateid -->	
-					<div class="list-title-wrapper clearfix2" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;"> 
+					<div class="list-title-wrapper clearfix2" id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; "> 
 						<p style="height:5px;">카테고리</p>
 					</div>
 																			
 					<!-- board_title  -->
-					<div class="list-title-wrapper clearfix3" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
+					<div class="list-title-wrapper clearfix3" id = "adminBoard" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						제목								
 					</div>
 					
 					<!-- board_cmt_cnt  -->
-					<div class="list-title-wrapper clearfix4" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
+					<div class="list-title-wrapper clearfix4"  id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						댓글수								
 					</div>
 					
 					<!-- board_view_cnt  -->
-					<div class="list-title-wrapper clearfix5" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
+					<div class="list-title-wrapper clearfix5"  id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						조회수								
 					</div>
 					
 					<!-- board_uid  -->								
-					<div class="list-title-wrapper clearfix6" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
+					<div class="list-title-wrapper clearfix6" id = "adminBoard" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						작성자						
 					</div>
 					
 					<!-- board_date_created  -->
-					<div class="list-title-wrapper clearfix7" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: ;">									
+					<div class="list-title-wrapper clearfix7"  id = "adminBoard" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						날짜								
 					</div>
 					
-					<div class="list-title-wrapper clearfix8" style="width:40px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
+					<div class="deleteBtn" id = "adminBoard" style="width:40px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
 						삭제								
 					</div>	
 				
@@ -92,7 +94,7 @@ height : 100px;
 			</ul>
 		</div> 
 							
-		<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="선택삭제" style="float: left;">
+		<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="삭제" style="float: right; background-color: lightGray; font-weight: bold; color : black;">
 	</form>
 </div>
 </div>
@@ -106,20 +108,31 @@ $(function(){
 		dataType : "json",
 		success : function(data) {  // list
 			console.log(JSON.stringify(data));
-			$.each(data, function(index, item){
+			$.each(data, function(index, item){ //board_uid 
 				
-				var del = "삭제";
+				var userNickname;
+					$.ajax({
+						type : "get",
+						url : "/semiproject/admin/getUserNickname",
+						data : {board_uid : item.board_uid},
+						async : false,
+						success : function(name) {
+							/* console.log(name) */
+							userNickname = name;
+						}
+					});
+					/* console.log(userNickname); */
+
 				
 				var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
-							'<input name="check" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;">'+
+							'<input name="check" class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;">'+
 							'<div style = "float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
 							'<div style = "float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
 							'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_title+'</div>'+
 							'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
 							'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
-							'<div style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_uid+'</div>'+
-							'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'+
-							'<div style ="float:left; width:49px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+del+'</div>'
+							'<div style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname +'</div>'+
+							'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'
 							'</li>';
 				$(test).appendTo('.list-group');
 			})
@@ -129,19 +142,38 @@ $(function(){
 		} // error
 	})
 });
+
+
+/* 선택 삭제 */
+$('#adminBoardDeleteBtn_select').click(function(){
+	
+	var num = $("input:checkbox[name=check]:checked").length // 체크된 개수
+	
+	if (num == 0) {
+		alert('삭제할 항목이 없습니다.')
+	} else if (confirm('정말로 삭제하시겠습니까?')) {
+		$("input:checkbox[name=check]:checked").parent().remove();
+		
+	} 
+}); 
+
+/* 전체 삭제 */
+	$('#all').click(function(){
+		if($('#all').prop('checked'))
+			$('input[name="check"]').prop('checked', true);
+		else
+			$('input[name="check"]').prop('checked', false);
+	});
+	
+/* 검색 버튼 눌렀을 때 */	
+ $('#BoardSearchBtn').click(function(){
+	 $.ajax({
+		 type : 'get',
+		 url :'/semiproject/admin/'
+	 });
+ });
 </script>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	<!-- <table border = "1" width = "700px" id = "table">
 		<tr>
 			<th>게시글번호</th>

@@ -194,15 +194,19 @@ public class UserDAOMyBatis implements UserDAO {
 		public String getUserNameByUserId(int board_uid) {
 			
 			System.out.println("\n @LOG@ myBatis.. getUserNameByUserId... user_id : " + board_uid);
-			String user_nickname = sqlSession.selectOne("userSQL.getUserNameByUserId", board_uid);
-			System.out.println("user_nickname : " + user_nickname);
-			return user_nickname;
+			String userNickname = sqlSession.selectOne("userSQL.getUserNameByUserId", board_uid);
+			
+			if(userNickname == null) {
+				return "탈퇴한회원";
+			}else {
+				return userNickname;
+			}
 		}
 		
 		@Override
 		public String getUserImgByUserid(int user_id) {
-			
 			return sqlSession.selectOne("userSQL.getUserImgByUserid", user_id);
+			
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
