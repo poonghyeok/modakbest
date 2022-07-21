@@ -671,10 +671,10 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		//유진 끝#######################################################
-		
+		//<!--@@@@ 연수 살려주세요!(220721)  -->
 		// @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
         //@@@ 어드민 페이지 > notice 작성하기  
-		
+		//@@@ 일단 넣어봤찌만? 나중에 필요한 것 찾아 넣기
 		private int stringNoticeCateToInt(String category) {
 			int result = -1;
 			switch(category){
@@ -688,6 +688,7 @@ public class BoardServiceImpl implements BoardService {
 			
 			return result;
 		}
+		
 		private String noticeCateidToString(int cateid) {
 			String result = null;
 			switch(cateid){
@@ -787,7 +788,7 @@ public class BoardServiceImpl implements BoardService {
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");
 						//풍혁 (220707) : pg는 그냥 1로만 넣어놓았으니 나중에 pg 넘길방법 생각해야됨 input hidden만들어서 넘기자
 						//연수: 나한테 맞게 href 수정하기
- 						tr.append("<a href='/semiproject/admin/adminBoardNoticeView'>");
+ 						tr.append("<a href='/semiproject/admin/adminBoardNoticeView?&board_id="+boardDTO.getBoard_id()+"&pg=1'>");
  						/*("<a href='/semiproject/board/getBoardView?category="+noticeCateidToString(boardDTO.getBoard_cateid())+"&board_id="+boardDTO.getBoard_id()+"&pg=1'>");*/
 							tr.append(boardDTO.getBoard_title());
 						tr.append("</a>");
@@ -819,12 +820,26 @@ public class BoardServiceImpl implements BoardService {
 		
 			return tr.toString();
 		}
+//		@@ 페이징 처리 나중에 다시		
 //		@Override
 //		public String getAminNoticePagingList(String pg) {
 //			// TODO Auto-generated method stub
 //			return null;
 //		}
+		//@@@ 게시물 내용 가져오기
+//		@Override
+//		public BoardDTO getAdminBoardNoticeContent(int board_id) {
+//			BoardDTO boardDTO = boardDAO.getAdminBoardNoticeContent(board_id); //글번호 가지고 dto 가지고와
+//			
+//			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
+//				boardDAO.setAdminBoardNoticeHit(board_id); // 글번호에 조회수 증가하게 해
+//				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
+//			}
+//					
+//		return boardDTO;
+//		}
 		
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
+	//<!--@@@@ 연수 살려주세요!(220721)  -->	
 
 }
