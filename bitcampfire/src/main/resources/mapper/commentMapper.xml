@@ -115,7 +115,9 @@
 	</insert>
 	
 	<select id="getClassCommentListByBoardId" parameterType="java.lang.String" resultType="CommentDTO">
-		SELECT * FROM COMMENT2 WHERE cmt_bid = ${cmt_bid}
+
+		SELECT * FROM COMMENT2 WHERE cmt_bid = ${cmt_bid} and  cmt_cateid = 5
+
 	</select>
 	
 	

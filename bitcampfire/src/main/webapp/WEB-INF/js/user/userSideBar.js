@@ -27,7 +27,8 @@ alert("학원 전용 게시판입니다.\n이용을 원하시면 학원을 등�
 location.href = "/semiproject/user/userUpdateForm";
 }
 else {
-location.href = "/semiproject/board/boardClassList?class_id="+$('#memUser_classid').val();
+	//풍혁0721 : 사이드바 적용을 위해 location에 category = class 추가
+location.href = "/semiproject/board/boardClassList?category=class&class_id="+$('#memUser_classid').val();
 }
 });
 

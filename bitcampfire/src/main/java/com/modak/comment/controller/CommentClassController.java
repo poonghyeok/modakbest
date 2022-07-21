@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +29,7 @@ public class CommentClassController {
 	
 	@Autowired
 	private UserService userService;
-	
+
 	
 
 		@PostMapping(value = "commentClassWrite")
@@ -79,8 +81,9 @@ public class CommentClassController {
 			Map<String, Integer> map = new HashMap<>();
 			map.put("board_id",commentDTO.getCmt_bid());
 			map.put("cateid",commentDTO.getCmt_cateid());
+			map.put("cmt_id",commentDTO.getCmt_id());
 			
-			commentService.delete(commentDTO.getCmt_bid());
+			commentService.commentClassDelete(commentDTO.getCmt_id());
 			commentService.decreaseClassCommentCount(map);
 			
 			return ;

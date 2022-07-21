@@ -10,6 +10,7 @@
 <input type="hidden" id="memEmail" value="${sessionScope.memEmail}">
 <input type="hidden" id="memUser_classid" value="${sessionScope.memClassId}"> 
 <input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+
 <div class="sidebar">
     <a href="javascript://" class="sidebar-header">
         <i class="fa fa-bars sidebar-header-icon"></i>
@@ -80,7 +81,7 @@
     		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
     		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
     		<%-- <c:if test="${sessionScope.memId == 0 }"> --%>
-    		<li  ><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
+    		<li  ><a href="/semiproject/admin/adminUserAllList?category=admin" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
 			<%-- </c:if> --%>
 			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
 
