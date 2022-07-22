@@ -844,13 +844,13 @@ public class BoardServiceImpl implements BoardService {
 
 		@Override
 		public BoardDTO getAdminBoardNoticeContent(int board_id) {
-			BoardDTO boardDTO = boardDAO.getAdminBoardNoticeContent(board_id); //글번호 가지고 dto 가지고와
-			
 			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
 				boardDAO.setAdminBoardNoticeHit(board_id); // 글번호에 조회수 증가하게 해
 				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
 			}
-					
+			
+			BoardDTO boardDTO = boardDAO.getAdminBoardNoticeContent(board_id); //글번호 가지고 dto 가지고와
+			
 		return boardDTO;
 		}
 		
@@ -878,6 +878,6 @@ public class BoardServiceImpl implements BoardService {
 
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
-}
+
 
 

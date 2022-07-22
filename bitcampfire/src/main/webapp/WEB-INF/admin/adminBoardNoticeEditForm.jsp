@@ -41,8 +41,8 @@
 					
 					<div class="profile-info">
 						 <h1 class="eunhye">
-		                    <a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-		                    	${user_nickname} <!-- author nickname -->
+		                    <a id="user_nicknameDiv" href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
+		                    	 <!-- author nickname -->
 		                    </a>
 		                </h1>
 		                <span aria-label="">point</span>
@@ -166,6 +166,10 @@ $(function(){
 			$('#board_title').val(data.boardDTO.board_title);
 			editor.setData(data.boardDTO.board_content);
 			$('#board_cateid option:eq('+(data.boardDTO.board_cateid)+')').prop('selected', true);
+			
+			//alert(data.user_nickname);
+			$('#user_nicknameDiv').html(data.user_nickname);
+			$('#profile-photo').html(d ata.user_img);
 		},
 		error : function(err){
 			console.log(err);
