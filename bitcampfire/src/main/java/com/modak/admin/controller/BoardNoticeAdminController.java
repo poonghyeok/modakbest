@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.service.BoardService;
 import com.modak.user.service.UserService;
