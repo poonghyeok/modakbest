@@ -28,20 +28,21 @@
 			<!-- 풍혁(220707) : css 분리 적용을 위해, class eunhye를 추가하겠습니다. -->
 			<div class="content-header">
 	    		<h3>글 수정하기</h3>
-				<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
+				<input type = "text" id = "board_id" class = "board_id" value = "${param.board_id}">
+				<!-- 연수 : 카테고리는 안받아왔다  -->
 				<input type = "text" id = "category" class = "category" value = "${param.category}">
 			</div>
 			<div class="content-header">
 				<div class="user-profile">
-					<!-- DTO로 값 넣어주기!  -->
-					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-						<img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
+					<!-- 세션값 아니고 DTO로 값 넣어주기!  -->
+					<a href="/semiproject/user/userMyPageForm?user_id=${board_uid}">
+						<img src="/semiproject/storage/userprofile/${user_img}" id="profile-photo" alt="profile-img">
 					</a>
-				
+					
 					<div class="profile-info">
 						 <h1 class="eunhye">
 		                    <a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-		                    	${sessionScope.memNickname} <!-- author nickname -->
+		                    	${user_nickname} <!-- author nickname -->
 		                    </a>
 		                </h1>
 		                <span aria-label="">point</span>
@@ -162,14 +163,16 @@ $(function(){
 		data : {"board_id":$('#board_id').val()},
 		success :function(data){
 			console.log(JSON.stringify(data));
-			$('#board_title').val(data.board_title);
-			editor.setData(data.board_content);
-			//$('#board_cateid option:eq('+(data.board_cateid)+')').prop('selected', true);
+			$('#board_title').val(data.boardDTO.board_title);
+			editor.setData(data.boardDTO.board_content);
+			$('#board_cateid option:eq('+(data.boardDTO.board_cateid)+')').prop('selected', true);
 		},
 		error : function(err){
 			console.log(err);
 		}
 	})
+});	
+	
 
 
 </script>

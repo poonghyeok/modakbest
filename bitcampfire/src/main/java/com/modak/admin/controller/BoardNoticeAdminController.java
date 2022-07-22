@@ -107,7 +107,8 @@ public class BoardNoticeAdminController {
 	@PostMapping(value="adminNoticeDelete_each")
 	@ResponseBody
 	public String adminNoticeDelete_each(@RequestParam int board_id) {
-		
+		//뭘로 들어오냐
+		System.out.println(board_id);
 		boardService.adminNoticeDelete_each(board_id);
 		session.invalidate();
 		return "/admin/adminBoardNoticeList";
@@ -122,9 +123,26 @@ public class BoardNoticeAdminController {
 	//공지사항 수정 데이터 불러오기	
 	@GetMapping(value = "getAdminBoardNotice_edit")
 	@ResponseBody
-	public BoardDTO getAdminBoardNotice_edit(@RequestParam int board_id) { 		  
-		BoardDTO boardDTO= boardService.getAdminBoardNotice_edit(board_id); 
-		return boardDTO; 
+	public Map<String, Object> getAdminBoardNotice_edit(@RequestParam int board_id) { 		  
+		
+		BoardDTO boardDTO= boardService.getAdminBoardNotice_edit(board_id);
+		
+		//관리자의 경우 본인글이 아니어도 볼 수 있음=> 유저별 정보 끌어 오기 
+		//닉네임
+		//풍혁220708 : boadr_uid로 유저nickname 받아서 작성자에 넣겠습니다.
+		String author = boardService.getUserNameByUserId(boardDTO.getBoard_uid());
+		
+		//사진
+		//풍혁220714 : board_uid로 user_img를 받아서 프로필 사진 반영하겠습니다. 
+		String userImg = userService.getUserImgByUserid(boardDTO.getBoard_uid());
+		//System.out.println("\n @log@ userimg : " + userImg);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardDTO", boardDTO); 
+		map.put("user_nickname", author);
+		map.put("user_img", userImg);
+		
+		return map; 
 	}
 			 
 

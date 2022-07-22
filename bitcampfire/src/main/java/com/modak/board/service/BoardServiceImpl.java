@@ -776,7 +776,8 @@ public class BoardServiceImpl implements BoardService {
 			tr.append("<li class='list-group-item list-group-item-question clearfix " + hasNoteClass + "'>");
 				tr.append("<div class='list-title-wrapper clearfix' style='width:20px;'>");
 					tr.append("<div class='list-tag clearfix' style='width:20px;'>");
-						tr.append("<input type='checkbox' id='check' name='check' style='float:left;' value="+boardDTO.getBoard_id()+">");
+						//tr.append("<input type='checkbox' id='check' name='check' style='float:left;' value="+boardDTO.getBoard_id()+">");
+						tr.append("<input type='checkbox' data-id='"+boardDTO.getBoard_id()+"' class='abc' name='check' style='float:left;' value="+boardDTO.getBoard_id()+">");
 					tr.append("</div>");
 				tr.append("</div>&emsp;");
 				tr.append("<div class='list-title-wrapper clearfix'>");
@@ -814,9 +815,9 @@ public class BoardServiceImpl implements BoardService {
 								tr.append("<span class='timeago' title='"+dateToStr+"'>"+ dateToStr +"</span>");
 							tr.append("</div>");
 						tr.append("</div>");	
-							tr.append("<div class='list-group-item-author clearfix' style='text-align: right;'>");
-								tr.append("<input type='button' id='adminNoticeEditBtAtList' class='btn btn-default btn-sm' value='수정'>&emsp;&nbsp;");
-								tr.append("<input type='button' id='adminNoticeDeleteBtn_each' class='btn btn-danger btn-sm' value='삭제'>");
+							tr.append("<div class='list-group-item-author clearfix' style='text-align: right;'>"); 
+								tr.append("<input type='button' data-id='"+boardDTO.getBoard_id()+"' id='adminNoticeEditBtnAtList' class='btn btn-default btn-sm' value='수정'>&emsp;&nbsp;");
+								tr.append("<input type='button' data-id='"+boardDTO.getBoard_id()+"' id='adminNoticeDeleteBtn_each' class='btn btn-danger btn-sm' value='삭제'>");
 							tr.append("</div>");	
 											
 					tr.append("</div>");				

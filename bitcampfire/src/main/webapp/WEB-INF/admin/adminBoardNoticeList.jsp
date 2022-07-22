@@ -64,7 +64,7 @@
 			</div>				
 			
 			</form><!-- adminBoardNoticeistForm : 선택삭제(체크박스) 기능을 위해 만든 폼 -->	
-			<!-- </div> -->
+			<!-- </div> --> <h2>${boardDTO.getBoard_id()}</h2>
 			
 		<jsp:include page="/WEB-INF/global/footer.jsp"/>
 	</div> <!-- main -->   
@@ -104,9 +104,9 @@ $('#adminNoticeDeleteBtn_select').click(function(){
 //@@@@@ 체크박스 선택삭제 끝
 
 //개별삭제 
-$('#adminNoticeDeleteBtn_each').click(function(){
+$('.btn-danger').click(function(){
 	
-	var board_id = $('#check').val();
+	var board_id = $(this).attr('data-id');
 		
 	if (confirm("글을 삭제하시겠습니까?")){			
 		$.ajax({
@@ -125,8 +125,10 @@ $('#adminNoticeDeleteBtn_each').click(function(){
 });
 
 //글 수정 : 관리자는 아이디가 0일때 접속 가능하기 때문에 로그인 관련 유효성 검사 하지 않음
-$('#adminNoticeEditBtAtList').click(function(){ // 수정버튼을 눌렀을떄
-	location.href = "/semiproject/admin/adminBoardNoticeEditForm?board_id="+$('#check').val();
+$('.btn-default').click(function(){ // 수정버튼을 눌렀을떄
+	var board_id = $(this).attr('data-id');
+	
+	location.href = "/semiproject/admin/adminBoardNoticeEditForm?board_id="+ board_id;
 
 });
 	
