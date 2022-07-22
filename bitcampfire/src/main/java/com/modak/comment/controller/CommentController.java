@@ -117,7 +117,7 @@ public class CommentController {
 			map.put("board_id",commentDTO.getCmt_bid());
 			map.put("cateid",commentDTO.getCmt_cateid());
 			
-			commentService.delete(commentDTO.getCmt_bid());
+			commentService.delete(commentDTO.getCmt_id());
 			commentService.decreaseCommentCount(map);
 			
 			return ;

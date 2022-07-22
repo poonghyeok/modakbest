@@ -109,11 +109,13 @@
             <!-- <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Tech Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li> -->
             <!-- <li><a href="#" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">Career Q&amp;A</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li> -->
 
-			<!--@@@@@@@@@연수 테스트용으로 사용 중  -->
-			<li><a href="/semiproject/admin/adminUserAllList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">회원관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-			<li><a href="/semiproject/admin/adminBoardAllList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">게시판관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-			<li><a href="/semiproject/admin/adminBoardNoticeList" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">공지사항</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-     </ul>
+            <c:if test="${param.category eq 'admin'}">
+            <li><a href="/semiproject/admin/adminUserAllList?category=admin" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">회원관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+            <li><a href="/semiproject/admin/adminBoardAllList?category=admin" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">게시판관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+            <li><a href="/semiproject/admin/adminBoardNoticeList?category=admin" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">공지사항</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+    		</c:if>
+    </ul>
+
     <div class="special-nav">
     </div>
 </div>

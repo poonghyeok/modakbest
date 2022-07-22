@@ -175,7 +175,7 @@ function jsonToComment(comment){
 			}).append(
 				$('<a/>',{
 					class : "avatar-photo",
-					href : "/semiproject/user/userpage?user_id="+comment.cmt_uid
+					href : "/semiproject/user/userPage?user_id="+comment.cmt_uid
 				}).append(
 					$('<img/>',{
 						src : "/semiproject/storage/userprofile/"+user_image
@@ -186,6 +186,7 @@ function jsonToComment(comment){
 					class : "avatar-info"
 				}).append(
 					$('<a/>',{
+						href : "/semiproject/user/userPage?user_id="+comment.cmt_uid,
 						class : "nickname",
 						title : user_nickname,
 						text : user_nickname
@@ -517,6 +518,7 @@ $(document).on('click','#commentDeleteBtn', function(){
 				'cmt_cateid' : cmt_cateid},
 			async : false,
 			success : function(){
+				alert(comment_id + '번 댓글 삭제 완료');
 				alert('댓글을 삭제 하였습니다.');
 				location.reload();
 			},

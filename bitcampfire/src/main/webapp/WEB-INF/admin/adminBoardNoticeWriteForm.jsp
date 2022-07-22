@@ -21,7 +21,7 @@
 	<div class="main">
 		<!-- 풍혁0721 사이드 통일-->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
-		<input id="category" type = 'text' value ='${param.category}'/>
+		<input id="category" type = 'hidden' value ='${param.category}'/>
 		<!-- 풍혁0721 사이드 통일-->
 	
 		

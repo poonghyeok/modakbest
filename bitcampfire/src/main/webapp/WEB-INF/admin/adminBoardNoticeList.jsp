@@ -18,7 +18,7 @@
 		<!-- 사이드바 완성되면 바꿔넣기  -->
 		<!-- 풍혁0721 사이드 통일-->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
-		<input id="category" type = 'text' value ='${param.category}'/>
+		<input id="category" type = 'hidden' value ='${param.category}'/>
 		<!-- 풍혁0721 사이드 통일-->
 		
 			<!-- <div id="index" class="content scaffold-list clearfix" role="main"> footer가 위로 올라오지 않게하는 폼/리스트 크기가 작아짐 -->				

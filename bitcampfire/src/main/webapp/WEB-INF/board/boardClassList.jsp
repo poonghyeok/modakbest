@@ -16,10 +16,10 @@
 
 <div class="layout-container">
 	<div class="main">
-		<input type="text" id="memClassid" value="${sessionScope.memClassid }">
-		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">
-		<input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
-		<input type="text" value="${sessionScope.memEmail}" id="session_email"> 
+		<input type="hidden" id="memClassid" value="${sessionScope.memClassid }">
+		<input type="hidden" id="memClass_academy" value="${sessionScope.memClass_academy }">
+		<input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+		<input type="hidden" value="${sessionScope.memEmail}" id="session_email"> 
 		<input type="hidden" value="${param.sortOption}" id="sortOption"> 
 		<input type="hidden" value="${keyword}" id="searchKeyword"> 
 		<!-- 풍혁 (220707) : 보드 고정 사이드바 jsp include -->
@@ -31,7 +31,7 @@
 			    <a class="create btn btn-success btn-wide pull-right" id = "boardClassWriteBtnAtList"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
 		
 				<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
-				<input id="category" type = 'text' value ='${param.category}'/>	    
+				<input id="category" type = 'hidden' value ='${param.category}'/>	    
 			    <!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
 			    <h4>${sessionScope.memClass_academy } 전용 게시판</h4>
 			    <form id="category-filter-form" name="category-filter-form" method="get" action="/board/questions"> <!-- 풍혁(220704) : 검색 url 태워야합니다.   -->

@@ -32,8 +32,8 @@
 			<div class="content-header">
 	    		<h3>글 수정하기</h3>
 			</div>
-		<input type="text" id="memClassid" value="${sessionScope.memClassid }">
-		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">
+		<input type="hidden" id="memClassid" value="${sessionScope.memClassid }">
+		<input type="hidden" id="memClass_academy" value="${sessionScope.memClass_academy }">
 		<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
 			<div class="content-header">
 				<div class="user-profile">

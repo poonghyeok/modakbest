@@ -21,11 +21,11 @@
 					<div class="panel-body">
 						<div class="avatar clearfix avatar-big col-sm-3 text-center">
 							<%-- <input type="hidden" value="${user_id }"> --%>
-							<a href="#" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/userprofile/${userDTO.user_img}"/></a>
+							<a href="#" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/userprofile/${userPageInfo.userPage_img}"/></a>
 						</div><!-- avatar clearfix avatar-big col-sm-3 text-center -->
 						<div class="user-info col-sm-9">
 							<div class="clearfix">
-								<h2 class="pull-left" style="font-size:18pt;">${userDTO.user_nickname }</h2>
+								<h2 class="pull-left" style="font-size:18pt;">${userPageInfo.userPage_nickname}</h2>
 								<button class="btn btn-success pull-right btn-wide disabled" ><i class="fa fa-plus"></i> 팔로우</button>
 							</div><!-- clearfix -->
 						

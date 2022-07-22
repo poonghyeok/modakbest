@@ -28,7 +28,7 @@
 			<!-- 풍혁(220707) : css 분리 적용을 위해, class eunhye를 추가하겠습니다. -->
 			<div class="content-header">
 	    		<h3>새 글 쓰기</h3>
-	    		<input type = "text" value="${param.category}" id="category">
+	    		<input type = "hidden" value="${param.category}" id="category">
 			</div>
 			
 			<div class="content-header">

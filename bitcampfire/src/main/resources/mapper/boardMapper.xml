@@ -49,19 +49,19 @@
 	   	
 	   	<select id="getTotalBoardSearchNum" parameterType="java.lang.String" resultType="java.lang.Integer">
 	   		SELECT COUNT(*) FROM 
-	   			<if test="cateid == 1">
+	   			<if test="category == 'info'">
 				board_inform
 				</if>
 				
-				<if test="cateid == 2">
+				<if test="category == 'review'">
 				board_review
 				</if>
 				
-				<if test="cateid == 3">
+				<if test="category == 'qna'">
 				board_qna
 				</if>
 					 
-				<if test="cateid == 4">
+				<if test="category == 'free'">
 				board_free
 				</if> 
     			WHERE BOARD_TITLE LIKE '%'||#{keyword}||'%'

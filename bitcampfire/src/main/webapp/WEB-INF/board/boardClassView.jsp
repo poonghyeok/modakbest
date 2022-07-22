@@ -16,13 +16,13 @@
        	<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
    		<!--사이드바1,2-->
    		<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
-		<input id="category" type = 'text' value ='${param.category}'/>	    
+		<input id="category" type = 'hidden' value ='${param.category}'/>	    
   		<!-- 풍혁0721 : 사이드바 효과적용을 위해 추가  -->
    		
    		
     	<div id="article" class="content" role="main">	
-    	<input type="text" id="memClassid" value="${sessionScope.memClassid }">
-		<input type="text" id="memClass_academy" value="${sessionScope.memClass_academy }">
+    	<input type="hidden" id="memClassid" value="${sessionScope.memClassid }">
+		<input type="hidden" id="memClass_academy" value="${sessionScope.memClass_academy }">
 	       
 	        <!-- main-banner -->
 	   		<div class="main-banner-wrapper">
@@ -43,11 +43,11 @@
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
 			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">
-	        <input type = "text" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
+	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">
 	        <input type = "hidden" id = "board_baord_cmt_cnt" name = "board_baord_cmt_cnt" value="${boardDTO.board_cmt_cnt}">
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
 	        <input type = "hidden" id = "board_classid" name = "board_classid" value="${boardDTO.board_classid}">
-	        <input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
 			<!-- 본격 글 내용 ( 작성자 ~ 페이스북 ) -->

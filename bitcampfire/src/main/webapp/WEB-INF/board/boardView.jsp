@@ -42,7 +42,7 @@
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
 	        <input type = "hidden" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
 	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
-	        <input type="text" value="${param.category}" id="category">
+	        <input type="hidden" value="${param.category}" id="category">
 	        <!-- 풍혁0718 : view에도 category를 찍어보는 이유는 보고있는 글과 같은 카테고리에 바로 글을 쓸 수 있게 하기 위하여 -->
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
@@ -55,7 +55,7 @@
 	                    <a href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" class="avatar-photo"><img src="/semiproject/storage/userprofile/${user_img}"></a>
 	                    <div class="avatar-info">
 	                    	<!-- 풍혁 220708 : 작성자 반영했습니다. -->
-                            <a class="nickname" href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" title="author">${author}</a>
+                            <a class="#" href="/semiproject/user/userPage?user_id=${boardDTO.board_uid}" title="author">${author}</a>
                             <div class="activity">
                             	<span class="fa fa-flash"></span> 
                             	lev
@@ -80,13 +80,10 @@
 					<div id="content-body" class="panel-body content-body pull-left">
 						<div class="content-tags">
 							<span class="list-group-item-text -id">${board_id}</span> 
-							<a href="/s/life" class="list-group-item-text item-tag label label-info"> 
+							<a href="/semiproject/board/list?category=${cateidToString}&pg=1&sortOption=date" class="list-group-item-text item-tag label label-info"> 
 							<i class="fa fa-comments"></i>
 							${cateidToString}
 							</a> 
-							<a href="/s/tagged/javascript" class="list-group-item-text item-tag label label-gray ">
-								javascript
-							</a>
 						</div>
 						<h2 class="panel-title">${boardDTO.board_title}</h2>
 						<hr>

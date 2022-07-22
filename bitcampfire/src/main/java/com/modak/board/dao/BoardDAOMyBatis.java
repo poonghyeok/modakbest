@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.modak.board.bean.BoardClassDTO;
 import com.modak.board.bean.BoardDTO;
 //import com.modak.board.bean.BoardAllDTO;
 import com.modak.user.bean.UserAllDTO;
@@ -60,9 +59,9 @@ public class BoardDAOMyBatis implements BoardDAO {
 		}
 		
 		@Override
-		public int getTotalBoardSearchNum(String keyword) {
+		public int getTotalBoardSearchNum(Map<String, String> map) {
 //			System.out.print("@LOG@ : Mybatis getTotalBoardSearchNum.. ");
-			return sqlSession.selectOne("boardSQL.getTotalBoardSearchNum",keyword);
+			return sqlSession.selectOne("boardSQL.getTotalBoardSearchNum", map);
 		}
 		
 		@Override
@@ -85,7 +84,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			Map<String, String> newMap = new HashMap<>();
 			newMap.put("cateid", map.get("cateid").toString());
 			
-			System.out.println("\n @POONG LOG@ cateid : " + map.get("cateid").toString());
+//			System.out.println("\n @POONG LOG@ cateid : " + map.get("cateid").toString());
 			
 			newMap.put("startNum",Integer.toString(map.get("startNum")));
 			newMap.put("endNum", Integer.toString(map.get("endNum")));

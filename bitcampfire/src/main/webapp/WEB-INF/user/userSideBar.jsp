@@ -9,7 +9,7 @@
 <!-- 1. 좌측  메뉴바  -->     
 <input type="hidden" id="memEmail" value="${sessionScope.memEmail}">
 <input type="hidden" id="memUser_classid" value="${sessionScope.memClassId}"> 
-<input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+<input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
 
 <div class="sidebar">
     <a href="javascript://" class="sidebar-header">

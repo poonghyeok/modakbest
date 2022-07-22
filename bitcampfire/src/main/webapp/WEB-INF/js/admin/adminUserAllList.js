@@ -191,7 +191,7 @@ $(function(){
             			data: {'user_email': $('#user_email'+items.user_id).text()},
             			success: function(){
             				alert('회원 정보를 삭제하였습니다.');
-            				location.href = '/semiproject/admin/adminUserAllList';	
+            				location.href = '/semiproject/admin/adminUserAllList?category=admin';	
             			},
             			error: function(err){
             				console.log(err);
@@ -236,7 +236,7 @@ function userAdminPaging(pg2){
 	var keyword = $('#keyword').val();
 	
 	if(keyword == ''){
-		location.href = "/semiproject/admin/adminUserAllList?pg="+pg2;
+		location.href = "/semiproject/admin/adminUserAllList?category=admin&pg="+pg2;
 		
 	}else{
 		$('#searchPg').val(pg2); //searchPg가 1로 고정되어 있기 때문에
@@ -251,7 +251,7 @@ function userAdminPaging(pg2){
 $('#userSearchBtn').click(function(){
 	if($('#keyword').val()==''){
 		alert('검색어를 입력하세요!')
-		location.href = "/semiproject/admin/adminUserAllList?pg=1";
+		location.href = "/semiproject/admin/adminUserAllList?category=admin&pg=1";
 	}else{
 	    $.ajax({
 	        type: 'post',
@@ -427,7 +427,7 @@ $('#userSearchBtn').click(function(){
 		            			data: {'user_email': $('#user_email'+items.user_id).text()},
 		            			success: function(){
 		            				alert('회원 정보를 삭제하였습니다.');
-		            				location.href = '/semiproject/admin/adminUserAllList';	
+		            				location.href = '/semiproject/admin/adminUserAllList?category=admin';	
 		            			},
 		            			error: function(err){
 		            				console.log(err);

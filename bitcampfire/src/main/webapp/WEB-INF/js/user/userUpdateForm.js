@@ -114,7 +114,7 @@ $('#update_userImgBtn').click(function(){
 		}				
 	});
 	
-	setTimeout("location.href='/semiproject/user/userUpdateForm'",2000);
+	setTimeout("location.href='http://localhost:8080/semiproject/user/userUpdateForm'",1000);
 });
 
 

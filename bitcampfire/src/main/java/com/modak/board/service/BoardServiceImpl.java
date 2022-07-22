@@ -272,11 +272,16 @@ public class BoardServiceImpl implements BoardService {
 		
 		@Override
 		public String getBoardSearchPagingList(String category, int pg, String keyword, String sortOption) {
+			Map<String, String> map = new HashMap<>();
+			
+			map.put("category", category);
+			map.put("keyword", keyword);
+			
 			BoardPaging boardPaging = new BoardPaging();
 			boardPaging.setCurrentPage(pg);
 			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
 			boardPaging.setPageSize(10); //page 당 10개의 글 존재
-			boardPaging.setTotalA(boardDAO.getTotalBoardSearchNum(keyword));
+			boardPaging.setTotalA(boardDAO.getTotalBoardSearchNum(map));
 			boardPaging.makeSearchPagingHTML(category, keyword, sortOption);
 			
 			return boardPaging.getPagingHTML().toString();
@@ -857,6 +862,7 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.adminNoticeDelete_select(map);
 			
 			session.invalidate();
+
 		}
 		//@@@ 공지리스트 개별 삭제
 		@Override
@@ -869,8 +875,9 @@ public class BoardServiceImpl implements BoardService {
 			return boardDAO.getAdminBoardNotice_edit(board_id);
 		}
 }	
+
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
-
+}
 
 
