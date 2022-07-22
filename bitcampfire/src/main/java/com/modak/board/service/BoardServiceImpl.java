@@ -874,10 +874,10 @@ public class BoardServiceImpl implements BoardService {
 		public BoardDTO getAdminBoardNotice_edit(int board_id) {
 			return boardDAO.getAdminBoardNotice_edit(board_id);
 		}
-}	
 
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
-}
+}	
+
 
 
