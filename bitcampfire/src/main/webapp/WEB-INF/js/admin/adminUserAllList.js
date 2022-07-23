@@ -63,7 +63,7 @@ $(function(){
                          .append(
                              $('<a/>', {
                                  class: 'avatar-photo',
-                                 //href: '/semiproject/user/userpage?user_id=' + items.user_id//접속 안됨, 확인 후 수정하기(220716)
+                                 href: '/semiproject/user/userPage?user_id=' + items.user_id//접속 안됨, 확인 후 수정하기(220716) => 수정 완료(0723)
                              })
                              .append(
                                  $('<img/>', {
@@ -79,7 +79,8 @@ $(function(){
                                 $('<a/>', {
                                     class: 'nickname',
                                     title: items.user_nickname,
-                                    text: items.user_nickname
+                                    text: items.user_nickname,
+                                    href: '/semiproject/user/userPage?user_id=' + items.user_id//접속 안됨, 확인 후 수정하기(220716) => 수정 완료(0723)
                                 })
                             )
                             .append(
@@ -121,6 +122,7 @@ $(function(){
                      $('<div/>', {
                          class: 'list-title-wrapper clearfix5',
                          align: 'center',
+                         id: 'user_classid'+items.user_id,
                          text: items.user_classid,
                          style: 'width:100px; height:35px; text-align:center; line-height:35px;'
                      })
@@ -150,7 +152,7 @@ $(function(){
                          style: 'width:82px; height:35px; text-align:center; line-height:35px;'
                      })
                      .append(
-                    		/* 카카오 삭제 시 오류 */
+                    		
                    		 $('<input/>',{
                                 class: 'btn btn-danger btn-sm',
                                 type: 'button',
@@ -199,6 +201,34 @@ $(function(){
             		});
             		}
             	});
+               
+               //어드민 페이지> 유저리스트 > 학원명 한글로 바꾸기(220723)
+               $(document).ready(function(){
+            	   $.ajax({
+           			type: 'post',
+           			url: '/semiproject/admin/getUserClass',
+           			data: {'user_classid': $('#user_classid'+items.user_id).text()},
+           			success: function(data){
+           				//alert(JSON.stringify(data));
+           				if($('#user_classid'+items.user_id).text()!=0){
+           					document.getElementById('user_classid'+items.user_id).innerHTML = data.class_academy;
+           				}else{
+           					document.getElementById('user_classid'+items.user_id).innerHTML = '선택안함';
+           				}           				
+	           			},
+	           			error: function(err){
+	           				console.log(err);
+	           			}
+            	   	});
+       			});  
+        	   	//어드민 페이지> 유저리스트 > 소셜로그인 한글로 바꾸기(220723)
+        	  	   
+	        	   if($('#user_social'+items.user_id).text()=='K') {   
+	        		   document.getElementById('user_social'+items.user_id).innerHTML = 'kakao';
+	        	   } else{
+	        		   document.getElementById('user_social'+items.user_id).innerHTML = 'email';
+	        	   }
+               
             });//each
          	 //페이징 처리 챙기기!
          	 $('#userAdminPagingDiv').html(data.userAdminPaging.pagingHTML);
@@ -209,14 +239,33 @@ $(function(){
     });//ajax
 });//function
 
-
 //@@@@@ 체크박스 선택삭제 기능
-//전체선택 또는 전체해제
-$('#all').click(function(){
-	if($('#all').prop('checked'))
-		$('input[name="check"]').prop('checked', true);
-	else
-		$('input[name="check"]').prop('checked', false);
+//전체선택 또는 전체해제, 개별 체크박스 상태변화에 따른 전체선택 및 해제
+$(function(){
+	$('#all').click(function(){ //all click 안에 넣으면 기능 적용되지만 한번 all 체크를 해줘야 함..
+		if($('#all').prop('checked'))			
+			//disabled 처리된 것은 체크 안되게 변경
+			$("input[type=checkbox]:not(:disabled)").prop("checked",true);
+		else
+			$('input[name="check"]').prop('checked', false);		
+	}); //$('#all').click(function()
+	//@@@ 다시!! 적용이 안됨!@@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ 
+	$('input[name="check"]').click(function() {
+		if($("input[name='check']:disabled").length > 0) {
+			var total = $("input[name='check']:not(:disabled)").length;	
+			var checked = $('input[name="check"]:checked').length;
+			
+			if(total != checked) $('#all').prop('checked', false);
+			else $("#all").prop('checked', true); 
+		}else {
+			var total = $('input[name="check"]').length;
+			var checked = $('input[name="check"]:checked').length;
+			
+			if(total != checked) $('#all').prop('checked', false);
+			else $("#all").prop('checked', true); 
+		}
+	}); //$('input[name="check"]').click(function()
+	//@@@ 다시!! 적용이 안됨!@@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ 
 });
 
 //선택삭제 : 이메일 로그인 회원만 가능함
@@ -263,7 +312,7 @@ $('#userSearchBtn').click(function(){
 	            //리스트에서 기존의 목록 제거
 			 	$('.list-group li:gt(0)').remove();
 
-			 	 $.each(data.list, function (index, items) {
+			 	 $.each(data.list, function (index, items) { // 배열or객체 , function(키, 값)
 
 		                $('<li/>', {
 		                    class: 'list-group-item list-group-item-question clearfix',
@@ -299,7 +348,7 @@ $('#userSearchBtn').click(function(){
 		                         .append(
 		                             $('<a/>', {
 		                                 class: 'avatar-photo',
-		                                 href: '/semiproject/user/userpage?user_id=' + items.user_id//접속 안됨, 확인 후 수정하기(220716)
+		                                 href: '/semiproject/user/userPage?user_id=' + items.user_id//접속 안됨, 확인 후 수정하기(220716) => 수정 완료(0723)
 		                             })
 		                             .append(
 		                                 $('<img/>', {
@@ -315,7 +364,8 @@ $('#userSearchBtn').click(function(){
 		                                $('<a/>', {
 		                                    class: 'nickname',
 		                                    title: items.user_nickname,
-		                                    text: items.user_nickname
+		                                    text: items.user_nickname,
+		                                    href: '/semiproject/user/userPage?user_id=' + items.user_id//접속 안됨, 확인 후 수정하기(220716) => 수정 완료(0723)
 		                                })
 		                            )
 		                            .append(
@@ -357,6 +407,7 @@ $('#userSearchBtn').click(function(){
 		                     $('<div/>', {
 		                         class: 'list-title-wrapper clearfix5',
 		                         align: 'center',
+		                         id: 'user_classid'+items.user_id,
 		                         text: items.user_classid,
 		                         style: 'width:100px; height:35px; text-align:center; line-height:35px;'
 		                     })
@@ -377,7 +428,7 @@ $('#userSearchBtn').click(function(){
 		                             value: items.user_kakaoId,
 		                             style: 'width:100px; height:20px; text-align:center;'
 		                         })
-		                     )//user_kakaoId 숨김값	
+		                     )//user_accesstoken_kakao 숨김값	
 		                 )//list-title-wrapper clearfix6
 
 		                 .append(
@@ -427,7 +478,7 @@ $('#userSearchBtn').click(function(){
 		            			data: {'user_email': $('#user_email'+items.user_id).text()},
 		            			success: function(){
 		            				alert('회원 정보를 삭제하였습니다.');
-		            				location.href = '/semiproject/admin/adminUserAllList?category=admin';	
+		            				location.href = '/semiproject/admin/adminUserAllList?category=admin&pg=1';	
 		            			},
 		            			error: function(err){
 		            				console.log(err);
@@ -435,6 +486,34 @@ $('#userSearchBtn').click(function(){
 		            		});
 		            		}
 		            	});
+		               
+		               //어드민 페이지> 유저리스트 > 학원명 한글로 바꾸기(220723)
+		               $(document).ready(function(){
+		            	   $.ajax({
+		           			type: 'post',
+		           			url: '/semiproject/admin/getUserClass',
+		           			data: {'user_classid': $('#user_classid'+items.user_id).text()},
+		           			success: function(data){
+		           				//alert(JSON.stringify(data));
+		           				if($('#user_classid'+items.user_id).text()!=0){
+		           					document.getElementById('user_classid'+items.user_id).innerHTML = data.class_academy;
+		           				}else{
+		           					document.getElementById('user_classid'+items.user_id).innerHTML = '선택안함';
+		           				}
+			           			},
+			           			error: function(err){
+			           				console.log(err);
+			           			}
+		            	   	});
+		       			});  
+		        	   	//어드민 페이지> 유저리스트 > 소셜로그인 한글로 바꾸기(220723)
+		        	  	   
+			        	   if($('#user_social'+items.user_id).text()=='K') {   
+			        		   document.getElementById('user_social'+items.user_id).innerHTML = 'kakao';
+			        	   } else{
+			        		   document.getElementById('user_social'+items.user_id).innerHTML = 'email';
+			        	   }
+		               
 		            });//each
 		         	 //페이징 처리 챙기기!
 		         	 $('#userAdminPagingDiv').html(data.userAdminPaging.pagingHTML);
@@ -443,5 +522,5 @@ $('#userSearchBtn').click(function(){
 		            console.log(err);
 		        }
 		    });//ajax
-	}//else	
-});
+		}//else
+	});//function

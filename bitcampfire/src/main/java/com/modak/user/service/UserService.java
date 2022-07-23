@@ -52,6 +52,8 @@ public interface UserService {
 		//@@@ 연수 : UserAdminController에서 요청한 서비스 
 		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)
 		public Map<String, Object> getUserAllList(String pg);
+		//@@@ 유저 리스트 학원명 가져오기(220723)
+		public UserAllDTO getUserClass(String user_classid);
 		//@@@ 페이징 처리(220717)
 		public UserAdminPaging getUserAdminPaging(String pg);
 		//@@@ 카카오 회원 어드민 삭제 처리 기능(220716)
@@ -105,6 +107,8 @@ public interface UserService {
     	
     	//풍혁0714 : board_uid로 user_img를 받아가려고 만들었습니다. 
     	public String getUserImgByUserid(int user_id);
+
+
     
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 

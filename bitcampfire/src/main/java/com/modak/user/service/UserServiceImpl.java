@@ -171,8 +171,8 @@ public class UserServiceImpl implements UserService {
 		//@@@ 어드민 페이지 > 전체유저 리스트 가져오기(220715)	
 		@Override
 		public Map<String, Object> getUserAllList(String pg) {		
-			int endNum = Integer.parseInt(pg) * 5;
-			int startNum = endNum - 4;
+			int endNum = Integer.parseInt(pg) * 10;
+			int startNum = endNum - 9;
 			
 			//DB - 1페이지 당 10걔씩
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -190,6 +190,11 @@ public class UserServiceImpl implements UserService {
 			
 			return sendMap;		
 		}
+		//@@@ 어드민 페이지 > 유저 리스트> 학원명 가져오기	(0723)
+		@Override
+		public UserAllDTO getUserClass(String user_classid) {
+			return userDAO.getUserClass(user_classid);
+		}
 		
 		//@@@ 어드민 페이지 > 유저 리스트 페이징 처리 (220717)
 		@Override
@@ -197,8 +202,8 @@ public class UserServiceImpl implements UserService {
 			int totalA = userDAO.getUserTotalA(); //총 유저 수 
 			
 			userAdminPaging.setCurrentPage(Integer.parseInt(pg));
-			userAdminPaging.setPageBlock(3);
-			userAdminPaging.setPageSize(5);
+			userAdminPaging.setPageBlock(10);
+			userAdminPaging.setPageSize(10);
 			userAdminPaging.setTotalA(totalA);
 			userAdminPaging.makePagingHTML(); //실제 페이지를 만드는 역할
 			
@@ -208,8 +213,8 @@ public class UserServiceImpl implements UserService {
 		///@@@ 어드민 페이지 > 유저 검색 리스트 (220717)	
 		@Override
 		public Map<String, Object> adminUserSearch(Map<String, String> map) {
-			int endNum = Integer.parseInt(map.get("pg")) * 5;
-			int startNum = endNum - 4;			
+			int endNum = Integer.parseInt(map.get("pg")) * 10;
+			int startNum = endNum - 9;			
 			
 			//DB - 1페이지 당 10걔씩
 			map.put("startNum", startNum+"");
@@ -220,8 +225,8 @@ public class UserServiceImpl implements UserService {
 			
 			//System.out.println("adminUserSearch");
 			userAdminPaging.setCurrentPage(Integer.parseInt(map.get("pg")));
-			userAdminPaging.setPageBlock(3);
-			userAdminPaging.setPageSize(5);
+			userAdminPaging.setPageBlock(10);
+			userAdminPaging.setPageSize(10);
 			userAdminPaging.setTotalA(totalA);
 			userAdminPaging.makePagingHTML();
 			
@@ -276,7 +281,12 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public void adminUserDelete_select(String[] check) {
 			Map<String, String[]> map = new HashMap<String, String[]>();
-			map.put("check", check);			
+			map.put("check", check);
+			
+			//String[] user_email = map.get("user_email");
+			check = map.get("check");
+			System.out.println(check);
+			
 			userDAO.adminUserDelete_select(map);
 			
 			session.invalidate();

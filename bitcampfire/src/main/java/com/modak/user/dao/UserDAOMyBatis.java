@@ -89,6 +89,11 @@ public class UserDAOMyBatis implements UserDAO {
 		public List<UserAllDTO> getUserAllList(Map<String, Integer> map) {
 			return sqlSession.selectList("userSQL.getUserAllList", map);
 		}
+		//@@@ 어드민 페이지> 유저 리스트 > 학원명 한글로 바꾸기	
+		@Override
+		public UserAllDTO getUserClass(String user_classid) {			
+			return sqlSession.selectOne("userSQL.getUserClass", user_classid);
+		}
 		//@@@ 회원 선택 삭제 기능(220715)
 		@Override
 		public void adminUserDelete_select(Map<String, String[]> map) {
@@ -209,6 +214,8 @@ public class UserDAOMyBatis implements UserDAO {
 			
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
 
 
 

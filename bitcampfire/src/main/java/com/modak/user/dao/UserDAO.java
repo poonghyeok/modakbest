@@ -43,7 +43,9 @@ public interface UserDAO {
 		
 		//@@@ 연수 : UserAdminController에서 요청한 서비스 
 		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)	
-		public List<UserAllDTO> getUserAllList(Map<String, Integer> map);		
+		public List<UserAllDTO> getUserAllList(Map<String, Integer> map);
+		//@@@ 어드민 페이지> 유저 리스트 > 학원명 한글로 바꾸기	
+		public UserAllDTO getUserClass(String user_classid);
 		//@@@ 회원 선택 삭제 기능(220715)	
 		public void adminUserDelete_select(Map<String, String[]> map);
 		//@@@ 총 유저 수 구하기: 어드민 userlist for 페이징 처리(220717)	
@@ -91,6 +93,8 @@ public interface UserDAO {
 
 		public String getUserImgByUserid(int user_id);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
 		
 
 

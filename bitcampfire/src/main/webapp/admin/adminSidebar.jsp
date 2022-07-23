@@ -78,6 +78,7 @@
         <li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminUserAllList" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
     	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
     	<%-- </c:if> --%>
+    	<li data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="관리자페이지"><a href="/semiproject/admin/adminBoardNoticeListOfficial?category=admin" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">test페이지</span></a></li>
     </ul>
 
     <ul class="nav nav-sidebar nav-bottom">

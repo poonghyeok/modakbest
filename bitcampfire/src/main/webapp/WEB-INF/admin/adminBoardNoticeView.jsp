@@ -14,7 +14,7 @@
     <div class="main ">
 		<!-- 풍혁0721 사이드 통일-->
 		<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
-		<input id="category" type = 'hidden' value ='${param.category}'/>
+		<input id="category" type = 'text' value ='${param.category}'/>
 		<!-- 풍혁0721 사이드 통일-->
 		 
    		
@@ -32,16 +32,17 @@
         	<!-- 글 카테고리, 새글쓰기  -->
 	        <div class="nav" role="navigation">	        
 	            <input type="button" value="공지등록 " class="create btn btn-success btn-wide pull-right" id = "adminNoticeWriteBtnAtView"><i class="fa fa-pencil"></i>
-	            <h4>${boardDTO.noticeCateidToString()}</h4>
+	            <h4>${boardDTO.noticeCateidToString()}</h4>	            
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
 			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->	    	
 			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">
-	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">	       
+	        <input type = "text" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">	       
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
 	        <input type = "hidden" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
-	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+	        <input type = "text" id ="board_category" name = "board_category" value="${category}">
+	        <input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
 			<!-- 본격 글 내용 (ㄴ작성자 ~ 페이스북 ) -->
@@ -101,9 +102,10 @@
 					<!--페이스북, 글관리-->
 					<div class="content-function-cog note-submit-buttons clearfix">
 
-	                    <p><input type = "button" id="boardDelete" value = "삭제" class="btn btn-default btn-wide"></p>
-
-	                    <input type="button" name="boardUpdate" id="boardUpdateFormBtn" class="btn btn-success btn-wide" value="수정">
+	                    <p><input type="button" id="adminNoticeDeleteBtnAtView" value = "삭제" class="btn btn-default btn-wide"></p>
+	                    <p><input type="button" name="adminNoticeEditBtnAtView" id="adminNoticeEditBtnAtView" class="btn btn-success btn-wide" value="수정"></p>
+	                    <!-- 뷰에서 목록 / 게시판별 리스트 이동(전체공지 뷰페이지에서 이동할 리스트 카테고리가 없어 일단 이전페이지 이동으로 처리) -->	                    
+	                    <input type="button" name="boardListFromAdminNoticeViewBtn" id="boardListFromAdminNoticeViewBtn" class="btn btn-primary btn-wide" value="목록">
                     </div>
 		            <!--페이스북, 글관리-->
 		            
@@ -138,14 +140,79 @@
 <script src="${pageContext.request.contextPath}/summernote3/summernote-ko-KR.js"></script>
 
 <script type="text/javascript">
-/* 뷰에서 공지등록하러 가기  */
-$('#adminNoticeWriteBtnAtView').click(function(){
-	location.href="/semiproject/admin/adminBoardNoticeWriteForm";
+//관리자가 아니면 뷰-> 에디트 폼으로 갈 수 없도록(공지등록/수정/삭제/취소 못함)
+$('#adminNoticeDeleteBtnAtView').hide();
+$('#adminNoticeEditBtnAtView').hide();
+$('#adminNoticeWriteBtnAtView').hide();
+//$('#boardListFromAdminNoticeViewBtn').hide();
+
+$(function(){
+	if($('#board_watcher').val()==0){
+		$('#adminNoticeDeleteBtnAtView').show();
+		$('#adminNoticeEditBtnAtView').show();
+		$('#adminNoticeWriteBtnAtView').show();		
+		//$('#boardListFromAdminNoticeViewBtn').show();
+	}/* else{
+		$('#boardListFromAdminNoticeViewBtn').show();
+		
+	} */
 });
 
+//뷰에서 이전 페이지(게시판 목록)으로 가기(일반사용자: 접근게시판별 , 관리자: 공지사항리스트)
+$('#boardListFromAdminNoticeViewBtn').click(function(){
+	//alert($('#board_category').val());
+	//var board_category = $('#board_category').val();
+	var category = $('#category').val();
+	
+	if($('#board_watcher').val()!=0){ //일반 회원은 뒤로 카테고리가 읽히면 href 써보기
+		history.back();
+		//location.href="/semiproject/board/list?category="+board_category+"&pg=1&sortOption=date";		
+	}else{ //관리자는 공지사항 리스트로
+		location.href="/semiproject/admin/adminBoardNoticeList?category="+category+"&pg=1";
+	}
+	
+}); 
+
+//뷰에서 공지등록하러 가기
+$('#adminNoticeWriteBtnAtView').click(function(){
+	var category = $('#category').val();
+	location.href="/semiproject/admin/adminBoardNoticeWriteForm?category="+category; 
+});
+
+//뷰에서 글삭제 
+$('#adminNoticeDeleteBtnAtView').click(function(){
+	
+	var board_id = $('#board_id').val();
+	var category = $('#category').val();
+		
+	if (confirm("글을 삭제하시겠습니까?")){			
+		$.ajax({
+			type : 'post',
+			url : "/semiproject/admin/adminNoticeDelete",
+			data : {board_id : board_id},
+			success: function() {
+				alert("글이 삭제되었습니다.")
+				location.href="/semiproject/admin/adminBoardNoticeList?category="+category+"&pg=1";
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		})
+	}	
+});
+
+//뷰에서 글 수정 : 관리자는 아이디가 0일때 접속 가능하기 때문에 로그인 관련 유효성 검사 하지 않음 / 일반 회원에게는 수정/삭제/취소/공지등록 버튼 안보임
+$('#adminNoticeEditBtnAtView').click(function(){ // 수정버튼을 눌렀을떄
+	var board_id = $('#board_id').val();
+	
+	location.href = "/semiproject/admin/adminBoardNoticeEditForm?board_id="+ board_id;
+
+});
+
+//무슨 용도인지 파악이 어려워 일단 주석 처리(220722)
 /* function noticeCateidToString(cateid){
 	let result;
-	if(cateid == 0){
+	if(cateid == 6){
 		result = 'notice';
 	}else if(cateid == 1){
 		result = 'info';
@@ -166,7 +233,7 @@ function stringNoticeCateToInt(category){
 	let result;
 	
 	if(cateid == 'notice'){
-		result = 0;
+		result = 6;
 	}else if(cateid == 'info'){
 		result = 1;
 	}else if(cateid == 'review'){

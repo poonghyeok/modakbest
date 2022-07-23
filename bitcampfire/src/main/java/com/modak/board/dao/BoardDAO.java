@@ -124,12 +124,21 @@ public interface BoardDAO {
 		public void setAdminBoardNoticeHit(int board_id);
 		//@@@ 공지리스트 선택 삭제
 		public void adminNoticeDelete_select(Map<String, String[]> map);
-		//@@@ 공지리스트 개별 삭제
-		public void adminNoticeDelete_each(int board_id);
-
+		//@@@ 공지사항 리스트 개별 삭제 + 공지사항  뷰 > 글삭제
+		public void adminNoticeDelete(int board_id);
+		//@@ 글수정 데이터 가져오기
 		public BoardDTO getAdminBoardNotice_edit(int board_id);
+		//@@ 글수정
+		public void adminBoardNoticeUpdate(Map<String, String> map);
+		//@@ 곧지사항 총글수
+		public int getTotalBoardAdminNoticeNum();
+		//@@ 공지사항 리스트 - 서치
+		public List<BoardDTO> getBoardNoticeSearchList(Map<String, String> map);
+		//@@ 공지사항 페이징 - 서치
+		public int getTotalBoardAdminNoticeSearchNum(Map<String, String> map);
+		//@@ 게시판 공지용 리스트
+		public List<BoardDTO> getBoardNoticeOfficialList(int cateid);
 
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
-		//<!--@@@@ 연수 살려주세요!(220721)  -->
 		
 }
