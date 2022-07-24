@@ -2,6 +2,7 @@ package com.modak.admin.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -190,19 +191,20 @@ public class BoardNoticeAdminController {
 		return mav;
 	} 
 	
-	//공지사항 - 개별 게시판용 띄우기
-	@GetMapping(value="adminBoardNoticeListOfficial")
-	public ModelAndView adminBoardNoticeListOfficial(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg) {
-		//어차피 관리자는 페이지 이동(user id = 0이여야 접근 가능)에서 걸러지기 때문에 아이디 가져오지 않음
-		String adminNoticeOfficialTableList = boardService.getAdminNoticeOfficialTableList(category, pg);
-				
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("pg", pg);
-		mav.addObject("adminNoticeOfficialTableList", adminNoticeOfficialTableList);
-		mav.setViewName("/admin/adminBoardNoticeListOfficial");
+	//공지사항 - 게시판별 공지 띄우기
+	@PostMapping(value="adminBoardNoticeListOfficial")
+	@ResponseBody
+	public List<BoardDTO> adminBoardNoticeListOfficial(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg) {
 		
-		return mav;
+		return boardService.getAdminBoardNoticeListOfficial(category, pg);
 	}
-		
+	
+	//공지사항 리스트에 띄울 유저정보 가져오기
+	@PostMapping(value="getUserInfoForNoticeList")
+	@ResponseBody
+	public UserAllDTO getUserInfoForNoticeList(int board_uid) {
+		return userService.getUserInfoForNoticeList(board_uid);
+	}
+	
 	
 }

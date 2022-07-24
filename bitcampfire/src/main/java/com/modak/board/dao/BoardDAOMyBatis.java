@@ -381,11 +381,12 @@ public class BoardDAOMyBatis implements BoardDAO {
 			public int getTotalBoardAdminNoticeSearchNum(Map<String, String> map) {
 				return sqlSession.selectOne("boardSQL.getTotalBoardAdminNoticeSearchNum", map);
 			}
-			//@@ 게시판 공지용 리스트
+			//@@ 게시판별 공지 띄우기
 			@Override
-			public List<BoardDTO> getBoardNoticeOfficialList(int cateid) {
-				return sqlSession.selectList("boardSQL.getBoardNoticeOfficialList", cateid);
+			public List<BoardDTO> getAdminBoardNoticeListOfficial(int cateid) {
+				return sqlSession.selectList("boardSQL.getAdminBoardNoticeListOfficial", cateid);
 			}
+
 
 			// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 

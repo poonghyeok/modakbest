@@ -20,6 +20,7 @@
 		<input type="hidden" value="${sessionScope.memAccessToken }"/>
 		<input type="hidden" value="${sessionScope.memSocial }"/>
 		<input type="hidden" value="${sessionScope.memKakaoId }"/>
+		<input type="hidden" value="${sessionScope.memGrade}"/> <!-- 연수 추가(0724) : 관리자 여부 구분용  -->
 		
 			<!-- sidebar -->
 			<jsp:include page="/WEB-INF/user/userSideBar.jsp" />

@@ -48,19 +48,28 @@
 				    </div>
 			  	</form>
 			</div>
-			<br>
-				
+			<!-- @@@@ 연수 관리자 등록 버튼 생성(220724) @@@@ -->
+			<input type="button" class="create btn btn-success btn-sm" id ="adminRegisterBtn" style="margin-bottom:10px;" value="관리자 등록">
+			<input type="button" class="create btn btn-default btn-sm" id ="adminRegisterCancelBtn" style="margin-bottom:10px;" value="관리자 해제">
+			
+			<br>			
 			<input type="hidden" id="pg" value="${pg }">				
-			<!-- 선택 삭제(체크박스) 폼 -->
-			<form id="adminUserAllListForm" method="get" action="/semiproject/admin/adminUserDelete_select">							
+			<!-- 선택 삭제(체크박스) 폼 // 선택삭제와 관리자 등록 기능을 2개다 사용해보기(220724) -->
+			<!-- <form id="adminUserAllListForm" method="get" action="/semiproject/admin/adminUserDelete_select"> -->
+			<form id="adminUserAllListForm" method="get" action="">							
 			<div class="panel panel-default questions-panel">
 				<ul class="list-group">
 					
 					<!-- append 시작점 -->
 					<li class="list-group-item list-group-item-question clearfix">							
-						<!-- user_id  -->
-						<div class="list-title-wrapper clearfix1" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
-							<input type="checkbox" id="all" style="float:left; margin-top: 10px;">아이디									
+						<!-- user_id / 회원등급 추가로 클래스명 변경(220724) -->
+						<div class="list-title-wrapper clearfix0" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
+							<input type="checkbox" id="all" style="float:left; margin-top: 10px; margin-left: 2.5px;">아이디									
+						</div>
+						
+						<!-- user_grade 회원등급 추가(220724) -->
+						<div class="list-title-wrapper clearfix1" style="width:60px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;"> 
+							회원등급
 						</div>
 														
 						<!-- user_img & nickname & logtime -->
@@ -70,7 +79,7 @@
 						</div>
 																				
 						<!-- user_name  -->
-						<div class="list-title-wrapper clearfix3" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
+						<div class="list-title-wrapper clearfix3" style="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
 							이름									
 						</div>
 						
@@ -84,13 +93,13 @@
 							학원								
 						</div>
 						
-						<!-- user_social  -->								
-						<div class="list-title-wrapper clearfix6" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
-							소셜로그인						
+						<!-- user_social / 타이틀변경(220724) -->								
+						<div class="list-title-wrapper clearfix6" style="width:80px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
+							가입경로						
 						</div>
 						
 						<!-- user_delete  -->
-						<div class="list-title-wrapper clearfix7" style="width:82px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
+						<div class="list-title-wrapper clearfix7" style="width:62px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">									
 							삭제								
 						</div>							
 					</li>

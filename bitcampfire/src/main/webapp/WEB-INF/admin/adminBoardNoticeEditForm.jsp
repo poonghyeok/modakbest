@@ -28,13 +28,12 @@
 			<!-- 풍혁(220707) : css 분리 적용을 위해, class eunhye를 추가하겠습니다. -->
 			<div class="content-header">
 	    		<h3>공지사항 수정</h3>
-				<input type = "text" id = "board_id" class = "board_id" value = "${param.board_id}">
-				<!-- 연수 : 관리자페이지 > 전체카테고리의 리스트를 띄우므로 카테고리는 안받아옴  -->
-				<input type = "text" id = "category" class = "category" value = "${param.category}"> 
+				<input type = "hidden" id = "board_id" class = "board_id" value = "${param.board_id}">
+				<input type = "hidden" id = "category" class = "category" value = "${param.category}"> 
 			</div>
 			<div class="content-header">
 				<div class="user-profile">
-					<!-- 세션값 아니고 DTO로 값 넣어주기!  -->
+					<!-- 연수 : 세션값 아니고 DTO로 값 넣어주기!  -->
 					<a id="user_imgDiv" href="">
 						<img src="" id="profile-photo" alt="profile-img">
 					</a>
@@ -59,7 +58,7 @@
 								<td>
 									  <select class="eunhye" id="board_cateid" required>
 									    <option value="" selected value="0" >게시판을 선택해 주세요</option>
-									    <option value="6">전체</option>
+									    <option value="6">전체공지</option>
 									    <option value="1">취업정보</option>
 									    <option value="2">후기</option>
 									    <option value="3">Q &amp; A</option>
@@ -106,7 +105,7 @@
 						<!-- 풍혁(220707) : 이렇게 요소에 style로 들어오면 안될거 같깉한데.. 일단 display 해야하니깐 ... -->	
 						<fieldset class="buttons" style="width: 630px; margin-top: 10px;">
 	                       <!-- 연수 : 취소했을 경우 다시 view 페이지로  -->
-	                       <a href="/semiproject/admin/getAdminBoardNoticeView?board_id=${param.board_id}" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
+	                       <a href="/semiproject/admin/getAdminBoardNoticeView?category=${param.category}&board_id=${param.board_id}" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
 	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="등록" id="adminBoardNoticeUpdateBtn">
 	                    </fieldset>
 							
@@ -125,45 +124,6 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-//무슨 용도인지 파악이 어려워 일단 주석 처리(220722)
-/* function noticeCateidToString(cateid){
-	let result;
-	if(cateid == 6){
-		result = 'notice';
-	}else if(cateid == 1){
-		result = 'info';
-	}else if(cateid == 2){
-		result = 'review';
-	}else if(cateid == 3){
-		result = 'qna';
-	}else if(cateid == 4){
-		result = 'free';
-	}else if(cateid == 5){
-		result = 'class';
-	}
-	
-	return result;
-}
-
-function stringNoticeCateToInt(category){
-	let result;
-	
-	if(cateid == 'notice'){
-		result = 6;
-	}else if(cateid == 'info'){
-		result = 1;
-	}else if(cateid == 'review'){
-		result = 2;
-	}else if(cateid == 'qna'){
-		result = 3;
-	}else if(cateid == 'free'){
-		result = 4;
-	}else if(cateid == 'class'){
-		result = 5;
-	}
-	
-	return result;
-}  */
 $(function(){
 	
 	$.ajax({
@@ -201,13 +161,7 @@ $(function(){
 			$('#board_title').addClass('empty');
 			
 
-		}/* else if($('#board_content').val()==''){
-			alert("컨텐트공백");
-	    	//$('#board_title').css('border','2px solid #1fb6ff');
-	    	$('#board_title').removeClass('empty');
-	    	$('#board_content').addClass('empty');
-	    	
-		} */
+		}
 		else if(!editor.getData()){
 			alert("내용을 입력하세요");
 		}
@@ -242,14 +196,7 @@ $(function(){
 		}
 	});//$('#adminBoardNoticeUpdateBtn').click	
 	
-	//취소 버튼 눌렀을 때 -> 안쓰는듯(연수_0722)
-/* 	$('#resetBtn').click(function(){
-	        if(confirm('정말 입력을 취소하시겠습니까 ?')){
-	        	//$('#boardWriteForm').reset();	        
-	            return true;
-	        }
-	 }); */
-	
+	//$('#resetBtn').click(function() 삭제 상단 버튼에서 온클릭으로 이미 처리가 되는 듯(연수_0722)
 	
 	$('#board_title').focusout(function(){
 		$('#board_title').removeClass('empty');

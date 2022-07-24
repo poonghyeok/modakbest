@@ -54,6 +54,13 @@ public interface UserDAO {
 		public int getUserTotalSearchA(Map<String, String> map);
 		//@@@ 서치된 유저 정보 가져오기: 어드민 userlist by 서치(220717)
 		public List<UserAllDTO> getUserSearchList(Map<String, String> map);
+		//@@ 관리자 선택 등록(220724)
+		public void adminRegister(Map<String, String[]> map);
+		//@@ 관리자 선택 등록해제(220724)
+		public void adminRegisterCancel(Map<String, String[]> map);
+		//@@@ 연수 : BoardNoticeAdminController에서 요청한 서비스
+		//@@@ 어드민 > 공지사항 리스트에 띄울 유저 정보 가져오기(220724)
+		public UserAllDTO getUserInfoForNoticeList(int board_uid);
 
 	//연수 : 끝시작(220706) ====================================
 	
@@ -93,6 +100,10 @@ public interface UserDAO {
 
 		public String getUserImgByUserid(int user_id);
 	// 풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
+
+
 
 
 		

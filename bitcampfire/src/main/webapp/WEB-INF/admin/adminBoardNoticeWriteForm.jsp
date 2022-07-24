@@ -106,7 +106,7 @@
 						<!-- 풍혁(220707) : 이렇게 요소에 style로 들어오면 안될거 같깉한데.. 일단 display 해야하니깐 ... -->	
 						<fieldset class="buttons" style="width: 630px; margin-top: 10px;">
 	                       <!-- 풍혁 (220707) : 취소했을 경우 보던 게시판으로 나가자  -->
-	                       <a href="/semiproject/admin/adminBoardNoticeList?pg=1" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
+	                       <a href="/semiproject/admin/adminBoardNoticeList?category=${param.category}&pg=1" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
 	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="등록" id="adminBoardNoticeWriteBtn">
 	                    </fieldset>
 							
@@ -172,13 +172,7 @@ $(function(){
 		}
 	});//$('#adminBoardNoticeWriteBtn').click	
 	
-	//취소 버튼 눌렀을 때
-	$('#resetBtn').click(function(){
-	        if(confirm('정말 입력을 취소하시겠습니까 ?')){
-	        	//$('#boardWriteForm').reset();	        
-	            return true;
-	        }
-	 });	
+	//$('#resetBtn').click(function() 삭제 상단 버튼에서 온클릭으로 이미 처리가 되는 듯(연수_0722)
 	
 	$('#board_title').focusout(function(){
 		$('#board_title').removeClass('empty');

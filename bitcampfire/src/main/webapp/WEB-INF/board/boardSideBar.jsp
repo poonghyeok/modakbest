@@ -76,12 +76,12 @@
         <li class="sideIcon " data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="free"><a href="/semiproject/board/list?category=free&pg=1&sortOption=date" class="link"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">게시판3</span></a></li>
 
 		<!-- 풍혁0721 : sideBar 통합, 반전용게시판, 관리자 게시판 위치 변경 ( 관리자 게시판을 가장 아래로 ) -->
-        <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
         <li id="class_boardBtn" class="sideIcon " data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="class"><a class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용</span></a></li>
-       	<%-- <c:if test="${sessionScope.memId == 0 }"> --%>
+        <!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_grade = 'A'로 등록 후 사용(220724)  @@@@@@@@@@@@@@-->
+       	<c:if test="${sessionScope.memGrade == 'A' }">
         <li class="sideIcon " data-toggle="tooltip" data-placement="right" data-container="body" title="관리자페이지" data-original-title="admin"><a href="/semiproject/admin/adminUserAllList?category=admin" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
-    	<%-- </c:if> --%>
-    	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+    	</c:if>
+    	<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_grade = 'A'로 등록 후 사용(220724)  @@@@@@@@@@@@@@-->
 
 
     </ul>

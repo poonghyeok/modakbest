@@ -679,32 +679,38 @@
     		</if>
 	   	</select>
 	   	<!-- 게시판별 공지사항 띄우기-->
-		<select id="getBoardNoticeOfficialList" parameterType="int" resultType="BoardDTO">
-			SELECT * FROM (	
-		    		SELECT ROWNUM AS RN, TT.* FROM(
-		    		SELECT * FROM BOARD_AdminNotice
-		 		
-		    		<if test="cateid == 1">
-		    			where board_cateid=1 and board_cateid=6
-		    		</if>
-		    		<if test="cateid == 2">
-		    			where board_cateid=2 and board_cateid=6
-		    		</if>
-	    			<if test="cateid == 3">
-		    			where board_cateid=3 and board_cateid=6
-		    		</if>
-    				<if test="cateid == 4">
-		    			where board_cateid=4 and board_cateid=6
-		    		</if>
-	    			<if test="cateid == 5">
-		    			where board_cateid=5 and board_cateid=6
-		    		</if> 						    		
-		    	
-				ORDER BY board_cateid DESC, BOARD_DATE_CREATED DESC)TT) 
-				WHERE (RN &gt;=0 AND RN &lt;=2)
-	   	</select>
-	   		
+		<select id="getAdminBoardNoticeListOfficial" parameterType="int" resultType="BoardDTO">
+				SELECT * FROM (	
+				    		SELECT ROWNUM AS RN, TT.* FROM(
+				    		SELECT * FROM BOARD_AdminNotice	where board_cateid=6
+		
+							ORDER BY BOARD_DATE_CREATED DESC)TT) 
+							WHERE (RN &gt;=0 AND RN &lt;=1)
+				union all			
+				SELECT * FROM (	
+			    		SELECT ROWNUM AS RN2, TT2.* FROM(
+			    		SELECT * FROM BOARD_AdminNotice
+			 		
+			    		<if test="cateid == 1">
+			    			where board_cateid=1
+			    		</if>
+			    		<if test="cateid == 2">
+			    			where board_cateid=2
+			    		</if>
+		    			<if test="cateid == 3">
+			    			where board_cateid=3
+			    		</if>
+	    				<if test="cateid == 4">
+			    			where board_cateid=4
+			    		</if>
+		    			<if test="cateid == 5">
+			    			where board_cateid=5
+			    		</if>				    		
+			    	
+						ORDER BY BOARD_DATE_CREATED DESC)TT2) 
+						WHERE (RN2 &gt;=2 AND RN2 &lt;=2)
+						
+	   	</select>	   		
 		<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
-		<!--@@@@ 연수 살려주세요!(220721)  -->
 
 </mapper>

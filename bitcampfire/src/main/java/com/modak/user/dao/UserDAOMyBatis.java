@@ -115,9 +115,26 @@ public class UserDAOMyBatis implements UserDAO {
 		@Override
 		public List<UserAllDTO> getUserSearchList(Map<String, String> map) {
 			return sqlSession.selectList("userSQL.getUserSearchList", map);
+		}		
+		//@@ 관리자 선택 등록(220724)
+		@Override
+		public void adminRegister(Map<String, String[]> map) {
+			sqlSession.update("userSQL.adminRegister", map);
+			
+		}
+		//@@ 관리자 선택 등록해제(220724)
+		@Override
+		public void adminRegisterCancel(Map<String, String[]> map) {
+			sqlSession.update("userSQL.adminRegisterCancel", map);
+			
 		}
 
-
+		//@@@ 연수 : BoardNoticeAdminController에서 요청한 서비스
+		//@@@ 어드민 > 공지사항 리스트에 띄울 유저 정보 가져오기(220724)
+		@Override
+		public UserAllDTO getUserInfoForNoticeList(int board_uid) {
+			return sqlSession.selectOne("userSQL.getUserInfoForNoticeList", board_uid);
+		}
 	//연수 : 끝(220706)====================================
 
 	
@@ -214,6 +231,9 @@ public class UserDAOMyBatis implements UserDAO {
 			
 		}
 	//풍혁 : 끝 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
+
 
 
 

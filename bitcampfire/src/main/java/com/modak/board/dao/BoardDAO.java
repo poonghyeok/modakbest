@@ -136,8 +136,8 @@ public interface BoardDAO {
 		public List<BoardDTO> getBoardNoticeSearchList(Map<String, String> map);
 		//@@ 공지사항 페이징 - 서치
 		public int getTotalBoardAdminNoticeSearchNum(Map<String, String> map);
-		//@@ 게시판 공지용 리스트
-		public List<BoardDTO> getBoardNoticeOfficialList(int cateid);
+		//@@ 게시판별 공지 띄우기
+		public List<BoardDTO> getAdminBoardNoticeListOfficial(int cateid);
 
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 		

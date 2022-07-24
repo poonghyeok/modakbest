@@ -38,11 +38,14 @@
 			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->	    	
 			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">
-	        <input type = "text" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">	       
+	        <input type = "hidden" id = "board_uid" name = "board_uid" value="${boardDTO.board_uid}">	       
 	        <input type = "hidden" id = "board_author"  name = "board_author" value="${author}">
 	        <input type = "hidden" id = "board_cateid" name = "board_cateid" value="${boardDTO.board_cateid}">
-	        <input type = "text" id ="board_category" name = "board_category" value="${category}">
-	        <input type = "text" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+	        <!-- @@@ 연수 : 카테고리 이름 추가(0723)  -->
+	        <input type = "hidden" id ="board_category" name = "board_category" value="${category}">
+	        <input type = "hidden" id = "board_watcher" name = "board_watcher" value="${sessionScope.memId}">
+	        <!-- @@@ 연수 : 어드민 조건 추가(0724)  -->
+	        <input type = "hidden" id = "user_grade" name = "user_grade" value="${sessionScope.memGrade}">
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	
 			<!-- 본격 글 내용 (ㄴ작성자 ~ 페이스북 ) -->
@@ -144,18 +147,18 @@
 $('#adminNoticeDeleteBtnAtView').hide();
 $('#adminNoticeEditBtnAtView').hide();
 $('#adminNoticeWriteBtnAtView').hide();
-//$('#boardListFromAdminNoticeViewBtn').hide();
+$('#boardListFromAdminNoticeViewBtn').hide();
 
 $(function(){
-	if($('#board_watcher').val()==0){
+	//0을 null값으로 인식해서 조건이 적용되지 않음, 찾아보니 Admin 여부 DB(user_grade)에 등록 가능함(관리자: 'A', 일반회원 'U')
+	if($('#user_grade').val()=='A'){
 		$('#adminNoticeDeleteBtnAtView').show();
 		$('#adminNoticeEditBtnAtView').show();
 		$('#adminNoticeWriteBtnAtView').show();		
-		//$('#boardListFromAdminNoticeViewBtn').show();
-	}/* else{
 		$('#boardListFromAdminNoticeViewBtn').show();
-		
-	} */
+	}else{
+		$('#boardListFromAdminNoticeViewBtn').show();		
+	} 
 });
 
 //뷰에서 이전 페이지(게시판 목록)으로 가기(일반사용자: 접근게시판별 , 관리자: 공지사항리스트)
@@ -164,10 +167,13 @@ $('#boardListFromAdminNoticeViewBtn').click(function(){
 	//var board_category = $('#board_category').val();
 	var category = $('#category').val();
 	
-	if($('#board_watcher').val()!=0){ //일반 회원은 뒤로 카테고리가 읽히면 href 써보기
-		history.back();
-		//location.href="/semiproject/board/list?category="+board_category+"&pg=1&sortOption=date";		
-	}else{ //관리자는 공지사항 리스트로
+	if($('#user_grade').val()!='A'){ //일반 회원 글 수정이 불가하므로 뷰 > 뒤로가기하면 이전페이지(목록)으로 이동
+		history.back();		
+		//location.href="/semiproject/board/list?category="+board_category+"&pg=1&sortOption=date"; //전체공지(notice)가 갈 곳이 없음	
+	}else{ 
+		//관리자 수정/삭제 기능  show(뷰 > 수정 전 뒤로가기는 목록, 뷰 > 수정 후 > 뷰 > 뒤로가기는 수정페이지로 이동하는 문제가 있어 일반회원과 방식 다름)
+		//관리자 페이지 > 전체 공지 리스트 > 관리자 목록으로 갈 수 있도록 설정
+		//@@@각 게시판별 상단 공지> 여기서 수정할 경우 목록 버튼을 누르면 무족권 관리자 페이지로 이동함@@@	
 		location.href="/semiproject/admin/adminBoardNoticeList?category="+category+"&pg=1";
 	}
 	
@@ -201,53 +207,15 @@ $('#adminNoticeDeleteBtnAtView').click(function(){
 	}	
 });
 
-//뷰에서 글 수정 : 관리자는 아이디가 0일때 접속 가능하기 때문에 로그인 관련 유효성 검사 하지 않음 / 일반 회원에게는 수정/삭제/취소/공지등록 버튼 안보임
+//뷰에서 글 수정 : 관리자는 로그인 해야지만(user_grade가 'A'일때) 페이지 접속 가능하기 때문에 로그인 관련 유효성 검사 하지 않음
 $('#adminNoticeEditBtnAtView').click(function(){ // 수정버튼을 눌렀을떄
 	var board_id = $('#board_id').val();
+	var category = $('#category').val();
 	
-	location.href = "/semiproject/admin/adminBoardNoticeEditForm?board_id="+ board_id;
+	location.href = "/semiproject/admin/adminBoardNoticeEditForm?category="+category+"&board_id="+ board_id;
 
 });
 
-//무슨 용도인지 파악이 어려워 일단 주석 처리(220722)
-/* function noticeCateidToString(cateid){
-	let result;
-	if(cateid == 6){
-		result = 'notice';
-	}else if(cateid == 1){
-		result = 'info';
-	}else if(cateid == 2){
-		result = 'review';
-	}else if(cateid == 3){
-		result = 'qna';
-	}else if(cateid == 4){
-		result = 'free';
-	}else if(cateid == 5){
-		result = 'class';
-	}
-	
-	return result;
-}
-
-function stringNoticeCateToInt(category){
-	let result;
-	
-	if(cateid == 'notice'){
-		result = 6;
-	}else if(cateid == 'info'){
-		result = 1;
-	}else if(cateid == 'review'){
-		result = 2;
-	}else if(cateid == 'qna'){
-		result = 3;
-	}else if(cateid == 'free'){
-		result = 4;
-	}else if(cateid == 'class'){
-		result = 5;
-	}
-	
-	return result;
-} */
 </script>
 
 </body>

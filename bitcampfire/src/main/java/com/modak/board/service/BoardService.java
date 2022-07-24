@@ -136,7 +136,7 @@ public interface BoardService {
 		//@@페이징 처리 - 서치
 		public String getAdminNoticeSearchPagingList(String category, int pg, String keyword, String searchOption);
 		//@@게시판별 공지 띄우기
-		public String getAdminNoticeOfficialTableList(String category, int pg);
+		public List<BoardDTO> getAdminBoardNoticeListOfficial(String category, int pg);
 		
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 
