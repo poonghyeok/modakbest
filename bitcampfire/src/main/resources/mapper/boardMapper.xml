@@ -188,23 +188,7 @@
 				</if>
 				(board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
 	        VALUES
-	            (
-	            <if test="board_cateid == 1">
-				board_inform_seq.nextval
-				</if>
-				
-				<if test="board_cateid == 2">
-				board_review_seq.nextval
-				</if>
-				
-				<if test="board_cateid == 3">
-				board_qna_seq.nextval
-				</if>
-					 
-				<if test="board_cateid == 4">
-				board_free_seq.nextval
-				</if>
-	            ,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
+	            (BOARD_SEQ.NEXTVAL,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
     	</insert>
     	
     	<update id="update" parameterType="java.util.Map">
@@ -381,7 +365,8 @@
 				</if>
 	            (board_id, board_uid, board_cateid, board_title, board_content, board_date_created)
 	        VALUES
-	            (BOARD_QNA_SEQ.nextval,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
+	        <!-- 풍혁0726 : 수정인데 NEXTVAL이 필요한가요? 수정인데 WHERE이 없음-->
+	            (BOARD_SEQ.nextval,#{board_uid}, #{board_cateid}, #{board_title}, #{board_content},sysdate)
 		</insert>
 		
 		<!-- 글 삭제 -->
