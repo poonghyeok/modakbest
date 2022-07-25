@@ -191,7 +191,7 @@
 	<span id = "sortListByTime" class = "sortCondition"><a href="#">최신순 </a></span>
 	<span id = "sortListByRecommend" class = "sortCondition"><a href="#">추천순</a></span>
 	<span id = "sortListByScrap" class = "sortCondition"><a href="#">스크랩순</a></span>
-	<span id = "sortListByView" class = "sortCondition"><a href="#">조회순</a></span>
+	<span id = "sortListBy" class = "sortCondition"><a href="#">조회순</a></span>
 	
 	<span><input type="text" placeholder="검색어" id = "listSearchKeyword"><input type="button" value="검색하기" id = "listSearchButton"></span>
 </div>

@@ -328,15 +328,14 @@ public class BoardServiceImpl implements BoardService {
 		@Override
 		public BoardDTO getBoardContent(Map<String, Integer>map) { 
 			
-			BoardDTO boardDTO = boardDAO.getBoardContent(map); //글번호 가지고 dto 가지고와
-			
 			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
-				boardDAO.setHit(map); // 글번호에 조회수 증가하게 해
+				boardDAO.setHit(map); // 1. 글번호에 조회수 증가하게 해
 				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
-			}
+			} 
 			
+			BoardDTO boardDTO = boardDAO.getBoardContent(map); //2. 글번호 가지고 dto 가지고와
 		
-		return boardDTO;
+			return boardDTO;
 		}
 		
 		//추천수가 있는지 체크
@@ -874,10 +873,10 @@ public class BoardServiceImpl implements BoardService {
 		public BoardDTO getAdminBoardNotice_edit(int board_id) {
 			return boardDAO.getAdminBoardNotice_edit(board_id);
 		}
-}	
+	}	
 
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
-}
+
 
 

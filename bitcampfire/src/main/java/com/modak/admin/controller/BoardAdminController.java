@@ -24,7 +24,6 @@ public class BoardAdminController {
 	
 	@GetMapping(value = "adminBoardAllList")
 	public String adminBoardAllList() {
-		//System.out.println("adminBoardAllList 왔따!!!!!");
 		return "/admin/adminBoardAllList";
 	}
 	
@@ -65,7 +64,7 @@ public class BoardAdminController {
 	}
 	
 	
-	
+	// 유저아이디로 닉네임 가져오는것
 	@GetMapping(value = "getUserNickname", produces="application/text;charset=utf-8")
 	@ResponseBody // 에이작스로 간다.
 	public String getUserNickname(@RequestParam int board_uid) { 
@@ -74,7 +73,6 @@ public class BoardAdminController {
 		System.out.println("userNickname = " + userNickname);
 		return boardService.getUserNameByUserId(board_uid);
 	}
-	
 }
 
 

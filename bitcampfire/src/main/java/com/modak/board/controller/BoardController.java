@@ -155,9 +155,10 @@ public class BoardController {
 	// 정수 : 시작  ###################### 
 		//목록에서 글 가져와서 jsp 띄우기
 		@GetMapping(value = "getBoardView") // 데이터값 담아서 jsp로 이동
-		public ModelAndView getBoardView(@RequestParam String category, @RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) 	{ // 글번호, 페이지값 
-			System.out.println("getBoardView 컨트롤러 실행....");
+		public ModelAndView getBoardView(@RequestParam String category, @RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) 	{ // 카테고리번호, 글번호, 페이지값 
+			
 			int cateid = -1;
+			
 			switch(category) {
 			case "info" :
 				cateid = 1;
@@ -175,7 +176,7 @@ public class BoardController {
 			
 			//풍혁0719 : category 반영해야해서 parameter는  map으로 변경
 			Map<String,Integer> map = new HashMap<>();
-			map.put("cateid",cateid);
+			map.put("cateid",cateid); // 카테고리아이디
 			map.put("board_id",board_id);
 			
 			ModelAndView mav = new ModelAndView(); // boardView.jsp 에 데이터 넣어 보내기
@@ -184,7 +185,7 @@ public class BoardController {
 			BoardDTO boardDTO = (BoardDTO) boardService.getBoardContent(map);
 			mav.addObject("boardDTO", boardDTO);
 			
-			System.out.println("TEST BoardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
+			//System.out.println("TEST BoardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
 			
 			Date date = boardDTO.getBoard_date_created(); // 날짜 꺼내서
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
@@ -252,7 +253,6 @@ public class BoardController {
 		  }
 		  
 		  // 글 수정 데이터 불러오기
-			
 		  @GetMapping(value = "/getBoard")
 		  @ResponseBody
 		  public BoardDTO getBoard(@RequestParam int board_id, int cateid) { 
@@ -279,10 +279,6 @@ public class BoardController {
 			  map.put("cateid", cateid);
 			  boardService.boardDelete(map);
 		  }
-		  
-		  
-		  
-		  
 		  
 	// 정수 : 끝  ###################### 
 }

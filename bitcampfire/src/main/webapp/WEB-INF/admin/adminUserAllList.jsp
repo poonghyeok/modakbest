@@ -42,7 +42,7 @@
 			</form>
 			<br>
 			
-			<input type="hidden" id="pg" value="${pg }">				
+			<input type="hidden" id="pg" value="${pg}">				
 			<!-- 선택 삭제(체크박스) 폼 -->
 			<form id="adminUserAllListForm" method="get" action="/semiproject/admin/adminUserDelete_select">							
 			<div class="panel panel-default questions-panel">
