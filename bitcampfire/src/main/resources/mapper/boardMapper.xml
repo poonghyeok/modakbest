@@ -209,19 +209,19 @@
     	
     	<update id="update" parameterType="java.util.Map">
     		UPDATE 
-    			<if test="cateid == '1'">
+    			<if test="board_cateid == 1">
 				board_inform
 				</if>
 				
-				<if test="cateid == '2'">
+				<if test="board_cateid == 2">
 				board_review
 				</if>
 				
-				<if test="cateid == '3'">
+				<if test="board_cateid == 3">
 				board_qna
 				</if>
 					 
-				<if test="cateid == '4'">
+				<if test="board_cateid == 4">
 				board_free
 				</if>
 				SET 
