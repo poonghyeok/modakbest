@@ -350,20 +350,47 @@ public class BoardDAOMyBatis implements BoardDAO {
 				sqlSession.delete("boardSQL.adminNoticeDelete_select", map);	
 				
 			}
-			//@@@ 공지리스트 개별 삭제
+			//@@@ 공지사항 리스트 개별 삭제 + 공지사항  뷰 > 글삭제
 			@Override
-			public void adminNoticeDelete_each(int board_id) {
-				sqlSession.delete("boardSQL.adminNoticeDelete_each", board_id);
-				
+			public void adminNoticeDelete(int board_id) {
+				sqlSession.delete("boardSQL.adminNoticeDelete", board_id);				
 			}
-
+			//@@ 글수정 데이터 가져오기
 			@Override
 			public BoardDTO getAdminBoardNotice_edit(int board_id) {
 				return sqlSession.selectOne("boardSQL.getAdminBoardNotice_edit", board_id);
 			}
+			//@@ 글수정
+			@Override
+			public void adminBoardNoticeUpdate(Map<String, String> map) {
+				sqlSession.update("boardSQL.adminBoardNoticeUpdate", map);
+				
+			}
+			//@@ 곧지사항 총글수
+			@Override
+			public int getTotalBoardAdminNoticeNum() {
+				return sqlSession.selectOne("boardSQL.getTotalBoardAdminNoticeNum");
+			}
+			//@@ 공지사항 리스트 - 서치
+			@Override
+			public List<BoardDTO> getBoardNoticeSearchList(Map<String, String> map) {				
+				return sqlSession.selectList("boardSQL.getBoardNoticeSearchList", map);
+			}
+			//@@ 공지사항 총글수 - 서치
+			@Override
+			public int getTotalBoardAdminNoticeSearchNum(Map<String, String> map) {
+				return sqlSession.selectOne("boardSQL.getTotalBoardAdminNoticeSearchNum", map);
+			}
+			//@@ 게시판별 공지 띄우기
+			@Override
+			public List<BoardDTO> getAdminBoardNoticeListOfficial(int cateid) {
+				return sqlSession.selectList("boardSQL.getAdminBoardNoticeListOfficial", cateid);
+			}
+
 
 			// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
-			//<!--@@@@ 연수 살려주세요!(220721)  -->
+
+
 
 }
 

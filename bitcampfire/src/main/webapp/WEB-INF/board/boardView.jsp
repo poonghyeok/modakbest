@@ -34,6 +34,23 @@
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
 			
+			<!-- 풍혁0722 alert div 추가 javascript alert 지우기  -->
+			<c:if test="${param.state != null}">
+				<div id = "alertDiv" class="alert alert-success alert-dismissible" role="alert">
+			    	<button type="button" class="close" data-dismiss="alert">
+			    		<span id = "alertDivCloseBtn" aria-hidden="true">×</span><span class="sr-only">Close</span>
+			    	</button>
+			    	<ul>
+			        	 <li>글
+			        	 <c:choose >
+			        	 	<c:when test="${param.state == 'edit'}">수정</c:when>
+			        	 	<c:when test="${param.state == 'write'}">작성</c:when>
+			        	 </c:choose>이 완료 되었습니다.</li>
+			     	</ul>
+	 			</div>		
+			</c:if>
+			<!-- 풍혁0722 alert div 추가 javascript alert 지우기  -->
+			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">
 			<input type = "hidden" id ="board_id" name = "board_id" value="${board_id}">

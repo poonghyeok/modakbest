@@ -63,77 +63,9 @@
 		<!-- 풍혁 (220704) : 상단 네비게이션 --> 
 		
 		<!-- 풍혁 (220704) : 고정 (공지)list -->
-		<div class="okkys-choice">
-		    <div class="panel panel-default">
-		        <!-- Table -->
-		        <ul class="list-group">
-		
-		
-				<li class="list-group-item list-group-item-question list-group-has-note clearfix">
-		
-				<div class="list-title-wrapper clearfix">
-		    		<div class="list-tag clearfix">
-		        		<span class="list-group-item-text article-id">board_id</span>
-						<a href="/articles/tech-qna" class="list-group-item-text item-tag label label-info"><i class="fa fa-database"></i>자유주제</a>
-		    
-		        <a href="/articles/tagged/OKKY" class="list-group-item-text item-tag label label-gray ">CAMPFIRE</a>
-		    </div>
-		
-		    <h5 class="list-group-item-heading list-group-item-evaluate">
-		        <a href="/article/423650">
-		            [태그 잊지말고 달기] Q&amp;A BITCAMPFIRE!
-		        </a>
-		    </h5>
-		</div>
-		
-		<div class="list-summary-wrapper clearfix">
-            <div class="list-group-item-summary clearfix">
-                <ul>
-                    <li class=""><i class="item-icon fa fa-comment "></i> 27</li>
-                    <li class="">
-                        <i class="item-icon fa fa-thumbs-up"></i> 5
-                    </li>
-                    <li class=""><i class="item-icon fa fa-eye"></i> 4k</li>
-                </ul>
-            </div>
-        </div>
-		<!-- <div class="list-summary-wrapper clearfix">
-		        <div class="item-evaluate-wrapper pull-right clearfix">
-		            <div class="item-evaluate">
-		                <div class="item-evaluate-icon">
-		                    <i class="item-icon fa fa-thumbs-o-up"></i>
-		                </div>
-		                <div class="item-evaluate-count">
-		                    	10
-		                </div>
-		            </div>
-		            <div class="item-evaluate item-evaluate-has-note">
-		                <div class="item-evaluate-icon">
-		                        <i class="item-icon fa fa-exclamation-circle"></i>
-		                </div>
-		                <div class="item-evaluate-count">
-		                    	10
-		                </div>
-		            </div>
-		        </div>
-		</div> -->
-		
-		<div class="list-group-item-author clearfix">
-		
-		
-		<div class="avatar clearfix avatar-list ">
-		    <a href="#" class="avatar-photo"><img src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&amp;s=30"></a>
-		    <div class="avatar-info">
-		            <a class="nickname" href="/user/info/45597" title="OKKY">BIRCAMPFIRE</a>
-		                <div class="activity"><span class="fa fa-flash"></span> 레벨</div>
-		                <div class="date-created"><span class="timeago" title="2017-11-06T11:25:10">2017-11-06T11:25:10</span></div>
-		    </div>
-		</div>
-		</div>
-		</li>
-		        </ul>
-		    </div>
-		</div>
+		<!-- 연수 상단 공지 추가(220724) / 기존 list는 삭제처리 -->
+		<jsp:include page="/WEB-INF/admin/adminBoardNoticeListOfficial.jsp"/>
+		<!-- 연수 상단 공지 추가(220724) / 기존 list는 삭제처리 -->
 		<!-- 풍혁 (220704) : 고정 (공지)list -->
 		
 		<!-- 풍혁(220714) : 중간광고 -->
