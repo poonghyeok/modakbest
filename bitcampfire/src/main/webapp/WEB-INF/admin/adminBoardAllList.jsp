@@ -24,6 +24,7 @@ height : 100px;
 	<!-- 풍혁0721 사이드 통일-->
 	<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 	<input id="category" type = 'hidden' value ='${param.category}'/>
+	<input id="pg" type = 'hidden' value ='${param.pg}'/>
 	<!-- 풍혁0721 사이드 통일 + active 효과적용 위해 category 표시-->
 	
 	<h3>게시글 관리</h3>
@@ -32,7 +33,7 @@ height : 100px;
 	<div class="nav" role="navigation" style="margin-left:600px;">
 		<input type="hidden" name="pg" id="searchPg" value="1">					
 			<div class="job-filter-container" style="width:300px; text-align:center; margin: auto;">
-			<select class="job-filter-btn" name="searchOption" id="searchOption" style="border-color: #DBDCE1; font-size: 10pt; color: #656667;">
+			<select class="job-filter-btn" name="searchOption" id="searchOption" style="border-color: #DBDCE1; font-size: 10pt; color: white;">
 		       <option value="board_title" id="board_title">제목</option>
 		       <option value="board_uid" id="board_uid">작성자</option>
 		       <option value="board_cateid" id="board_cateid">카테고리</option>
@@ -50,7 +51,7 @@ height : 100px;
 	<form id="adminBoardAllListForm" method="get" action="/semiproject/admin/adminBoardDelete_select" >		
 		<div class="panel panel-default questions-panel">
 			<ul class="list-group">
-				<li class="list-group-item list-group-item-question list-group-has-note clearfix" name = "checkList" style="background-color: lightGray;" >
+				<li class="list-group-item list-group-item-question list-group-has-note clearfix" name = "checkList" style="background-color: white;" >
 				<!-- append 시작점 -->
 					
 					<!-- board_id  -->
@@ -65,7 +66,7 @@ height : 100px;
 																			
 					<!-- board_title  -->
 					<div class="list-title-wrapper clearfix3" id = "adminBoard" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
-						제목								
+						제목									
 					</div>
 					
 					<!-- board_cmt_cnt  -->
@@ -97,7 +98,7 @@ height : 100px;
 			</ul>
 		</div> 
 							
-		<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="삭제" style="float: right; background-color: lightGray; font-weight: bold; color : black;">
+		<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="삭제" style="float: right; background-color: white; font-weight: bold; color : black;">
 	</form>
 </div>
 </div>
@@ -107,44 +108,49 @@ height : 100px;
 $(function(){	
 	$.ajax({
 		type : "post",
-		url : "/semiproject/admin/getBoardAllList", 
+		url : "/semiproject/admin/getBoardAllList",  // 리스트 전체 가져오기
 		dataType : "json",
 		success : function(data) {  // list
-			console.log(JSON.stringify(data));
-			$.each(data, function(index, item){ //board_uid 
-				
+			//console.log(JSON.stringify(data));
+			
+		$.each(data, function(index, item){ //board_uid 
+				// 유저닉네임 가져오기
 				var userNickname;
+		
 					$.ajax({
 						type : "get",
 						url : "/semiproject/admin/getUserNickname",
-						data : {board_uid : item.board_uid},
+						data : {
+							 		board_uid : item.board_uid,
+							 	},
 						async : false,
 						success : function(name) {
-							/* console.log(name) */
 							userNickname = name;
 						}
-					});
-					/* console.log(userNickname); */
-
-				
+					}); // ajax끝
+					console.log(item);
 				var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
-							'<input name="check" class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;">'+
-							'<div style = "float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
-							'<div style = "float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
-							'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_title+'</div>'+
-							'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
-							'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
-							'<div style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname +'</div>'+
-							'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'
+								'<input name="check" class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;">'+
+								'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
+								'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
+								'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_title+'</div>'+
+								'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
+								'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
+								'<div id = "userNickname" style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">' 
+								+'<a href = "/semiproject/board/getBoardView?category="'+item.board_cateid+'"info&board_id="' +item.board_id+ '"&pg=1">' +userNickname +'</a></div>'+
+								'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'
 							'</li>';
 				$(test).appendTo('.list-group');
-			})
-		},
+				
+			}) // each 
+		}, // success
 		error : function(err) {
 			console.log(err);
 		} // error
 	})
 });
+
+
 
 
 /* 선택 삭제 */

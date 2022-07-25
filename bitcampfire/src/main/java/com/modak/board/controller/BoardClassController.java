@@ -200,7 +200,6 @@ public class BoardClassController {
 		  @GetMapping(value = "getBoardClass")
 		  @ResponseBody
 		  public BoardDTO getBoardClass(@RequestParam int board_id) { 
-			  
 			  BoardDTO boardDTO= boardService.boardClassEditForm(board_id); 
 			  return boardDTO; 
 			 }

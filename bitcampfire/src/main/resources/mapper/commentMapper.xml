@@ -105,12 +105,14 @@
 							  ,cmt_cateid		
 							  ,cmt_bid
 							  ,cmt_content
+							  ,cmt_img
 							  ,cmt_date_created)
 		VALUES(COMMENT2_SEQ.nextval,
 				#{cmt_uid},
 				5,
 				#{cmt_bid},
 				#{cmt_content},
+				#{cmt_img},
 				sysdate)
 	</insert>
 	

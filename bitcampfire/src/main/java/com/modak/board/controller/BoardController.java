@@ -131,6 +131,7 @@ public class BoardController {
 		
 		//풍혁0714 : boardUpdate 기능구현
 		@PostMapping(value = "update")
+		@ResponseBody
 		public void update(@RequestParam Map<String,String> map) {
 			System.out.println("\n@board update LOG @");
 			System.out.println("board_title" + map.get("board_title"));
@@ -155,9 +156,10 @@ public class BoardController {
 	// 정수 : 시작  ###################### 
 		//목록에서 글 가져와서 jsp 띄우기
 		@GetMapping(value = "getBoardView") // 데이터값 담아서 jsp로 이동
-		public ModelAndView getBoardView(@RequestParam String category, @RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) 	{ // 글번호, 페이지값 
-			System.out.println("getBoardView 컨트롤러 실행....");
+		public ModelAndView getBoardView(@RequestParam String category, @RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg) 	{ // 카테고리번호, 글번호, 페이지값 
+			
 			int cateid = -1;
+			
 			switch(category) {
 			case "info" :
 				cateid = 1;
@@ -173,10 +175,13 @@ public class BoardController {
 				break;
 			}
 			
+			System.out.println("\n @LOG 0722 PH@ changed cate_id : " + cateid );
+			
 			//풍혁0719 : category 반영해야해서 parameter는  map으로 변경
 			Map<String,Integer> map = new HashMap<>();
-			map.put("cateid",cateid);
+			map.put("cateid",cateid); // 카테고리아이디
 			map.put("board_id",board_id);
+
 			
 			ModelAndView mav = new ModelAndView(); // boardView.jsp 에 데이터 넣어 보내기
 			mav.addObject("board_id", board_id); // 글번호값이랑 
@@ -184,7 +189,7 @@ public class BoardController {
 			BoardDTO boardDTO = (BoardDTO) boardService.getBoardContent(map);
 			mav.addObject("boardDTO", boardDTO);
 			
-			System.out.println("TEST BoardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
+			//System.out.println("TEST BoardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
 			
 			Date date = boardDTO.getBoard_date_created(); // 날짜 꺼내서
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
@@ -196,13 +201,13 @@ public class BoardController {
 			
 			//풍혁220714 : board_uid로 user_img를 받아서 프로필 사진 반영하겠습니다. 
 			String userImg = userService.getUserImgByUserid(boardDTO.getBoard_uid());
-			System.out.println("\n @log@ userimg : " + userImg);
+			//System.out.println("\n @log@ userimg : " + userImg);
 			mav.addObject("user_img", userImg);
 			
 			mav.addObject("cateidToString", boardDTO.cateidToString());
 			
-			System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
-			System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
+			//System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
+			//System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
 			mav.setViewName("board/boardView"); // boardView.jsp로 보냄 
 			return mav; // 스프링한테 데이터랑 목적지 꺼내봐 하는거
 		}
@@ -252,7 +257,6 @@ public class BoardController {
 		  }
 		  
 		  // 글 수정 데이터 불러오기
-			
 		  @GetMapping(value = "/getBoard")
 		  @ResponseBody
 		  public BoardDTO getBoard(@RequestParam int board_id, int cateid) { 
@@ -279,10 +283,6 @@ public class BoardController {
 			  map.put("cateid", cateid);
 			  boardService.boardDelete(map);
 		  }
-		  
-		  
-		  
-		  
 		  
 	// 정수 : 끝  ###################### 
 }

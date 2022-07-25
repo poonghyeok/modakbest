@@ -79,11 +79,11 @@
 
 
     		<li  id="class_boardBtn"><a href="#" class="link"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">학원전용 게시판</span></a></li>
-    		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
-    		<%-- <c:if test="${sessionScope.memId == 0 }"> --%>
+    		<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_grade = 'A'로 등록 후 사용(220724)  @@@@@@@@@@@@@@-->
+    		<c:if test="${sessionScope.memGrade == 'A' }">
     		<li  ><a href="/semiproject/admin/adminUserAllList?category=admin" class="link"><i class="nav-icon fa fa-lock"></i> <span class="nav-sidebar-label nav-sidebar-category-label">관리자페이지</span></a></li>
-			<%-- </c:if> --%>
-			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_id = 0으로 등록 후 사용(220715)  @@@@@@@@@@@@@@-->
+			</c:if>
+			<!-- @@@@@@@@@@@@@@ 연수 : 어드민 페이지  수정 중  / 관리자는 각자 DB에 user_grade = 'A'로 등록 후 사용(220724)  @@@@@@@@@@@@@@-->
 
 
     </ul>

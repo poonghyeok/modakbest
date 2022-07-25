@@ -89,7 +89,10 @@
 		where rn >= #{startNum} and rn <= #{endNum}
 		]]>	
  	</select>
-
+ 	<!-- //연수: 어드민 페이지> 회원관리 > 학원명 한글로 바꾸기 -->
+	<select id="getUserClass"  parameterType="String" resultType="userAllDTO">
+ 		select * from class where class_id = #{user_classid}
+ 	</select>
   	<!-- @@@ 총 유저 수 구하기: 어드민 userlist for 페이징 처리(220717)	 -->
   	<select id="getUserTotalA" resultType="int">
   		select count(*) from user2  		
@@ -118,7 +121,28 @@
 			#{user_email}
 		</foreach>
   	</delete> 
+  	<!-- @@ 관리자 선택 등록(220724) -->
+	<update id="adminRegister" parameterType="java.util.Map">
+		update user2 set user_grade='A' where user_email in 
+		
+		<foreach collection="check" item="user_email" open="(" close=")" separator=",">
+			#{user_email}
+		</foreach>
+  	</update>
+	<!-- @@ 관리자 선택 등록해제(220724) -->
+	<update id="adminRegisterCancel" parameterType="java.util.Map">
+		update user2 set user_grade='U' where user_email in 
+		
+		<foreach collection="check" item="user_email" open="(" close=")" separator=",">
+			#{user_email}
+		</foreach>
+  	</update>
   	
+	<!-- @@@ 연수 : BoardNoticeAdminController에서 요청한 서비스 -->
+	<!-- @@@ 어드민 > 공지사항 리스트에 띄울 유저 정보 가져오기(220724) -->
+	<select id="getUserInfoForNoticeList" parameterType="int" resultType="UserAllDTO">
+        select * from user2 where user_id=${board_uid}
+    </select>
 	<!-- ======================== 연수 : 끝(220706) ============================= -->
 
 	

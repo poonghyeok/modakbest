@@ -112,26 +112,33 @@ public interface BoardService {
 		public void boardClassUpdate(Map<String, String> map);
 
 //유진 끝###################################################################33
-		//<!--@@@@ 연수 살려주세요!(220721)  -->
+
 		//@@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 		//@@@ 공지사항 작성
 		public void adminBoardNoticeWrite(BoardDTO boardDTO);
 		
-		//public Map<String, Object> getBoardNoticeAllList(String pg);
 		//@@@ 공지사항 리스트 불러오기
-		public String getAdminNoticeTableList(int pg);
+		public String getAdminNoticeTableList(String category, int pg);
 		//@@@ 공지사항 내용  불러오기
 		public BoardDTO getAdminBoardNoticeContent(int board_id);
-		//@@리스트 - 선택삭제
+		//@@공지사항 리스트 - 선택삭제
 		public void adminNoticeDelete_select(String[] check);
-		//@@리스트 - 개별삭제
-		public void adminNoticeDelete_each(int board_id);
-
+		//@@공지사항 리스트 개별 삭제 + 공지사항  뷰 > 글삭제
+		public void adminNoticeDelete(int board_id);
+		//@@글수정 데이터 가져오기
 		public BoardDTO getAdminBoardNotice_edit(int board_id);
-
-		//public String getAminNoticePagingList(String pg);
+		//@@글수정 데이터 업데이트하기
+		public void adminBoardNoticeUpdate(Map<String, String> map);
+		//@@페이징 처리
+		public String getAdminNoticePagingList(String category, int pg);
+		//@@공지사항 리스트 - 서치
+		public String getAdminNoticeSearchTableList(String category, int pg, String keyword, String searchOption);
+		//@@페이징 처리 - 서치
+		public String getAdminNoticeSearchPagingList(String category, int pg, String keyword, String searchOption);
+		//@@게시판별 공지 띄우기
+		public List<BoardDTO> getAdminBoardNoticeListOfficial(String category, int pg);
 		
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
-		//<!--@@@@ 연수 살려주세요!(220721)  -->
+
 
 }

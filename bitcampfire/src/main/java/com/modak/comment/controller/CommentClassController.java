@@ -1,11 +1,18 @@
 package com.modak.comment.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.modak.comment.bean.CommentDTO;
 import com.modak.comment.service.CommentService;
 import com.modak.user.service.UserService;
@@ -35,6 +45,8 @@ public class CommentClassController {
 		@PostMapping(value = "commentClassWrite")
 		@ResponseBody
 		public void commentClassWrite(@ModelAttribute CommentDTO commentDTO) {
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+commentDTO.getCmt_content());
+			String cmt_img = commentDTO.getCmt_content();
 			
 			commentService.commentClassWrite(commentDTO);
 			
@@ -90,5 +102,74 @@ public class CommentClassController {
 
 		}
 		
+		/*
+		 * @PostMapping(value = "commentUploadSummernoteImageFile")
+		 * 
+		 * @ResponseBody public JsonObject
+		 * commentUploadSummernoteImageFile(@RequestParam("file") MultipartFile
+		 * multipartFile) {
+		 * 
+		 * JsonObject jsonObject = new JsonObject();
+		 * 
+		 * String fileRoot =
+		 * "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\commentImg";
+		 * //저장될 외부 파일 경로 String originalFileName = multipartFile.getOriginalFilename();
+		 * //오리지날 파일명 String extension =
+		 * originalFileName.substring(originalFileName.lastIndexOf(".")); //파일 확장자
+		 * 
+		 * String savedFileName = UUID.randomUUID() + extension; //저장될 파일 명
+		 * 
+		 * File targetFile = new File(fileRoot + savedFileName);
+		 * 
+		 * try { InputStream fileStream = multipartFile.getInputStream();
+		 * FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
+		 * jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
+		 * jsonObject.addProperty("responseCode", "success");
+		 * 
+		 * } catch (IOException e) { FileUtils.deleteQuietly(targetFile); //저장된 파일 삭제
+		 * jsonObject.addProperty("responseCode", "error"); e.printStackTrace(); }
+		 * 
+		 * return jsonObject; }
+		 * 
+		 */
+		
+		@RequestMapping(value="uploadSummernoteImageFile", produces = "application/json; charset=utf8")
+		@ResponseBody
+		public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
+			JsonObject jsonObject = new JsonObject();
+			
+			//String fileRoot = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\commentImg";
+			 
+			
+			// 내부경로로 저장
+			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+			String fileRoot = contextRoot+"src\\main\\webapp\\WEB-INF\\storage\\commentImg";
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+fileRoot);
+			
+			String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+			System.out.println("----------------------"+originalFileName);
+			
+			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+			System.out.println("----------------------"+extension);
+			
+			String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+			System.out.println("----------------------"+savedFileName);
+			
+			File targetFile = new File(fileRoot + savedFileName);	
+			try {
+				InputStream fileStream = multipartFile.getInputStream();
+				FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+				jsonObject.addProperty("url", "/src/main/webapp/WEB-INF/storage/commentImg"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+				jsonObject.addProperty("responseCode", "success");
+					
+			} catch (IOException e) {
+				FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+				jsonObject.addProperty("responseCode", "error");
+				e.printStackTrace();
+			}
+			String a = jsonObject.toString();
+			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++"+a);
+			return a;
+		}
 	
 }
