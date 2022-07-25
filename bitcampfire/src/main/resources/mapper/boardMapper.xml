@@ -708,7 +708,7 @@
 			    		</if>				    		
 			    	
 						ORDER BY BOARD_DATE_CREATED DESC)TT2) 
-						WHERE (RN2 &gt;=2 AND RN2 &lt;=2)
+						WHERE (RN2 &gt;=1 AND RN2 &lt;=2)
 						
 	   	</select>	   		
 		<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
