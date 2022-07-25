@@ -22,5 +22,8 @@ public class CommentDTO {
 	private String cmt_content; 	// 댓글 내용
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date cmt_date_created;	// 날짜
+	
+	//유진추가
+	private String cmt_img;
 	//풍혁 220711 : int에서 Date로 자료형 수정했습니다.
 }
