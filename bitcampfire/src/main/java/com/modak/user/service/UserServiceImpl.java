@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import java.util.List;
@@ -18,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,8 @@ import com.google.gson.JsonParser;
 import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAdminPaging;
 import com.modak.user.bean.UserAllDTO;
+
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +56,8 @@ public class UserServiceImpl implements UserService {
 		private BCryptPasswordEncoder passwordEncoder;
 		
 		private static final Logger logger = LoggerFactory.getLogger(UserSignupController.class);
+		@Autowired
+		private JavaMailSender mailSender4;
 		
 
 	//공통 영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -171,8 +178,8 @@ public class UserServiceImpl implements UserService {
 		//@@@ 어드민 페이지 > 전체유저 리스트 가져오기(220715)	
 		@Override
 		public Map<String, Object> getUserAllList(String pg) {		
-			int endNum = Integer.parseInt(pg) * 5;
-			int startNum = endNum - 4;
+			int endNum = Integer.parseInt(pg) * 10;
+			int startNum = endNum - 9;
 			
 			//DB - 1페이지 당 10걔씩
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -190,6 +197,11 @@ public class UserServiceImpl implements UserService {
 			
 			return sendMap;		
 		}
+		//@@@ 어드민 페이지 > 유저 리스트> 학원명 가져오기	(0723)
+		@Override
+		public UserAllDTO getUserClass(String user_classid) {
+			return userDAO.getUserClass(user_classid);
+		}
 		
 		//@@@ 어드민 페이지 > 유저 리스트 페이징 처리 (220717)
 		@Override
@@ -197,8 +209,8 @@ public class UserServiceImpl implements UserService {
 			int totalA = userDAO.getUserTotalA(); //총 유저 수 
 			
 			userAdminPaging.setCurrentPage(Integer.parseInt(pg));
-			userAdminPaging.setPageBlock(3);
-			userAdminPaging.setPageSize(5);
+			userAdminPaging.setPageBlock(10);
+			userAdminPaging.setPageSize(10);
 			userAdminPaging.setTotalA(totalA);
 			userAdminPaging.makePagingHTML(); //실제 페이지를 만드는 역할
 			
@@ -208,8 +220,8 @@ public class UserServiceImpl implements UserService {
 		///@@@ 어드민 페이지 > 유저 검색 리스트 (220717)	
 		@Override
 		public Map<String, Object> adminUserSearch(Map<String, String> map) {
-			int endNum = Integer.parseInt(map.get("pg")) * 5;
-			int startNum = endNum - 4;			
+			int endNum = Integer.parseInt(map.get("pg")) * 10;
+			int startNum = endNum - 9;			
 			
 			//DB - 1페이지 당 10걔씩
 			map.put("startNum", startNum+"");
@@ -220,8 +232,8 @@ public class UserServiceImpl implements UserService {
 			
 			//System.out.println("adminUserSearch");
 			userAdminPaging.setCurrentPage(Integer.parseInt(map.get("pg")));
-			userAdminPaging.setPageBlock(3);
-			userAdminPaging.setPageSize(5);
+			userAdminPaging.setPageBlock(10);
+			userAdminPaging.setPageSize(10);
 			userAdminPaging.setTotalA(totalA);
 			userAdminPaging.makePagingHTML();
 			
@@ -276,10 +288,113 @@ public class UserServiceImpl implements UserService {
 		@Override
 		public void adminUserDelete_select(String[] check) {
 			Map<String, String[]> map = new HashMap<String, String[]>();
-			map.put("check", check);			
+			map.put("check", check);
+			
+			//String[] user_email = map.get("user_email");
+			check = map.get("check");
+			//System.out.println(check);
+			
 			userDAO.adminUserDelete_select(map);
 			
 			session.invalidate();
+		}
+		//@@ 관리자 선택 등록(220724)
+		@Override
+		public void adminRegister(String[] check) {
+			Map<String, String[]> map = new HashMap<String, String[]>();
+			map.put("check", check);
+			
+			//String[] user_email = map.get("user_email");
+			check = map.get("check");
+			//System.out.println(check);
+			
+			userDAO.adminRegister(map);			
+		}
+		
+		//@@ 관리자 선택 등록해제(220724)
+		@Override
+		public void adminRegisterCancel(String[] check) {
+			Map<String, String[]> map = new HashMap<String, String[]>();
+			map.put("check", check);
+			
+			//String[] user_email = map.get("user_email");
+			check = map.get("check");
+			//System.out.println(check);
+			
+			userDAO.adminRegisterCancel(map);				
+		}
+		
+		//@@관리자 권한으로 삭제된 회원에게 안내메일 발송(220724)
+		@Override
+		public void sendEmailToDeleteUser(String user_email) {
+		 	String setFrom = "dustn551@gmail.com";
+		 	String toMail = user_email;
+	        String title = "회원탈퇴 안내 이메일 입니다.";
+	        String content = 
+				"<div style='width:1000px; height: 100px; background:#286090;' align='center'> "
+				+ "<h1 style='color:#fff; font-size: 60px;'>BITFIRE</h1>"
+				+ "</div>"
+				+ "<div style='text-align:center;'><h2 style='margin-top:10px; font-size: 28px;'>회원탈퇴 안내 메일입니다.</h2>"
+				+ "<p style='font-size:18px; text-align:center;'>"
+				+ "귀하께서는 불가피한 사유로 회원 탈퇴 처리되었음을 안내드립니다.<br> "
+				+ "로그인이 필요한 서비스는 더이상 이용이 불가한 점 양해부탁드리며,<br> "
+				+ "자세한 사항은 bitcampfire 대표 이메일(bitcampfire@admin.co.kr)로 문의하여 주시기 바랍니다.<br>"
+				+ "그동안 저희 서비스를 이용해주셔서 감사합니다.</p>"
+				+ "</div>";
+			
+			try {            
+			    MimeMessage message = mailSender4.createMimeMessage();
+			    MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			    helper.setFrom(setFrom);
+			    helper.setTo(toMail);
+			    helper.setSubject(title);
+			    helper.setText(content,true);
+			    mailSender4.send(message);
+			    
+			    }catch(Exception e) {
+			        e.printStackTrace();
+			    } 
+				
+			}
+		//삭제된 회원에게 안내메일 발송 - 선택삭제ver(220724)
+		@Override
+		public void sendEmailToDeleteUser_select(String[] check) {
+		 	String setFrom = "dustn551@gmail.com";
+		 	String[] toMail = check;
+	        String title = "회원탈퇴 안내 이메일 입니다.";
+	        String content = 
+				"<div style='width:1000px; height: 100px; background:#286090;' align='center'> "
+				+ "<h1 style='color:#fff; font-size: 60px;'>BITFIRE</h1>"
+				+ "</div>"
+				+ "<div style='text-align:center;'><h2 style='margin-top:10px; font-size: 28px;'>회원탈퇴 안내 메일입니다.</h2>"
+				+ "<p style='font-size:18px; text-align:center;'>"
+				+ "귀하께서는 불가피한 사유로 회원 탈퇴 처리되었음을 안내드립니다.<br> "
+				+ "로그인이 필요한 서비스는 더이상 이용이 불가한 점 양해부탁드리며,<br> "
+				+ "자세한 사항은 bitcampfire 대표 이메일(bitcampfire@admin.co.kr)로 문의하여 주시기 바랍니다.<br>"
+				+ "그동안 저희 서비스를 이용해주셔서 감사합니다.</p>"
+				+ "</div>";
+			
+			try {            
+			    MimeMessage message = mailSender4.createMimeMessage();
+			    MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			    helper.setFrom(setFrom);
+			    helper.setTo(toMail);
+			    helper.setSubject(title);
+			    helper.setText(content,true);
+			    mailSender4.send(message);
+			    
+			    }catch(Exception e) {
+			        e.printStackTrace();
+			    } 
+			
+		}
+
+
+		//@@@ 연수 : BoardNoticeAdminController에서 요청한 서비스
+		//@@@ 어드민 > 공지사항 리스트에 띄울 유저 정보 가져오기(220724)
+		@Override
+		public UserAllDTO getUserInfoForNoticeList(int board_uid) {
+			return userDAO.getUserInfoForNoticeList(board_uid);
 		}
 	//연수 : 끝(220706) ====================================
 
@@ -483,7 +598,8 @@ public class UserServiceImpl implements UserService {
 				session.setAttribute("memName", userAllDTO.getUser_name()); //연수추가(220713)
 				session.setAttribute("memImg", userAllDTO.getUser_img());				
 				session.setAttribute("memSocial", userAllDTO.getUser_social()); //연수추가(220713)
-				session.setAttribute("memClassId", userAllDTO.getUser_classid());
+				session.setAttribute("memClassId", userAllDTO.getUser_classid());				
+				session.setAttribute("memGrade", userAllDTO.getUser_grade()); //연수 : 어드민 계정 판별을 위해 추가(220724) / 관리자: A, 일반회원 : U
 				
 				return "ok";
 				
@@ -540,6 +656,10 @@ public class UserServiceImpl implements UserService {
 			return userDAO.getUserImgByUserid(user_id);
 		}
 	// 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+
+
 		
 
 }

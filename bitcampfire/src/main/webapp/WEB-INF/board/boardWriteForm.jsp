@@ -224,7 +224,7 @@ $(document).on('change','#board_cateid', function(){
 			       	success: function(){
 						alert('게시글을 등록하였습니다.');
 			            //풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
-						location.href='/semiproject/board/list?category='+$('#category').val()+'&pg=1&sortOption=date';
+						location.href='/semiproject/board/list?state=write&category='+$('#category').val()+'&pg=1&sortOption=date';
 					},
 					error: function(e){
 						console.log(e);

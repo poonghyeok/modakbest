@@ -2,6 +2,7 @@ package com.modak.admin.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,15 +35,15 @@ public class BoardNoticeAdminController {
 	
 	//공지사항 목록(관리) 폼 띄우기
 	@GetMapping(value="adminBoardNoticeList")
-	public ModelAndView adminBoardNoticeList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg) {
+	public ModelAndView adminBoardNoticeList(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg) {
 		//어차피 관리자는 페이지 이동(user id = 0이여야 접근 가능)에서 걸러지기 때문에 아이디 가져오지 않음
-		String adminNoticeTableList = boardService.getAdminNoticeTableList(pg);
-		//String adminNoticePagingList = boardService.getAminNoticePagingList(pg);
+		String adminNoticeTableList = boardService.getAdminNoticeTableList(category, pg);
+		String adminNoticePagingList = boardService.getAdminNoticePagingList(category, pg);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pg", pg);
 		mav.addObject("adminNoticeTableList", adminNoticeTableList);
-		//mav.addObject("adminNoticePagingList", adminNoticePagingList);
+		mav.addObject("adminNoticePagingList", adminNoticePagingList);
 		mav.setViewName("/admin/adminBoardNoticeList");
 		
 		return mav;
@@ -69,7 +70,20 @@ public class BoardNoticeAdminController {
 		mav.addObject("board_id", board_id); // 글번호값이랑 
 		mav.addObject("pg", pg); // 페이지값 실어서
 		BoardDTO boardDTO = (BoardDTO) boardService.getAdminBoardNoticeContent(board_id);
+		
+		int board_cateid = boardDTO.getBoard_cateid();
+		String category = null;
+		switch(board_cateid){
+		case 6 : category = "notice"; break;
+		case 1 : category = "info"; break;
+		case 2 : category = "review"; break;
+		case 3 : category = "qna"; break;
+		case 4 : category = "free"; break;
+		case 5 : category = "class"; break;
+		}
+		
 		mav.addObject("boardDTO", boardDTO);
+		mav.addObject("category", category);
 		
 		System.out.println("TEST BoardDTO getBoardDTO_view_cnt =" + boardDTO.getBoard_view_cnt());
 		
@@ -91,24 +105,24 @@ public class BoardNoticeAdminController {
 	}
 	
 	
-	//공지사항 선택 삭제
+	//공지사항 리스트  선택 삭제
 	@GetMapping(value="adminNoticeDelete_select")	
 	public ModelAndView adminNoticeDelete_select(@RequestParam String[] check) {
 		//System.out.println(check[0]+"  " +check[1]);
 		boardService.adminNoticeDelete_select(check);
 		
 
-		return new ModelAndView("redirect:/admin/adminBoardNoticeList");
+		return new ModelAndView("redirect:/admin/adminBoardNoticeList?category=admin&pg=1");
 	}
 	
 	
-	//공지사항 개별선택 삭제	
-	@PostMapping(value="adminNoticeDelete_each")
+	//공지사항 리스트 개별 삭제 + 공지사항  뷰 > 글삭제
+	@PostMapping(value="adminNoticeDelete")
 	@ResponseBody
-	public String adminNoticeDelete_each(@RequestParam int board_id) {
+	public String adminNoticeDelete(@RequestParam int board_id) {
 		//뭘로 들어오냐
 		System.out.println(board_id);
-		boardService.adminNoticeDelete_each(board_id);
+		boardService.adminNoticeDelete(board_id);
 		session.invalidate();
 		return "/admin/adminBoardNoticeList";
 	}
@@ -144,10 +158,53 @@ public class BoardNoticeAdminController {
 		return map; 
 	}
 			 
-
-	  	
+	//글수정
+	@PostMapping(value = "adminBoardNoticeUpdate")
+	public void update(@RequestParam Map<String,String> map) {
+//		System.out.println("\n@board update LOG @");
+//		System.out.println("board_title" + map.get("board_title"));
+//		System.out.println("board_content" + map.get("board_content"));
+//		System.out.println("board_cateid" + map.get("board_cateid"));
+//		System.out.println("board_id" + map.get("board_id"));
+		
+		boardService.adminBoardNoticeUpdate(map);
+	};
 	
-	//<!--@@@@ 연수 살려주세요!(220721)  -->
+	@GetMapping(value ="adminBoardNoticeSearchList") 
+	public ModelAndView adminBoardNoticeSearchList(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword, @RequestParam String searchOption) {
+		
+		//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
+		//System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
+		
+		String adminNoticeTableList = boardService.getAdminNoticeSearchTableList(category, pg, keyword, searchOption);
+		String adminNoticePagingList = boardService.getAdminNoticeSearchPagingList(category, pg, keyword, searchOption);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg", pg);
+		mav.addObject("adminNoticeTableList", adminNoticeTableList);
+		mav.addObject("adminNoticePagingList", adminNoticePagingList);
+		mav.addObject("keyword",keyword);
+		mav.addObject("searchOption",searchOption);
+		
+		mav.setViewName("/admin/adminBoardNoticeList");
+		
+		return mav;
+	} 
+	
+	//공지사항 - 게시판별 공지 띄우기
+	@PostMapping(value="adminBoardNoticeListOfficial")
+	@ResponseBody
+	public List<BoardDTO> adminBoardNoticeListOfficial(@RequestParam String category, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg) {
+		
+		return boardService.getAdminBoardNoticeListOfficial(category, pg);
+	}
+	
+	//공지사항 리스트에 띄울 유저정보 가져오기
+	@PostMapping(value="getUserInfoForNoticeList")
+	@ResponseBody
+	public UserAllDTO getUserInfoForNoticeList(int board_uid) {
+		return userService.getUserInfoForNoticeList(board_uid);
+	}
 	
 	
 }

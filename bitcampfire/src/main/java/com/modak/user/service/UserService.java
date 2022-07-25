@@ -52,6 +52,8 @@ public interface UserService {
 		//@@@ 연수 : UserAdminController에서 요청한 서비스 
 		//@@@ 어드민 페이지를 위한 유저 리스트 가져오기(220715)
 		public Map<String, Object> getUserAllList(String pg);
+		//@@@ 유저 리스트 학원명 가져오기(220723)
+		public UserAllDTO getUserClass(String user_classid);
 		//@@@ 페이징 처리(220717)
 		public UserAdminPaging getUserAdminPaging(String pg);
 		//@@@ 카카오 회원 어드민 삭제 처리 기능(220716)
@@ -60,6 +62,17 @@ public interface UserService {
 		public void adminUserDelete_select(String[] check);		
 		//@@@ 회원 검색 기능(220717)
 		public Map<String, Object> adminUserSearch(Map<String, String> map);
+		//@@ 관리자 선택 등록(220724)
+		public void adminRegister(String[] check);
+		//@@ 관리자 선택 등록해제(220724)
+		public void adminRegisterCancel(String[] check);
+		//삭제된 회원에게 안내메일 발송(220724)
+		public void sendEmailToDeleteUser(String user_email);
+		//삭제된 회원에게 안내메일 발송 - 선택삭제ver(220724)
+		public void sendEmailToDeleteUser_select(String[] check);
+		//@@@ 연수 : BoardNoticeAdminController에서 요청한 서비스
+		//@@@ 어드민 > 공지사항 리스트에 띄울 유저 정보 가져오기(220724)
+		public UserAllDTO getUserInfoForNoticeList(int board_uid);
 		
 	//연수 : 끝(220706) ====================================
 
@@ -105,6 +118,18 @@ public interface UserService {
     	
     	//풍혁0714 : board_uid로 user_img를 받아가려고 만들었습니다. 
     	public String getUserImgByUserid(int user_id);
+
+
+
+
+
+
+
+
+
+
+
+
     
     // 풍혁 : 끝 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
