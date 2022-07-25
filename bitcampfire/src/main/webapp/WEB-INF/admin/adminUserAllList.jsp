@@ -25,8 +25,9 @@
 				<!-- 메뉴제목  -->
 				<h4>회원관리</h4>
 			
-				<!-- 유저 검색 기능 -->
-				<form id="userSearchForm">
+
+			<form id="adminUserAllListForm" method="get" action="">							
+
 				<input type="hidden" name="pg" id="searchPg" value="1" >
 					
 					<div class="category-filter-wrapper">
@@ -57,6 +58,7 @@
 			<!-- 선택 삭제(체크박스) 폼 // 선택삭제와 관리자 등록 기능을 2개다 사용해보기(220724) -->
 			<!-- <form id="adminUserAllListForm" method="get" action="/semiproject/admin/adminUserDelete_select"> -->
 			<form id="adminUserAllListForm" method="get" action="">							
+
 			<div class="panel panel-default questions-panel">
 				<ul class="list-group">
 					
