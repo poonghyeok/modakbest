@@ -884,6 +884,7 @@ public class BoardServiceImpl implements BoardService {
 			return boardDAO.getAdminBoardNotice_edit(board_id);
 		}
 
+
 		//@@@ 공지사항 글수정
 		@Override
 		public void adminBoardNoticeUpdate(Map<String, String> map) {
@@ -959,6 +960,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 }	
+
 
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 
