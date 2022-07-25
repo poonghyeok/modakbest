@@ -60,8 +60,6 @@ public class UserMyPageController {
 	@RequestMapping(value="userPage", method = RequestMethod.GET)
 	public ModelAndView userPage(@RequestParam(value = "user_id") String user_id, @RequestParam(value = "pg", required = false, defaultValue = "1") int pg, HttpServletRequest req) {
 		
-		
-		
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Object> userPageInfo = new HashMap<String, Object>();
@@ -77,17 +75,10 @@ public class UserMyPageController {
 		
 		if(articalEmail.equals(login_user)) { 
 
+			System.out.println("user_id = " + user_id);
 			System.out.println("나 자신입니다. ####");
 			System.out.println("나 =====" + login_user + "글쓴이 ======" + articalEmail);
 
-			
-			//boardDTO 게시물 가져오기
-			System.out.println("user_id = " + user_id);
-			map.put("user_id", session.getAttribute("memId"));
-			System.out.println("memId = " + session.getAttribute("memId"));
-			
-			list = boardService.getUserPageArticle(map);
-			System.out.println("my boardDTO list = " + list);
 
 
 			//상단 아바타 및 닉네임 데이터 가져오기 
@@ -97,31 +88,78 @@ public class UserMyPageController {
 			userPageInfo.put("pg", pg);
 			
 			System.out.println("userPageInfo = " + userPageInfo);
-			
-//			String boardPagingList = boardService.getUserPagePaging(userPageInfo);
-			
-//			System.out.println(boardPagingList);
 
+			
+			//boardDTO 게시물 가져오기
+			map.put("user_id", session.getAttribute("memId"));
+			System.out.println("memId = " + session.getAttribute("memId"));
+			
+			list = boardService.getUserPageArticle(map);
+			System.out.println("my boardDTO list = " + list);
+			
+			List<Map<String, Object>> articleList = new ArrayList<Map<String,Object>>();
+			Map<String, Object> articleMap = new HashMap<String, Object>();
+			for(BoardDTO dto : list) {
+				if(dto.getBoard_cateid() == 1) {
+					articleMap.put("articleIcon", "icon_inform.png");
+					articleMap.put("board_name", "취업정보");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_cateid() == 2) {
+					articleMap.put("articleIcon", "icon_review.png");
+					articleMap.put("board_name", "후기");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_cateid() == 3) {
+					articleMap.put("articleIcon", "icon_qna.png");
+					articleMap.put("board_name", "Q&A");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_cateid() == 4) {
+					articleMap.put("articleIcon", "icon_free.png");
+					articleMap.put("board_name", "자유게시판");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_classid() == 1) {
+					articleMap.put("articleIcon", "icon_class.png");
+					articleMap.put("board_name", "학원전용 게시판");
+					articleList.add(articleMap);
+				}else {
+					articleMap.put("articleIcon", "bit_small_logo.png");
+					articleMap.put("board_name", "기타 게시물");
+					articleList.add(articleMap);
+				}
+				articleMap.put("board_id", dto.getBoard_id());
+				articleMap.put("board_cateid", dto.getBoard_cateid());
+				articleMap.put("board_title", dto.getBoard_title());
+				articleMap.put("board_date_created", dto.getBoard_date_created());
+				
+				System.out.println("art map = " + articleMap);
+				articleList.add(articleMap);
+
+			}
+			
+			
 			mav.setViewName("/user/userPageForm");
-			mav.addObject("userDTO",userDTO);
-			mav.addObject("list",list);
+			mav.addObject("articleList",articleList);
 			mav.addObject("userPageInfo", userPageInfo);
-//			mav.addObject("boardPagingList", boardPagingList);
+		
+			
+			
+			
+			
+			
+//		
+//			for(int i=0; i<list.size(); i++) {
+//				if()
+//			}
+//
+//			mav.setViewName("/user/userPageForm");
+//			mav.addObject("userDTO",userDTO);
+//			mav.addObject("list",list);
+//			mav.addObject("userPageInfo", userPageInfo);
+//		
+
 
 			
 			
 		}else{
-
-//			System.out.println("남");		
-//
-//			System.out.println("나 else : " + login_user + "  글쓴이 else : " + articalEmail);
-
-			//boardDTO 게시물 가져오기
-			map.put("user_id", user_id);
-			System.out.println("\n @log@ user_id map : " + user_id);
-			list = boardService.getUserPageArticle(map);
-//			System.out.println("my boardDTO list = " + list);
-			
 			//상단 아바타 및 닉네임 데이터 가져오기
 			userPageInfo.put("userPage_img", userDTO.getUser_img());
 			userPageInfo.put("userPage_nickname", userDTO.getUser_nickname());
@@ -130,14 +168,56 @@ public class UserMyPageController {
 			
 			System.out.println("@@userPageInfo = " + userPageInfo);
 			
-//			String boardPagingList = boardService.getUserPagePaging(userPageInfo);
-
-//			System.out.println(boardPagingList);
-
+			//boardDTO 게시물 가져오기
+			map.put("user_id", user_id);
+			System.out.println("\n @log@ user_id map : " + user_id);
+			list = boardService.getUserPageArticle(map);
+			System.out.println("my boardDTO list = " + list);
+			
+			List<Map<String, Object>> articleList = new ArrayList<Map<String,Object>>();
+			Map<String, Object> articleMap = new HashMap<String, Object>();
+			for(BoardDTO dto : list) {
+				if(dto.getBoard_cateid() == 1) {
+					articleMap.put("articleIcon", "icon_inform.png");
+					articleMap.put("board_name", "취업정보");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_cateid() == 2) {
+					articleMap.put("articleIcon", "icon_review.png");
+					articleMap.put("board_name", "후기");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_cateid() == 3) {
+					articleMap.put("articleIcon", "icon_qna.png");
+					articleMap.put("board_name", "Q&A");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_cateid() == 4) {
+					articleMap.put("articleIcon", "icon_free.png");
+					articleMap.put("board_name", "자유게시판");
+					articleList.add(articleMap);
+				}else if(dto.getBoard_classid() == 1) {
+					articleMap.put("articleIcon", "icon_class.png");
+					articleMap.put("board_name", "학원전용 게시판");
+					articleList.add(articleMap);
+				}else {
+					articleMap.put("articleIcon", "bit_small_logo.png");
+					articleMap.put("board_name", "기타 게시물");
+					articleList.add(articleMap);
+				}
+				articleMap.put("board_id", dto.getBoard_id());
+				articleMap.put("board_cateid", dto.getBoard_cateid());
+				articleMap.put("board_title", dto.getBoard_title());
+				articleMap.put("board_date_created", dto.getBoard_date_created());
+				
+				System.out.println("art map = " + articleMap);
+				
+				articleList.add(articleMap);
+			}
+			
+			
 			mav.setViewName("/user/userPageForm");
-			mav.addObject("list",list);
+			mav.addObject("articleList",articleList);
 			mav.addObject("userPageInfo", userPageInfo);
-//			mav.addObject("boardPagingList", boardPagingList);
+		
+
 		}
 		
 		System.out.println("mav = " + mav);
@@ -146,89 +226,5 @@ public class UserMyPageController {
 	
 	
 	/*	성기진	끝	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@RequestMapping(value="userPage", method = RequestMethod.GET)
-//	public ModelAndView userPage(@RequestParam("user_id") String user_id) {
-//		
-//		ModelAndView mav = new ModelAndView();
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		List<BoardDTO> list = new ArrayList<>();
-//
-//		UserDTO userDTO = (UserDTO)userService.getUserInfo2(user_id);
-////		String artical_id = userService.getUserEmailByUserId(user_id);
-//		
-//		String articalEmail = userDTO.getUser_email();
-//		String login_user = (String) session.getAttribute("memEmail");
-//		
-//		System.out.println("글작성자 : " + articalEmail + ", 로그인 : " + login_user);
-//		
-//		if(articalEmail.equals(login_user)) { 
-//			
-//			System.out.println("나 =====" + login_user + "글쓴이 ======" + articalEmail);
-//			map.put("user_id", user_id);
-//			
-// 			list = boardService.getUserPageArticle(map);
-//			System.out.println();
-//			System.out.println();
-//			System.out.println("나 자신");
-//			System.out.println();
-//			System.out.println();
-//			System.out.println("my boardDTO list = " + list);
-//			System.out.println();
-//			System.out.println();
-//			System.out.println("session = " + session.getAttribute("memEmail"));
-//			
-//			
-//			
-//			System.out.println();
-//			System.out.println();
-//			mav.setViewName("/user/userPageForm");
-//			mav.addObject("boardDTO",list);
-//			
-//			
-//		}else{
-//			System.out.println();
-//			System.out.println();
-//			System.out.println("남");		
-//			System.out.println();
-//			System.out.println();
-//			System.out.println("나 else : " + login_user + "  글쓴이 else : " + articalEmail);
-//			System.out.println();
-//			System.out.println();
-//			System.out.println("session = " + session.getAttribute("memEmail"));
-//			//session = Current HttpSession
-//			
-//			System.out.println();
-//			System.out.println();
-//			
-//			mav.setViewName("/user/userPageForm");
-//			mav.addObject("userDTO",userDTO);
-//			
-//		}
-//		System.out.println("mav = " + mav);
-//		return mav;
-//	}
-//	
-	
 	
 }

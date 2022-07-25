@@ -1,4 +1,4 @@
- package com.modak.board.service;
+package com.modak.board.service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -963,7 +963,7 @@ public class BoardServiceImpl implements BoardService {
 
 }	
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
-
+	//<!--@@@@ 연수 살려주세요!(220721)  -->	
 
 
 

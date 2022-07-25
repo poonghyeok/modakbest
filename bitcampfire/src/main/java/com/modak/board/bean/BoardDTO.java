@@ -30,6 +30,12 @@ public class BoardDTO implements Comparable<BoardDTO>{
 			//유진추가===============================
 			private int board_classid;
 			//유진 끝===============================
+			
+			
+			//기진 추가=================================
+			private String articleIcon;
+			private String board_name;
+			//기진끝
 		// 공통영역 : 끝 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 			
