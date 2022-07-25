@@ -8,8 +8,9 @@
    <meta charset="UTF-8">
    <title>bitcampfire - 마이페이지</title>
    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="/semiproject/css/user/application.css">   
+   <link rel="stylesheet" href="/semiproject/css/user/application.css"><base>   
 </head>
+
 
 <body>
 <div class="layout-container">
@@ -57,7 +58,43 @@
 				</div>
 				<!-- 본인이 쓴 글자리  -->
 				<div class="col-sm-10 main-block-left pull-left">
-			      <ul class="list-group"></ul>
+			      <ul class="list-group">
+			      	<c:forEach items="${articleList}" var="boardDTO"> 
+				        <li class="list-group-item list-group-item-small list-group-no-note clearfix">
+			               <div class="list-icon-wrapper pull-left">
+			               <i class="fa fa-pencil"><img id="articleIcon" src="/semiproject/img/${articleIcon}"/></i>
+			               </div>
+			               <div class="list-title-wrapper list-activity">
+			                   <div class="list-activity-desc">
+			                       <span class="list-activity-desc-text">
+			                           <a href="#" class="list-group-item-text item-tag label label-info">
+			                           		
+			                               <i class="fa fa-comments"></i> ${board_name }
+			                           </a>에 # ${board_id } 게시물을 작성하였습니다.
+			                       </span>
+			                       <span class="timeago" title=" ${board_date_created } "> ${board_date_created } </span>
+			                   </div>
+			                   <h5 class="list-group-item-heading">
+			                   <a href="/semiproject/board/getBoardView?category=${board_cateid }&board_id=${board_id }">${board_title}</a>
+			                   <div class="list-group-item-author pull-right clearfix">
+			                       <div class="avatar clearfix avatar-x-small ">
+			                           <a href="/semiproject/user/userPage?user_id=${userPageInfo.userPage_id}" class="avatar-photo">
+			                               <img src="/semiproject/storage/userprofile/${userPageInfo.userPage_img}">
+			                           </a>
+			                           <div class="avatar-info">
+			                               <a class="nickname" href="/semiproject/user/userPage?user_id=${userPageInfo.userPage_id}" title="${userPageInfo.userPage_nickname }">${userPageInfo.userPage_nickname }</a>
+			                               <div class="activity ">
+			                                   <span class="fa fa-flash"></span> 22
+			                               </div>
+			                           </div>
+			                       </div>
+			                   </div>
+			                   </h5>
+							</div>
+						</li> 
+					</c:forEach>
+								
+			      </ul>
 			      <div class="text-center"></div>
 				</div>
 			</div> <!-- content clearfix -->
