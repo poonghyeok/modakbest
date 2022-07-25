@@ -77,7 +77,8 @@ public class BoardDTO implements Comparable<BoardDTO>{
 		public String noticeCateidToString() {
 			String categoryString = null;
 			switch(this.board_cateid) {
-			case 0: categoryString = "전체공지";
+			//0번 select box '게시판을 선택해주세요'로 사용 중 -> 전체공지는 6번으로 설정
+			case 6: categoryString = "전체공지";
 					break;
 			case 1: categoryString = "취업정보";
 					break;

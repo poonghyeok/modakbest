@@ -582,8 +582,8 @@
 					board_classid = ${board_classid}
 				WHERE board_id = ${board_id}	 
 		</update>
-		<!--@@@@ 연수 살려주세요!(220721)  -->
-		<!-- @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  (**추천수/조회수 다시 챙기기 )@@@@@@@@@  -->
+		
+		<!-- @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
 		<!-- 공지사항 글작성 -->
 		<insert id="adminBoardNoticeWrite" parameterType="BoardDTO">
 		      INSERT INTO BOARD_AdminNotice
@@ -592,7 +592,7 @@
 		            (BOARD_SEQ.nextval, #{board_uid}, #{board_cateid}, #{board_title}, #{board_content}, sysdate)   
 		</insert>
 		<!-- 공지사항 리스트 가져오기 -->
-		<select id="getBoardNoticeAllList" resultType="BoardDTO">
+		<select id="getBoardNoticeAllList" parameterType="java.util.Map" resultType="BoardDTO">
 			<![CDATA[
 				select * from
 				(select rownum rn, kk.* from
@@ -604,7 +604,7 @@
 		<select id = "getAdminBoardNoticeContent" parameterType = "int" resultType = "BoardDTO"> 
 			select * from BOARD_AdminNotice where board_id = ${board_id}
 		</select>
-		<!-- 공지사항 조회수 다시!!-->
+		<!-- 공지사항 조회수 -->
 		<update id = "setAdminBoardNoticeHit" parameterType = "int">
 			update BOARD_AdminNotice set board_view_cnt = board_view_cnt +1 where board_id = #{board_id}
 		</update>
@@ -618,15 +618,99 @@
 	  	</delete>
 	  	
 	  	<!-- @@@ 게시글 개별 삭제 기능(220722) -->
-	 	<delete id="adminNoticeDelete_each" parameterType="int">
+	 	<delete id="adminNoticeDelete" parameterType="int">
 			delete BOARD_AdminNotice where board_id = ${board_id}
 	  	</delete>
 	  	<!-- 수정을 위한 공지사항 글내용 가져오기 -->
 		<select id = "getAdminBoardNotice_edit" parameterType = "int" resultType = "BoardDTO"> 
 			select * from BOARD_AdminNotice where board_id = ${board_id}
 		</select>
+		<!-- 글 수정  -->
+		<update id="adminBoardNoticeUpdate" parameterType="java.util.Map">
+    		UPDATE BOARD_AdminNotice SET 
+					board_title = #{board_title},
+					board_content = #{board_content},
+					board_cateid = ${board_cateid}
+				WHERE board_id = ${board_id}	 
+		</update>
+    	<select id="getTotalBoardAdminNoticeNum" resultType="java.lang.Integer">
+	   		SELECT count(*) FROM BOARD_AdminNotice
+	   	</select>
+	   	
+		<!-- 공지사항 리스트 - 서치 가져오기 -->
+		<select id="getBoardNoticeSearchList" parameterType="java.util.Map" resultType="BoardDTO">
+			<!-- 	<![CDATA[
+				select * from
+				(select rownum rn, kk.* from
+				(select*from BOARD_AdminNotice where ${searchOption} like '%'||#{keyword}||'%' 
+								   order by BOARD_CATEID LIKE desc) kk)
+				where rn >= #{startNum} and rn <= #{endNum}
+				]]>  -->
+	 				
+		 		SELECT * FROM (	
+		    		SELECT ROWNUM AS RN, TT.* FROM(
+		    		SELECT * FROM BOARD_AdminNotice
+		    		<if test='searchOption.equals("total")'>
+		    			WHERE BOARD_ID LIKE '%'||#{keyword}||'%'
+		    				OR BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	    					OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+	    					OR BOARD_CATEID LIKE '%'||#{keyword}||'%'
+	    					OR BOARD_UID LIKE '%'||#{keyword}||'%'
+	    					OR BOARD_DATE_CREATED LIKE '%'||#{keyword}||'%'
+		    		</if>
+		    		<if test='!searchOption.equals("total")'>
+		    			where ${searchOption} like '%'||#{keyword}||'%' 
+		    		</if>
+				ORDER BY BOARD_DATE_CREATED DESC)TT) 
+				WHERE (RN &gt;=${startNum} AND RN &lt;=${endNum})
+	   	</select>
+	   	<select id="getTotalBoardAdminNoticeSearchNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+	   		select count(*) from BOARD_AdminNotice 
+	   		<if test='searchOption.equals("total")'>
+	   			WHERE BOARD_ID LIKE '%'||#{keyword}||'%'
+    				OR BOARD_TITLE LIKE '%'||#{keyword}||'%'
+   					OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+   					OR BOARD_CATEID LIKE '%'||#{keyword}||'%'
+   					OR BOARD_UID LIKE '%'||#{keyword}||'%'
+   					OR BOARD_DATE_CREATED LIKE '%'||#{keyword}||'%'
+	   		</if>
+	   		<if test='!searchOption.equals("total")'>
+    			where ${searchOption} like '%'||#{keyword}||'%' 
+    		</if>
+	   	</select>
+	   	<!-- 게시판별 공지사항 띄우기-->
+		<select id="getAdminBoardNoticeListOfficial" parameterType="int" resultType="BoardDTO">
+				SELECT * FROM (	
+				    		SELECT ROWNUM AS RN, TT.* FROM(
+				    		SELECT * FROM BOARD_AdminNotice	where board_cateid=6
 		
+							ORDER BY BOARD_DATE_CREATED DESC)TT) 
+							WHERE (RN &gt;=0 AND RN &lt;=1)
+				union all			
+				SELECT * FROM (	
+			    		SELECT ROWNUM AS RN2, TT2.* FROM(
+			    		SELECT * FROM BOARD_AdminNotice
+			 		
+			    		<if test="cateid == 1">
+			    			where board_cateid=1
+			    		</if>
+			    		<if test="cateid == 2">
+			    			where board_cateid=2
+			    		</if>
+		    			<if test="cateid == 3">
+			    			where board_cateid=3
+			    		</if>
+	    				<if test="cateid == 4">
+			    			where board_cateid=4
+			    		</if>
+		    			<if test="cateid == 5">
+			    			where board_cateid=5
+			    		</if>				    		
+			    	
+						ORDER BY BOARD_DATE_CREATED DESC)TT2) 
+						WHERE (RN2 &gt;=1 AND RN2 &lt;=2)
+						
+	   	</select>	   		
 		<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
-		<!--@@@@ 연수 살려주세요!(220721)  -->
 
 </mapper>
