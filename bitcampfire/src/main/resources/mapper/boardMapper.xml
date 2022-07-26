@@ -726,7 +726,7 @@
 				    		SELECT * FROM BOARD_AdminNotice	where board_cateid=6
 		
 							ORDER BY BOARD_DATE_CREATED DESC)TT) 
-							WHERE (RN &gt;=0 AND RN &lt;=1)
+							WHERE (RN &gt;=1 AND RN &lt;=1)<!-- 1개씩만 노출되게 수정(220726)  -->
 				union all			
 				SELECT * FROM (	
 			    		SELECT ROWNUM AS RN2, TT2.* FROM(
@@ -749,7 +749,7 @@
 			    		</if>				    		
 			    	
 						ORDER BY BOARD_DATE_CREATED DESC)TT2) 
-						WHERE (RN2 &gt;=1 AND RN2 &lt;=2)
+						WHERE (RN2 &gt;=1 AND RN2 &lt;=1)<!-- 1개씩만 노출되게 수정(220726)  -->
 						
 	   	</select>	   		
 		<!-- @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@  -->
