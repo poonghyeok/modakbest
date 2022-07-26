@@ -446,6 +446,74 @@
 			select * from board_free 
 		</select>
 		
+		 <select id="adminBoardSearch" parameterType="java.util.Map" resultType="BoardDTO">
+			select board_id, board_uid, board_cateid, board_title, board_date_created
+				from (
+				    select board_id,
+				           board_uid,
+				           board_cateid,
+				           board_title,
+				           board_date_created
+				    from   board_free 
+				   
+				    union all
+					  	   select board_id,
+				           board_uid,
+				           board_cateid,
+				           board_title,
+				           board_date_created
+				    from   board_inform 
+				    
+				    union all
+				    
+				    select board_id,
+    			           board_uid,
+    			           board_cateid,
+				           board_title,
+				           board_date_created
+				    from   board_qna
+				    
+				    union all
+				    
+				    select board_id,
+       			           board_uid,
+       			           board_cateid,
+				           board_title,
+				           board_date_created
+				    from   board_review
+				    
+				    union all
+				    
+				    select board_id,
+				           board_uid,
+				           board_classid,
+				           board_title,
+				           board_date_created
+				    from   board_class
+				    )  
+					<!-- <choose>
+						<when test="type=='board_title'.toString()">
+						    (board_title LIKE '%'||#{keyword}||'%')
+						</when>
+						<when test="type=='board_uid'.toString()">
+						    (board_uid LIKE '%'||#{keyword}||'%')
+						</when>
+						<when test="board_cateid=='W'.toString()">
+						    (board_cateid LIKE '%'||#{keyword}||'%')
+						</when>
+						                   </choose> -->
+						<if test="target=='board_title'">
+						   where board_title LIKE '%'||#{keyword}||'%'
+						</if>
+						<if test="target=='board_uid'">
+						    where board_uid LIKE '%'||#{keyword}||'%'
+						</if>
+						<if test="target=='board_cateid'">
+						   	where board_cateid LIKE '%'||#{keyword}||'%'
+						</if>
+
+			ORDER BY BOARD_DATE_CREATED DESC
+		</select> 
 	<!-- ####################### 정수 : 끝  ###################### -->
 	
 
