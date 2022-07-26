@@ -1,8 +1,11 @@
 package com.modak.board.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,9 +15,11 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
@@ -297,47 +303,60 @@ public class BoardController {
 	// 정수 : 끝  ###################### 
 		  
 		  
-		  @RequestMapping(value="uploadSummernoteImageFileAtBoard2", produces = "application/json; charset=utf8")
-			@ResponseBody
-			public String uploadSummernoteImageFileAtBoard2(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
-				JsonObject jsonObject = new JsonObject();
-				
-				//String fileRoot = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\commentImg";
-				 
-				
-				// 내부경로로 저장
-				String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-				String filepath = contextRoot+"WEB-INF\\storage\\";
-				//String filepath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\";
-				//System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+fileRoot);
-				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4"+contextRoot);
-				
-				String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-				System.out.println("----------------------"+originalFileName);
-				
-				String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-				System.out.println("----------------------"+extension);
-				
-				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-				System.out.println("----------------------"+savedFileName);
-				
-				//File targetFile = new File(fileRoot + savedFileName);	
-				File targetFile = new File(filepath + savedFileName);	
-				try {
-					InputStream fileStream = multipartFile.getInputStream();
-					FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-					//jsonObject.addProperty("url", contextRoot+"/summernoteImage/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-					jsonObject.addProperty("url", "/semiproject/src/main/webapp/storage/commentImg/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-					jsonObject.addProperty("responseCode", "success");
-						
-				} catch (IOException e) {
-					FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-					jsonObject.addProperty("responseCode", "error");
-					e.printStackTrace();
-				}
-				String a = jsonObject.toString();
-				System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++"+a);
-				return a;
+ //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		  @PostMapping(value="uploadImageFileByCk")
+			public void uploadImageFileByCk(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception {
+			 
+			 String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("WEB-INF\\storage\\boardImg\\");
+			 System.out.println("uploadPath  : "+uploadPath);
+			 // 랜덤 문자 생성
+			 UUID uid = UUID.randomUUID();
+			 
+			 OutputStream out = null;
+			 PrintWriter printWriter = null;
+			   
+			 // 인코딩
+			 res.setCharacterEncoding("utf-8");
+			 res.setContentType("application/json");
+			 
+			 try {
+			  
+			  String fileName =  upload.getOriginalFilename(); // 파일 이름 가져오기
+			  byte[] bytes = upload.getBytes();
+			  
+			  // 업로드 경로			 
+			  String ckUploadPath = uploadPath + File.separator + uid + "_" +fileName;
+			  
+			  out = new FileOutputStream(new File(ckUploadPath));
+			  out.write(bytes);
+			  out.flush(); // out에 저장된 데이터를 전송하고 초기화
+			  
+			  //String callback = req.getParameter("CKEditorFuncNum");
+			  //System.out.println("**************"+callback);
+			  printWriter = res.getWriter();
+			  String fileUrl = "/semiproject/src/main/webapp/storage/boardImg/" + uid + "_" +fileName; // 작성화면
+			  // 업로드시 메시지 출력
+			  JsonObject json = new JsonObject();
+			  json.addProperty("uploaded", 1);
+			  json.addProperty("fileName", fileName);
+			  json.addProperty("url", fileUrl);
+			  printWriter.println(json);
+			  System.out.println("내가바로콜백"+json);
+			  
+			  printWriter.flush();
+			  System.out.println("test url : "+req.getSession().getServletContext().getRealPath("/"));
+			  System.out.println("url : "+fileUrl);
+			  System.out.println("ckUploadPath : "+ckUploadPath);
+			 } catch (IOException e) { e.printStackTrace();
+			 } finally {
+			  try {
+			   if(out != null) { out.close(); }
+			   if(printWriter != null) { printWriter.close(); }
+			  } catch(IOException e) { e.printStackTrace(); }
+			 }
+			 
+			 return; 
 			}
 			
 }
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

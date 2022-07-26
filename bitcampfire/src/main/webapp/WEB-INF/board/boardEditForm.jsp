@@ -79,8 +79,8 @@
 							</tr>
 							<tr>
 								<td>
-									<div id="editor">
-										 <!-- <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> --> 
+									<!-- <div id="editor">
+										 <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> 
 									</div>
 									
 										<script>
@@ -95,9 +95,16 @@
 											  } )
 											  .catch( error => {
 											    console.error( error );
-											  } );
-											  
-											
+											  } );										
+										</script> -->
+									<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+									<!-- id값을  content로 해줘야 ckeditor가 적용됨  -->
+			                        <textarea rows="5" cols="50" id="content" name="content"></textarea>
+			                        <script type="text/javascript">													
+									 CKEDITOR.replace('content',
+										/* 이미지 업로드 컨트롤러 실행  */	 
+										{filebrowserUploadUrl:'/semiproject/board/uploadImageFileByCk'
+										});
 									</script>
 								</td>
 							</tr>		

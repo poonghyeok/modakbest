@@ -95,20 +95,16 @@
 										        });
 										</script>
 									 -->
-											 		<div class="inputArea">
-								                        <!-- <label for="boardwrite">상품소개</label> -->
-								                        <textarea rows="5" cols="50" id="boardwrite" name="boardwrite"></textarea>
-								                        <script>
-														 var ckeditor_config = {
-														   resize_enaleb : false,
-														   enterMode : CKEDITOR.ENTER_BR,
-														   shiftEnterMode : CKEDITOR.ENTER_P,
-														   filebrowserUploadUrl : "semiproject/board/uploadSummernoteImageFileAtBoard2"
-														 };
-														 
-														 CKEDITOR.replace("boardwrite", ckeditor_config);
-														</script>
-								                    </div>
+							 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->								                        
+			                        <!-- id값을  content로 해줘야 ckeditor가 적용됨  -->
+			                        <textarea rows="5" cols="50" id="content" name="content"></textarea>
+			                        <script type="text/javascript">													
+									 CKEDITOR.replace('content',
+										/* 이미지 업로드 컨트롤러 실행  */	 
+										{filebrowserUploadUrl:'/semiproject/board/uploadImageFileByCk'
+										});
+									</script>
+				         			 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->	
 								</td>
 							</tr>		
 						</table>
@@ -196,7 +192,12 @@ $(document).on('change','#board_cateid', function(){
 	 } */
 	
 	$('#boardWriteBtn').click(function(){
-		const editorData = editor.getData();
+		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+		var board_content = CKEDITOR.instances.content.getData(); 
+		//alert(board_content);
+		//alert("click!")
+		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+		//const editorData = editor.getData();
 		
 		//비엇을때 진해지고 포커스아웃시 풀리고
 		
@@ -213,9 +214,14 @@ $(document).on('change','#board_cateid', function(){
 	    	$('#board_content').addClass('empty');
 	    	
 		} */
-		else if(editor.getData()==''){
+		/* else if(!editor.getData()){
+			alert("내용을 입력하세요");
+		} */
+		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+		else if(board_content ==''){	
 			alert("내용을 입력하세요");
 		}
+		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
 		else if( $('#board_cateid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
@@ -232,7 +238,7 @@ $(document).on('change','#board_cateid', function(){
 					url: '/semiproject/board/write',
 					data: {'board_title': $('#board_title').val(),
 					       //'board_content': $('#board_content').val()
-							'board_content': editorData,
+							'board_content': board_content,//연수수정(220726)
 							'board_cateid' : $('#board_cateid option:selected').val()
 					},
 			       	success: function(){
@@ -249,7 +255,7 @@ $(document).on('change','#board_cateid', function(){
 		}
 	});//$('#boardWriteBtn').click
 	
-	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
 	
 	//취소 버튼 눌렀을 때
 	$('#resetBtn').click(function(){
