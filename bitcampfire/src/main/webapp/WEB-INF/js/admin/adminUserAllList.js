@@ -43,6 +43,8 @@ $(function(){
                          style: 'width:70px; height:35px; text-align:center; line-height:35px;'
                      })
                      .prepend($('<input/>', {
+                    	 //class 추가(220725)
+                    	 class: 'check_select',
                          type: 'checkbox',
                          name: 'check',
                          id: 'check'+items.user_id,
@@ -247,8 +249,9 @@ $(function(){
 		else
 			$('input[name="check"]').prop('checked', false);		
 	}); //$('#all').click(function()
-	//@@@ 다시!! 적용이 안됨!@@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ 
-	$('input[name="check"]').click(function() {
+	//@@@ $(document).on()~~ 수정(0725)
+	$(document).on('click', '.check_select', function(){
+	//$(document).on('click', 'input[name="check"]', function() {	
 		if($("input[name='check']:disabled").length > 0) {
 			var total = $("input[name='check']:not(:disabled)").length;	
 			var checked = $('input[name="check"]:checked').length;
@@ -263,7 +266,6 @@ $(function(){
 			else $("#all").prop('checked', true); 
 		}
 	}); //$('input[name="check"]').click(function()
-	//@@@ 다시!! 적용이 안됨!@@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ @@@ 
 });
 
 //@@@연수 : 동일한 form으로 선택삭제/관리자 등록 및 해제 기능 구현(220724)

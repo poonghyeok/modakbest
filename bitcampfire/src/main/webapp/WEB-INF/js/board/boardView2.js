@@ -555,18 +555,45 @@ $('#note-create-cancel-btn').click(function(){
 		$('#btn-create-btn').attr('disabled', true);
 	}
 })
-//
 
+
+//@@@연수 추가 (220726) - summernote 이미지 업로드 기능(by 유진) - 기존 summernoteloade는 삭제	
 function summernoteLoad(param){
-	$(param).summernote({
-		  height: 50,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-	});
+   $(param).summernote({
+        height: 50,                 // 에디터 높이
+        minHeight: null,             // 최소 높이
+        maxHeight: null,             // 최대 높이
+        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+        lang: "ko-KR",               // 한글 설정
+        placeholder: '최대 2048자까지 쓸 수 있습니다',   //placeholder 설정
+        callbacks : { 
+           onImageUpload : function(files, editor, welEditable){
+             // 파일 업로드(다중업로드를 위해 반복문 사용)
+                for (var i = files.length - 1; i >= 0; i--) {
+                   uploadSummernoteImageFile(files[i], this);
+                }
+           }
+          }
+    })
+};
+
+function uploadSummernoteImageFile(file, editor) {
+   data = new FormData();
+   data.append("file", file);
+   $.ajax({
+      data : data,
+      type : "POST",
+      url : "/semiproject/comment/uploadSummernoteImageFileAtBoard",
+      contentType : false,
+      enctype : 'multipart/form-data',
+      processData : false,
+      success : function(data) {
+         alert(data.url);         
+         $('#summernote').summernote('insertImage', data.url);         
+      }
+   });
 }
+//@@@연수 추가 (220726) - summernote 이미지 업로드 기능(by 유진) - 기존 summernoteloade는 삭제	
 
 $('#btn-create-btn').click(function(){
 	var content_with_tag = $('div.note-editable').html();
