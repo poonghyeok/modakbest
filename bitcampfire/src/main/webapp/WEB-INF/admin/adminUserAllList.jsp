@@ -23,7 +23,9 @@
 			<!-- <div id="index" class="content scaffold-list clearfix" role="main"> footer가 위로 올라오지 않게하는 폼/리스트 크기가 작아짐 -->				
 			<div class="nav" role="navigation">	
 				<!-- 메뉴제목  -->
+
 				<h4>회원관리</h4>			
+
 
 	            <!-- 유저 검색 기능 -->
 			  	<form id="userSearchForm">
