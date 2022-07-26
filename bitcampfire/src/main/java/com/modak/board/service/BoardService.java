@@ -70,6 +70,7 @@ public interface BoardService {
 		// 기진 " 시작 ##########################			
 		 
 //    public List<BoardAllDTO> getBoardAllList(); 
+		public List<BoardDTO> getUserMyPageArticle(Map<String, Object> map);
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
 
 		// 기진 " 끝 ##########################			
@@ -81,7 +82,7 @@ public interface BoardService {
 
 		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id, String class_academy);
 
-		//public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
+		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id);
 
 		public String getBoardClassPagingList(int pg, String sortOption, int class_id);
 
@@ -137,6 +138,7 @@ public interface BoardService {
 		public String getAdminNoticeSearchPagingList(String category, int pg, String keyword, String searchOption);
 		//@@게시판별 공지 띄우기
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(String category, int pg);
+
 		
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 

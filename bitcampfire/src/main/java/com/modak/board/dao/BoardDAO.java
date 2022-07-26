@@ -72,6 +72,8 @@ public interface BoardDAO {
 		// 기진 : 시작  ###################### 
 //		public List<BoardAllDTO> getBoardAllList();
 //
+		public List<BoardDTO> getUserMyPageArticle(Map<String, Object> map);
+		
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
 
 

@@ -107,6 +107,9 @@ public interface UserService {
     	public UserDTO getUserInfo2(String user_id);
     	
 //    	public String getUserEmailByUserId(String user_id);
+
+    	//페이징 0726
+   // 	String getUserpagePagingList(int pg, int class_id);
     	
     // 기진 : 끝 @@@@@@@@@@@@@@@@@@@@@@@
 
@@ -118,6 +121,7 @@ public interface UserService {
     	
     	//풍혁0714 : board_uid로 user_img를 받아가려고 만들었습니다. 
     	public String getUserImgByUserid(int user_id);
+
 
 
 

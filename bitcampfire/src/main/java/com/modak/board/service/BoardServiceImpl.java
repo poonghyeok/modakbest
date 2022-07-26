@@ -2,7 +2,6 @@ package com.modak.board.service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardAdminNoticePaging;
 import com.modak.board.bean.BoardClassPaging;
@@ -20,7 +18,6 @@ import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardPaging;
 //import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
-import com.modak.user.bean.UserAllDTO;
 import com.modak.user.dao.UserDAO;
 
 @Service
@@ -430,6 +427,12 @@ public class BoardServiceImpl implements BoardService {
 //		}
 //	
 		@Override
+		public List<BoardDTO> getUserMyPageArticle(Map<String, Object> map) {
+			
+			
+			return boardDAO.getUserMyPageArticle(map);
+		}
+		
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
 			
 			
@@ -648,17 +651,17 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.boardClassRecommendCancel(map);
 		}
 		
-          @Override
-      public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
-         BoardClassPaging boardClassPaging = new BoardClassPaging();
-         boardClassPaging.setCurrentPage(pg);
-         boardClassPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
-         boardClassPaging.setPageSize(10); //page 당 10개의 글 존재
-         boardClassPaging.setTotalA(boardDAO.getTotalBoardClassNum(class_id));
-         boardClassPaging.makePagingHTML(sortOption, class_id);
-         
-         return boardClassPaging.getPagingHTML().toString();
-      }
+		@Override
+		public String getBoardClassPagingList(int pg, String sortOption, int class_id) {
+			BoardClassPaging boardClassPaging = new BoardClassPaging();
+			boardClassPaging.setCurrentPage(pg);
+			boardClassPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardClassPaging.setPageSize(10); //page 당 10개의 글 존재
+			boardClassPaging.setTotalA(boardDAO.getTotalBoardClassNum(class_id));
+			boardClassPaging.makePagingHTML(sortOption, class_id);
+     
+			return boardClassPaging.getPagingHTML().toString();
+  }
 
 	
 		@Override
@@ -960,6 +963,12 @@ public class BoardServiceImpl implements BoardService {
 			List<BoardDTO> list = boardDAO.getAdminBoardNoticeListOfficial(cateid);
 			return list;
 		}
+		@Override
+		public String getUserClassWriteTablelist(int pg, String sortOption, int class_id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 
 }	
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	

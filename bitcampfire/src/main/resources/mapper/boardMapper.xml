@@ -451,7 +451,8 @@
 
 	
 	<!--  기진 : 시작  ###################### --> 
-		<select id="getUserPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
+		<!-- userMyPage -->
+		<select id="getUserMyPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
 			select board_id, board_uid, board_cateid, board_title, board_date_created
 				from (
 				    select board_id,
@@ -499,7 +500,7 @@
 				    
 				    select board_id,
 				           board_uid,
-				           board_classid,
+				           board_cateid,
 				           board_title,
 				           board_date_created
 				           
@@ -509,6 +510,60 @@
 				    )
 					ORDER BY BOARD_DATE_CREATED DESC
 		</select>
+		
+		
+		<!-- userPage -->
+		
+		<!-- userPage -->
+		<select id="getUserPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
+			select board_id, board_uid, board_cateid, board_title, board_date_created
+				from (
+				    select board_id,
+				           board_uid,
+				           board_cateid,
+				           board_title,
+				           board_date_created
+				           
+				    from   board_free 
+				    where  board_uid = ${user_id}
+				    
+				    union all
+					  	   select board_id,
+				           board_uid,
+				           board_cateid,
+				           board_title,
+				           board_date_created
+				           
+				    from   board_inform 
+				    where  board_uid = ${user_id}
+				    
+				    union all
+				    
+				    select board_id,
+    			           board_uid,
+    			           board_cateid,
+				           board_title,
+				           board_date_created
+				           
+				    from   board_qna
+				    where  board_uid = ${user_id}
+				    
+				    union all
+				    
+				    select board_id,
+       			           board_uid,
+       			           board_cateid,
+				           board_title,
+				           board_date_created
+				           
+				    from   board_review
+				    where  board_uid = ${user_id}
+				    				    
+				    )
+					ORDER BY BOARD_DATE_CREATED DESC
+		</select>
+		
+		
 	
 	
 	<!--  기진 : 끝  ###################### -->

@@ -8,38 +8,27 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
-
 import java.util.List;
-
 import java.util.Map;
+
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import com.modak.user.bean.ClassDTO;
 import com.modak.user.bean.UserAdminPaging;
 import com.modak.user.bean.UserAllDTO;
-
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
 import com.modak.user.bean.UserDTO;
 import com.modak.user.controller.UserSignupController;
 import com.modak.user.dao.UserDAO;
@@ -625,6 +614,20 @@ public class UserServiceImpl implements UserService {
 			System.out.println("userService getUserInfo DTO : " + userDTO); 
 			return userDTO;
 		}
+		
+		
+//		
+//		@Override
+//		public String getUserpagePagingList(int pg, int class_id) {
+//			UserPagePaging userPagePaging = new UserPagePaging();
+//			userPagePaging.setCurrentPage(pg);
+//			userPagePaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+//			userPagePaging.setPageSize(10); //page 당 10개의 글 존재
+//		//	userPagePaging.setTotalA(boardDAO.getTotalBoardClassSearchNum(keyword, class_id));
+//			userPagePaging.setMakePagingHTML(class_id);
+//			
+//			return userPagePaging.makePagingHTML().toString();
+//		}
 
 //		@Override
 //		public String getUserEmailByUserId(String user_id) {

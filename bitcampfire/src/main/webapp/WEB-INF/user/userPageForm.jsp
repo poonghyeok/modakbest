@@ -23,6 +23,7 @@
 						<div class="avatar clearfix avatar-big col-sm-3 text-center">
 							<%-- <input type="hidden" value="${user_id }"> --%>
 							<a href="#" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/userprofile/${userPageInfo.userPage_img}"/></a>
+							<input type="hidden" id="memClassid" value="${sessionScope.memClassid }">
 						</div><!-- avatar clearfix avatar-big col-sm-3 text-center -->
 						<div class="user-info col-sm-9">
 							<div class="clearfix">
@@ -51,31 +52,129 @@
 				</div>
 				<div class="col-sm-2 user-info-nav pull-right">
 					<ul class="nav">
-						<li class="active"><a href="#">최근 활동</a> </li>
-						<li class=""><a href="#">게시물 </a></li>
-						<li class=""><a href="#">스크랩 </a></li>
+						<li class="active">최근 활동</li>
+					<!-- 	<li class=""><a href="#">게시물 </a></li>
+						<li class=""><a href="#">스크랩 </a></li> -->
 					</ul>
 				</div>
 				<!-- 본인이 쓴 글자리  -->
 				<div class="col-sm-10 main-block-left pull-left">
 			      <ul class="list-group">
-			      	<c:forEach items="${articleList}" var="boardDTO"> 
+			      	<c:forEach items="${list}" var="boardDTO"> 
 				        <li class="list-group-item list-group-item-small list-group-no-note clearfix">
 			               <div class="list-icon-wrapper pull-left">
-			               <i class="fa fa-pencil"><img id="articleIcon" src="/semiproject/img/${articleIcon}"/></i>
-			               </div>
-			               <div class="list-title-wrapper list-activity">
-			                   <div class="list-activity-desc">
-			                       <span class="list-activity-desc-text">
-			                           <a href="#" class="list-group-item-text item-tag label label-info">
-			                           		
-			                               <i class="fa fa-comments"></i> ${board_name }
-			                           </a>에 # ${board_id } 게시물을 작성하였습니다.
+			           
+							<c:choose>
+										               
+							<c:when test="${boardDTO.board_cateid == '1'}">		
+								              <i>     	
+				               		<img style="widht: 20px; height: 20px;" id="articleIcon" src="/semiproject/img/icon_inform.png"/>
+				               		 </i>
+						               </div>
+						               <div class="list-title-wrapper list-activity">
+						                   <div class="list-activity-desc">
+						                       <span class="list-activity-desc-text">
+						                           <a href="#" class="list-group-item-text item-tag label label-info">
+						                           		
+						                               <i class="fa fa-comments">취업정보</i>	
+													                               
+													</a>에 # ${boardDTO.board_id } 게시물을 작성하였습니다.
+						                       </span>
+						                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
+						                   </div>
+						                   <h5 class="list-group-item-heading">
+						                   <a href="/semiproject/board/getBoardView?category=info&board_id=${boardDTO.board_id }">${boardDTO.board_title}</a>			               		
+				               	
+							</c:when>
+											               	
+							<c:when test="${boardDTO.board_cateid == '2'}">
+										    <i>               	
+			               		<img style="widht: 20px; height: 20px;" id="articleIcon" src="/semiproject/img/icon_review.png"/>
+			               		</i>
+					               </div>
+					               <div class="list-title-wrapper list-activity">
+					                   <div class="list-activity-desc">
+					                       <span class="list-activity-desc-text">
+					                           <a href="#" class="list-group-item-text item-tag label label-info">
+					                           		
+					                               <i class="fa fa-comments">후기</i>	
+									           </a>에 # ${boardDTO.board_id } 게시물을 작성하였습니다.
+					                       </span>
+					                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
+					                   </div>
+					                   <h5 class="list-group-item-heading">
+					                   <a href="/semiproject/board/getBoardView?category=review&board_id=${boardDTO.board_id }">${boardDTO.board_title}</a>
+			                   
+							</c:when>
+											               	
+							<c:when test="${boardDTO.board_cateid == '3'}">		  
+							    <i>             	
+				               		<img style="widht: 20px; height: 20px;" id="articleIcon" src="/semiproject/img/icon_qna.png"/>
+				               		</i>
+						               </div>
+						               <div class="list-title-wrapper list-activity">
+						                   <div class="list-activity-desc">
+						                       <span class="list-activity-desc-text">
+						                           <a href="#" class="list-group-item-text item-tag label label-info">
+						                           		
+						                               <i class="fa fa-comments">Q&A</i>	
+											      </a>에 # ${boardDTO.board_id } 게시물을 작성하였습니다.
+							                       </span>
+							                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
+							                   </div>
+							                   <h5 class="list-group-item-heading">
+		                					   <a href="/semiproject/board/getBoardView?category=qna&board_id=${boardDTO.board_id }">${boardDTO.board_title}</a>
+							</c:when>
+							
+							<c:when test="${boardDTO.board_cateid == '4'}">	
+							    <i>	               	
+				               		<img style="widht: 20px; height: 20px;" id="articleIcon" src="/semiproject/img/icon_free.png"/>
+				               		</i>
+						               </div>
+						               <div class="list-title-wrapper list-activity">
+						                   <div class="list-activity-desc">
+						                       <span class="list-activity-desc-text">
+						                           <a href="#" class="list-group-item-text item-tag label label-info">
+						                           		
+						                               <i class="fa fa-comments">자유게시판</i>
+													</a>에 # ${boardDTO.board_id } 게시물을 작성하였습니다.
+						                       </span>
+						                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
+						                   </div>
+						                   <h5 class="list-group-item-heading">
+						                   <a href="/semiproject/board/getBoardView?category=free&board_id=${boardDTO.board_id }">${boardDTO.board_title}</a>
+							</c:when>
+							
+							<c:when test="${boardDTO.board_cateid == '5'}">		
+							    <i>               	
+				               		<img style="widht: 20px; height: 20px;" id="articleIcon" src="/semiproject/img/icon_class.png"/>
+				               		</i>
+						               </div>
+						               <div class="list-title-wrapper list-activity">
+						                   <div class="list-activity-desc">
+						                       <span class="list-activity-desc-text">
+						                           <a href="#" class="list-group-item-text item-tag label label-info">
+						                           		
+						                               <i class="fa fa-comments">학원전용</i>
+									             </a>에 # ${boardDTO.board_id } 게시물을 작성하였습니다.
+						                       </span>
+						                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
+						                   </div>
+						                   <h5 class="list-group-item-heading">
+						                   <a href="/semiproject/board/getBoardClassView?category=class&board_id=${boardDTO.board_id }&pg=1&class_id=${sessionScope.memClassid }">${boardDTO.board_title}</a>
+						                   
+						                 <%--   <a href="/semiproject/board/boardClassList?category=class&class_id=${boardDTO.board_classid }">${boardDTO.board_title}</a> --%>
+						                 
+								</c:when>
+												               	
+								</c:choose>
+
+			           <%--                 </a>에 # ${boardDTO.board_id } 게시물을 작성하였습니다.
 			                       </span>
-			                       <span class="timeago" title=" ${board_date_created } "> ${board_date_created } </span>
+			                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
 			                   </div>
 			                   <h5 class="list-group-item-heading">
-			                   <a href="/semiproject/board/getBoardView?category=${board_cateid }&board_id=${board_id }">${board_title}</a>
+			                   <a href="/semiproject/board/getBoardView?category=${boardDTO.board_cateid }&board_id=${boardDTO.board_id }">${boardDTO.board_title}</a> --%>
 			                   <div class="list-group-item-author pull-right clearfix">
 			                       <div class="avatar clearfix avatar-x-small ">
 			                           <a href="/semiproject/user/userPage?user_id=${userPageInfo.userPage_id}" class="avatar-photo">
