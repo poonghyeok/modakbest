@@ -201,15 +201,26 @@ public class BoardDAOMyBatis implements BoardDAO {
 			 * sqlSession.selectList("boardSQL.getBoardAllList"); }
 			 */
 			  @Override 
+			  public List<BoardDTO> getUserMyPageArticle(Map<String, Object> map) {
+				  String user_id = String.valueOf(map.get("user_id"));
+				  
+				  List<BoardDTO> list = new ArrayList<BoardDTO>();
+				  
+				  list = sqlSession.selectList("boardSQL.getUserMyPageArticle", user_id); 
+				  
+				  return list;
+				 }
+			  
+			  @Override 
 			  public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
 				  String user_id = String.valueOf(map.get("user_id"));
 				  
 				  List<BoardDTO> list = new ArrayList<BoardDTO>();
 				  
 				  list = sqlSession.selectList("boardSQL.getUserPageArticle", user_id); 
-				 
+				  
 				  return list;
-				 }
+			  }
 
 			// 기진 : 끝  ###################### 
       

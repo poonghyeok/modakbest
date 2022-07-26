@@ -25,11 +25,13 @@
 				<!-- 메뉴제목  -->
 
 
+
 				<h4>회원관리</h4>			
 
 
 	            <!-- 유저 검색 기능 -->
 			  	<form id="userSearchForm">
+
 
 				<input type="hidden" name="pg" id="searchPg" value="1" >
 					<div class="category-filter-wrapper">

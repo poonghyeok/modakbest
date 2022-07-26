@@ -116,7 +116,7 @@ public class BoardClassController {
 			BoardDTO boardDTO = (BoardDTO) boardService.getBoardClassContent(board_id, class_id);
 			mav.addObject("boardDTO", boardDTO);
 			
-			System.out.println("TEST boardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
+			//System.out.println("TEST boardDTO getboardDTO_view_cnt =" +boardDTO.getBoard_view_cnt());
 			
 			Date date = boardDTO.getBoard_date_created(); // 날짜 꺼내서
 			String dateToStr = DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:SS"); // 바꿔주고
