@@ -79,8 +79,8 @@
 							</tr>
 							<tr>
 								<td>
-									<div id="editor">
-										<!-- <textarea name="board_content" id="board_content" cols="60" rows="20"></textarea> -->
+									<!-- <div id="editor">
+										<textarea name="board_content" id="board_content" cols="60" rows="20"></textarea>
 									</div>
 									
 										<script>
@@ -94,7 +94,21 @@
 										            cnsole.error( error );
 										        });
 										</script>
-									
+									 -->
+											 		<div class="inputArea">
+								                        <!-- <label for="boardwrite">상품소개</label> -->
+								                        <textarea rows="5" cols="50" id="boardwrite" name="boardwrite"></textarea>
+								                        <script>
+														 var ckeditor_config = {
+														   resize_enaleb : false,
+														   enterMode : CKEDITOR.ENTER_BR,
+														   shiftEnterMode : CKEDITOR.ENTER_P,
+														   filebrowserUploadUrl : "semiproject/board/uploadSummernoteImageFileAtBoard2"
+														 };
+														 
+														 CKEDITOR.replace("boardwrite", ckeditor_config);
+														</script>
+								                    </div>
 								</td>
 							</tr>		
 						</table>

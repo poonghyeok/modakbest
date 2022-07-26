@@ -64,8 +64,6 @@ public interface BoardService {
 		
 		public List<BoardDTO> freeList();
 		
-		public void boardDelete2(Map<Integer, String> map);
-		
 		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);	
 		
 	// 정수 : 끝  ###################### 
