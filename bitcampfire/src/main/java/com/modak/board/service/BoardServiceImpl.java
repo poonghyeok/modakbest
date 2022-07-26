@@ -333,10 +333,7 @@ public class BoardServiceImpl implements BoardService {
 				boardDAO.setHit(map); // 1. 글번호에 조회수 증가하게 해
 				session.removeAttribute("board_view_cnt"); // 조회수에 해당하는 세션에 있는 값을 삭제.
 			} 
-			
-
 			BoardDTO boardDTO = boardDAO.getBoardContent(map); //2. 글번호 가지고 dto 가지고와
-
 		
 			return boardDTO;
 		}
@@ -345,21 +342,18 @@ public class BoardServiceImpl implements BoardService {
 		
 		@Override
 		public int recommendCheck(Map<String, Object> map) {
-			
 			return boardDAO.recommendCheck(map);
 			
 		}
 
 		@Override
 		public void increaseRecommend(Map<String, Object> map) {
-			
 			boardDAO.increaseRecommend(map);
 			
 		}
 
 		@Override
 		public void recommendCancel(Map<String, Object> map) {
-			
 			boardDAO.recommendCancel(map);
 			
 		}
@@ -383,7 +377,6 @@ public class BoardServiceImpl implements BoardService {
 
 		@Override
 		public void boardEdit(BoardDTO boardDTO) {
-			
 			boardDAO.boardEdit(boardDTO);
 		}
 
@@ -401,23 +394,24 @@ public class BoardServiceImpl implements BoardService {
 		
 		@Override
 		public List<BoardDTO> informList() {
-			
 			return boardDAO.informList();
 		}
 		
 		@Override
 		public List<BoardDTO> qnaList() {
-			
 			return boardDAO.qnaList();
 		}
 
 		@Override
 		public List<BoardDTO> freeList() {
-			
 			return boardDAO.freeList();
 		}
 
-		
+		@Override
+		public List<BoardDTO> adminBoardSearch(Map<String, Object> map) {
+			return boardDAO.adminBoardSearch(map);
+		}
+
 		//정수 : 끝 ############################################
 
 		
@@ -960,6 +954,13 @@ public class BoardServiceImpl implements BoardService {
 			List<BoardDTO> list = boardDAO.getAdminBoardNoticeListOfficial(cateid);
 			return list;
 		}
+		@Override
+		public void boardDelete2(Map<Integer, String> map) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		
 
 }	
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	

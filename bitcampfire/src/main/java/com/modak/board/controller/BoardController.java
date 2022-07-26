@@ -284,5 +284,12 @@ public class BoardController {
 			  boardService.boardDelete(map);
 		  }
 		  
+		  @GetMapping(value = "/boardDelete2")
+		  @ResponseBody
+		  public void boardDelete2(@RequestParam Map<Integer, String> map) {
+			  
+			  boardService.boardDelete2(map);
+		  }
+		  
 	// 정수 : 끝  ###################### 
 }

@@ -2,7 +2,9 @@ package com.modak.admin.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +41,6 @@ public class BoardAdminController {
 			List<BoardDTO> qnaList = boardService.qnaList();
 			List<BoardDTO> freeList = boardService.freeList(); 
 			
-			
 			// list 합침. 
 			list.addAll(informList); 
 			list.addAll(reviewList);
@@ -49,7 +50,6 @@ public class BoardAdminController {
 			for(BoardDTO dto: list) {
 				System.out.println(dto);
 			}
-			
 			//System.out.println("@@@@@@@@@@@@@@list.get(0).getBoard_date_created()" +list.get(0).getBoard_date_created() );
 			
 			Collections.sort(list);
@@ -72,6 +72,22 @@ public class BoardAdminController {
 		String userNickname = boardService.getUserNameByUserId(board_uid);
 		System.out.println("userNickname = " + userNickname);
 		return boardService.getUserNameByUserId(board_uid);
+	}
+	
+	@GetMapping(value= "adminBoardSearch")
+	@ResponseBody
+	public List<BoardDTO> adminSearch(@RequestParam String target, String keyword) {
+		
+		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@target = " + target + ", keyword = " + keyword); // board_id, 구 넘어옴
+		
+		Map<String , Object> map = new HashMap<String, Object>(); 
+		map.put("target", target);
+		map.put("keyword", keyword);
+		
+		List<BoardDTO> boardDTO = boardService.adminBoardSearch(map);
+		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@map = " + map);
+		
+		return boardDTO;
 	}
 }
 
