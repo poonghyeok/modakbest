@@ -516,9 +516,9 @@
   <!--  유진 : 시작   -->
  		<insert id="boardClassWrite" parameterType="BoardDTO">
 	      INSERT INTO BOARD_CLASS
-	            (board_id, board_uid, board_classid, board_title, board_content, board_date_created)
+	            (board_id, board_uid, board_classid, board_title, board_content, board_cateid, board_date_created)
 	        VALUES
-	            (BOARD_CLASS_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content},sysdate)
+	            (BOARD_CLASS_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content}, 5,sysdate)
     	</insert>
     	
     	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">

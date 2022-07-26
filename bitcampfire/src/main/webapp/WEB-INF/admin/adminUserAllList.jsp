@@ -26,7 +26,8 @@
 				<h4>회원관리</h4>
 			
 
-			<form id="adminUserAllListForm" method="get" action="">							
+			 <!-- 유저 검색 기능 -->
+            <form id="userSearchForm">						
 
 				<input type="hidden" name="pg" id="searchPg" value="1" >
 					

@@ -83,8 +83,8 @@
 							<tr>
 								<td>
 									<div id="editor">
-										<!-- <textarea name="board_content" id="board_content" cols="60" rows="20"></textarea> -->
-									</div>
+										<!-- <textarea name="editor" id="editor" cols="60" rows="20"></textarea>  -->
+									 </div> 
 									
 										<script>
 											let editor;							    
@@ -97,7 +97,7 @@
 										            cnsole.error( error );
 										        });
 										</script>
-									
+									 
 								</td>
 							</tr>		
 						</table>
@@ -172,7 +172,7 @@ $(function(){
 					url: '/semiproject/board/boardClassWrite',
 					data: {'board_title': $('#board_title').val(),
 					       //'board_content': $('#board_content').val()
-							'board_content': editorData,
+							'board_content': editorData3,
 							'board_classid' : $('#board_classid option:selected').val()
 					},
 			       	success: function(){
