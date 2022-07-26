@@ -23,14 +23,17 @@
 			<!-- <div id="index" class="content scaffold-list clearfix" role="main"> footer가 위로 올라오지 않게하는 폼/리스트 크기가 작아짐 -->				
 			<div class="nav" role="navigation">	
 				<!-- 메뉴제목  -->
-				<h4>회원관리</h4>
-			
 
-			        <!-- 유저 검색 기능 -->
-            <form id="userSearchForm">					
+
+
+				<h4>회원관리</h4>			
+
+
+	            <!-- 유저 검색 기능 -->
+			  	<form id="userSearchForm">
+
 
 				<input type="hidden" name="pg" id="searchPg" value="1" >
-					
 					<div class="category-filter-wrapper">
 						<div class="category-filter-query pull-right" style="width:362px;" >
 			                <div class="input-group input-group-sm">			                	
@@ -127,6 +130,7 @@
 </div> <!-- layout-container -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 연수 : js파일 별도 생성 (220726) -->
 <script type="text/javascript" src="/semiproject/js/admin/adminUserAllList.js"></script>
 </body>
 </html>

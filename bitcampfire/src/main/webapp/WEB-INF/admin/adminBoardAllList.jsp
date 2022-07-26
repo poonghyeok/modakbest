@@ -33,11 +33,10 @@ height : 100px;
 	<div class="nav" role="navigation" style="margin-left:600px;">
 		<input type="hidden" name="pg" id="searchPg" value="1">					
 			<div class="job-filter-container" style="width:300px; text-align:center; margin: auto;">
-			<select class="job-filter-btn" name="searchOption" id="searchOption" style="border-color: #DBDCE1; font-size: 10pt; color: white;">
+			<select class="job-filter-btn" name="searchOption" id="searchOption" style="border-color: #DBDCE1; font-size: 10pt; color: black ;">
 		       <option value="board_title" id="board_title">제목</option>
-		       <option value="board_uid" id="board_uid">작성자</option>
+		       <!-- <option value="board_uid" id="board_uid">작성자</option> -->
 		       <option value="board_cateid" id="board_cateid">카테고리</option>
-		            
 	   		</select>
              <input type="search" id="keyword" name="keyword" class="form-control" placeholder="검색어" value="" style="border-color: #DBDCE1;">
              <span class="input-group-btn"> 
@@ -55,37 +54,37 @@ height : 100px;
 				<!-- append 시작점 -->
 					
 					<!-- board_id  -->
-					<div class="list-title-wrapper clearfix1" id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
+					<div class="list-title-wrapper clearfix1" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						<input type="checkbox" id="all" style="float:left; margin-top: 10px;">번호 									
 					</div>
 													
 					<!-- board_cateid -->	
-					<div class="list-title-wrapper clearfix2" id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; "> 
+					<div class="list-title-wrapper clearfix2" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; "> 
 						<p style="height:5px;">카테고리</p>
 					</div>
 																			
 					<!-- board_title  -->
-					<div class="list-title-wrapper clearfix3" id = "adminBoard" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
+					<div class="list-title-wrapper clearfix3"  style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						제목									
 					</div>
 					
 					<!-- board_cmt_cnt  -->
-					<div class="list-title-wrapper clearfix4"  id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
+					<div class="list-title-wrapper clearfix4"   style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						댓글수								
 					</div>
 					
 					<!-- board_view_cnt  -->
-					<div class="list-title-wrapper clearfix5"  id = "adminBoard" style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
+					<div class="list-title-wrapper clearfix5"  style="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						조회수								
 					</div>
 					
 					<!-- board_uid  -->								
-					<div class="list-title-wrapper clearfix6" id = "adminBoard" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
+					<div class="list-title-wrapper clearfix6"  style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						작성자						
 					</div>
 					
 					<!-- board_date_created  -->
-					<div class="list-title-wrapper clearfix7"  id = "adminBoard" style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
+					<div class="list-title-wrapper clearfix7"   style="width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
 						날짜								
 					</div>
 					
@@ -98,143 +97,208 @@ height : 100px;
 			</ul>
 		</div> 
 							
-		<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="삭제" style="float: right; background-color: white; font-weight: bold; color : black;">
+		<input type="button" id="adminBoardDeleteBtn_select" class="btn btn-primary btn-sm" value="삭제" style="float: right; background-color: #337ab7; font-weight: bold; color : white;">
 	</form>
 </div>
 </div>
 	
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type = "text/javascript">
-$(function(){	
-	$.ajax({
-		type : "post",
-		url : "/semiproject/admin/getBoardAllList",  // 리스트 전체 가져오기
-		dataType : "json",
-		success : function(data) {  // list
-			//console.log(JSON.stringify(data));
-			
-		$.each(data, function(index, item){ //board_uid 
-				// 유저닉네임 가져오기
-				var userNickname;
+	function cateidToString(cateid){
+		let result;
+		if(cateid == 1){
+			result = 'info';
+		}else if(cateid == 2){
+			result = 'review';
+		}else if(cateid == 3){
+			result = 'qna';
+		}else if(cateid == 4){
+			result = 'free';
+		}
 		
-					$.ajax({
-						type : "get",
-						url : "/semiproject/admin/getUserNickname",
-						data : {
-							 		board_uid : item.board_uid,
-							 	},
-						async : false,
-						success : function(name) {
-							userNickname = name;
-						}
-					}); // ajax끝
-					console.log(item);
-				var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
-								'<input name="check" class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;">'+
+		return result;
+	}
+	$(function(){	
+		$.ajax({
+			type : "post",
+			url : "/semiproject/admin/getBoardAllList",  // 리스트 전체 가져오기
+			dataType : "json",
+			success : function(data) {  // list
+				//console.log(JSON.stringify(data));
+				
+			$.each(data, function(index, item){ //board_uid
+					// 유저닉네임 가져오기
+					var userNickname;
+			
+						$.ajax({
+							type : "get",
+							url : "/semiproject/admin/getUserNickname",
+							data : {
+								 		board_uid : item.board_uid,
+								 	},
+							async : false,
+							success : function(name) {
+								userNickname = name;
+							}, error : function(err) {
+								console.log(err);
+							}
+						}); // ajax끝
+						
+			var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
+						'<input class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;" name="'+item.board_id+'">'+
+						'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
+						'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
+						'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
+						'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' +item.board_title +'</a></div>'+
+						'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
+						'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
+						'<div id = "userNickname" style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname+'</div>'+
+						'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'
+					'</li>';
+			$(test).appendTo('.list-group');
+			
+				}) // each
+			}, // success
+			error : function(err) {
+				console.log(err);
+			} // error
+		})
+	});
+
+		/* 선택 삭제 */
+		$('#adminBoardDeleteBtn_select').click(function(){
+			console.log($('#adminBoardAllListForm').serialize())
+			var num = $("input:checkbox[class=checkDelete]:checked").length // 체크된 개수
+			var ckeckedBox =  $("input:checkbox[name=check]:checked")
+		
+			//console.log(numArr);
+			if (num == 0) {
+				alert('삭제할 항목이 없습니다.')
+			} else if (confirm('정말로 삭제하시겠습니까?')) {
+				$("input:checkbox[name=check]:checked").parent().remove();
+				
+				 $.ajax({
+					type : "get",
+					url : "/semiproject/board/boardDelete",
+					data : $('#adminBoardAllListForm').serialize(),
+					success : function() {
+						alert("관리자페이지에서 삭제완료")
+					}, error : function(err) {
+						console.log(err);
+					} 
+				}) // ajax 
+			}; // else if 
+		});  // else
+
+		/* 전체 삭제 */
+		$('#all').click(function(){
+			if($('#all').prop('checked'))
+				$('input[name="check"]').prop('checked', true);
+			else
+				$('input[name="check"]').prop('checked', false);
+		});
+	
+	/* 검색 버튼 눌렀을 때 */	
+	 $('#BoardSearchBtn').click(function(){
+			if($('#keyword').val()=='') { // 입력하지 않으면  
+				alert('검색어를 입력하세요.') // ok
+				location.reload(); // 새로고침
+			} else { 
+				 var target = document.getElementById("searchOption"); // target 안에 searchOption 값 담겨있음. 
+				        //alert('선택된 옵션 value 값=' + target.options[target.selectedIndex].value);     // 옵션 value 값 // ok
+	
+				 $.ajax({
+					type : "get",
+					url : "/semiproject/admin/adminBoardSearch",
+					data : {
+							target : target.options[target.selectedIndex].value, // searchOption 값 
+							keyword : $('#keyword').val() // 키워드
+							},
+							success : function(data) {
+								console.log(JSON.stringify(data));
+								
+								
+					$.each(data, function(index, item){ //board_uid
+						$('.list-group li:gt(0)').remove();
+						// 유저닉네임 가져오기
+						var userNickname;
+							$.ajax({
+								type : "get",
+								url : "/semiproject/admin/getUserNickname",
+								data : {
+									 		board_uid : item.board_uid,
+									 	},
+								async : false,
+								success : function(name) {
+									userNickname = name;
+								}, error : function(err) {
+									console.log(err);
+								}
+							}); // ajax끝
+									
+							var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
+										'<input class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;" name="'+item.board_id+'">'+
+										'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
+										'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
+										'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
+										'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' +item.board_title +'</a></div>'+
+										'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
+										'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
+										'<div id = "userNickname" style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname+'</div>'+
+										'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'
+									'</li>';
+							$(test).appendTo('.list-group');
+							
+								}) // each
+								
+								
+							}, error : function(err) {
+								console.log(err);
+							}  
+						});
+				}
+		 });
+			
+					/* $.each(data, function(index, item){ //board_uid
+							// 유저닉네임 가져오기
+							var userNickname;
+					
+								$.ajax({
+									type : "get",
+									url : "/semiproject/admin/getUserNickname",
+									data : {
+										 		board_uid : item.board_uid,
+										 	},
+									async : false,
+									success : function(name) {
+										userNickname = name;
+									}, error : function(err) {
+										console.log(err);
+									}
+								}); // ajax끝
+								
+					var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
+								'<input class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;" name="'+item.board_id+'">'+
 								'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
 								'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
-								'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_title+'</div>'+
+								'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
+								'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' +item.board_title +'</a></div>'+
 								'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
 								'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
-								'<div id = "userNickname" style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">' 
-								+'<a href = "/semiproject/board/getBoardView?category="'+item.board_cateid+'"info&board_id="' +item.board_id+ '"&pg=1">' +userNickname +'</a></div>'+
+								'<div id = "userNickname" style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname+'</div>'+
 								'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'
 							'</li>';
-				$(test).appendTo('.list-group');
-				
-			}) // each 
-		}, // success
-		error : function(err) {
-			console.log(err);
-		} // error
-	})
-});
-
-
-
-
-/* 선택 삭제 */
-$('#adminBoardDeleteBtn_select').click(function(){
-	
-	var num = $("input:checkbox[name=check]:checked").length // 체크된 개수
-	
-	if (num == 0) {
-		alert('삭제할 항목이 없습니다.')
-	} else if (confirm('정말로 삭제하시겠습니까?')) {
-		$("input:checkbox[name=check]:checked").parent().remove();
-		
-	} 
-}); 
-
-/* 전체 삭제 */
-	$('#all').click(function(){
-		if($('#all').prop('checked'))
-			$('input[name="check"]').prop('checked', true);
-		else
-			$('input[name="check"]').prop('checked', false);
-	});
-	
-/* 검색 버튼 눌렀을 때 */	
- $('#BoardSearchBtn').click(function(){
-	 $.ajax({
-		 type : 'get',
-		 url :'/semiproject/admin/'
-	 });
- });
-</script>
-
-	<!-- <table border = "1" width = "700px" id = "table">
-		<tr>
-			<th>게시글번호</th>
-			<th>작성자</th>
-			<th>카테고리ID</th>
-			<th>제목</th>
-			<th>날짜</th>
-		</tr>
-	</table> 
-	
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type = "text/javascript">
-$(function(){
-	$.ajax({
-		type : "post",
-		url : "/semiproject/admin/getBoardAllList", 
-		dataType : "json",
-		success : function(data) { 
-			//data.reviewList[0] 
-			//console.log(JSON.stringify(data.reviewList[0])) // string형태로 보기
-			//KEY로 접근했을떄  value로 나온다 
+					$(test).appendTo('.list-group');
+					
+						}) // each
+								}, error : function(err) {
+									console.log(err);
+								} 
+							}) */
 			
-			var key = data.reviewList
-			 console.log(key)
 			
-			 $("<tr>", {
-				html : 
-				 "<td>" + key[0] + "</td>"+ 
-				 "<td>" + key[1] + "</td>"+
-				 "<td>" + key[2] + "</td>"+
-				 "<td>" + key[3] + "</td>"
-			}).appendTo("table")
 			
-			$.each(data.reviewList, function(index, item) { // index = 번호 item  = list중에 객체 하나
-				var items = [];
-				items.push("<td>" + item.board_id + "</td>")
-				items.push("<td>" + item.board_uid + "</td>")
-				items.push("<td>" + item.board_cateid + "</td>")
-				items.push("<td>" + item.board_title + "</td>")
-				items.push("<td>" + item.board_date_created + "</td>")
-				$("<tr/>", {
-					html : items
-				}).appendTo("table");
-				
-			}); // each끝
-			
-		}, error : function(err) {
-			console.log(err);
-		}
-	})
-});
 
-</script>	 -->
+		</script>
 </body>
 </html>

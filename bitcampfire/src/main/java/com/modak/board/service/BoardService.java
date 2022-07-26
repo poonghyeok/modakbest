@@ -35,6 +35,7 @@ public interface BoardService {
 
 	
 	// 정수 : 시작  ###################### 
+		
 		// 글번호로 (글번호, DTO) 가져오기
 		public BoardDTO getBoardContent(Map<String, Integer>map);
 
@@ -55,7 +56,6 @@ public interface BoardService {
 		public void boardDelete(Map<String,Integer> map);
 
 		// admin 
-		
 		public List<BoardDTO> reviewList();
 		
 		public List<BoardDTO> informList();
@@ -63,6 +63,10 @@ public interface BoardService {
 		public List<BoardDTO> qnaList();
 		
 		public List<BoardDTO> freeList();
+		
+		public void boardDelete2(Map<Integer, String> map);
+		
+		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);	
 		
 	// 정수 : 끝  ###################### 
 
@@ -139,8 +143,7 @@ public interface BoardService {
 		//@@게시판별 공지 띄우기
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(String category, int pg);
 
+
 		
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
-
-
 }

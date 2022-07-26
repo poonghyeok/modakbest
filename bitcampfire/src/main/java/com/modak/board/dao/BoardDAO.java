@@ -65,6 +65,8 @@ public interface BoardDAO {
 		public List<BoardDTO> qnaList();
 
 		public List<BoardDTO> freeList();
+		
+		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);
 
 		// 정수 : 끝  ###################### 
 
@@ -140,6 +142,8 @@ public interface BoardDAO {
 		public int getTotalBoardAdminNoticeSearchNum(Map<String, String> map);
 		//@@ 게시판별 공지 띄우기
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(int cateid);
+
+		
 
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 		
