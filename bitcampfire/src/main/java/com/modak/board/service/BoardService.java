@@ -64,7 +64,13 @@ public interface BoardService {
 		
 		public List<BoardDTO> freeList();
 		
-		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);	
+
+		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);
+		
+		public void adminBoardDelete(Map<String, Integer> map);
+		
+		public String getAdminAllListPages(int pg);
+
 		
 	// 정수 : 끝  ###################### 
 
@@ -140,6 +146,10 @@ public interface BoardService {
 		public String getAdminNoticeSearchPagingList(String category, int pg, String keyword, String searchOption);
 		//@@게시판별 공지 띄우기
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(String category, int pg);
+
+		
+
+		
 
 
 		
