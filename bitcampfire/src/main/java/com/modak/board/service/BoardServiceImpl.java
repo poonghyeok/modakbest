@@ -324,6 +324,18 @@ public class BoardServiceImpl implements BoardService {
 	//정수 : 시작 ############################################
 
 		@Override
+		public String getAdminAllListPages(int pg) {
+			BoardPaging boardPaging = new BoardPaging();
+			boardPaging.setCurrentPage(pg);
+			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardPaging.setPageSize(10); //page 당 10개의 글 존재
+//			boardPaging.setTotalA(boardDAO.getTotalBoardNumAdmin());
+//			boardPaging.makePagingHTML();
+//			여기서부터 수정합시다 220727 
+			return boardPaging.getPagingHTML().toString();
+		}
+		
+		@Override
 		public BoardDTO getBoardContent(Map<String, Integer>map) { 
 			
 			if (session.getAttribute("board_view_cnt")!=null) { // 로그인을 했다면 / board_view_cnt
@@ -409,6 +421,12 @@ public class BoardServiceImpl implements BoardService {
 			return boardDAO.adminBoardSearch(map);
 		}
 
+		@Override
+		public void adminBoardDelete(Map<String, Integer> map) {
+			boardDAO.adminBoardDelete(map);
+			
+		}
+		
 		//정수 : 끝 ############################################
 
 		
@@ -963,6 +981,9 @@ public class BoardServiceImpl implements BoardService {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		
+		
 		
 
 
