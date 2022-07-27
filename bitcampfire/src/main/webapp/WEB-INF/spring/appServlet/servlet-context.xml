@@ -33,6 +33,9 @@
 	<!--  ###################### 유진 : 시작  0706###################### -->	
 	<beans:bean  id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">	
 		<beans:property name="maxUploadSize" value="5000000"></beans:property>
+		
+		<!-- 연수 추가(220726) 업로드 요청을 변환할 때 사용할 문자 인코딩 방식 -->
+		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	<!-- ####################### 유진 : 끝  0706###################### -->
 	

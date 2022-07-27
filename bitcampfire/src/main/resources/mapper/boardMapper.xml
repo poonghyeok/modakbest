@@ -626,7 +626,7 @@
 	      INSERT INTO BOARD_CLASS
 	            (board_id, board_uid, board_classid, board_title, board_content, board_cateid, board_date_created)
 	        VALUES
-	            (BOARD_CLASS_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content}, 5,sysdate)
+	            (BOARD_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content}, 5,sysdate)
     	</insert>
     	
     	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">
