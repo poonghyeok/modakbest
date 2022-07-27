@@ -206,25 +206,45 @@ public class BoardDAOMyBatis implements BoardDAO {
 			 * sqlSession.selectList("boardSQL.getBoardAllList"); }
 			 */
 			  @Override 
-			  public List<BoardDTO> getUserMyPageArticle(Map<String, Object> map) {
-				  String user_id = String.valueOf(map.get("user_id"));
+			  public List<BoardDTO> getUserMyPageArticle(Map<String, Integer> pgMap) {
+				//  String user_id = String.valueOf(pgMap.get("user_id"));
 				  
 				  List<BoardDTO> list = new ArrayList<BoardDTO>();
 				  
-				  list = sqlSession.selectList("boardSQL.getUserMyPageArticle", user_id); 
+				  list = sqlSession.selectList("boardSQL.getUserMyPageArticle", pgMap); 
 				  
 				  return list;
 				 }
 			  
 			  @Override 
-			  public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
-				  String user_id = String.valueOf(map.get("user_id"));
+			  public List<BoardDTO> getUserPageArticle(Map<String, Integer> pgMap) {
+				 // String user_id = String.valueOf(pgMap.get("user_id"));
 				  
 				  List<BoardDTO> list = new ArrayList<BoardDTO>();
 				  
-				  list = sqlSession.selectList("boardSQL.getUserPageArticle", user_id); 
+				  list = sqlSession.selectList("boardSQL.getUserPageArticle", pgMap); 
 				  
 				  return list;
+			  }
+
+			  
+				/* */
+			  
+			  @Override
+			  public int  UserPagePaging(int userId) {
+				  int totalNum = sqlSession.selectOne("boardSQL.UserPagePaging", userId);
+				  System.out.println("\n @LOG@ my batis total num : " + totalNum);
+				  return totalNum;
+			  }
+			  
+			  
+			  @Override
+			  public int  UserMyPagePaging(int userId) {
+				  int totalNum = sqlSession.selectOne("boardSQL.UserMyPagePaging", userId);
+				 
+				  System.out.println("count 들어오나요" + totalNum);
+				  
+				  return totalNum;
 			  }
 
 			// 기진 : 끝  ###################### 
@@ -393,6 +413,7 @@ public class BoardDAOMyBatis implements BoardDAO {
 			public List<BoardDTO> getAdminBoardNoticeListOfficial(int cateid) {
 				return sqlSession.selectList("boardSQL.getAdminBoardNoticeListOfficial", cateid);
 			}
+
 
 			// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 

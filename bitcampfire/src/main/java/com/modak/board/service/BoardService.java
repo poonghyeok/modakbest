@@ -68,7 +68,7 @@ public interface BoardService {
 		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);
 		
 		public void adminBoardDelete(Map<String, Integer> map);
-		
+
 		public String getAdminAllListPages(int pg);
 
 		
@@ -79,11 +79,18 @@ public interface BoardService {
 		 
 //    public List<BoardAllDTO> getBoardAllList(); 
 		public List<BoardDTO> getUserMyPageArticle(Map<String, Object> map);
+		
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map);
+		
+		/*	기진 페이징	*/
+		
+		String getUserPagesPaging(int pg, int userId); // 일단 게시판용
+		
+		String getUserMyPagesPaging(int pg, int userId); // 본인 게시판용
 
 		// 기진 " 끝 ##########################			
 
-
+	
 
 	// 유진 : 시작 ##############################################
 		public void boardClassWrite(BoardDTO boardDTO);
@@ -148,6 +155,10 @@ public interface BoardService {
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(String category, int pg);
 
 		
+
+		
+
+
 
 		
 

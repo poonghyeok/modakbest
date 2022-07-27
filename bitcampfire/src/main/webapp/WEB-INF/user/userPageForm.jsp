@@ -161,7 +161,7 @@
 						                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
 						                   </div>
 						                   <h5 class="list-group-item-heading">
-						                   <a href="/semiproject/board/getBoardClassView?category=class&board_id=${boardDTO.board_id }&pg=1&class_id=${sessionScope.memClassid }">${boardDTO.board_title}</a>
+						                   <a href="/semiproject/board/getBoardClassView?category=class&board_id=${boardDTO.board_id }&pg=1&class_id=${userPageInfo.userPage_classid }">${boardDTO.board_title}</a>
 						                   
 						                 <%--   <a href="/semiproject/board/boardClassList?category=class&class_id=${boardDTO.board_classid }">${boardDTO.board_title}</a> --%>
 						                 
@@ -192,9 +192,14 @@
 							</div>
 						</li> 
 					</c:forEach>
-								
+					
 			      </ul>
-			      <div class="text-center"></div>
+			      <div class="text-center">
+					<ul class="pagination pagination-sm">
+						${userPagePagingList }
+			
+					</ul>
+				</div>				
 				</div>
 			</div> <!-- content clearfix -->
 
