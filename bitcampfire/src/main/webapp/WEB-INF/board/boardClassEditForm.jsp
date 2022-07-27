@@ -38,7 +38,8 @@
 			<div class="content-header">
 				<div class="user-profile">
 					<a href="/semiproject/user/userMyPageForm?user_id=${sessionScope.memId}">
-						<img src="#" id="profile-photo" alt="profile-img">
+						<!-- 수정폼 프로필 사진 추가(220727_연수)  -->
+						<img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="profile-photo" alt="profile-img">
 					</a>
 				
 					<div class="profile-info">
@@ -80,26 +81,16 @@
 							</tr>
 							<tr>
 								<td>
-									<div id="editor">
-										 <!-- <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> --> 
-									</div>
-									
-										<script>
-											 let editor;							    
-											
-											 ClassicEditor
-											  .create(document.querySelector( '#editor' ), {
-											    language: 'ko'
-											  })
-											  .then( newEditor => {
-											    editor = newEditor;
-											  } )
-											  .catch( error => {
-											    console.error( error );
-											  } );
-											  
-											
+									<!-- @@@@@ 연수 : boardclassedit - ckeditor 업로드  수정(220727)@@@@@	 -->	 									                        
+			                        <!-- id값을  content로 해줘야 ckeditor가 적용됨  -->
+			                        <textarea rows="5" cols="50" id="content" name="content"></textarea>
+			                        <script type="text/javascript">													
+									 CKEDITOR.replace('content',
+										/* 이미지 업로드 컨트롤러 실행  */	 
+										{filebrowserUploadUrl:'/semiproject/board/uploadImageFileByCkAtClass'
+										});
 									</script>
+									<!-- @@@@@ 연수 : boardclassedit - ckeditor 업로드  수정(220727)@@@@@	 -->	
 								</td>
 							</tr>		
 						</table>
@@ -126,6 +117,7 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+//@@@@@ 연수 : boardclassedit - ckeditor 업로드  수정(220727)@@@@@
 $(function(){
 	
 	$.ajax({
@@ -135,7 +127,7 @@ $(function(){
 		success :function(data){
 			console.log(JSON.stringify(data));
 			$('#board_title').val(data.board_title);
-			editor.setData(data.board_content);
+			CKEDITOR.instances.content.setData(data.board_content); //연수 수정(220727)
 			$('#board_classid option:eq('+(data.board_classid)+')').prop('selected', true);
 		}
 	})
@@ -150,7 +142,9 @@ $(function(){
 	 } */
 	
 	$('#boardUpdateBtn').click(function(){
-		const editorData = editor.getData();
+		var board_content = CKEDITOR.instances.content.getData(); 
+		//alert(board_content);
+		//alert("click!")
 		
 		//비엇을때 진해지고 포커스아웃시 풀리고
 		
@@ -167,9 +161,11 @@ $(function(){
 	    	$('#board_content').addClass('empty');
 	    	
 		} */
-		else if(!editor.getData()){
+		
+		else if(board_content ==''){	
 			alert("내용을 입력하세요");
 		}
+
 		else if( $('#board_classid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
@@ -183,7 +179,8 @@ $(function(){
 					type: 'post',
 					url: '/semiproject/board/boardClassUpdate',
 					data: {'board_title' : $('#board_title').val(),
-					       'board_content' : $('div.ck-blurred').html(),
+					       //'board_content' : $('div.ck-blurred').html(),
+					       	'board_content': board_content,//연수수정(220727)
 							'board_classid' : $('#board_classid option:selected').val(),
 							'board_id' : $('#board_id').val()
 					},
@@ -201,7 +198,7 @@ $(function(){
 	        }
 		}
 	});//$('#boardWriteBtn').click
-	
+	//@@@@@ 연수 : boardclassedit - ckeditor 업로드  수정(220727)@@@@@	
 	
 	
 	//취소 버튼 눌렀을 때

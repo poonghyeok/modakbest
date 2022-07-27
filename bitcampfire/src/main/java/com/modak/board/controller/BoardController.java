@@ -303,7 +303,7 @@ public class BoardController {
 	// 정수 : 끝  ###################### 
 		  
 		  
- //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@ 연수 : boardwrite & boardedit - ckeditor 이미지 업로드  추가(220726)@@@@@
 		  @PostMapping(value="uploadImageFileByCk")
 			public void uploadImageFileByCk(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception {
 			 
@@ -357,6 +357,6 @@ public class BoardController {
 			 
 			 return; 
 			}
+//@@@@@ 연수 : boardwrite & boardedit - ckeditor 이미지 업로드  추가(220726)@@@@@
 			
 }
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

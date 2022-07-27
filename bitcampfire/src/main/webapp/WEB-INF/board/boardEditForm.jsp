@@ -78,26 +78,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<!-- <div id="editor">
-										 <textarea name="board_content" id="board_content" cols="60" rows="20" ></textarea> 
-									</div>
-									
-										<script>
-											 let editor;							    
-											
-											 ClassicEditor
-											  .create(document.querySelector( '#editor' ), {
-											    language: 'ko'
-											  })
-											  .then( newEditor => {
-											    editor = newEditor;
-											  } )
-											  .catch( error => {
-											    console.error( error );
-											  } );										
-										</script> -->
-									<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								<td>									
+									<!-- @@@@@ 연수 : boardedit - ckeditor 업로드  수정(220726)@@@@@	 -->
 									<!-- id값을  content로 해줘야 ckeditor가 적용됨  -->
 			                        <textarea rows="5" cols="50" id="content" name="content"></textarea>
 			                        <script type="text/javascript">													
@@ -106,6 +88,7 @@
 										{filebrowserUploadUrl:'/semiproject/board/uploadImageFileByCk'
 										});
 									</script>
+									<!-- @@@@@ 연수 : boardedit - ckeditor 업로드  수정(220726)@@@@@	 -->
 								</td>
 							</tr>		
 						</table>

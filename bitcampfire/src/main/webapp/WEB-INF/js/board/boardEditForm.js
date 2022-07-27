@@ -38,7 +38,7 @@ $('#board_cateid').change(function(){
 	}
 });
 
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@ 연수 : boardedit - ckeditor 업로드  수정(220726)@@@@@
 $(function(){
 	
 	$.ajax({
@@ -48,8 +48,7 @@ $(function(){
 		success :function(data){
 			console.log(JSON.stringify(data));
 			$('#board_title').val(data.board_title);
-			//editor.setData(data.board_content);
-			CKEDITOR.instances.content.setData(data.board_content); //연수 수정(220726)
+			CKEDITOR.instances.content.setData(data.board_content); //연수 수정(220727)
 			$('#board_cateid option:eq('+(data.board_cateid)+')').prop('selected', true);
 		},
 		error : function(err){
@@ -67,18 +66,16 @@ $(function(){
 	 } */
 	
 	$('#boardUpdateBtn').click(function(){
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
 		var board_content = CKEDITOR.instances.content.getData(); 
 		//alert(board_content);
 		//alert("click!")
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+
 		//비엇을때 진해지고 포커스아웃시 풀리고
 		
 		if($('#board_title').val()==''){
 		//	$('#board_title').css('border','2px solid #1fb6ff');
 			alert('제목을 입력해주세요.');
-			$('#board_title').addClass('empty');
-			
+			$('#board_title').addClass('empty');			
 
 		}/* else if($('#board_content').val()==''){
 			alert("컨텐트공백");
@@ -87,14 +84,11 @@ $(function(){
 	    	$('#board_content').addClass('empty');
 	    	
 		} */
-		/*else if(!editor.getData()){
-			alert("내용을 입력하세요");
-		}*/
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+
 		else if(board_content ==''){	
 			alert("내용을 입력하세요");
 		}
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+
 		else if( $('#board_cateid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
@@ -109,7 +103,7 @@ $(function(){
 					url: '/semiproject/board/update',
 					data: {'board_title' : $('#board_title').val(),
 					       //'board_content' : $('div.ck-blurred').html(),
-							'board_content': board_content,//연수수정(220726)
+							'board_content': board_content,//연수수정(220727)
 							'board_cateid' : $('#board_cateid option:selected').val(),
 							'board_id' : $('#board_id').val()
 					},
@@ -126,7 +120,7 @@ $(function(){
 	        }
 		}
 	});//$('#boardWriteBtn').click	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	//@@@@@ 연수 : boardedit - ckeditor 업로드  수정(220726)@@@@@
 	
 	//취소 버튼 눌렀을 때
 	$('#resetBtn').click(function(){

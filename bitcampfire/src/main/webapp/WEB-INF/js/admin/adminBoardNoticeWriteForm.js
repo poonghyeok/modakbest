@@ -1,6 +1,9 @@
+//@@@@@ 연수 : admin > boardclasswrite - ckeditor 업로드  수정(220727)@@@@@	
 $(function(){
 	$('#adminBoardNoticeWriteBtn').click(function(){
-		const editorData = editor.getData();
+		var board_content = CKEDITOR.instances.content.getData(); 
+		//alert(board_content);
+		//alert("click!")
 		var category = $('#category').val();
 		
 		//비엇을때 진해지고 포커스아웃시 풀리고
@@ -9,7 +12,7 @@ $(function(){
 			alert('제목을 입력해주세요.');
 			$('#board_title').addClass('empty');			
 
-		}else if(editor.getData()==''){
+		}else if(board_content ==''){	
 			alert("내용을 입력하세요");
 		}
 		else if( $('#board_cateid option:selected').val()==''){
@@ -27,7 +30,7 @@ $(function(){
 					url: '/semiproject/admin/adminBoardNoticeWrite',
 					data: {'board_title': $('#board_title').val(),
 					       //'board_content': $('#board_content').val()
-							'board_content': editorData,
+							'board_content': board_content,//연수수정(220727)
 							'board_cateid' : $('#board_cateid option:selected').val()
 						  },
 			       	success: function(){

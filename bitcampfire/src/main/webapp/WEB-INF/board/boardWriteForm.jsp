@@ -78,24 +78,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<!-- <div id="editor">
-										<textarea name="board_content" id="board_content" cols="60" rows="20"></textarea>
-									</div>
-									
-										<script>
-											let editor;							    
-											ClassicEditor
-										        .create( document.querySelector( '#editor' ) )
-										        .then(newEditor => {							        	
-										        	editor = newEditor
-										        })
-										        .catch( error => {
-										            cnsole.error( error );
-										        });
-										</script>
-									 -->
-							 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->								                        
+								<td>					
+									<!-- @@@@@ 연수 : boardwrite - ckeditor 업로드  수정(220726)@@@@@	 -->	 									                        
 			                        <!-- id값을  content로 해줘야 ckeditor가 적용됨  -->
 			                        <textarea rows="5" cols="50" id="content" name="content"></textarea>
 			                        <script type="text/javascript">													
@@ -104,7 +88,7 @@
 										{filebrowserUploadUrl:'/semiproject/board/uploadImageFileByCk'
 										});
 									</script>
-				         			 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->	
+									<!-- @@@@@ 연수 : boardwrite - ckeditor 업로드  수정(220726)@@@@@	 -->
 								</td>
 							</tr>		
 						</table>
@@ -191,16 +175,13 @@ $(document).on('change','#board_cateid', function(){
 		 $('#board_content').removeClass('empty');
 	 } */
 	
-	$('#boardWriteBtn').click(function(){
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+	//@@@@@ 연수 : boardwrite - ckeditor 업로드  수정(220726)@@@@@
+	$('#boardWriteBtn').click(function(){		
 		var board_content = CKEDITOR.instances.content.getData(); 
 		//alert(board_content);
 		//alert("click!")
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
-		//const editorData = editor.getData();
-		
-		//비엇을때 진해지고 포커스아웃시 풀리고
-		
+		 
+		//비엇을때 진해지고 포커스아웃시 풀리고		
 		if($('#board_title').val()==''){
 		//	$('#board_title').css('border','2px solid #1fb6ff');
 			alert('제목을 입력해주세요.');
@@ -214,14 +195,11 @@ $(document).on('change','#board_cateid', function(){
 	    	$('#board_content').addClass('empty');
 	    	
 		} */
-		/* else if(!editor.getData()){
-			alert("내용을 입력하세요");
-		} */
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+	
 		else if(board_content ==''){	
 			alert("내용을 입력하세요");
 		}
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@	
+		
 		else if( $('#board_cateid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
@@ -253,9 +231,8 @@ $(document).on('change','#board_cateid', function(){
 			
 	        }
 		}
-	});//$('#boardWriteBtn').click
-	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 연수 수정한곳(220726)@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+	});//$('#boardWriteBtn').click	
+	//@@@@@ 연수 : boardwrite - ckeditor 업로드  수정(220726)@@@@@
 	
 	//취소 버튼 눌렀을 때
 	$('#resetBtn').click(function(){
