@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.modak.board.bean.BoardDTO;
+import com.modak.board.bean.BoardPaging;
 import com.modak.board.service.BoardService;
 
 @Controller
@@ -25,8 +27,14 @@ public class BoardAdminController {
 	private BoardService boardService;
 	
 	@GetMapping(value = "adminBoardAllList")
-	public String adminBoardAllList() {
-		return "/admin/adminBoardAllList";
+	public ModelAndView adminBoardAllList(@RequestParam int pg) {
+		ModelAndView mav = new ModelAndView();
+		
+		BoardPaging adminList = boardService.getAdminAllListPages(pg);
+		mav.addObject();
+		mav.setViewName("/admin/adminBoardAllList");
+				
+		return mav;
 	}
 	
 	// board 정보 전체 가져오기
@@ -47,9 +55,11 @@ public class BoardAdminController {
 			list.addAll(qnaList);
 			list.addAll(freeList);
 			
+			
 			for(BoardDTO dto: list) {
 				System.out.println(dto);
 			}
+			
 			//System.out.println("@@@@@@@@@@@@@@list.get(0).getBoard_date_created()" +list.get(0).getBoard_date_created() );
 			
 			Collections.sort(list);
@@ -89,6 +99,18 @@ public class BoardAdminController {
 		
 		return boardDTO;
 	}
+	
+	  @GetMapping(value = "adminBoardDelete")
+	  @ResponseBody public void adminBoardDelete(@RequestParam int board_id, int board_cateid) {
+		  
+		  System.out.println("보드보드 = " + board_id  +" @@@@@@@@@" + board_cateid);
+		  Map<String, Integer> map = new HashMap<>();
+		  map.put("board_id", board_id);
+		  map.put("board_cateid", board_cateid);
+	  
+		  boardService.adminBoardDelete(map); 
+		 }
+	 
 }
 
 

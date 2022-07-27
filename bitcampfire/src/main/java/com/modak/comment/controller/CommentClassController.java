@@ -115,7 +115,7 @@ public class CommentClassController {
 			
 			// 내부경로로 저장
 			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-			String filepath = contextRoot+"WEB-INF\\storage\\";
+			String filepath = contextRoot+"WEB-INF\\storage\\commentImg\\";
 			//String filepath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\";
 			//System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+fileRoot);
 			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4"+contextRoot);

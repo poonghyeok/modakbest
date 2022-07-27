@@ -67,6 +67,8 @@ public interface BoardDAO {
 		public List<BoardDTO> freeList();
 		
 		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);
+		
+		public void adminBoardDelete(Map<String, Integer> map);
 
 		// 정수 : 끝  ###################### 
 
@@ -146,6 +148,10 @@ public interface BoardDAO {
 		public int getTotalBoardAdminNoticeSearchNum(Map<String, String> map);
 		//@@ 게시판별 공지 띄우기
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(int cateid);
+
+		
+
+		
 
 		
 

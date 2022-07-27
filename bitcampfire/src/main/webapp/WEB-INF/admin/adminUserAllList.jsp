@@ -58,7 +58,7 @@
 			<input type="button" class="create btn btn-default btn-sm" id ="adminRegisterCancelBtn" style="margin-bottom:10px;" value="관리자 해제">
 			
 			<br>			
-			<input type="hidden" id="pg" value="${pg }">				
+			<input type="hidden" id="pg" value="${pg}">				
 			<!-- 선택 삭제(체크박스) 폼 // 선택삭제와 관리자 등록 기능을 2개다 사용해보기(220724) -->
 			<!-- <form id="adminUserAllListForm" method="get" action="/semiproject/admin/adminUserDelete_select"> -->
 			<form id="adminUserAllListForm" method="get" action="">							

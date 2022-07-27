@@ -110,7 +110,7 @@
 
             <c:if test="${param.category eq 'admin'}">
             <li><a href="/semiproject/admin/adminUserAllList?category=admin" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">회원관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
-            <li><a href="/semiproject/admin/adminBoardAllList?category=admin" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">게시판관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+            <li><a href="/semiproject/admin/adminBoardAllList?category=admin&pg=1" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">게시판관리</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
             <li><a href="/semiproject/admin/adminBoardNoticeList?category=admin" class="link"><span class="nav-sidebar-label nav-sidebar-category-label">공지사항</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
     		</c:if>
     </ul>

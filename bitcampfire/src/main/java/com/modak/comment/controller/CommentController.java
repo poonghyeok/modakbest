@@ -146,7 +146,7 @@ public class CommentController {
 	         	         
 	         // 내부경로로 저장
 	         String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-	         String filepath = contextRoot+"WEB-INF\\storage\\commentImgAtBoard\\"; //각자 contextroot 경로를 확인한 후 servers 폴더 > server.xml > docBase에  경로 수정 
+	         String filepath = contextRoot+"WEB-INF\\storage\\commentImg\\"; //각자 contextroot 경로를 확인한 후 servers 폴더 > server.xml > docBase에  경로 수정 
 	         //String filepath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\";
 	         //System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+fileRoot);
 	         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+contextRoot);
@@ -164,7 +164,7 @@ public class CommentController {
 	         try {
 	            InputStream fileStream = multipartFile.getInputStream();
 	            FileUtils.copyInputStreamToFile(fileStream, targetFile);   //파일 저장	           
-	            jsonObject.addProperty("url", "/semiproject/src/main/webapp/storage/commentImgAtBoard/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+	            jsonObject.addProperty("url", "/semiproject/src/main/webapp/storage/commentImg/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
 	            jsonObject.addProperty("responseCode", "success");
 	               
 	         } catch (IOException e) {

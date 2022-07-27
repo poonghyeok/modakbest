@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -82,22 +83,16 @@
 							</tr>
 							<tr>
 								<td>
-									<div id="editor">
-										<!-- <textarea name="editor" id="editor" cols="60" rows="20"></textarea>  -->
-									 </div> 
-									
-										<script>
-											let editor;							    
-											ClassicEditor
-										        .create( document.querySelector( '#editor' ) )
-										        .then(newEditor => {							        	
-										        	editor = newEditor
-										        })
-										        .catch( error => {
-										            cnsole.error( error );
-										        });
-										</script>
-									 
+									<!-- @@@@@ 연수 : boardclasswrite - ckeditor 업로드  수정(220727)@@@@@	 -->	 									                        
+			                        <!-- id값을  content로 해줘야 ckeditor가 적용됨  -->
+			                        <textarea rows="5" cols="50" id="content" name="content"></textarea>
+			                        <script type="text/javascript">													
+									 CKEDITOR.replace('content',
+										/* 이미지 업로드 컨트롤러 실행  */	 
+										{filebrowserUploadUrl:'/semiproject/board/uploadImageFileByCkAtClass'
+										});
+									</script>
+									<!-- @@@@@ 연수 : boardclasswrite - ckeditor 업로드  수정(220727)@@@@@	 -->									 
 								</td>
 							</tr>		
 						</table>
@@ -134,9 +129,12 @@ $(function(){
 	 if($('#board_content').focusout()){
 		 $('#board_content').removeClass('empty');
 	 } */
-	
+	 
+	//@@@@@ 연수 : boardclasswrite - ckeditor 업로드  수정(220727)@@@@@	
 	$('#boardClassWriteBtn').click(function(){
-		const editorData = editor.getData();
+		var board_content = CKEDITOR.instances.content.getData(); 
+		//alert(board_content);
+		//alert("click!")
 		
 		//비엇을때 진해지고 포커스아웃시 풀리고
 		
@@ -153,9 +151,11 @@ $(function(){
 	    	$('#board_content').addClass('empty');
 	    	
 		} */
-		else if(editor.getData()==''){
+		
+		else if(board_content ==''){	
 			alert("내용을 입력하세요");
 		}
+		
 		else if( $('#board_classid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
@@ -172,7 +172,7 @@ $(function(){
 					url: '/semiproject/board/boardClassWrite',
 					data: {'board_title': $('#board_title').val(),
 					       //'board_content': $('#board_content').val()
-							'board_content': editorData3,
+							'board_content': board_content,//연수수정(220727)
 							'board_classid' : $('#board_classid option:selected').val()
 					},
 			       	success: function(){
@@ -188,6 +188,7 @@ $(function(){
 	        }
 		}
 	});//$('#boardClassWriteBtn').click
+	//@@@@@ 연수 : boardclasswrite - ckeditor 업로드  수정(220727)@@@@@	
 	
 	
 	
