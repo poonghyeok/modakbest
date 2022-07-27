@@ -1,3 +1,4 @@
+//@@@@@ 연수 : admin > boardclassedit - ckeditor 업로드  수정(220727)@@@@@
 $(function(){
 	
 	$.ajax({
@@ -7,7 +8,7 @@ $(function(){
 		success :function(data){
 			console.log(JSON.stringify(data));
 			$('#board_title').val(data.boardDTO.board_title);
-			editor.setData(data.boardDTO.board_content);
+			CKEDITOR.instances.content.setData(data.boardDTO.board_content); //연수 수정(220727)
 			//연수 option value값  기준으로 선택되도록 변경
 			$('#board_cateid').val(data.boardDTO.board_cateid).prop('selected', true);
 			//$('#category').val(data.boardDTO.board_cateid);
@@ -25,7 +26,9 @@ $(function(){
  
 $(function(){
 	$('#adminBoardNoticeUpdateBtn').click(function(){
-		const editorData = editor.getData();
+		var board_content = CKEDITOR.instances.content.getData(); 
+		//alert(board_content);
+		//alert("click!")
 		var category = $('#category').val()
 		//비엇을때 진해지고 포커스아웃시 풀리고
 		
@@ -35,10 +38,10 @@ $(function(){
 			$('#board_title').addClass('empty');
 			
 
-		}
-		else if(!editor.getData()){
+		}else if(board_content ==''){	
 			alert("내용을 입력하세요");
 		}
+		
 		else if( $('#board_classid option:selected').val()==''){
 			alert('카테고리를 선택하세요');
 		}
@@ -52,7 +55,8 @@ $(function(){
 					type: 'post',
 					url: '/semiproject/admin/adminBoardNoticeUpdate',
 					data: {'board_title' : $('#board_title').val(),
-						   'board_content' : $('div.ck-blurred').html(),
+						   //'board_content' : $('div.ck-blurred').html(),
+						   'board_content': board_content,//연수수정(220727)
 						   'board_cateid' : $('#board_cateid option:selected').val(),
 						   'board_id' : $('#board_id').val()
 					},
@@ -69,6 +73,7 @@ $(function(){
 	        }
 		}
 	});//$('#adminBoardNoticeUpdateBtn').click	
+	//@@@@@ 연수 : admin > boardclassedit - ckeditor 업로드  수정(220727)@@@@@
 	
 	//$('#resetBtn').click(function() 삭제 상단 버튼에서 온클릭으로 이미 처리가 되는 듯(연수_0722)
 	

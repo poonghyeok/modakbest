@@ -64,11 +64,13 @@ public interface BoardService {
 		
 		public List<BoardDTO> freeList();
 		
+
 		public List<BoardDTO> adminBoardSearch(Map<String, Object> map);
 		
 		public void adminBoardDelete(Map<String, Integer> map);
 		
 		public String getAdminAllListPages(int pg);
+
 		
 	// 정수 : 끝  ###################### 
 
