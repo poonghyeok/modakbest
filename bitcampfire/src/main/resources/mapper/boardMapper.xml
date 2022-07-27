@@ -504,9 +504,10 @@
 
 	
 	<!--  기진 : 시작  ###################### --> 
+	
 		<!-- userMyPage -->
 		<select id="getUserMyPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
-			select board_id, board_uid, board_cateid, board_title, board_date_created
+			select * from (select ROWNUM as RN, board_id, board_uid, board_cateid, board_title, board_date_created
 				from (
 				    select board_id,
 				           board_uid,
@@ -559,17 +560,37 @@
 				           
 				    from   board_class
 				    where  board_uid = ${user_id}
-				    
-				    )
-					ORDER BY BOARD_DATE_CREATED DESC
+                    
+				    ORDER BY BOARD_DATE_CREATED DESC
+				    ) 
+                    )tt
+                    where tt.rn &gt;= ${startNum} and tt.rn &lt;= ${endNum}
+                    
+                    
+		</select>		
+		<!-- userMyPage 끝 -->
+		
+	<!-- userMyPage Paging	 -->
+		 <select id="UserMyPagePaging"  parameterType="java.lang.Integer" resultType = "java.lang.Integer">
+				SELECT count(*) FROM (
+				SELECT board_id FROM board_free where board_uid = ${userId}
+				UNION ALL
+		        SELECT board_id FROM board_inform where board_uid = ${userId}
+				UNION ALL
+		        SELECT board_id FROM board_qna where board_uid = ${userId}
+				UNION ALL
+		        SELECT board_id FROM board_review where board_uid = ${userId}
+				UNION ALL
+				SELECT board_id FROM board_class where board_uid = ${userId}
+		        )
 		</select>
+		<!-- userMyPage  Paging 끝-->
 		
-		
-		<!-- userPage -->
-		
+	
+
 		<!-- userPage -->
 		<select id="getUserPageArticle" parameterType="java.util.Map" resultType="BoardDTO">
-			select board_id, board_uid, board_cateid, board_title, board_date_created
+			select * from (select ROWNUM as RN, board_id, board_uid, board_cateid, board_title, board_date_created
 				from (
 				    select board_id,
 				           board_uid,
@@ -611,12 +632,30 @@
 				           
 				    from   board_review
 				    where  board_uid = ${user_id}
-				    				    
-				    )
-					ORDER BY BOARD_DATE_CREATED DESC
+                    
+				    ORDER BY BOARD_DATE_CREATED DESC
+				    ) 
+                    )tt
+                    where tt.rn &gt;= ${startNum} and tt.rn &lt;= ${endNum}
+                    
+		</select> 
+	
+	
+		
+	<!-- userPage Paging	 -->
+		 <select id="UserPagePaging"  parameterType="java.lang.Integer" resultType = "java.lang.Integer">
+			SELECT count(*)  FROM (
+				SELECT board_id FROM board_free where board_uid = ${userId}
+				UNION ALL
+		        SELECT board_id FROM board_inform where board_uid = ${userId}
+				UNION ALL
+		        SELECT board_id FROM board_qna where board_uid = ${userId}
+				UNION ALL
+		        SELECT board_id FROM board_review where board_uid = ${userId}
+		        )
+			
 		</select>
-		
-		
+		<!-- userPage  Paging 끝-->
 	
 	
 	<!--  기진 : 끝  ###################### -->
@@ -626,7 +665,7 @@
 	      INSERT INTO BOARD_CLASS
 	            (board_id, board_uid, board_classid, board_title, board_content, board_cateid, board_date_created)
 	        VALUES
-	            (BOARD_CLASS_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content}, 5,sysdate)
+	            (BOARD_SEQ.nextval,#{board_uid}, #{board_classid}, #{board_title}, #{board_content}, 5,sysdate)
     	</insert>
     	
     	<select id="getBoardClassRangeOrder" parameterType="java.util.Map" resultType="BoardDTO">

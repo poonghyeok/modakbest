@@ -7,7 +7,7 @@
             <div style="float: left;margin-right: 10px;height:100px;">
                 <!-- 풍혁 (220707) : 이미지 대체 필요-->
 
-                <img src="#" alt="footer">
+                <img style="width: 30px; height:30px;" src="/semiproject/img/modakmodakmove.png" alt="footer">
 
             </div>
             <div>

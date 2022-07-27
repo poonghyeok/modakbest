@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.modak.board.bean.BoardAdminNoticePaging;
 import com.modak.board.bean.BoardClassPaging;
 import com.modak.board.bean.BoardDTO;
+import com.modak.board.bean.BoardForUserPagePaging;
 import com.modak.board.bean.BoardPaging;
 //import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
@@ -414,24 +415,78 @@ public class BoardServiceImpl implements BoardService {
 		
 		//기진 : 시작 ############################################
 		
-//    @Override
-//      public List<BoardAllDTO> getBoardAllList() {
-//
-//			return boardDAO.getBoardAllList();
-//		}
-//	
+
 		@Override
 		public List<BoardDTO> getUserMyPageArticle(Map<String, Object> map) {
 			
+			int pg = (int) map.get("pg");
 			
-			return boardDAO.getUserMyPageArticle(map);
+			//최신순으로 정렬할 때, startNum이랑 endNum map에 담아서 보내주기 
+			int boardPerPage = 10;
+			int startNum = 1 + boardPerPage*(pg-1);
+			int endNum = boardPerPage + boardPerPage*(pg-1);
+					
+			Map<String, Integer> pgMap = new HashMap<>();
+			pgMap.put("startNum", startNum);
+			pgMap.put("endNum", endNum);
+			pgMap.put("user_id", Integer.parseInt(String.valueOf(map.get("user_id"))));
+			
+			
+			return boardDAO.getUserMyPageArticle(pgMap);
 		}
 		
 		public List<BoardDTO> getUserPageArticle(Map<String, Object> map) {
 			
+			int pg = (int)map.get("pg");
 			
-			return boardDAO.getUserPageArticle(map);
+			//최신순으로 정렬할 때, startNum이랑 endNum map에 담아서 보내주기 
+			int boardPerPage = 10;
+			int startNum = 1 + boardPerPage*(pg-1);
+			int endNum = boardPerPage + boardPerPage*(pg-1);
+			
+			Map<String, Integer> pgMap = new HashMap<>();
+			
+			pgMap.put("startNum", startNum);
+			pgMap.put("endNum", endNum);
+			pgMap.put("user_id", Integer.parseInt(String.valueOf(map.get("user_id"))));
+			
+			
+			return boardDAO.getUserPageArticle(pgMap);
 		}
+		
+		
+		/*	기진 페이징	*/
+
+		@Override
+		public String getUserPagesPaging(int pg, int userId) {
+			BoardForUserPagePaging boardForUserPagePaging = new BoardForUserPagePaging();
+			boardForUserPagePaging.setCurrentPage(pg);
+			boardForUserPagePaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardForUserPagePaging.setPageSize(10); //page 당 10개의 글 존재
+			boardForUserPagePaging.setTotalA(boardDAO.UserPagePaging(userId));  //sql select count(*)
+			boardForUserPagePaging.makeUserPagingHTML(userId, pg);
+			
+			System.out.println("boardForUserPagePaging = " + boardForUserPagePaging.getTotalA());
+     
+			return boardForUserPagePaging.getPagingHTML().toString();
+		}
+		
+		@Override
+		public String getUserMyPagesPaging(int pg, int userId) {
+			BoardForUserPagePaging boardForUserPagePaging = new BoardForUserPagePaging();
+			boardForUserPagePaging.setCurrentPage(pg);
+			boardForUserPagePaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+			boardForUserPagePaging.setPageSize(10); //page 당 10개의 글 존재
+			boardForUserPagePaging.setTotalA(boardDAO.UserMyPagePaging(userId));  //sql select count(*)
+			boardForUserPagePaging.makeUserMyPagingHTML(userId, pg);
+			
+			System.out.println("boardForUserPagePaging = " + boardForUserPagePaging.getTotalA());
+			
+			return boardForUserPagePaging.getPagingHTML().toString();
+		}
+		
+		
+		
 		
 		//기진 : 끝 ############################################
 
@@ -655,7 +710,7 @@ public class BoardServiceImpl implements BoardService {
 			boardClassPaging.makePagingHTML(sortOption, class_id);
      
 			return boardClassPaging.getPagingHTML().toString();
-  }
+		}
 
 	
 		@Override
@@ -964,7 +1019,6 @@ public class BoardServiceImpl implements BoardService {
 			return null;
 		}
 		
-
 
 }	
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	

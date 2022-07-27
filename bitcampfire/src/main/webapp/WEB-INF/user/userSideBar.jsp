@@ -50,7 +50,7 @@
 
 						<a href="/semiproject/user/userMyPageForm" class='avatar-photo' style="margin-left: 25px;"><img src="/semiproject/storage/userprofile/${sessionScope.memImg}" id="MyPg_user_image"></a>
 						<div class="avatar-info" style="width: 500px;">
-								<a class="user_nickname" href="/semiproject/user/userMyPageForm" title="">${sessionScope.memNickname}</a>
+								<a class="user_nickname" href="/semiproject/user/userMyPageForm?pg=1" title="">${sessionScope.memNickname}</a>
 						</div>
 				</div>
 			</ul>

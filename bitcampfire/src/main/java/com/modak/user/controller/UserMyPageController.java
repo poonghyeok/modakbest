@@ -52,17 +52,34 @@ public class UserMyPageController {
 		userPageInfo.put("userPage_img", session.getAttribute("memImg"));
 		userPageInfo.put("userPage_nickname", session.getAttribute("memNickname"));
 		userPageInfo.put("userPage_id", session.getAttribute("memId"));
+		userPageInfo.put("userPage_classid", session.getAttribute("memClassId"));		
 		userPageInfo.put("pg", pg);
 		
+		System.out.println();
+		System.out.println("userPageInfo = " +userPageInfo);
+		System.out.println();
+		
+		String user_id = String.valueOf(session.getAttribute("memId"));
+		System.out.println(" String user_id" + user_id);
+		
+		
 		map.put("user_id", session.getAttribute("memId"));
+		map.put("pg", pg);
+		
 		
 		list = boardService.getUserMyPageArticle(map);
 		
 		System.out.println("userMyPage = " + list);
+		
+		//페이징
+		int userId = Integer.parseInt(user_id);
+		String userPagePagingList = boardService.getUserMyPagesPaging(pg, userId); 
+		
 	
 		mav.setViewName("/user/userPageForm");
 		mav.addObject("list", list);
 		mav.addObject("userPageInfo", userPageInfo);
+		mav.addObject("userPagePagingList", userPagePagingList);
 		
 		return mav;
 		
@@ -117,19 +134,22 @@ public class UserMyPageController {
 			
 			System.out.println("userPageInfo = " + userPageInfo);
 			
-			//페이징
-	//		userService.
 			
 			//boardDTO 게시물 가져오기
 			map.put("user_id", session.getAttribute("memId"));
-			System.out.println("memId = " + session.getAttribute("memId"));
+			map.put("pg", pg);
 			
 			list = boardService.getUserMyPageArticle(map);
 			System.out.println("my boardDTO list = " + list);
 
+			//페이징
+			int userId = Integer.parseInt(user_id);
+			String userPagePagingList = boardService.getUserMyPagesPaging(pg, userId); 
+			
 			mav.setViewName("/user/userPageForm");
 			mav.addObject("list", list);
 			mav.addObject("userPageInfo", userPageInfo);
+			mav.addObject("userPagePagingList", userPagePagingList);
 
 		}else{
 			
@@ -143,14 +163,23 @@ public class UserMyPageController {
 			
 			//boardDTO 게시물 가져오기
 			map.put("user_id", user_id);
-			System.out.println("\n @log@ user_id map : " + user_id);
+			map.put("pg", pg);
+			
 			list = boardService.getUserPageArticle(map);
+			
+			System.out.println("\n @log@ user_id map : " + user_id);
 			System.out.println("my boardDTO list = " + list);
-
+			
+			//페이징
+			int userId = Integer.parseInt(user_id);
+			String userPagePagingList = boardService.getUserPagesPaging(pg, userId); 
+			
+			
 			
 			mav.setViewName("/user/userPageForm");
 			mav.addObject("list",list);
 			mav.addObject("userPageInfo", userPageInfo);
+			mav.addObject("userPagePagingList", userPagePagingList);
 		
 		}
 		
