@@ -99,6 +99,12 @@ public class BoardDAOMyBatis implements BoardDAO {
 			sqlSession.update("boardSQL.update", map);
 		
 		}
+		
+		@Override
+		public int getCurrentSeq() {
+			
+			return sqlSession.selectOne("boardSQL.getCurrentSeq");
+		}
 	//풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 

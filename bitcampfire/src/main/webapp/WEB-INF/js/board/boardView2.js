@@ -657,8 +657,7 @@ function categoryToInt(category){
 	return result;
 }
 
-//풍혁0722 : 글 수정했습니다 완료했습니다 alert Div 닫기버튼 
+//풍혁0722 : boardView alert Div 닫기버튼 
 $('#alertDivCloseBtn').click(function(){
-	alert('closebnt clicked..!');
 	$('#alertDiv').attr('style', 'display : none');
 })

@@ -210,23 +210,38 @@ $(document).on('change','#board_cateid', function(){
 	            return false;
 	        }	
 	        else{
-				
+				var board_cateid = $('#board_cateid option:selected').val()
+	        	var boardCurrentSeq;
 	        	$.ajax({
 					type: 'post',
+					async : false,
 					url: '/semiproject/board/write',
 					data: {'board_title': $('#board_title').val(),
 					       'board_content': board_content,
-							'board_cateid' : $('#board_cateid option:selected').val()
-							
+							'board_cateid' : board_cateid
 					},
 			       	success: function(){
 						alert('게시글을 등록하였습니다.');
+						
+						$.ajax({
+							type : 'get',
+							url : '/semiproject/board/currentSeq',
+							async : false,
+							success : function(result){
+								boardCurrentSeq = result;
+								console.log('boardCurrentValue : ' + result);
+							},
+							error : function(err){
+								console.log(err);
+							}
+						})
 			            //풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
-						location.href='/semiproject/board/list?state=write&category='+$('#category').val()+'&pg=1&sortOption=date'; 
-						location.href
+						location.href='/semiproject/board/getBoardView?state=write&category='+$('#category').val()+'&pg=1&board_id='+boardCurrentSeq; 
+						//풍혁220728 : 작성했던 글 바로 alertDiv랑 보여주기로	
 					},
 					error: function(e){
 						console.log(e);
+						return;
 					}
 				});//ajax
 			

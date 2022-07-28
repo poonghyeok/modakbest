@@ -29,6 +29,8 @@ public interface BoardDAO {
 		public List<BoardDTO> getBoardRangeOrder(Map<String, Integer> map, String sortOption);
 
 		public void update(Map<String, String> map);
+		
+		public int getCurrentSeq();
 
 	//풍혁 : 끝 ====================================
 	

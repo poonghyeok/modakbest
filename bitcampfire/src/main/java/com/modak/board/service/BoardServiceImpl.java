@@ -322,6 +322,11 @@ public class BoardServiceImpl implements BoardService {
 			return;
 		}
 	
+		@Override
+		public int getCurrentSeq() {
+			
+			return boardDAO.getCurrentSeq();
+		}
 //풍혁 : 끝 =============================================
 	
 	

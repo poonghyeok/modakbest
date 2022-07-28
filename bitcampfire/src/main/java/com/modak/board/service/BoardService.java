@@ -32,6 +32,8 @@ public interface BoardService {
 		public void update(Map<String, String> map);
 		
 		public List<BoardDTO> getBoardList(Map<String,Integer> map, String category);
+		
+		public int getCurrentSeq();
 	//풍혁 : 끝 =================================
 
 	

@@ -215,7 +215,9 @@
 				WHERE board_id = ${board_id}	 
 		</update>
     	
-    
+	    <select id="getCurrentSeq" resultType="java.lang.Integer">
+	    	select board_seq.currval from dual
+	    </select>
 	<!-- ======================== 풍혁 : 끝 ============================= -->
 	
 	<!--  ###################### 정수 : 시작  ###################### -->

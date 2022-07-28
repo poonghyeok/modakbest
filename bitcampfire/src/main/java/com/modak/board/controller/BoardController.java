@@ -165,7 +165,11 @@ public class BoardController {
 			return userService.getUserImgByUserid(user_id);
 		}
 		  	
-		  
+		@GetMapping(value = "currentSeq")
+		@ResponseBody
+		public int getCurrentSeq() {
+			return boardService.getCurrentSeq();
+		}
 //풍혁 : 끝 ====================================
 	
 	// 정수 : 시작  ###################### 

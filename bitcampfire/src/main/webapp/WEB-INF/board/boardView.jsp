@@ -38,7 +38,7 @@
 			<div id = "boardViewAlert">
 			<c:if test="${param.state != null}">
 				<c:choose>
-					<c:when test="${param.state == 'recommend'}"><div id = "alertDiv" class="alert alert-success alert-dismissible" role="alert"></c:when>
+					<c:when test="${param.state != 'recommendCancel'}"><div id = "alertDiv" class="alert alert-success alert-dismissible" role="alert"></c:when>
 					<c:when test="${param.state == 'recommendCancel'}"><div id = "alertDiv" class="alert alert-danger alert-dismissible" role="alert"></c:when>
 				</c:choose>
 					<button type="button" class="close" data-dismiss="alert">
