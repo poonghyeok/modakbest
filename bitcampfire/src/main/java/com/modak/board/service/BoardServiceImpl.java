@@ -174,7 +174,7 @@ public class BoardServiceImpl implements BoardService {
 					tr.append("<div class='list-tag clearfix'>");
 						//풍혁220709 : 게시판 아이콘 반영 안되고있음
 						tr.append("<span class='list-group-item-text article-id'>"+ boardDTO.getBoard_id()+"</span>");
-						tr.append("<a='/semiproject/board/list?pg=1' class='list-group-item-text item-tag label label-info'>"+ boardDTO.cateidToString()+"</a>"); 
+						tr.append("<a href='http://localhost:8080/semiproject/board/list?category="+ noticeCateidToString(boardDTO.getBoard_cateid())+"&pg=1&sortOption=date' class='list-group-item-text item-tag label label-info'>"+ boardDTO.cateidToString()+"</a>"); 
 					tr.append("</div>");
 				
 					tr.append("<h5 class='list-group-item-heading list-group-item-evaluate'>");

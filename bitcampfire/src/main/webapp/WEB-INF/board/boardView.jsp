@@ -53,6 +53,7 @@
 			        	 	<c:when test="${param.state == 'recommendCancel'}">글 추천 취소가</c:when>
 			        	 	<c:when test="${param.state == 'commentWrite'}">댓글 작성이</c:when>
 			        	 	<c:when test="${param.state == 'commentDelete'}">댓글 삭제가</c:when>
+			        	 	<c:when test="${param.state == 'commentUpdate'}">댓글 수정이</c:when>
 			        	 </c:choose> 완료 되었습니다.</li>
 			     	</ul>
 	 			</div>		

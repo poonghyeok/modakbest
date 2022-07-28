@@ -491,8 +491,7 @@ $(document).on('click','#commentUpdateBtn', function(){
 			data : {'cmt_id' : comment_id, 'cmt_content' : comment_content_update},
 			async : false,
 			success : function(){
-				alert('댓글 수정을 완료하였습니다.');
-				location.reload();
+				location.href='/semiproject/board/getBoardView?state=commentUpdate&category='+$('#category').val()+'&board_id='+$('#board_id').val();
 			},
 			error : function(err){
 				console.log(err);
