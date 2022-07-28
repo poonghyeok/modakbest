@@ -27,8 +27,7 @@ public class BoardAdminController {
 	private BoardService boardService;
 	
 	@GetMapping(value = "adminBoardAllList")
-	public ModelAndView adminBoardAllList(@RequestParam int pg) { 
-		
+	public ModelAndView adminBoardAllList(@RequestParam int pg) { 		
 		
 		String pageButton = boardService.getBoardAdminPaging(pg).getPagingHTML().toString();
 		
@@ -96,20 +95,36 @@ public class BoardAdminController {
 		return boardService.getUserNameByUserId(board_uid);
 	}
 	
+	@GetMapping(value = "adminBoardSearchList")
+	public ModelAndView adminBoardSearchList(@RequestParam int pg, String target, String keyword ) { 		
+//		Map<String , Object> map = new HashMap<String, Object>(); 
+//		map.put("target", target); // sortOption
+//		map.put("keyword", keyword);
+//		map.put("pg", pg);
+		
+		String pageButton = boardService.getBoardAdminSearchPaging(pg, target, keyword).getPagingHTML().toString();
+		
+		ModelAndView mav = new ModelAndView(); 
+		mav.addObject("pageButton", pageButton);
+		
+		mav.setViewName("/admin/adminBoardAllList");
+		return mav;	}
+
+	
 	@GetMapping(value= "adminBoardSearch")
 	@ResponseBody
-	public List<BoardDTO> adminSearch(@RequestParam String target, String keyword) {
+	public List<BoardDTO> adminSearch(@RequestParam String target, String keyword, int pg) {
 		
-		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@target = " + target + ", keyword = " + keyword); // board_id, 구 넘어옴
-		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@target = " + target + ", keyword = " + keyword); // board_id, 구 넘어옴
+		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@pg = " + pg);
 		Map<String , Object> map = new HashMap<String, Object>(); 
 		map.put("target", target); // sortOption
 		map.put("keyword", keyword);
+		map.put("pg", pg);
 		
-		List<BoardDTO> boardDTO = boardService.adminBoardSearch(map);
+		List<BoardDTO> list = boardService.adminBoardSearch(map);
+		return list;
 		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@map = " + map);
-		
-		return boardDTO;
 	}
 	
 	  @GetMapping(value = "adminBoardDelete")

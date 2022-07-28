@@ -96,7 +96,7 @@ height : 100px;
 	</form>
 
 	<div class="text-center"> 
-		<ul class="pagination pagination-sm">
+		<ul class="pagination pagination-sm" id="boardSearchPgDiv">
 		${pageButton}
 		</ul>
 	</div>	
@@ -165,30 +165,28 @@ height : 100px;
 						'</li>';
 			$(test).appendTo('.list-group');
 			
-			/* 선택 삭제 */
-			$('#adminBoardDeleteBtn_select' + item.board_id).click(function(){
-				if (confirm('정말로 삭제하시겠습니까?')) {
-					 $.ajax({
-						type : "get",
-						url : "/semiproject/admin/adminBoardDelete",
-						//data : $("input:checkbox[name=check]:checked").val(),
-						data :
-							//{'board_id': $('#board_id'+items.user_id).text()},
-									{'board_id': $('#board_id'+item.board_id).text(),
-									'board_cateid': $('#board_cateid'+item.board_id).text()},
-						success : function(data) {
-							console.log(data)
-							alert("관리자페이지에서 삭제완료")
-							location.reload();
-						}, error : function(err) {
-							console.log(err);
-						} 
-					}) // ajax 
-				} // if 
-			});  // click
-			
+					/* 선택 삭제 */
+					$('#adminBoardDeleteBtn_select' + item.board_id).click(function(){
+						if (confirm('정말로 삭제하시겠습니까?')) {
+							 $.ajax({
+								type : "get",
+								url : "/semiproject/admin/adminBoardDelete",
+								data :
+											{'board_id': $('#board_id'+item.board_id).text(),
+											'board_cateid': $('#board_cateid'+item.board_id).text()},
+								success : function(data) {
+										alert("관리자페이지에서 삭제완료")
+										$(this).parent().remove();
+										location.reload();
+								
+								}, error : function(err) {
+										console.log(err);
+								} 
+							}) // ajax 
+						} // if 
+					});  // click
 				}) // each
-			}, // success
+			}, 
 			error : function(err) {
 				console.log(err);
 			} // error
@@ -199,26 +197,34 @@ height : 100px;
 			
 	/* 검색 버튼 눌렀을 때 */	
 	 $('#BoardSearchBtn').click(function(){
+		 var target = target.options[target.selectedIndex].value, // searchOption 값 
+		var keyword = $('#keyword').val()
 			if($('#keyword').val()=='') { // 입력하지 않으면  
 				alert('검색어를 입력하세요.') // ok
 				location.reload(); // 새로고침
-			} else { 
-				 var target = document.getElementById("searchOption"); // target 안에 searchOption 값 담겨있음. 
+			} else {
+				location.href = "http://localhost:8080/semiproject/admin/adminBoardSearchList?category=admin&pg=1&target="+target+"&keyword="+keyword;
+				/*  var target = document.getElementById("searchOption"); */ // target 안에 searchOption 값 담겨있음. 
 				        //alert('선택된 옵션 value 값=' + target.options[target.selectedIndex].value);     // 옵션 value 값 // ok
-	
+				 $('.list-group li:gt(0)').remove();
+				 
 				 $.ajax({
 					type : "get",
 					url : "/semiproject/admin/adminBoardSearch",
 					data : {
 							target : target.options[target.selectedIndex].value, // searchOption 값 
-							keyword : $('#keyword').val() // 키워드
+							keyword : $('#keyword').val(), // 키워드
+							pg : $('#searchPg').val()
 							},
 							success : function(data) {
-								console.log(JSON.stringify(data));
+								
+								alert('검색결과 : ' + JSON.stringify(data));
 								
 					$.each(data, function(index, item){ //board_uid
-						$('.list-group li:gt(0)').remove();
+						console.log('검색결과 ' + index +  '회차 ');
+						
 						// 유저닉네임 가져오기
+						
 						var userNickname;
 							$.ajax({
 								type : "get",
@@ -232,21 +238,22 @@ height : 100px;
 								}, error : function(err) {
 									console.log(err);
 								}
-							}); // ajax끝
+							}); // ajax끝 *
 									
-							var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+
-										'<input class="checkDelete" id="checkDelete" type="checkbox" style="float: left; margin-top: 10px;" name="'+item.board_id+'">'+
-										'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
-										'<div style ="float:left; width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
-										'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
-										'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' +item.board_title +'</a></div>'+
-										'<div style ="float:left; width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
-										'<div style ="float:left; width:110px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
-										'<div id = "userNickname" style ="float:left; width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname+'</div>'+
-										'<div style ="float:left; width:160px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'
-										
-										'</li>';
-							$(test).appendTo('.list-group');
+							var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
+							'<div id = "board_id'+item.board_id+'"class="list-title-wrapper clearfix1" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
+							'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
+							'<div class="list-title-wrapper clearfix3" style =" width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
+							'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' +item.board_title +'</a></div>'+
+							'<div class="list-title-wrapper clearfix4" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
+							'<div class="list-title-wrapper clearfix5" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
+							'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname+'</div>'+
+							'<div class="list-title-wrapper clearfix7" style =" width:200px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'+
+							'<div class="list-title-wrapper clearfix8" id = "adminBoard" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">'+
+							'<input type="button" value = "삭제" id="adminBoardDeleteBtn_select'+item.board_id+'"class="btn btn-primary btn-sm" value="삭제" style="background-color: #337ab7; font-weight: bold; color : white;"></div>'+
+							
+							'</li>';
+								$(test).appendTo('.list-group');
 							
 								}) // each
 								
@@ -258,9 +265,24 @@ height : 100px;
 				}
 		 });
 			
-		function boardAdminPaging(pg) {
-			location.href = "http://localhost:8080/semiproject/admin/adminBoardAllList?category=admin&pg="+pg;
-		}
+
+/* 		//@@@@@ 페이징 처리
+		function boardAdminPaging(pg){	 
+			var keyword = $('#keyword').val();
+			
+			if(keyword == ''){
+				location.href = "http://localhost:8080/semiproject/admin/adminBoardAllList?category=admin&pg="+pg;
+				
+			}else{
+				$('#searchPg').val(pg2); //searchPg가 1로 고정되어 있기 때문에
+				$('#BoardSearchBtn').trigger('click'); //강제로 이벤트 발생
+				
+				//다시 검색 버튼을 누르면 1페이지로부터 검색할 수 있도록 searchPg를 1로 바꾸어야 한다.
+				$('#searchPg').val(pg2);
+			}
+		} */
+
+
 		
 		
 		</script>

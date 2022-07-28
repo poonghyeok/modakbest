@@ -410,6 +410,8 @@
 		
 		<!-- admin 검색 -->
 		 <select id="adminBoardSearch" parameterType="java.util.Map" resultType="BoardDTO">
+ 		SELECT * FROM (	
+	   		SELECT ROWNUM AS RN, TT.* FROM(
 			select board_id, board_uid, board_cateid, board_title, board_date_created
 				from (
 				    select board_id,
@@ -474,8 +476,8 @@
 						<if test="target=='board_cateid'">
 						   	where board_cateid LIKE '%'||#{keyword}||'%'
 						</if>
-
-			ORDER BY BOARD_DATE_CREATED DESC
+	   		ORDER BY BOARD_DATE_CREATED DESC)TT) 
+	   		WHERE (RN &gt;=${startNum} AND RN &lt;=${endNum})
 		</select> 
 		
 		<!-- admin 삭제 -->
@@ -508,6 +510,49 @@
 		            union all
 		            select board_id from board_free))
 		</select>
+		
+		
+		
+		<select id = "getBoardTotalSearchA" resultType = "Integer" parameterType = "java.util.Map">
+			select count(*) from 
+				(select*from(
+		            select board_id from board_review 
+		           		<if test="target=='board_title'">
+						   where board_title LIKE '%'||#{keyword}||'%'
+						</if>
+		
+						<if test="target=='board_cateid'">
+						   	where board_cateid LIKE '%'||#{keyword}||'%'
+						</if>
+		            union all
+		            select board_id from board_qna 
+		            	<if test="target=='board_title'">
+						   where board_title LIKE '%'||#{keyword}||'%'
+						</if>
+		
+						<if test="target=='board_cateid'">
+						   	where board_cateid LIKE '%'||#{keyword}||'%'
+						</if>
+		            union all
+		            select board_id from board_inform  
+		            	<if test="target=='board_title'">
+						   where board_title LIKE '%'||#{keyword}||'%'
+						</if>
+		
+						<if test="target=='board_cateid'">
+						   	where board_cateid LIKE '%'||#{keyword}||'%'
+						</if>
+		            union all
+		            select board_id from board_free 
+		            	<if test="target=='board_title'">
+						   where board_title LIKE '%'||#{keyword}||'%'
+						</if>
+		
+						<if test="target=='board_cateid'">
+						   	where board_cateid LIKE '%'||#{keyword}||'%'
+						</if> ))   	
+		</select>
+		
 		
 	<!-- ####################### 정수 : 끝  ###################### -->
 	

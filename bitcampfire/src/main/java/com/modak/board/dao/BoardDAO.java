@@ -152,6 +152,8 @@ public interface BoardDAO {
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(int cateid);
 		//총글수
 		public int getBoardTotalA();
+		// 검색 총글수
+		public int getBoardTotalSearchA(String target, String keyword);
 
 		
 		// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
