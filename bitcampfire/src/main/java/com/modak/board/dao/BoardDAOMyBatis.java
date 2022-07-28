@@ -437,6 +437,15 @@ public class BoardDAOMyBatis implements BoardDAO {
 				return sqlSession.selectOne("boardSQL.getBoardTotalA");
 			}
 
+
+			@Override
+			public int getBoardTotalSearchA(String target, String keyword) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("target", target);
+				map.put("keyword", keyword);
+				return sqlSession.selectOne("boardSQL.getBoardTotalSearchA", map);
+			}
+
 			// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
 
 }

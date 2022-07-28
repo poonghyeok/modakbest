@@ -20,7 +20,6 @@ import com.modak.board.bean.BoardForUserPagePaging;
 import com.modak.board.bean.BoardPaging;
 //import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
-import com.modak.user.bean.UserAdminPaging;
 import com.modak.user.dao.UserDAO;
 
 @Service
@@ -427,8 +426,17 @@ public class BoardServiceImpl implements BoardService {
 
 		@Override
 		public List<BoardDTO> adminBoardSearch(Map<String, Object> map) {
-			return boardDAO.adminBoardSearch(map);
+			int endNum = (int)map.get("pg") * 10;
+			int startNum = endNum - 9;
+			
+			map.put("startNum", startNum+"");
+			map.put("endNum", endNum+"");
+			//System.out.println("#############"+map.get("keyword")+""+map.get("target"));
+			List<BoardDTO> list = boardDAO.adminBoardSearch(map);
+			
+			return list;
 		}
+		
 
 		@Override
 		public void adminBoardDelete(Map<String, Integer> map) {
@@ -454,6 +462,21 @@ public class BoardServiceImpl implements BoardService {
 			return boardAdminPaging;
 		}
 		
+		@Override
+		public BoardAdminPaging getBoardAdminSearchPaging(int pg, String target, String keyword) {
+			int totalA = boardDAO.getBoardTotalSearchA(target, keyword); //총 게시물 수 
+			
+			BoardAdminPaging boardAdminPaging = new BoardAdminPaging();
+			
+			boardAdminPaging.setCurrentPage(pg);
+			boardAdminPaging.setPageBlock(10);
+			boardAdminPaging.setPageSize(10);
+			boardAdminPaging.setTotalA(totalA);
+			boardAdminPaging.makePagingHTML(target, keyword); //실제 페이지를 만드는 역할
+			
+			return boardAdminPaging;
+			
+		}
 		
 		@Override
 		public String getAdminAllListPages(int pg) {
@@ -1067,14 +1090,8 @@ public class BoardServiceImpl implements BoardService {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
-		
 
 		
-		
-		
-		
-
 }	
 	// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 	
 	//<!--@@@@ 연수 살려주세요!(220721)  -->	
