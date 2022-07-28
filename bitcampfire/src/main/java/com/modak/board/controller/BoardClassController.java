@@ -55,11 +55,11 @@ public class BoardClassController {
 			session.setAttribute("memClass_academy", userAllDTO.getClass_academy());
 			
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨.
-			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg); 
+//			System.out.println("\n @Log@ /boardList/list mapping..!! current pg : " + pg); 
 			HttpSession session = req.getSession();
-			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("memEmail"));
+//			System.out.println("\n @LOG@ session_email check : " + (String)session.getAttribute("memEmail"));
 			String session_email = (String)session.getAttribute("memEmail");
-			System.out.println("\n @LOG@ session_classid check : " + session.getAttribute("memClassid"));
+//			System.out.println("\n @LOG@ session_classid check : " + session.getAttribute("memClassid"));
 			int session_classid = (int)session.getAttribute("memClassid");
 			
 			String userClassWriteTableList = boardService.getUserClassWriteTablelist(pg, sortOption,class_id, userAllDTO.getClass_academy());
@@ -96,7 +96,7 @@ public class BoardClassController {
 		public ModelAndView boadClassSearchList(@RequestParam(value = "pg", required = false, defaultValue = "1") int pg, @RequestParam String keyword, @RequestParam String sortOption,  @RequestParam(value = "class_id", required = false) int class_id) {
 			UserAllDTO userAllDTO = userService.getUserClass_Class(class_id);
 			//ajax방식으로 할 거 아니면, String이나 String Buffer 물어와야 됨. 
-			System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
+//			System.out.println("\n @Log@ /boardList/search mapping..!! current pg : " + pg);
 			
 			String userClassWriteTableList = boardService.getUserClassSearchWriteTablelist(pg, keyword, sortOption, class_id, userAllDTO.getClass_academy());
 			String boardClassPagingList = boardService.getBoardClassSearchPagingList(pg, keyword, sortOption, class_id);
@@ -116,7 +116,7 @@ public class BoardClassController {
 		//######################view#####################
 		@GetMapping(value = "getBoardClassView") // 데이터값 담아서 jsp로 이동
 		public ModelAndView getBoardClassView(@RequestParam(required = false, defaultValue = "1") int board_id, @RequestParam(required = false, defaultValue = "1") String pg, @RequestParam(value = "class_id", required = false) int class_id) { // 글번호, 페이지값 
-			System.out.println("getBoardView 컨트롤러 실행....");
+//			System.out.println("getBoardView 컨트롤러 실행....");
 		
 			ModelAndView mav = new ModelAndView(); // boardView.jsp 에 데이터 넣어 보내기
 			mav.addObject("board_id", board_id); // 글번호값이랑 
@@ -137,13 +137,13 @@ public class BoardClassController {
 			
 			//풍혁220714 : board_uid로 user_img를 받아서 프로필 사진 반영하겠습니다. 
 			String userImg = userService.getUserImgByUserid(boardDTO.getBoard_uid());
-			System.out.println("\n @log@ userimg : " + userImg);
+//			System.out.println("\n @log@ userimg : " + userImg);
 			mav.addObject("user_img", userImg);
 			
 			mav.addObject("getBoard_classid", boardDTO.getBoard_classid());
 			
-			System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
-			System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
+//			System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
+//			System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());
 			mav.setViewName("board/boardClassView"); // boardView.jsp로 보냄 
 			return mav; // 스프링한테 데이터랑 목적지 꺼내봐 하는거
 		}
@@ -152,8 +152,8 @@ public class BoardClassController {
 		@ResponseBody
 		public int boardClassRecommend(@RequestParam int vote_uid, int vote_classid, int vote_bid) { // 게시글 번호와, 추천유저아이디 
 			
-			System.out.println("****** TEST 추천 컨트롤러*************");
-			System.out.println("추천글번호 :" + vote_bid + " | " + "유저번호 :" +  vote_uid + "|" +  "카테번호 :" + vote_classid);
+//			System.out.println("****** TEST 추천 컨트롤러*************");
+//			System.out.println("추천글번호 :" + vote_bid + " | " + "유저번호 :" +  vote_uid + "|" +  "카테번호 :" + vote_classid);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -216,11 +216,11 @@ public class BoardClassController {
 		  
 		  @PostMapping(value = "boardClassUpdate")
 			public void boardClassUpdate(@RequestParam Map<String,String> map) {
-				System.out.println("\n@board update LOG @");
-				System.out.println("board_title" + map.get("board_title"));
-				System.out.println("board_content" + map.get("board_content"));
-				System.out.println("board_classid" + map.get("board_classid"));
-				System.out.println("board_id" + map.get("board_id"));
+	//			System.out.println("\n@board update LOG @");
+	//			System.out.println("board_title" + map.get("board_title"));
+	//			System.out.println("board_content" + map.get("board_content"));
+	//			System.out.println("board_classid" + map.get("board_classid"));
+	//			System.out.println("board_id" + map.get("board_id"));
 				
 				boardService.boardClassUpdate(map);
 			}
@@ -230,7 +230,7 @@ public class BoardClassController {
 				public void uploadImageFileByCkAtClass(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception {
 				 
 				 String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("WEB-INF\\storage\\boardImg\\");
-				 System.out.println("uploadPath  : "+uploadPath);
+				// System.out.println("uploadPath  : "+uploadPath);
 				 // 랜덤 문자 생성
 				 UUID uid = UUID.randomUUID();
 				 
@@ -263,12 +263,12 @@ public class BoardClassController {
 				  json.addProperty("fileName", fileName);
 				  json.addProperty("url", fileUrl);
 				  printWriter.println(json);
-				  System.out.println("내가바로콜백"+json);
+				 // System.out.println("내가바로콜백"+json);
 				  
 				  printWriter.flush();
-				  System.out.println("test url : "+req.getSession().getServletContext().getRealPath("/"));
-				  System.out.println("url : "+fileUrl);
-				  System.out.println("ckUploadPath : "+ckUploadPath);
+				 // System.out.println("test url : "+req.getSession().getServletContext().getRealPath("/"));
+				  //System.out.println("url : "+fileUrl);
+				  //System.out.println("ckUploadPath : "+ckUploadPath);
 				 } catch (IOException e) { e.printStackTrace();
 				 } finally {
 				  try {

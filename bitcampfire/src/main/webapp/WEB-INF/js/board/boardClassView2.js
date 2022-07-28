@@ -610,7 +610,7 @@ function uploadSummernoteImageFile(file, editor) {
 		enctype : 'multipart/form-data',
 		processData : false,
 		success : function(data) {
-			alert(data.url);
+		//	alert(data.url);
 			//$(editor).summernote('insertImage', data.url);
 			$('#summernote').summernote('insertImage', data.url);
 			//$(editor).summernote('editor.insertImage', data.url);
