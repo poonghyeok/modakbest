@@ -224,6 +224,7 @@ public class BoardController {
 			mav.addObject("user_img", userImg);
 			
 			mav.addObject("cateidToString", boardDTO.cateidToString());
+			mav.addObject("category", category);
 			
 			//System.out.println("DTO에서 댓글수 TEST = " + boardDTO.getBoard_cmt_cnt());
 			//System.out.println("DTO 에서 시간 TEST = " + boardDTO.getBoard_date_created());

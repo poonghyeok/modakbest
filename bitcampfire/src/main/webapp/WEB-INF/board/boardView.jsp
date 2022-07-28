@@ -107,7 +107,7 @@
 					<div id="content-body" class="panel-body content-body pull-left">
 						<div class="content-tags">
 							<span class="list-group-item-text -id">${board_id}</span> 
-							<a href="/semiproject/board/list?category=${cateidToString}&pg=1&sortOption=date" class="list-group-item-text item-tag label label-info"> 
+							<a href="/semiproject/board/list?category=${category}&pg=1&sortOption=date" class="list-group-item-text item-tag label label-info"> 
 							<i class="fa fa-comments"></i>
 							${cateidToString}
 							</a> 
