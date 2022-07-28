@@ -518,9 +518,7 @@ $(document).on('click','#commentDeleteBtn', function(){
 				'cmt_cateid' : cmt_cateid},
 			async : false,
 			success : function(){
-				alert(comment_id + '번 댓글 삭제 완료');
-				alert('댓글을 삭제 하였습니다.');
-				location.reload();
+				location.href='/semiproject/board/getBoardView?state=commentDelete&category='+$('#category').val()+'&board_id='+$('#board_id').val();
 			},
 			error : function(err){
 				console.log(err);
@@ -617,8 +615,7 @@ $('#btn-create-btn').click(function(){
 				'cmt_content' : content_with_tag,
 			},
 			success : function(){
-				alert('댓글작성을 완료했습니다.');
-				location.reload(); /*= "/semiproject/board/getBoardView?board_id="+$('#board_id').val();*/
+				location.href='/semiproject/board/getBoardView?state=commentWrite&category='+$('#category').val()+'&board_id='+$('#board_id').val();
 			},
 			error : function(err){
 				console.log(err);
