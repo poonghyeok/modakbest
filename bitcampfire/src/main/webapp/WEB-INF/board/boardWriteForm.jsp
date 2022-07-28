@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -69,12 +70,6 @@
 									<label for="title" class="eunhye">제목</label>
 									<div><input type="text" name="board_title" class="eunhye" id="board_title" placeholder="제목을 입력해 주세요."></div>
 									<div class="alertMsg" id="board_titleDiv"></div> 
-								</td>
-							</tr>
-							<tr>
-								<td>	
-									<label for="Tags">태그</label>
-									<div><input type="text" class="eunhye" id="board_tags" name="board_tags" placeholder="Tags." ></div>
 								</td>
 							</tr>
 							<tr>

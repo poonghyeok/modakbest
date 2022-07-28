@@ -47,8 +47,8 @@ public class CommentClassController {
 		@PostMapping(value = "commentClassWrite")
 		@ResponseBody
 		public void commentClassWrite(@ModelAttribute CommentDTO commentDTO) {
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+commentDTO.getCmt_content());
-			String cmt_img = commentDTO.getCmt_content();
+//			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+commentDTO.getCmt_content());
+//			String cmt_img = commentDTO.getCmt_content();
 			
 			commentService.commentClassWrite(commentDTO);
 			
@@ -82,7 +82,7 @@ public class CommentClassController {
 		@ResponseBody
 		public void commentClassUpdate(@RequestParam int cmt_id, @RequestParam String cmt_content) {
 			
-			System.out.println("\n @LOG@ comment...commentClassUpdate : " + cmt_id + " cmt_ content : "+ cmt_content);
+//			System.out.println("\n @LOG@ comment...commentClassUpdate : " + cmt_id + " cmt_ content : "+ cmt_content);
 			commentService.commentClassUpdate(cmt_id, cmt_content);
 			
 			return ;
@@ -118,16 +118,16 @@ public class CommentClassController {
 			String filepath = contextRoot+"WEB-INF\\storage\\commentImg\\";
 			//String filepath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\";
 			//System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+fileRoot);
-			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4"+contextRoot);
+//			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4"+contextRoot);
 			
 			String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-			System.out.println("----------------------"+originalFileName);
+//			System.out.println("----------------------"+originalFileName);
 			
 			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-			System.out.println("----------------------"+extension);
+//			System.out.println("----------------------"+extension);
 			
 			String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-			System.out.println("----------------------"+savedFileName);
+//			System.out.println("----------------------"+savedFileName);
 			
 			//File targetFile = new File(fileRoot + savedFileName);	
 			File targetFile = new File(filepath + savedFileName);	

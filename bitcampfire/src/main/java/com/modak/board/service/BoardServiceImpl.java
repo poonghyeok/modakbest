@@ -545,7 +545,7 @@ public class BoardServiceImpl implements BoardService {
 		public void boardClassWrite(BoardDTO boardDTO) {
 			String session_email = (String)session.getAttribute("memEmail");
 			int board_uid = userDAO.getUserIdByEmail(session_email);
-			System.out.println("\n@ session_eamil = " + session_email);
+//			System.out.println("\n@ session_eamil = " + session_email);
 			//풍혁220708 : userDAO에 user_id 받아오는 method와 query 생성해서 boardDTO에 집어넣고 글 생성할 때 반영
 			boardDTO.setBoard_uid(board_uid);
 			boardDAO.boardClassWrite(boardDTO);
@@ -573,8 +573,8 @@ public class BoardServiceImpl implements BoardService {
 			
 			List<BoardDTO> list = boardDAO.getBoardClassRangeOrder(map, sortOption,class_id);
  
-			System.out.println("\n @ boardClassTalbeList size : " + list.size());
-			System.out.println("\n @ getBoardClassRange parameter : " + class_id+ pg + map.get("startNum") + map.get("endNum"));
+//			System.out.println("\n @ boardClassTalbeList size : " + list.size());
+//			System.out.println("\n @ getBoardClassRange parameter : " + class_id+ pg + map.get("startNum") + map.get("endNum"));
 			sb.append("<ul class=\"list-group \">");
 			for(BoardDTO dto : list) {
 				sb.append(boardClassDtoToTrTag(class_id, dto, sortOption, class_academy));
@@ -633,7 +633,7 @@ public class BoardServiceImpl implements BoardService {
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 시작 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = boardDTO.getBoard_date_created();
-			System.out.println("\n date : " + date);
+//			System.out.println("\n date : " + date);
 			String dateToStr = dateFormat.format(date);
 			//풍혁(220703) : DTO의 Date field를 String으로 변경 마무리
 			 

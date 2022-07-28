@@ -265,7 +265,7 @@ public class BoardDAOMyBatis implements BoardDAO {
       //유진 : 시작
       	@Override
 			public void boardClassWrite(BoardDTO boardDTO) {
-				System.out.print("Mybatis insert");
+//				System.out.print("Mybatis insert");
 				sqlSession.insert("boardSQL.boardClassWrite",boardDTO);
 				
 			}
@@ -357,8 +357,8 @@ public class BoardDAOMyBatis implements BoardDAO {
 				sqlSession.update("boardSQL.boardClassUpdate", map);
 				
 			}
-	
 			//유진 : 끝
+	
 	  //<!--@@@@ 연수 살려주세요!(220721)  -->
 	 // @@@@@@@@@ 연수 시작: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 		
 			//@@@ 어드민 페이지 > notice 글작성
