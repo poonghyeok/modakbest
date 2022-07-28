@@ -13,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.modak.board.bean.BoardAdminNoticePaging;
+import com.modak.board.bean.BoardAdminPaging;
 import com.modak.board.bean.BoardClassPaging;
 import com.modak.board.bean.BoardDTO;
 import com.modak.board.bean.BoardForUserPagePaging;
 import com.modak.board.bean.BoardPaging;
 //import com.modak.board.bean.BoardAllDTO;
 import com.modak.board.dao.BoardDAO;
+import com.modak.user.bean.UserAdminPaging;
 import com.modak.user.dao.UserDAO;
 
 @Service
@@ -324,17 +326,17 @@ public class BoardServiceImpl implements BoardService {
 	
 	//정수 : 시작 ############################################
 
-		@Override
-		public String getAdminAllListPages(int pg) {
-			BoardPaging boardPaging = new BoardPaging();
-			boardPaging.setCurrentPage(pg);
-			boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
-			boardPaging.setPageSize(10); //page 당 10개의 글 존재
-//			boardPaging.setTotalA(boardDAO.getTotalBoardNumAdmin());
-//			boardPaging.makePagingHTML();
-//			여기서부터 수정합시다 220727 
-			return boardPaging.getPagingHTML().toString();
-		}
+		/*
+		 * @Override public String getAdminAllListPages(int pg) { BoardPaging
+		 * boardPaging = new BoardPaging(); boardPaging.setCurrentPage(pg);
+		 * boardPaging.setPageBlock(10); //이전 다음 사이에 10개의 page
+		 * boardPaging.setPageSize(10); //page 당 10개의 글 존재 //
+		 * boardPaging.setTotalA(boardDAO.getTotalBoardNumAdmin()); //
+		 * boardPaging.makePagingHTML(); // 여기서부터 수정합시다 220727 return
+		 * boardPaging.getPagingHTML().toString(); }
+		 */
+		//@Autowired
+		//private BoardAdminPaging boardAdminPaging;
 		
 		@Override
 		public BoardDTO getBoardContent(Map<String, Integer>map) { 
@@ -428,6 +430,31 @@ public class BoardServiceImpl implements BoardService {
 			
 		}
 		
+		//페이징처리		
+		
+		@Override
+		public BoardAdminPaging getBoardAdminPaging(int pg) {	// 페이징
+			
+			int totalA = boardDAO.getBoardTotalA(); //총 게시물 수 
+			
+			BoardAdminPaging boardAdminPaging = new BoardAdminPaging();
+			
+			boardAdminPaging.setCurrentPage(pg);
+			boardAdminPaging.setPageBlock(10);
+			boardAdminPaging.setPageSize(10);
+			boardAdminPaging.setTotalA(totalA);
+			boardAdminPaging.makePagingHTML(); //실제 페이지를 만드는 역할
+			
+			return boardAdminPaging;
+		}
+		
+		
+		@Override
+		public String getAdminAllListPages(int pg) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 		//정수 : 끝 ############################################
 
 		
@@ -502,8 +529,6 @@ public class BoardServiceImpl implements BoardService {
 			
 			return boardForUserPagePaging.getPagingHTML().toString();
 		}
-		
-		
 		
 		
 		//기진 : 끝 ############################################
@@ -1036,6 +1061,8 @@ public class BoardServiceImpl implements BoardService {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		
 
 		
 		

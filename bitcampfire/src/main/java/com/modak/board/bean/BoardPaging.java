@@ -190,7 +190,7 @@ public class BoardPaging {
 			}
 			
 			//풍혁(220706) : set 잘해줬는지 test
-			System.out.println("@@@ caled totalP = " + totalP + "@@@ caled startPage  = " + startPage +"@@@ caled endPage = " + endPage );
+			System.out.println("@@@ caled totalP = " + totalP + "@@@ caled startPage = " + startPage +"@@@ caled endPage = " + endPage );
 			
 			if(currentPage != 1) { //if(startPage > pageBlock)                         
 				int previousPage = currentPage-1;                                      

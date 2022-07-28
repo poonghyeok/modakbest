@@ -27,20 +27,24 @@ public class BoardAdminController {
 	private BoardService boardService;
 	
 	@GetMapping(value = "adminBoardAllList")
-	public ModelAndView adminBoardAllList(@RequestParam int pg) {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView adminBoardAllList(@RequestParam int pg) { 
 		
-		BoardPaging adminList = boardService.getAdminAllListPages(pg);
-		mav.addObject();
+		
+		String pageButton = boardService.getBoardAdminPaging(pg).getPagingHTML().toString();
+		
+		ModelAndView mav = new ModelAndView(); 
+		mav.addObject("pageButton", pageButton);
+		
 		mav.setViewName("/admin/adminBoardAllList");
-				
 		return mav;
 	}
 	
 	// board 정보 전체 가져오기
 	@PostMapping(value = "getBoardAllList")
 	@ResponseBody // 에이작스로 간다.
-	public List<BoardDTO> adminAllList() { 
+	public List<BoardDTO> adminAllList(@RequestParam int pg) { 
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@pg =" + pg);
 		
 			List<BoardDTO> list = new ArrayList<>();
 			
@@ -64,16 +68,24 @@ public class BoardAdminController {
 			
 			Collections.sort(list);
 			
+			int boardPerPage = 10;
+			int startNum = 1 + boardPerPage*(pg-1)-1;
+			int endNum = boardPerPage + boardPerPage*(pg-1);
+			int totalNum = list.size();
+			if(endNum > totalNum) {
+				endNum = totalNum;
+			}
+				
+				
+			List<BoardDTO> listPg = list.subList(startNum, endNum);			
+			
 //			Map<String, List<BoardAllDTO>> map = new HashMap<>();
 //			map.put("informList", informList);
 //			map.put("reviewList", reviewList); // 앞에있는 건 key, 
 //			map.put("qnaList", qnaList);
 //			map.put("freeList", freeList);
-		return list;
-		
+		return listPg;
 	}
-	
-	
 	// 유저아이디로 닉네임 가져오는것
 	@GetMapping(value = "getUserNickname", produces="application/text;charset=utf-8")
 	@ResponseBody // 에이작스로 간다.
@@ -91,7 +103,7 @@ public class BoardAdminController {
 		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@target = " + target + ", keyword = " + keyword); // board_id, 구 넘어옴
 		
 		Map<String , Object> map = new HashMap<String, Object>(); 
-		map.put("target", target);
+		map.put("target", target); // sortOption
 		map.put("keyword", keyword);
 		
 		List<BoardDTO> boardDTO = boardService.adminBoardSearch(map);
@@ -103,14 +115,12 @@ public class BoardAdminController {
 	  @GetMapping(value = "adminBoardDelete")
 	  @ResponseBody public void adminBoardDelete(@RequestParam int board_id, int board_cateid) {
 		  
-		  System.out.println("보드보드 = " + board_id  +" @@@@@@@@@" + board_cateid);
+		  //System.out.println("보드보드 = " + board_id  +" @@@@@@@@@" + board_cateid);
 		  Map<String, Integer> map = new HashMap<>();
 		  map.put("board_id", board_id);
 		  map.put("board_cateid", board_cateid);
-	  
 		  boardService.adminBoardDelete(map); 
 		 }
-	 
 }
 
 

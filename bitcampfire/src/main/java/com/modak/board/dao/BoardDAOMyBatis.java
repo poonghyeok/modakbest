@@ -196,6 +196,11 @@ public class BoardDAOMyBatis implements BoardDAO {
 			public void adminBoardDelete(Map<String, Integer> map) {
 				sqlSession.delete("boardSQL.adminBoardDelete", map);
 			}
+			
+//			@Override
+//			public String getBoardTotalA(int pg) {
+//				return sqlSession.selectOne("boardSQL.getAdminTotalList", pg);
+//			}
 	// 정수 : 끝  ###################### 
 
 				
@@ -414,10 +419,19 @@ public class BoardDAOMyBatis implements BoardDAO {
 				return sqlSession.selectList("boardSQL.getAdminBoardNoticeListOfficial", cateid);
 			}
 
+			
+			  @Override public String getAdminTotalList(int pg) { 
+				  
+				  	return null; 
+			  }
+			 
+
+			@Override
+			public int getBoardTotalA() {
+				return sqlSession.selectOne("boardSQL.getBoardTotalA");
+			}
 
 			// @@@@@@@@@ 연수 끝: admincontroller > 어드민 페이지 > 공지사항 관리  @@@@@@@@@ 
-
-
 
 }
 

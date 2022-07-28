@@ -24,7 +24,7 @@ height : 100px;
 	<!-- 풍혁0721 사이드 통일-->
 	<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 	<input id="category" type = 'hidden' value ='${param.category}'/>
-	<input id="pg" type = 'hidden' value ='${param.pg}'/>
+	<input id="pg" type = 'text' value ='${param.pg}'/>
 	<!-- 풍혁0721 사이드 통일 + active 효과적용 위해 category 표시-->
 	
 	<h3>게시글 관리</h3>
@@ -87,15 +87,19 @@ height : 100px;
 						날짜								
 					</div>
 					
-					<div class="list-title-wrapper clearfix8" id = "adminBoard" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; ">									
-						삭제
-					</div>	
+					
 				
 				 </li>
 				<!-- append 종료시점 -->
 			</ul>
 		</div> 
 	</form>
+
+	<div class="text-center"> 
+		<ul class="pagination pagination-sm">
+		${pageButton}
+		</ul>
+	</div>	
 </div>
 </div>
 	
@@ -118,13 +122,15 @@ height : 100px;
 	}
 
 	// list view에 뿌리기
-	$(function(){	
+	$(function(){
+		console.log("ajax pg : " + $('#pg').val())
 		$.ajax({
 			type : "post",
 			url : "/semiproject/admin/getBoardAllList",  // 리스트 전체 가져오기(4개 테이블)
+			data : {pg : $('#pg').val()},
 			dataType : "json",
 			success : function(data) {  // list
-				
+				console.log(JSON.stringify(data))
 			$.each(data, function(index, item){ //board_uid
 					// 유저닉네임 가져오기
 					var userNickname;
@@ -133,7 +139,8 @@ height : 100px;
 							type : "get",
 							url : "/semiproject/admin/getUserNickname",
 							data : {
-								 		board_uid : item.board_uid,
+								 		board_uid : item.board_uid
+								 		
 								 	},
 							async : false,
 							success : function(name) {
@@ -209,7 +216,6 @@ height : 100px;
 							success : function(data) {
 								console.log(JSON.stringify(data));
 								
-								
 					$.each(data, function(index, item){ //board_uid
 						$('.list-group li:gt(0)').remove();
 						// 유저닉네임 가져오기
@@ -251,7 +257,12 @@ height : 100px;
 						});
 				}
 		 });
-	
+			
+		function boardAdminPaging(pg) {
+			location.href = "http://localhost:8080/semiproject/admin/adminBoardAllList?category=admin&pg="+pg;
+		}
+		
+		
 		</script>
 </body>
 </html>
