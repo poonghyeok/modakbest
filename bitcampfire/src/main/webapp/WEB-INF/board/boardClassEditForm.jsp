@@ -186,12 +186,13 @@ $(function(){
 					},
 			       	success: function(){
 						alert('게시글을 수정하였습니다.');
-			            location.href='/semiproject/board/getBoardClassView?board_id='+$('#board_id').val()+"&class_id="+$('#memClassid').val()+"&class_academy="+$('#memClass_academy').val();
+			            location.href='/semiproject/board/getBoardClassView?state=edit&board_id='+$('#board_id').val()+"&class_id="+$('#memClassid').val()+"&class_academy="+$('#memClass_academy').val();
 					},
 					error: function(e){
 						console.log(e);
 						/* 풍혁 0714 success 에서 location.href까지 먹히지 않아서 임시로 error 에도 location href를 써두었습니다~ */
-						location.href='/semiproject/board/getBoardClassView?board_id='+$('#board_id').val()+"&class_id="+$('#memClassid').val()+"&class_academy="+$('#memClass_academy').val();
+						/* location.href='/semiproject/board/getBoardClassView?board_id='+$('#board_id').val()+"&class_id="+$('#memClassid').val()+"&class_academy="+$('#memClass_academy').val(); */
+						location.href='/semiproject/board/getBoardClassView?state=edit&board_id='+$('#board_id').val()+"&class_id="+$('#memClassid').val()+"&class_academy="+$('#memClass_academy').val();
 					}
 				});//ajax
 			

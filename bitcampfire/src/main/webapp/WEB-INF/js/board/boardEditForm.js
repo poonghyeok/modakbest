@@ -94,7 +94,7 @@ $(function(){
 		}
 		else{
 			//글 등록 전 확인
-			if(!confirm('정말 등록하시겠습니까?')){
+			if(!confirm('정말 수정하시겠습니까?')){
 	            return false;
 	        }	
 	        else{
@@ -108,8 +108,7 @@ $(function(){
 							'board_id' : $('#board_id').val()
 					},
 			       	success: function(){
-			       		alert('게시글을 수정하였습니다.');
-			            location.href='/semiproject/board/getBoardView?state=edit&category='+$('#category').val()+'&board_id='+$('#board_id').val();
+			       		location.href='/semiproject/board/getBoardView?state=edit&category='+$('#category').val()+'&board_id='+$('#board_id').val();
 					},
 					error: function(e){
 						console.log(e);

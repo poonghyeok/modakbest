@@ -40,18 +40,8 @@
 			<!-- conten tscaffold-list clearfix -->
 
 			<div class="right-banner-wrapper">	
-				<img  style="width: 200px;" src="/semiproject/img/camping.gif" alt="right_banner">
-
-				<img  style="width: 200px;" src="/semiproject/img/AkZo.gif" alt="right_banner">
-				
-				<img  style="width: 200px;" src="/semiproject/img/tumblr_p9epz0YYQO1s5qhggo3_1280.gif" alt="right_banner">
-				
 				<img  style="width: 200px;" src="/semiproject/img/undo.gif" alt="right_banner">
-				
-				<img  style="width: 200px;" src="/semiproject/img/codingGirl.gif" alt="right_banner">
-				
 				<img  style="width: 200px;" src="/semiproject/img/face.gif" alt="right_banner">
-				
 				<img  style="width: 200px;" src="/semiproject/img/CavernousWhiteBufflehead-max-1mb.gif" alt="right_banner">
 			</div>	
 			

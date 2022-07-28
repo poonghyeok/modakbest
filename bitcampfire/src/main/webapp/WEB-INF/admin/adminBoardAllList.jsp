@@ -121,6 +121,22 @@ height : 100px;
 		return result;
 	}
 
+	function cateidToKorean(cateid){
+		let result;
+		if(cateid == 1){
+			result = '취업정보';
+		}else if(cateid == 2){
+			result = '후기';
+		}else if(cateid == 3){
+			result = 'Q&A';
+		}else if(cateid == 4){
+			result = '자유게시판';
+		}
+		return result;
+	}
+	
+	
+
 	// list view에 뿌리기
 	$(function(){
 		console.log("ajax pg : " + $('#pg').val())
@@ -150,14 +166,18 @@ height : 100px;
 							}
 						}); // ajax끝
 						
+					var board_title = item.board_title;
+					if(board_title.length > 12){
+						board_title = board_title.substring(0,12) + '...';
+					}
 			var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
 						'<div id = "board_id'+item.board_id+'"class="list-title-wrapper clearfix1" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
-						'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
+						'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+cateidToKorean(item.board_cateid)+'</div>'+
 						'<div class="list-title-wrapper clearfix3" style =" width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
-						'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' +item.board_title +'</a></div>'+
+						'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' + item.board_id+ '">' + board_title +'</a></div>'+
 						'<div class="list-title-wrapper clearfix4" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
 						'<div class="list-title-wrapper clearfix5" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
-						'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname+'</div>'+
+						'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;"><a href = "/semiproject/user/userPage?user_id='+item.board_uid+'">'+ userNickname+'</a></div>'+
 						'<div class="list-title-wrapper clearfix7" style =" width:200px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'+
 						'<div class="list-title-wrapper clearfix8" id = "adminBoard" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">'+
 						'<input type="button" value = "삭제" id="adminBoardDeleteBtn_select'+item.board_id+'"class="btn btn-primary btn-sm" value="삭제" style="background-color: #337ab7; font-weight: bold; color : white;"></div>'+
@@ -193,6 +213,13 @@ height : 100px;
 		})
 	});
 
+	$(document).ready(function() {
+		$('input').on('keyup', function(e){
+			if(e.keyCode == 13) {
+				$('#BoardSearchBtn').trigger('click');			
+			}
+		});
+	});
 		
 			
 	/* 검색 버튼 눌렀을 때 */	
@@ -218,7 +245,7 @@ height : 100px;
 							},
 							success : function(data) {
 								
-								alert('검색결과 : ' + JSON.stringify(data));
+								/* alert('검색결과 : ' + JSON.stringify(data)); */
 								
 					$.each(data, function(index, item){ //board_uid
 						console.log('검색결과 ' + index +  '회차 ');
@@ -239,15 +266,20 @@ height : 100px;
 									console.log(err);
 								}
 							}); // ajax끝 *
+							
+							var board_title = item.board_title;
+							if(board_title.length > 12){
+								board_title = board_title.substring(0,12) + '...';
+							}
 									
 							var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
 							'<div id = "board_id'+item.board_id+'"class="list-title-wrapper clearfix1" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
 							'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
 							'<div class="list-title-wrapper clearfix3" style =" width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
-							'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' +item.board_title +'</a></div>'+
+							'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' + board_title +'</a></div>'+
 							'<div class="list-title-wrapper clearfix4" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
 							'<div class="list-title-wrapper clearfix5" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
-							'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+ userNickname+'</div>'+
+							'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;"><a href = "/semiproject/user/userPage?user_id='+item.board_uid+'">'+ userNickname+'</a></div>'+
 							'<div class="list-title-wrapper clearfix7" style =" width:200px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'+
 							'<div class="list-title-wrapper clearfix8" id = "adminBoard" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">'+
 							'<input type="button" value = "삭제" id="adminBoardDeleteBtn_select'+item.board_id+'"class="btn btn-primary btn-sm" value="삭제" style="background-color: #337ab7; font-weight: bold; color : white;"></div>'+
@@ -258,7 +290,7 @@ height : 100px;
 								}) // each
 								
 								
-							}, error : function(err) {
+							}, error : function(err) {	
 								console.log(err);
 							}  
 						});

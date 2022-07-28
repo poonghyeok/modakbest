@@ -12,8 +12,50 @@ $(function(){
 	makeIndexDiv(1,5,'right', 'review');
 	makeIndexDiv(1,8,'left', 'qna');
 	makeIndexDiv(1,10,'left', 'free');
+//	addGif();
 })
 
+/*function addGif(){
+	$('#index')
+	.append(
+		$('<div />',{
+			class : 'col-sm-4 main-block-right'
+		})
+		.append(
+			$('<div />',{
+				class : 'main-block'
+			})
+			.append(
+				$('<img />',{
+					src : '/semiproject/img/undo.gif',
+					style : 'width:200px;'
+				})	
+			)
+		)
+		.append(
+			$('<div />',{
+				class : 'main-block'
+			})
+			.append(
+				$('<img />',{
+					src : '/semiproject/img/face.gif',
+					style : 'width:200px;'
+				})	
+			)
+		)
+		.append(
+			$('<div />',{
+				class : 'main-block'
+			})
+			.append(
+				$('<img />',{
+					src : '/semiproject/img/CavernousWhiteBufflehead-max-1mb.gif',
+					style : 'width:200px;'
+				})	
+			)
+		)
+	)
+}*/
 /* 풍혁220709 function 분리하기 */
 function makeIndexDiv(startNum, endNum, location, category){
 	//var categoryDiv = categoryOuter(category, location);

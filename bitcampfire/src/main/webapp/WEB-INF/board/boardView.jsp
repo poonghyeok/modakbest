@@ -29,7 +29,7 @@
         
         	<!-- 글 카테고리, 새글쓰기  -->
 	        <div class="nav" role="navigation">
-	            <input type="button" value="새 글  쓰기 " class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn"><i class="fa fa-pencil"></i>
+	            <a style="cursor : pointer;" class="create btn btn-success btn-wide pull-right" id = "boardWriteBtn"><i class="fa fa-pencil"></i> 새 글 쓰기</a>
 	            <h4>${cateidToString}</h4>
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->

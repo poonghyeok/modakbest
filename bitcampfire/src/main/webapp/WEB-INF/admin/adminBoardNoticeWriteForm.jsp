@@ -76,12 +76,6 @@
 								</td>
 							</tr>
 							<tr>
-								<td>	
-									<label for="Tags">태그</label>
-									<div><input type="text" class="eunhye" id="board_tags" name="board_tags" placeholder="Tags." ></div>
-								</td>
-							</tr>
-							<tr>
 								<td>
 									<!-- @@@@@ 연수 : admin> boardwrite - ckeditor 업로드  수정(220727)@@@@@	 -->	 									                        
 			                        <!-- id값을  content로 해줘야 ckeditor가 적용됨  -->

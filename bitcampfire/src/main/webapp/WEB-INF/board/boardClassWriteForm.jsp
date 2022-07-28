@@ -171,9 +171,8 @@ $(function(){
 							'board_classid' : $('#board_classid option:selected').val()
 					},
 			       	success: function(){
-						alert('게시글을 등록하였습니다.');
-			            //풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
-						location.href='/semiproject/board/boardClassList?pg=1&sortOption=date&class_id='+$('#memClassid').val()+'&class_academy='+$('#memClass_academy').val();
+						//풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
+						location.href='/semiproject/board/boardClassList?state=write&pg=1&sortOption=date&class_id='+$('#memClassid').val()+'&class_academy='+$('#memClass_academy').val();
 					},
 					error: function(e){
 						console.log(e);
