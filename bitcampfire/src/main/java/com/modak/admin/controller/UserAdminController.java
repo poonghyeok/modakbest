@@ -29,7 +29,6 @@ public class UserAdminController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pg", pg);
 		mav.setViewName("/admin/adminUserAllList");
-		
 		return mav;
 	}	
 

@@ -3,6 +3,7 @@ package com.modak.board.service;
 import java.util.List;
 import java.util.Map;
 
+import com.modak.board.bean.BoardAdminPaging;
 import com.modak.board.bean.BoardDTO;
 //import com.modak.board.bean.BoardAllDTO;
 
@@ -70,6 +71,10 @@ public interface BoardService {
 		public void adminBoardDelete(Map<String, Integer> map);
 
 		public String getAdminAllListPages(int pg);
+		
+		
+		
+		public BoardAdminPaging getBoardAdminPaging(int pg);
 
 		
 	// 정수 : 끝  ###################### 
@@ -153,6 +158,10 @@ public interface BoardService {
 		public String getAdminNoticeSearchPagingList(String category, int pg, String keyword, String searchOption);
 		//@@게시판별 공지 띄우기
 		public List<BoardDTO> getAdminBoardNoticeListOfficial(String category, int pg);
+
+		
+
+		
 
 		
 
