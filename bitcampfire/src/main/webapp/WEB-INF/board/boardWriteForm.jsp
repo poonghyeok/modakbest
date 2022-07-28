@@ -152,7 +152,6 @@ $(function(){
 });
 
 $(document).on('change','#board_cateid', function(){
-	alert('select change..!');
 	let cateid = $('#board_cateid option:selected').val();
 	let category = cateidToString(cateid);
 	console.log('changed category : ' + category);
@@ -216,8 +215,6 @@ $(document).on('change','#board_cateid', function(){
 							'board_cateid' : board_cateid
 					},
 			       	success: function(){
-						alert('게시글을 등록하였습니다.');
-						
 						$.ajax({
 							type : 'get',
 							url : '/semiproject/board/currentSeq',

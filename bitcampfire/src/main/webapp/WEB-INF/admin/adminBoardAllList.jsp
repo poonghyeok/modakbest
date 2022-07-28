@@ -24,7 +24,7 @@ height : 100px;
 	<!-- 풍혁0721 사이드 통일-->
 	<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 	<input id="category" type = 'hidden' value ='${param.category}'/>
-	<input id="pg" type = 'text' value ='${param.pg}'/>
+	<input id="pg" type = 'hidden' value ='${param.pg}'/>
 	<!-- 풍혁0721 사이드 통일 + active 효과적용 위해 category 표시-->
 	
 	<h3>게시글 관리</h3>
@@ -197,14 +197,14 @@ height : 100px;
 			
 	/* 검색 버튼 눌렀을 때 */	
 	 $('#BoardSearchBtn').click(function(){
-		 var target = target.options[target.selectedIndex].value, // searchOption 값 
-		var keyword = $('#keyword').val()
+		/*  var target = target.options[target.selectedIndex].value; // searchOption 값 
+		var keyword = $('#keyword').val(); */
 			if($('#keyword').val()=='') { // 입력하지 않으면  
 				alert('검색어를 입력하세요.') // ok
 				location.reload(); // 새로고침
 			} else {
-				location.href = "http://localhost:8080/semiproject/admin/adminBoardSearchList?category=admin&pg=1&target="+target+"&keyword="+keyword;
-				/*  var target = document.getElementById("searchOption"); */ // target 안에 searchOption 값 담겨있음. 
+				/* location.href = "http://localhost:8080/semiproject/admin/adminBoardSearchList?category=admin&pg=1&target="+target+"&keyword="+keyword; */
+				  var target = document.getElementById("searchOption"); // target 안에 searchOption 값 담겨있음. 
 				        //alert('선택된 옵션 value 값=' + target.options[target.selectedIndex].value);     // 옵션 value 값 // ok
 				 $('.list-group li:gt(0)').remove();
 				 
