@@ -28,8 +28,8 @@
             <div class="sponsor-banner-images">
                 <!-- 풍혁(220707) : 로고 넣어보고 싶은 사람이나 사이트 링크 걸고 싶은사람이 자유롭게 수정~ -->
 
-              <a href="https://www.inames.co.kr" target="_blank"><img src="#" alt="넣고싶은사진1"></a>
-              <a href="https://www.toast.com/" target="_blank"><img src="#" alt="넣고싶은사진2"></a>
+              <a href="https://spring.io/" target="_blank"><img style="width: 100px; padding_bottom: 10px;" src="/semiproject/img/icon_spring.png" alt="spring"></a>
+              <a href="https://jquery.com/" target="_blank"><img style="width: 100px;"  src="/semiproject/img/icon_jquery.png" alt="jquery"></a>
 
             </div>
         </div>
