@@ -131,6 +131,7 @@ public class BoardServiceImpl implements BoardService {
 			
 			
 			return sb.toString(); 
+			
 		}
 		
 		//풍혁220708 : board_uid 추가

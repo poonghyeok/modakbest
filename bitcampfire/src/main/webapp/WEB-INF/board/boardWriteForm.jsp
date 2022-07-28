@@ -94,7 +94,7 @@
 						</table>
 						
 						<!-- 풍혁(220707) : 이렇게 요소에 style로 들어오면 안될거 같깉한데.. 일단 display 해야하니깐 ... -->	
-						<fieldset class="buttons" style="width: 630px; margin-top: 10px;">
+						<fieldset class="buttons" style="width: 630px; margin-top: 10px; padding-right : 70px;">
 	                       <!-- 풍혁 (220707) : 취소했을 경우 보던 게시판으로 나가자  -->
 	                       <a href="/semiproject/board/list?pg=1" class="btn btn-default btn-wide" onclick="return confirm('정말로 취소하시겠습니까?')">취소</a>
 	                       <input type="button" name="create" class="create btn btn-success btn-wide pull-right" action="create" value="등록" id="boardWriteBtn">
@@ -215,14 +215,15 @@ $(document).on('change','#board_cateid', function(){
 					type: 'post',
 					url: '/semiproject/board/write',
 					data: {'board_title': $('#board_title').val(),
-					       //'board_content': $('#board_content').val()
-							'board_content': board_content,//연수수정(220726)
+					       'board_content': board_content,
 							'board_cateid' : $('#board_cateid option:selected').val()
+							
 					},
 			       	success: function(){
 						alert('게시글을 등록하였습니다.');
 			            //풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
-						location.href='/semiproject/board/list?state=write&category='+$('#category').val()+'&pg=1&sortOption=date';
+						location.href='/semiproject/board/list?state=write&category='+$('#category').val()+'&pg=1&sortOption=date'; 
+						location.href
 					},
 					error: function(e){
 						console.log(e);

@@ -35,20 +35,27 @@
 			<!-- 글 카테고리, 새글쓰기  -->
 			
 			<!-- 풍혁0722 alert div 추가 javascript alert 지우기  -->
+			<div id = "boardViewAlert">
 			<c:if test="${param.state != null}">
-				<div id = "alertDiv" class="alert alert-success alert-dismissible" role="alert">
-			    	<button type="button" class="close" data-dismiss="alert">
+				<c:choose>
+					<c:when test="${param.state == 'recommend'}"><div id = "alertDiv" class="alert alert-success alert-dismissible" role="alert"></c:when>
+					<c:when test="${param.state == 'recommendCancel'}"><div id = "alertDiv" class="alert alert-danger alert-dismissible" role="alert"></c:when>
+				</c:choose>
+					<button type="button" class="close" data-dismiss="alert">
 			    		<span id = "alertDivCloseBtn" aria-hidden="true">×</span><span class="sr-only">Close</span>
 			    	</button>
 			    	<ul>
 			        	 <li>글
 			        	 <c:choose >
-			        	 	<c:when test="${param.state == 'edit'}">수정</c:when>
-			        	 	<c:when test="${param.state == 'write'}">작성</c:when>
-			        	 </c:choose>이 완료 되었습니다.</li>
+			        	 	<c:when test="${param.state == 'edit'}">수정이</c:when>
+			        	 	<c:when test="${param.state == 'write'}">작성이</c:when>
+			        	 	<c:when test="${param.state == 'recommend'}">추천이</c:when>
+			        	 	<c:when test="${param.state == 'recommendCancel'}">추천 취소가</c:when>
+			        	 </c:choose> 완료 되었습니다.</li>
 			     	</ul>
 	 			</div>		
 			</c:if>
+			</div>
 			<!-- 풍혁0722 alert div 추가 javascript alert 지우기  -->
 			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->

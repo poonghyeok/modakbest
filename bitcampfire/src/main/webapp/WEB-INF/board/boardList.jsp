@@ -92,7 +92,16 @@
 				<!-- 풍혁(220704) : table tag에서 okky 따라서 ul tag로 수정해보겠습니다.  -->
 		<div class="panel panel-default questions-panel">
 			<ul class="list-group">
-				${userWriteTableList}
+				<c:if test="${userWriteTableList.length() <30 }">
+					<div style="text-align: center">
+						<h4>결과가 존재하지 않습니다 </h4>
+					</div>
+				</c:if>
+				
+				<c:if test="${userWriteTableList.length() > 30 }">
+					${userWriteTableList}
+				</c:if>
+				
 			</ul>
 		</div>
 		<!-- 풍혁(220705) : 유저작성 list-->

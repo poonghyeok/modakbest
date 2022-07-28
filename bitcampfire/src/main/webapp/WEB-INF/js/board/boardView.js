@@ -33,8 +33,7 @@ $('.note-vote-btn').click(function(){
 		dataType : 'text', 
 		success : function(sendData) {
 			if (sendData == 0) {
-				alert("추천완료");
-				location.reload();
+				location.href="http://localhost:8080/semiproject/board/getBoardView?category=free&board_id=26&pg=1&state=recommend";
 		} else{
 			if(confirm("추천을 취소하시겠습니까?")){
 				$.ajax({
@@ -46,13 +45,12 @@ $('.note-vote-btn').click(function(){
 					dataType : 'text',
 					async : false, // 비동기화 동작 여부
 					success : function() {
-						alert("추천을 취소하였습니다.");
+						location.href="http://localhost:8080/semiproject/board/getBoardView?category=free&board_id=26&pg=1&state=recommendCancel";
 					},
 					error : function(err){
 						console.log(err);
 					}
 				})
-				location.reload();
 			};
 		}
 	}, error: function (error) {
