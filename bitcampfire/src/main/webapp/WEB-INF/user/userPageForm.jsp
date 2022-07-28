@@ -23,7 +23,7 @@
 						<div class="avatar clearfix avatar-big col-sm-3 text-center">
 							<%-- <input type="hidden" value="${user_id }"> --%>
 							<a href="#" class='avatar-photo'><img id="myProfile" src="/semiproject/storage/userprofile/${userPageInfo.userPage_img}"/></a>
-							<input type="hidden" id="memClassid" value="${sessionScope.memClassid }">
+							<%-- <input type="text" id="memClassid" value="${sessionScope.memClassid }"> --%>
 						</div><!-- avatar clearfix avatar-big col-sm-3 text-center -->
 						<div class="user-info col-sm-9">
 							<div class="clearfix">
@@ -161,6 +161,7 @@
 						                       <span class="timeago" title=" ${boardDTO.board_date_created } "> ${boardDTO.board_date_created } </span>
 						                   </div>
 						                   <h5 class="list-group-item-heading">
+						                   
 						                   <a href="/semiproject/board/getBoardClassView?category=class&board_id=${boardDTO.board_id }&pg=1&class_id=${userPageInfo.userPage_classid }">${boardDTO.board_title}</a>
 						                   
 						                 <%--   <a href="/semiproject/board/boardClassList?category=class&class_id=${boardDTO.board_classid }">${boardDTO.board_title}</a> --%>

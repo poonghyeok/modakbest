@@ -35,11 +35,24 @@
 
 			<!-- conten tscaffold-list clearfix -->
 			<div id="index" class="content scaffold-list clearfix" role="main">
-				<!-- 풍혁0709 : div 내의 내용은 jquery가 구성한다. --> 
+			
 			</div>
 			<!-- conten tscaffold-list clearfix -->
 
-			<div class="right-banner-wrapper">			
+			<div class="right-banner-wrapper">	
+				<img  style="width: 200px;" src="/semiproject/img/camping.gif" alt="right_banner">
+
+				<img  style="width: 200px;" src="/semiproject/img/AkZo.gif" alt="right_banner">
+				
+				<img  style="width: 200px;" src="/semiproject/img/tumblr_p9epz0YYQO1s5qhggo3_1280.gif" alt="right_banner">
+				
+				<img  style="width: 200px;" src="/semiproject/img/undo.gif" alt="right_banner">
+				
+				<img  style="width: 200px;" src="/semiproject/img/codingGirl.gif" alt="right_banner">
+				
+				<img  style="width: 200px;" src="/semiproject/img/face.gif" alt="right_banner">
+				
+				<img  style="width: 200px;" src="/semiproject/img/CavernousWhiteBufflehead-max-1mb.gif" alt="right_banner">
 			</div>	
 			
 			<!-- footer -->

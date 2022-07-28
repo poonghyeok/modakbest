@@ -130,9 +130,12 @@ public class UserMyPageController {
 			userPageInfo.put("userPage_img", session.getAttribute("memImg"));
 			userPageInfo.put("userPage_nickname", session.getAttribute("memNickname"));
 			userPageInfo.put("userPage_id", session.getAttribute("memId"));
+			//userPageInfo.put("userPageClass_id", session.getAttribute("memClassId"));
+			userPageInfo.put("userPage_classid", session.getAttribute("memClassId"));
 			userPageInfo.put("pg", pg);
 			
 			System.out.println("userPageInfo = " + userPageInfo);
+			System.out.println("userPageClass_id = " + session.getAttribute("memClassId"));
 			
 			
 			//boardDTO 게시물 가져오기
@@ -157,6 +160,10 @@ public class UserMyPageController {
 			userPageInfo.put("userPage_img", userDTO.getUser_img());
 			userPageInfo.put("userPage_nickname", userDTO.getUser_nickname());
 			userPageInfo.put("userPage_id", userDTO.getUser_id());
+			userPageInfo.put("userPage_classid", userDTO.getUser_classid());
+			
+			System.out.println("********************************" + userDTO.getUser_classid());
+			
 			userPageInfo.put("pg", pg);
 			
 			System.out.println("@@userPageInfo = " + userPageInfo);

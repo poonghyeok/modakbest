@@ -134,7 +134,7 @@ public class UserUpdateController {
 		//String filePath = "C:\\Users\\이풍혁\\Documents\\bitcamp2\\세미프로젝트\\github\\github_backup\\220706_ver2\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수비트캠프
 		//String filePath = "D:\\repository_semi\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수 비트캠프
 		//String filePath = "D:\\bit_semi_repository\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"; //연수집
-		//String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";
+		String filePath = "D:\\projectModak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";
 		//풍혁 노트북 : "C:\\Users\\이풍혁\\Documents\\bitcamp2\\세미프로젝트\\github\\github_backup\\220706_ver2\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile"
 
 	//	String filePath = "C:\\Users\\dbwls\\OneDrive\\DOCUME~1-DESKTOP-Q3OEC9U-3933\\git\\git_home\\git_modak\\modakbest\\bitcampfire\\src\\main\\webapp\\WEB-INF\\storage\\userprofile";//우진놑북
