@@ -25,6 +25,9 @@ height : 100px;
 	<jsp:include page="/WEB-INF/board/boardSideBar.jsp"/>
 	<input id="category" type = 'hidden' value ='${param.category}'/>
 	<input id="pg" type = 'hidden' value ='${param.pg}'/>
+	<input id="searchTarget" type = 'hidden' value ='${param.target}'/>
+	<input id="searchKeyword" type = 'hidden' value ='${param.keyword}'/>
+	
 	<!-- 풍혁0721 사이드 통일 + active 효과적용 위해 category 표시-->
 	
 	<h3>게시글 관리</h3>
@@ -139,24 +142,110 @@ height : 100px;
 
 	// list view에 뿌리기
 	$(function(){
-		console.log("ajax pg : " + $('#pg').val())
-		$.ajax({
-			type : "post",
-			url : "/semiproject/admin/getBoardAllList",  // 리스트 전체 가져오기(4개 테이블)
-			data : {pg : $('#pg').val()},
-			dataType : "json",
-			success : function(data) {  // list
-				console.log(JSON.stringify(data))
-			$.each(data, function(index, item){ //board_uid
-					// 유저닉네임 가져오기
-					var userNickname;
+		var searchTarget = $('#searchTarget').val();
+		var searchKeyword = $('#searchKeyword').val();
+		/* 풍혁0729 검색조건이 없을 경우 */
+		if( !searchKeyword){
+			console.log("ajax pg : " + $('#pg').val())
+			$.ajax({
+				type : "post",
+				url : "/semiproject/admin/getBoardAllList",  // 리스트 전체 가져오기(4개 테이블)
+				data : {pg : $('#pg').val()},
+				dataType : "json",
+				success : function(data) {  // list
+					console.log(JSON.stringify(data))
+				$.each(data, function(index, item){ //board_uid
+						// 유저닉네임 가져오기
+						var userNickname;
+				
+							$.ajax({
+								type : "get",
+								url : "/semiproject/admin/getUserNickname",
+								data : {
+									 		board_uid : item.board_uid
+									 		
+									 	},
+								async : false,
+								success : function(name) {
+									userNickname = name;
+								}, error : function(err) {
+									console.log(err);
+								}
+							}); // ajax끝
+							
+						var board_title = item.board_title;
+						if(board_title.length > 12){
+							board_title = board_title.substring(0,10) + '...';
+						}
+						var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
+							'<div id = "board_id'+item.board_id+'"class="list-title-wrapper clearfix1" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
+							'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+cateidToKorean(item.board_cateid)+'</div>'+
+							'<div class="list-title-wrapper clearfix3" style =" width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
+							'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' + item.board_id+ '">' + board_title +'</a></div>'+
+							'<div class="list-title-wrapper clearfix4" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
+							'<div class="list-title-wrapper clearfix5" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
+							'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;"><a href = "/semiproject/user/userPage?user_id='+item.board_uid+'">'+ userNickname+'</a></div>'+
+							'<div class="list-title-wrapper clearfix7" style =" width:200px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'+
+							'<div class="list-title-wrapper clearfix8" id = "adminBoard" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">'+
+							'<input type="button" value = "삭제" id="adminBoardDeleteBtn_select'+item.board_id+'"class="btn btn-primary btn-sm" value="삭제" style="background-color: #337ab7; font-weight: bold; color : white;"></div>'+
+							
+							'</li>';
+						$(test).appendTo('.list-group');
+						
+						/* 선택 삭제 */
+						$('#adminBoardDeleteBtn_select' + item.board_id).click(function(){
+							if (confirm('정말로 삭제하시겠습니까?')) {
+								 $.ajax({
+									type : "get",
+									url : "/semiproject/admin/adminBoardDelete",
+									data :
+												{'board_id': $('#board_id'+item.board_id).text(),
+												'board_cateid': $('#board_cateid'+item.board_id).text()},
+									success : function(data) {
+											alert("관리자페이지에서 삭제완료")
+											$(this).parent().remove();
+											location.reload();
+									
+									}, error : function(err) {
+											console.log(err);
+									} 
+								}) // ajax 
+							} // if 
+						});  // click
+					}) // each
+				}, 
+				error : function(err) {
+					console.log(err);
+				} // error
+			})
 			
+		}else{
+			$('#keyword').val(searchKeyword);
+			$('#searchOption option[value='+searchTarget+']').prop('selected', 'selected').change();
+			
+			$('.list-group li:gt(0)').remove();
+			 
+			 $.ajax({
+				type : "get",
+				url : "/semiproject/admin/adminBoardSearch",
+				data : {
+						target : searchTarget, // searchOption 값 
+						keyword : searchKeyword, // 키워드
+						pg : $('#searchPg').val()
+						},
+				success : function(data) {
+				
+					$.each(data, function(index, item){ //board_uid
+					console.log('검색결과 ' + index +  '회차 ');
+					
+					// 유저닉네임 가져오기
+					
+					var userNickname;
 						$.ajax({
 							type : "get",
 							url : "/semiproject/admin/getUserNickname",
 							data : {
-								 		board_uid : item.board_uid
-								 		
+								 		board_uid : item.board_uid,
 								 	},
 							async : false,
 							success : function(name) {
@@ -164,17 +253,18 @@ height : 100px;
 							}, error : function(err) {
 								console.log(err);
 							}
-						}); // ajax끝
+						}); // ajax끝 
 						
-					var board_title = item.board_title;
-					if(board_title.length > 12){
-						board_title = board_title.substring(0,12) + '...';
-					}
-			var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
+						var board_title = item.board_title;
+						if(board_title.length > 12){
+							board_title = board_title.substring(0,10) + '...';
+						}
+								
+						var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
 						'<div id = "board_id'+item.board_id+'"class="list-title-wrapper clearfix1" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
-						'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+cateidToKorean(item.board_cateid)+'</div>'+
+						'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
 						'<div class="list-title-wrapper clearfix3" style =" width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
-						'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' + item.board_id+ '">' + board_title +'</a></div>'+
+						'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' + board_title +'</a></div>'+
 						'<div class="list-title-wrapper clearfix4" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
 						'<div class="list-title-wrapper clearfix5" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
 						'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;"><a href = "/semiproject/user/userPage?user_id='+item.board_uid+'">'+ userNickname+'</a></div>'+
@@ -183,34 +273,40 @@ height : 100px;
 						'<input type="button" value = "삭제" id="adminBoardDeleteBtn_select'+item.board_id+'"class="btn btn-primary btn-sm" value="삭제" style="background-color: #337ab7; font-weight: bold; color : white;"></div>'+
 						
 						'</li>';
-			$(test).appendTo('.list-group');
-			
-					/* 선택 삭제 */
-					$('#adminBoardDeleteBtn_select' + item.board_id).click(function(){
-						if (confirm('정말로 삭제하시겠습니까?')) {
-							 $.ajax({
-								type : "get",
-								url : "/semiproject/admin/adminBoardDelete",
-								data :
-											{'board_id': $('#board_id'+item.board_id).text(),
-											'board_cateid': $('#board_cateid'+item.board_id).text()},
-								success : function(data) {
-										alert("관리자페이지에서 삭제완료")
-										$(this).parent().remove();
-										location.reload();
-								
-								}, error : function(err) {
-										console.log(err);
-								} 
-							}) // ajax 
-						} // if 
-					});  // click
-				}) // each
-			}, 
-			error : function(err) {
-				console.log(err);
-			} // error
-		})
+							$(test).appendTo('.list-group');
+							
+							/* 선택 삭제 */
+							$('#adminBoardDeleteBtn_select' + item.board_id).click(function(){
+								if (confirm('정말로 삭제하시겠습니까?')) {
+									 $.ajax({
+										type : "get",
+										url : "/semiproject/admin/adminBoardDelete",
+										data :
+													{'board_id': $('#board_id'+item.board_id).text(),
+													'board_cateid': $('#board_cateid'+item.board_id).text()},
+										success : function(data) {
+												alert("관리자페이지에서 삭제완료")
+												$(this).parent().remove();
+												location.reload();
+										
+										}, error : function(err) {
+												console.log(err);
+										} 
+									}) // ajax 
+								} // if 
+							});  // click
+							
+							}) // each
+							
+							
+						}, error : function(err) {	
+							console.log(err);
+						}  
+					});
+		}
+		
+		
+		
 	});
 
 	$(document).ready(function() {
@@ -224,77 +320,18 @@ height : 100px;
 			
 	/* 검색 버튼 눌렀을 때 */	
 	 $('#BoardSearchBtn').click(function(){
+		 var target = $('#searchOption').val(); // target 안에 searchOption 값 담겨있음.
+		 var keyword = $('#keyword').val();
+		 console.log(target,keyword);
+		 var pg = $('#searchPg').val();
 		/*  var target = target.options[target.selectedIndex].value; // searchOption 값 
 		var keyword = $('#keyword').val(); */
 			if($('#keyword').val()=='') { // 입력하지 않으면  
 				alert('검색어를 입력하세요.') // ok
 				location.reload(); // 새로고침
 			} else {
-				/* location.href = "http://localhost:8080/semiproject/admin/adminBoardSearchList?category=admin&pg=1&target="+target+"&keyword="+keyword; */
-				  var target = document.getElementById("searchOption"); // target 안에 searchOption 값 담겨있음. 
-				        //alert('선택된 옵션 value 값=' + target.options[target.selectedIndex].value);     // 옵션 value 값 // ok
-				 $('.list-group li:gt(0)').remove();
-				 
-				 $.ajax({
-					type : "get",
-					url : "/semiproject/admin/adminBoardSearch",
-					data : {
-							target : target.options[target.selectedIndex].value, // searchOption 값 
-							keyword : $('#keyword').val(), // 키워드
-							pg : $('#searchPg').val()
-							},
-							success : function(data) {
-								
-								/* alert('검색결과 : ' + JSON.stringify(data)); */
-								
-					$.each(data, function(index, item){ //board_uid
-						console.log('검색결과 ' + index +  '회차 ');
-						
-						// 유저닉네임 가져오기
-						
-						var userNickname;
-							$.ajax({
-								type : "get",
-								url : "/semiproject/admin/getUserNickname",
-								data : {
-									 		board_uid : item.board_uid,
-									 	},
-								async : false,
-								success : function(name) {
-									userNickname = name;
-								}, error : function(err) {
-									console.log(err);
-								}
-							}); // ajax끝 *
-							
-							var board_title = item.board_title;
-							if(board_title.length > 12){
-								board_title = board_title.substring(0,12) + '...';
-							}
-									
-							var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
-							'<div id = "board_id'+item.board_id+'"class="list-title-wrapper clearfix1" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
-							'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
-							'<div class="list-title-wrapper clearfix3" style =" width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
-							'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' + board_title +'</a></div>'+
-							'<div class="list-title-wrapper clearfix4" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
-							'<div class="list-title-wrapper clearfix5" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_view_cnt+'</div>'+
-							'<div id = "userNickname" class="list-title-wrapper clearfix6" style ="width:120px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;"><a href = "/semiproject/user/userPage?user_id='+item.board_uid+'">'+ userNickname+'</a></div>'+
-							'<div class="list-title-wrapper clearfix7" style =" width:200px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_date_created+'</div>'+
-							'<div class="list-title-wrapper clearfix8" id = "adminBoard" style="width:70px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold;">'+
-							'<input type="button" value = "삭제" id="adminBoardDeleteBtn_select'+item.board_id+'"class="btn btn-primary btn-sm" value="삭제" style="background-color: #337ab7; font-weight: bold; color : white;"></div>'+
-							
-							'</li>';
-								$(test).appendTo('.list-group');
-							
-								}) // each
-								
-								
-							}, error : function(err) {	
-								console.log(err);
-							}  
-						});
-				}
+				location.href = "http://localhost:8080/semiproject/admin/adminBoardSearchAllList?category=admin&pg=1&target="+target+"&keyword="+keyword; 
+			} 
 		 });
 			
 

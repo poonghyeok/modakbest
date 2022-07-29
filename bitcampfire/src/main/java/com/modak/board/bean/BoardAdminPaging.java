@@ -81,7 +81,7 @@ public class BoardAdminPaging {
 			if(currentPage != 1) { //if(startPage > pageBlock)                         
 				int previousPage = currentPage-1;                                      
 				pagingHTML.append("<li class='prev'>");
-					pagingHTML.append("<a href='/semiproject/admin/adminBoardSearchList?category=admin&pg="+previousPage+"&keyword="+keyword+"&target="+target+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
+					pagingHTML.append("<a href='/semiproject/admin/adminBoardSearchAllList?category=admin&pg="+previousPage+"&keyword="+keyword+"&target="+target+"'>"); //풍혁(220706) : href 현재페이지에서 이전페이지로 넘겨주는 url로 수정해야 됨.
 						pagingHTML.append("«");
 					pagingHTML.append("</a>"); 
 				pagingHTML.append("</li>");
@@ -98,7 +98,7 @@ public class BoardAdminPaging {
 					pagingHTML.append("</li>");
 				}else {
 					pagingHTML.append("<li>");
-						pagingHTML.append("<a href='/semiproject/admin/adminBoardSearchList?category=admin&pg="+i+"&keyword="+keyword+"&target="+target+"'>");
+						pagingHTML.append("<a href='/semiproject/admin/adminBoardSearchAllList?category=admin&pg="+i+"&keyword="+keyword+"&target="+target+"'>");
 						
 							pagingHTML.append(i);
 						pagingHTML.append("</a>");
@@ -109,7 +109,7 @@ public class BoardAdminPaging {
 			if(currentPage < endPage) {                                                            
 				int nextPage = currentPage+1;
 				pagingHTML.append("<li class='next'>");
-					pagingHTML.append("<a href='/semiproject/admin/adminBoardSearchList?pg="+nextPage+"&keyword="+keyword+"&target="+target+"'>"); //풍혁(220706) : href 현재페이지에서 다음페이지로 넘겨주는 url로 수정해야 됨.
+					pagingHTML.append("<a href='/semiproject/admin/adminBoardSearchAllList?pg="+nextPage+"&keyword="+keyword+"&target="+target+"'>"); //풍혁(220706) : href 현재페이지에서 다음페이지로 넘겨주는 url로 수정해야 됨.
 						pagingHTML.append("»");
 					pagingHTML.append("</a>"); 
 				pagingHTML.append("</li>");

@@ -38,6 +38,19 @@ public class BoardAdminController {
 		return mav;
 	}
 	
+	@GetMapping(value = "adminBoardSearchAllList")
+	public ModelAndView adminBoardSearchAllList(@RequestParam int pg, String target, String keyword) { 		
+		System.out.println("\n @LOG POONG@ 관리자 게시판 서치  : " + target + keyword);
+		
+		String pageButton = boardService.getBoardAdminSearchPaging(pg,target, keyword).getPagingHTML().toString();
+		
+		ModelAndView mav = new ModelAndView(); 
+		mav.addObject("pageButton", pageButton);
+		
+		mav.setViewName("/admin/adminBoardAllList");
+		return mav;
+	}
+	
 	// board 정보 전체 가져오기
 	@PostMapping(value = "getBoardAllList")
 	@ResponseBody // 에이작스로 간다.
