@@ -13,6 +13,7 @@
 	   		SELECT * FROM
 	   			<if test="cateid == 1">
 				board_inform
+				
 				</if>
 				
 				<if test="cateid == 2">
@@ -471,9 +472,6 @@
 						                   </choose> -->
 						<if test="target=='board_title'">
 						   where board_title LIKE '%'||#{keyword}||'%'
-						</if>
-						<if test="target=='board_uid'">
-						    where board_uid LIKE '%'||#{keyword}||'%'
 						</if>
 						<if test="target=='board_cateid'">
 						   	where board_cateid LIKE '%'||#{keyword}||'%'

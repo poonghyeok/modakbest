@@ -128,7 +128,7 @@ public class BoardAdminController {
 	@ResponseBody
 	public List<BoardDTO> adminSearch(@RequestParam String target, String keyword, int pg) {
 		
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@target = " + target + ", keyword = " + keyword); // board_id, 구 넘어옴
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@target = " + target + ", keyword = " + keyword); // board_id, 구 넘어옴
 		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@pg = " + pg);
 		Map<String , Object> map = new HashMap<String, Object>(); 
 		map.put("target", target); // sortOption

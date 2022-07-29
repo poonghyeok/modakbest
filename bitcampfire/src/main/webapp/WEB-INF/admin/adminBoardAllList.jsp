@@ -38,7 +38,7 @@ height : 100px;
 			<div class="job-filter-container" style="width:300px; text-align:center; margin: auto;">
 			<select class="job-filter-btn" name="searchOption" id="searchOption" style="border-color: #DBDCE1; font-size: 10pt; color: black ;">
 		       <option value="board_title" id="board_title">제목</option>
-		       <option value="board_cateid" id="board_cateid">카테고리</option>
+		       <!-- <option value="board_cateid" id="board_cateid">카테고리</option> -->
 	   		</select>
              <input type="search" id="keyword" name="keyword" class="form-control" placeholder="검색어" value="" style="border-color: #DBDCE1;">
              <span class="input-group-btn"> 
@@ -198,9 +198,9 @@ height : 100px;
 								 $.ajax({
 									type : "get",
 									url : "/semiproject/admin/adminBoardDelete",
-									data :
-												{'board_id': $('#board_id'+item.board_id).text(),
-												'board_cateid': $('#board_cateid'+item.board_id).text()},
+									data : {'board_id': $('#board_id'+item.board_id).text(),
+											'board_cateid': item.board_cateid
+											},
 									success : function(data) {
 											alert("관리자페이지에서 삭제완료")
 											$(this).parent().remove();
@@ -262,7 +262,7 @@ height : 100px;
 								
 						var test = '<li class="list-group-item list-group-item-question list-group-has-note clearfix">'+						
 						'<div id = "board_id'+item.board_id+'"class="list-title-wrapper clearfix1" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_id+'</div>'+
-						'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cateid+'</div>'+
+						'<div id = "board_cateid'+item.board_id+'" class="list-title-wrapper clearfix2" style ="width:100px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+cateidToKorean(item.board_cateid)+'</div>'+
 						'<div class="list-title-wrapper clearfix3" style =" width:150px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+
 						'<a href = "/semiproject/board/getBoardView?category='+cateidToString(item.board_cateid)+'&board_id=' +item.board_id+ '">' + board_title +'</a></div>'+
 						'<div class="list-title-wrapper clearfix4" style ="width:75px; height:35px; text-align:center; line-height:35px; font-size:11pt; font-weight: bold; background-color: white;">'+item.board_cmt_cnt+'</div>'+
@@ -281,11 +281,11 @@ height : 100px;
 									 $.ajax({
 										type : "get",
 										url : "/semiproject/admin/adminBoardDelete",
-										data :
-													{'board_id': $('#board_id'+item.board_id).text(),
-													'board_cateid': $('#board_cateid'+item.board_id).text()},
+										data :	{'board_id': $('#board_id'+item.board_id).text(),
+												'board_cateid': item.board_cateid
+												},
 										success : function(data) {
-												alert("관리자페이지에서 삭제완료")
+												alert("관리자페이지에서 삭제완료");
 												$(this).parent().remove();
 												location.reload();
 										
