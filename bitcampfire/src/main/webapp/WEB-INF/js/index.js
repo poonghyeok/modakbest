@@ -15,47 +15,26 @@ $(function(){
 //	addGif();
 })
 
-/*function addGif(){
-	$('#index')
-	.append(
-		$('<div />',{
-			class : 'col-sm-4 main-block-right'
-		})
-		.append(
-			$('<div />',{
-				class : 'main-block'
-			})
-			.append(
-				$('<img />',{
-					src : '/semiproject/img/undo.gif',
-					style : 'width:200px;'
-				})	
-			)
-		)
-		.append(
-			$('<div />',{
-				class : 'main-block'
-			})
-			.append(
-				$('<img />',{
-					src : '/semiproject/img/face.gif',
-					style : 'width:200px;'
-				})	
-			)
-		)
-		.append(
-			$('<div />',{
-				class : 'main-block'
-			})
-			.append(
-				$('<img />',{
-					src : '/semiproject/img/CavernousWhiteBufflehead-max-1mb.gif',
-					style : 'width:200px;'
-				})	
-			)
-		)
-	)
-}*/
+//function addGif(){
+//	$('#index')
+//	.append(
+//		$('<div />',{
+//			class : 'col-sm-4 main-block-right'
+//		})
+//		.append(
+//			$('<div />',{
+//				class : 'main-block'
+//			})
+//			.append(
+//				$('<img />',{
+//					src : '/semiproject/img/index_ad3.png',
+//				})	
+//			)
+//		)
+//	)
+//	.appned()
+//}
+
 /* 풍혁220709 function 분리하기 */
 function makeIndexDiv(startNum, endNum, location, category){
 	//var categoryDiv = categoryOuter(category, location);

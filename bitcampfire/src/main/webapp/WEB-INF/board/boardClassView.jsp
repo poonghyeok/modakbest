@@ -39,6 +39,31 @@
 	            <h4>${class_academy}</h4>
 	        </div><!-- <div class="nav" role="navigation"> -->
 			<!-- 글 카테고리, 새글쓰기  -->
+			<div id = "boardViewAlert">
+		
+			<c:if test="${param.state != null}">
+				<c:choose>
+					<c:when test="${(param.state != 'recommendCancel') && (param.state != 'commentDelete')}"><div id = "alertDiv" class="alert alert-success alert-dismissible" role="alert"></c:when>
+					<c:when test="${param.state == 'recommendCancel' || param.state == 'commentDelete'}"><div id = "alertDiv" class="alert alert-danger alert-dismissible" role="alert"></c:when>
+				</c:choose>
+					<button type="button" class="close" data-dismiss="alert">
+			    		<span id = "alertDivCloseBtn" aria-hidden="true">×</span><span class="sr-only">Close</span>
+			    	</button>
+			    	<ul>
+			        	 <li>
+			        	 <c:choose >
+			        	 	<c:when test="${param.state == 'edit'}">글 수정이</c:when>
+			        	 	<c:when test="${param.state == 'write'}">글 작성이</c:when>
+			        	 	<c:when test="${param.state == 'recommend'}">글 추천이</c:when>
+			        	 	<c:when test="${param.state == 'recommendCancel'}">글 추천 취소가</c:when>
+			        	 	<c:when test="${param.state == 'commentWrite'}">댓글 작성이</c:when>
+			        	 	<c:when test="${param.state == 'commentDelete'}">댓글 삭제가</c:when>
+			        	 	<c:when test="${param.state == 'commentUpdate'}">댓글 수정이</c:when>
+			        	 </c:choose> 완료 되었습니다.</li>
+			     	</ul>
+	 			</div>		
+			</c:if>
+			</div>
 			
 	        <!-- controller에 필요한 정보들 찍어보기 및 숨기기-->
 	    	<input type = "hidden" name = "board_id" id = "board_id" value="${board_id}">

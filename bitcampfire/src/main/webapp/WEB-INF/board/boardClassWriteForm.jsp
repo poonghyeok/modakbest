@@ -155,7 +155,8 @@ $(function(){
 			alert('카테고리를 선택하세요');
 		}
 		else{
-
+			var boardCurrentSeq;
+			
 			//글 등록 전 확인
 	        if(!confirm('정말 등록하시겠습니까?')){
 	            return false;
@@ -171,8 +172,21 @@ $(function(){
 							'board_classid' : $('#board_classid option:selected').val()
 					},
 			       	success: function(){
+			       		$.ajax({
+							type : 'get',
+							url : '/semiproject/board/currentSeq',
+							async : false,
+							success : function(result){
+								boardCurrentSeq = result;
+								console.log('boardCurrentValue : ' + result);
+							},
+							error : function(err){
+								console.log(err);
+							}
+						})
 						//풍혁220714 : list로 갈 때 param으로 sortOption 을 적어줘야 한다( 기본은 date )
-						location.href='/semiproject/board/boardClassList?state=write&pg=1&sortOption=date&class_id='+$('#memClassid').val()+'&class_academy='+$('#memClass_academy').val();
+						location.href='/semiproject/board/getBoardClassView?category=class&class_id='+$('#memClassid').val()+'&state=write&pg=1&board_id='+boardCurrentSeq;
+						/* location.href='/semiproject/board/boardClassList?state=write&pg=1&sortOption=date&class_id='+$('#memClassid').val()+'&class_academy='+$('#memClass_academy').val(); */
 					},
 					error: function(e){
 						console.log(e);
@@ -206,6 +220,8 @@ $(function(){
 	}); */
 	
 });
+
+
 </script>
 
 

@@ -471,9 +471,8 @@ $(document).on('click','#commentUpdateBtn', function(){
 			data : {'cmt_id' : comment_id, 'cmt_content' : comment_content_update},
 			async : false,
 			success : function(){
-				alert('댓글 수정을 완료하였습니다.');
-				location.reload();
-			},
+				location.href='/semiproject/board/getBoardClassView?category=class&class_id='+$('#memClassid').val()+'&state=commentUpdate&pg=1&board_id='+$('#board_id').val();
+},
 			error : function(err){
 				console.log(err);
 				return;
@@ -495,8 +494,7 @@ $(document).on('click','#commentDeleteBtn', function(){
 			data : {'cmt_id' : comment_id, 'cmt_bid' : comment_bid},
 			async : false,
 			success : function(){
-				alert('댓글을 삭제 하였습니다.');
-				location.reload();
+				location.href='/semiproject/board/getBoardClassView?category=class&class_id='+$('#memClassid').val()+'&state=commentDelete&pg=1&board_id='+$('#board_id').val();
 			},
 			error : function(err){
 				console.log(err);
@@ -568,7 +566,7 @@ $('#btn-create-btn').click(function(){
 				'cmt_content' : content_with_tag,
 			},
 			success : function(){
-				location.href = "/semiproject/board/getBoardClassView?category=class&board_id="+$('#board_id').val()+"&class_id="+$('#memClassid').val();
+				location.href='/semiproject/board/getBoardClassView?category=class&class_id='+$('#memClassid').val()+'&state=commentWrite&pg=1&board_id='+$('#board_id').val();
 			},
 			error : function(err){
 				console.log(err);
@@ -617,3 +615,8 @@ function uploadSummernoteImageFile(file, editor) {
 		}
 	});
 }
+
+//풍혁0729 : boardView alert Div 닫기버튼 
+$('#alertDivCloseBtn').click(function(){
+	$('#alertDiv').attr('style', 'display : none');
+})
